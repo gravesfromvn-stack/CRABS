@@ -1,5 +1,15 @@
 # CRABS current state
 
+## Separate local Daily Operation — 18 October 2026
+
+User-authorized implementation on `travis/daily-operation`, based on committed `0ca901b`, in a separate checkout/database on port 5188. This section describes local work only; the production audit below remains historical evidence.
+
+Reception now opens Daily Operation / Today, with Service schedule, Guest profiles and Shift handoff. Owner-scoped operational tasks persist in new ops tables, link to exact OTA or contact source identities, record change history and require review when source messages change. Guest acceptance, supplier confirmation, completion and payment remain distinct. A presentation-only request label guard does not alter Claude's OTA parser.
+
+Separate database contains the previously authorized anonymized 803-event / 215-thread snapshot, 383 draft versions and 89 reviews. It is not live-connected to Make or Claude's database. Operations are created manually from a source profile; there is no automatic service order, payment or staff-role system.
+
+Actual local checks: operations 15/15, legacy reception 6/6, TypeScript and build pass; UI create/edit/schedule/handoff/reload and property filter checked. No complete baseline-suite rerun. No push, merge or deployment. Details, start instructions, migration integration caveat and remaining limits: [Daily Operation local guide](docs/DAILY_OPERATION_LOCAL.md).
+
 Audit date: 18 October 2026, Asia/Ho_Chi_Minh.
 Application baseline: 450d7c96c467f3fb8464639110ae0a5d4fa22ca9.
 Sites publication: version 21; succeeded 17 October 2026 at 23:50:38 Vietnam time.

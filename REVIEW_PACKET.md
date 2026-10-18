@@ -154,3 +154,30 @@ ota-templates covers: no template → Cua with reason; single approval is not a 
 Local corpus evidence (803 copy): backup before work private-data/crabs-803-2026-10-18/claude-before-auto-drafts-20261018T130439.sqlite; migration 0008 applied locally (counts unchanged 803/215/383/89/0, integrity ok); clean backup claude-after-migration-0008.sqlite. A clearly marked test template "[THỬ – Claude]" produced 10→14 suggestions; manual review of each found 5 wrong arrival fills (plane time, ambiguous 7:30, three time windows) — fixed with tests; the 8 remaining were correct; repeated reruns: 215/215 kept; the 11 approved revisions unchanged. The local DB was then restored to the clean post-migration backup (0 templates, 383 drafts, 205 review / 10 approved). anonymized-snapshot.json set read-only; sha256 fca69459…79ecf.
 
 Deployment note: migration 0008 must be applied before this code runs anywhere else; until Cua creates templates, behaviour is the old rule drafts plus reasons. Open items: see docs/AUTO_DRAFTS.md "Giới hạn còn lại".
+
+## Separate Daily Operation packet — Travis, 18 October 2026
+
+Authorized scope: implement Reception & Operations locally with Today as default, Service schedule, Guest profiles and Shift handoff, isolated from Claude's ongoing templates work.
+
+- Branch `travis/daily-operation`, base `0ca901b`. Separate clone `work/crabs-daily-operation` in the Codex project workspace. Port 5188, independent dependencies and `.wrangler/state`; Claude's checkout/port 5173 and production are not targets.
+- Default app view and reception renderer changed in `app/workspace.tsx`. New UI, domain validation, store and API are operations-specific. Additional schema file registered in `drizzle.config.ts`. No shared OTA parser/store/template routes or `db/schema.ts` edits.
+- Migration `0010_daily_operations.sql` adds owner-scoped task, history and handoff tables. Local Wrangler migration tested. Drizzle snapshot/journal integration deferred until branches are reconciled; 0008/0009 intentionally unclaimed here. Do not regenerate migrations without reviewing this gap.
+- API verifies exact source association, same origin, owner, version and source fingerprint; task/history writes are atomic and retries idempotent. Changed source/schedule requires renewed review/supplier evidence. No automatic guest acceptance, supplier confirmation, payment or sending. Missing-property sources cannot be marked supplier-confirmed or complete.
+- Source view computes rule summaries without writing OTA profiles/drafts. A local display guard labels check-in requests as unconfirmed requests (observed phrase: “I'd like to request check-in at 10:00 - 11:00.”); upstream extraction remains Claude's responsibility.
+- Imported the already-approved static anonymized snapshot into the empty separate DB: 803 events, 215 threads, 383 drafts, 89 reviews, 0 sent, integrity_check=ok. No AI profile cache imported; no source database write. One test task and one received test handoff, explicitly labeled “Kiểm thử local”, remain for demonstration.
+
+Validation actually run on Windows ARM64 / Node 22.23.3 x64:
+
+| Check | Result / boundary |
+|---|---|
+| `node tests/operations.mjs` | 15 pass; isolated synthetic Miniflare DB; auth, property/booking, GET read-only, check-in request label, duplicate operation IDs, rebind/version, evidence/date validation, stale source and changed schedule, concurrent save, completion, handoff and owner isolation |
+| `node tests/reception.mjs` | 6 pass; legacy reception compatibility; isolated test DB |
+| `node node_modules/typescript/bin/tsc --noEmit --incremental false` | Pass |
+| `node scripts/run-framework.mjs build` | Pass; >500 kB chunk warning remains |
+| Local UI in browser | All four tabs; create/edit/save task; date field persists; same task in Today/schedule/handoff; write and receive handoff; whole-page reload preserves data; 55 75PHT vs 160 Suites source profiles; narrow-window detail navigation |
+
+No full baseline rerun, `tests/local-flow.mjs`, real-AI testing, live intake, staff multi-user UAT, push, merge or deployment. This does not certify production readiness.
+
+Remaining boundaries: manual source-to-task creation, static copied data, refresh to see changes, OTA and Sheets kept separate, owner-only actor/assignee labels, no live supplier/PMS/payment/send, no automatic quote-to-order transition. Task history payloads are retained, but UI history is a change list rather than a full version diff/restore tool. Review data loading at larger volumes and confirm migration metadata before future integration.
+
+Rollback/continuation: keep the branch/checkout separate or revert its code commit; stop its port 5188 process. Do not reset either database. Import code through a reviewed merge/cherry-pick later, resolving only overlapping router/schema/migration changes. User guide: [DAILY_OPERATION_LOCAL.md](docs/DAILY_OPERATION_LOCAL.md).

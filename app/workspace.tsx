@@ -6,6 +6,7 @@ import type { Contact, Message, Activity } from '../lib/validation';
 import ReplyPanel from './reply-panel';
 import BrandPreview from './brand-preview';
 import OtaWorkspace from './ota-workspace';
+import OperationsWorkspace from './operations-workspace';
 import ReviewWorkspace from './review-workspace';
 import ReplyLibrary from './reply-library';
 import SourceWorkspace, {SourceContext} from './source-workspace';
@@ -17,7 +18,7 @@ import QuoteWorkspace from './quote-workspace';
 import ReferenceLibrary, { type ReferenceGuest } from './reference-library';
 type View='ota'|'review'|'overview'|'inbox'|'contacts'|'products'|'reference'|'demo'|'quotes'|'analysis'|'sales'|'reception'|'hotel'|'templates'|'sources';
 type Data={contacts:Contact[];messages:Message[];activity:Activity[];products:typeof catalog;suppliers:string[];sources:string[]};
-const nav=[{id:'ota',title:'Hộp thư OTA',icon:MessageCircle},{id:'sales',title:'Sales dịch vụ',icon:Compass},{id:'reception',title:'Lễ tân',icon:Users},{id:'quotes',title:'Báo giá',icon:CheckCircle2},{id:'templates',title:'Kho trả lời & nguồn',icon:BookOpen},{id:'hotel',title:'Thông tin & quy định',icon:Building2},{id:'products',title:'Tour & dịch vụ',icon:Compass},{id:'analysis',title:'Phân tích 75PHT',icon:LayoutDashboard},{id:'review',title:'Duyệt nháp từ Sheets',icon:CheckCircle2},{id:'sources',title:'Hồ sơ từ Sheets',icon:BookOpen},{id:'inbox',title:'Hộp thư demo',icon:MessageCircle},{id:'contacts',title:'Khách hàng demo',icon:Users},{id:'reference',title:'Dữ liệu tham chiếu',icon:Building2},{id:'overview',title:'Tổng quan demo',icon:LayoutDashboard},{id:'demo',title:'Phạm vi & hướng dẫn',icon:Info}] as const;
+const nav=[{id:'ota',title:'Hộp thư OTA',icon:MessageCircle},{id:'sales',title:'Sales dịch vụ',icon:Compass},{id:'reception',title:'Lễ tân & vận hành',icon:Users},{id:'quotes',title:'Báo giá',icon:CheckCircle2},{id:'templates',title:'Kho trả lời & nguồn',icon:BookOpen},{id:'hotel',title:'Thông tin & quy định',icon:Building2},{id:'products',title:'Tour & dịch vụ',icon:Compass},{id:'analysis',title:'Phân tích 75PHT',icon:LayoutDashboard},{id:'review',title:'Duyệt nháp từ Sheets',icon:CheckCircle2},{id:'sources',title:'Hồ sơ từ Sheets',icon:BookOpen},{id:'inbox',title:'Hộp thư demo',icon:MessageCircle},{id:'contacts',title:'Khách hàng demo',icon:Users},{id:'reference',title:'Dữ liệu tham chiếu',icon:Building2},{id:'overview',title:'Tổng quan demo',icon:LayoutDashboard},{id:'demo',title:'Phạm vi & hướng dẫn',icon:Info}] as const;
 const money=(n:number)=>new Intl.NumberFormat('vi-VN',{style:'currency',currency:'VND',maximumFractionDigits:0}).format(n);
 const date=(value:string,time=false)=>value?new Intl.DateTimeFormat('vi-VN',{timeZone:'Asia/Ho_Chi_Minh',day:'2-digit',month:'2-digit',...(time?{hour:'2-digit',minute:'2-digit'}:{year:'numeric'})}).format(new Date(value.length===16?value+'+07:00':value)):'Chưa hẹn';
 const shortName=(n:string)=>n.replace(' · mẫu','');
@@ -48,7 +49,7 @@ function ContactForm({contact,busy,error,onSubmit,onClose}:{contact?:Contact;bus
  </div><div className="modal-actions"><button type="button" className="button secondary" onClick={onClose}>Hủy</button><button className="button primary" disabled={busy}>{busy?'Đang lưu…':'Lưu hồ sơ'}</button></div></form></Modal>
 }
 export default function Workspace(){
- const [data,setData]=useState<Data|null>(null),[view,setView]=useState<View>('ota'),[selected,setSelected]=useState(firstSourceId);
+ const [data,setData]=useState<Data|null>(null),[view,setView]=useState<View>('reception'),[selected,setSelected]=useState(firstSourceId);
  const [query,setQuery]=useState(''),[filter,setFilter]=useState('all'),[busy,setBusy]=useState(false),[loading,setLoading]=useState(true),[notice,setNotice]=useState(''),[error,setError]=useState('');
  const [edit,setEdit]=useState<Contact|'new'|null>(null),[product,setProduct]=useState<(typeof catalog)[number]|null>(null),[reset,setReset]=useState(false),[resetText,setResetText]=useState('');
  const [body,setBody]=useState(''),[direction,setDirection]=useState<'in'|'out'>('out'),[kind,setKind]=useState('all');
@@ -96,7 +97,8 @@ export default function Workspace(){
  {view==='templates'&&<ReplyLibrary/>}
  {view==='review'&&<ReviewWorkspace openContact={openContact} onChanged={load}/>}
  {view==='sources'&&<SourceWorkspace openContact={openContact}/>}
- {(view==='sales'||view==='reception')&&<HotelWorkspace mode={view} contacts={contacts} selected={selected} select={setSelected} onSave={act} goQuote={()=>changeView('quotes')} activity={data.activity} busy={busy}/>}
+ {view==='sales'&&<HotelWorkspace mode="sales" contacts={contacts} selected={selected} select={setSelected} onSave={act} goQuote={()=>changeView('quotes')} activity={data.activity} busy={busy}/>}
+ {view==='reception'&&<OperationsWorkspace/>}
  {view==='quotes'&&<QuoteWorkspace contacts={contacts} initialContactId={selected} onChanged={load}/>}
  {view==='reference'&&<ReferenceLibrary busy={busy} existingNames={contacts.map(c=>c.name)} onUse={useReference}/>}
  {view==='contacts'&&<section className="page"><div className="page-heading compact"><div><span className="eyebrow">TỪ KHÁCH HỎI ĐẾN KHÁCH QUAY LẠI</span><h1>Khách hàng</h1><p>Một hồ sơ cho mỗi nhu cầu, kể cả khi khách chưa đặt phòng.</p></div><button className="button primary" onClick={()=>setEdit('new')}><Plus size={18}/>Thêm khách mẫu</button></div><div className="toolbar"><div className="search-field"><Search size={17}/><input aria-label="Tìm khách" placeholder="Tìm tên, nhu cầu, nguồn hoặc người phụ trách…" value={query} onChange={e=>setQuery(e.target.value)}/></div><select aria-label="Lọc trạng thái" value={filter} onChange={e=>setFilter(e.target.value)}><option value="all">Tất cả trạng thái</option>{Object.entries(statuses).map(([k,v])=><option value={k} key={k}>{v}</option>)}</select><span className="muted">{shown.length} hồ sơ</span></div><div className="panel table-wrap"><table><thead><tr><th>Khách & nhu cầu</th><th>Nguồn</th><th>Trạng thái</th><th>Phụ trách</th><th>Hạn chăm sóc</th><th><span className="sr-only">Thao tác</span></th></tr></thead><tbody>{shown.map(v=><tr key={v.id}><td><button className="person-cell" onClick={()=>openContact(v.id)}><Avatar contact={v}/><span><strong>{shortName(v.name)}</strong><small>{v.interest||'Chưa ghi nhu cầu'}</small></span></button></td><td><span className="source-cell">{v.source}</span></td><td><Badge status={v.status}/></td><td>{v.assignee}</td><td>{date(v.due,true)}</td><td><button className="icon-button" aria-label={`Sửa ${shortName(v.name)}`} onClick={()=>setEdit(v)}><Pencil size={16}/></button></td></tr>)}</tbody></table>{!shown.length&&<div className="empty">Không tìm thấy hồ sơ phù hợp.</div>}</div></section>}
