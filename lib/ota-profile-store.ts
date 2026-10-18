@@ -17,6 +17,8 @@ export async function guestProfile(db:D1Database,owner:string,id:string,sourceKe
  await db.prepare('INSERT OR IGNORE INTO ota_guest_profiles (owner,thread_id,source_key,payload,attempted,updated) VALUES (?,?,?,?,?,?)').bind(owner,id,cacheKey,JSON.stringify(fallback),'',now).run();
  const cached=await db.prepare('SELECT payload,attempted FROM ota_guest_profiles WHERE owner=? AND thread_id=? AND source_key=?').bind(owner,id,cacheKey).first<{payload:string;attempted:string}>();
  const profile=cached?JSON.parse(cached.payload) as GuestProfile:fallback;
+ // Rule facts are deterministic and free, so a cache written by older rules never hides current extraction.
+ if(profile.method==='rules')profile.facts=fallback.facts;
  if(profile.method==='ai'||!key||events.length>80||JSON.stringify(events.map(e=>e.guest_text)).length>60000)return profile;
  // One model request per context at a time; failed requests retry only after five minutes.
  const claimed=await db.prepare("UPDATE ota_guest_profiles SET attempted=? WHERE owner=? AND thread_id=? AND source_key=? AND (attempted='' OR attempted<?) RETURNING source_key").bind(now,owner,id,cacheKey,new Date(Date.now()-300000).toISOString()).first();

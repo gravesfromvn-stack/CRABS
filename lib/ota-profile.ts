@@ -10,18 +10,32 @@ export type GuestFact=z.infer<typeof factSchema>;
 export type GuestProfile={facts:GuestFact[];method:'ai'|'rules';updated:string;sourceKey:string;warning:string;proposedReply?:{body:string;review:string[]}};
 export type ProfileEvent={id:string;guest_text:string;received:string;kind:string};
 export const normalize=(s:string)=>s.normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/đ/g,'d').toLowerCase().replace(/\s+/g,' ').trim();
+const clockTime=/\b\d{1,2}(?::\d{2}|\s*(?:am|pm|a\.m|p\.m|h\b))/;
+const flightWords=/flight|land|may bay|ha canh/;
+const hotelArrivalWords=/(?:arriv\w*|reach\w*|get(?:ting)? to|check.?in)\b.{0,20}\bhotel|check.?in|den khach san|nhan phong/;
+// A sentence may give both the landing time and the hotel arrival time. Only a
+// clause that names the hotel and not the flight counts as hotel arrival.
+function hotelArrival(quote:string){
+ const clauses=quote.split(/\s*(?:[,;]|\b(?:and|then|but|so)\b|(?<=\s)(?:và|rồi|nhưng|sau đó)(?=\s))\s*/i).filter(Boolean);
+ const hotel=clauses.find(c=>{const n=normalize(c);return clockTime.test(n)&&hotelArrivalWords.test(n)&&!flightWords.test(n);});
+ if(!hotel)return '';
+ const n=normalize(hotel),time=n.match(clockTime)![0];
+ const flight=clauses.map(normalize).find(c=>c!==n&&flightWords.test(c)&&clockTime.test(c))?.match(clockTime)?.[0];
+ return 'Đến khách sạn '+(/around|about|approx|roughly|khoang|tam\b|~/.test(n)?'khoảng ':'')+time+(flight?' · giờ chuyến bay '+flight+' (không phải giờ đến khách sạn)':'');
+}
 export function ruleProfile(events:ProfileEvent[]):GuestFact[]{
  const facts:GuestFact[]=[];
- const set=(category:ProfileCategory,status:GuestFact['status'],quote:string,eventId:string,append=false)=>{
+ const set=(category:ProfileCategory,status:GuestFact['status'],quote:string,eventId:string,append=false,summary=quote)=>{
   if(!append){for(let i=facts.length-1;i>=0;i--)if(facts[i].category===category)facts.splice(i,1);}
   if(facts.some(f=>f.category===category&&f.sources.some(s=>normalize(s.quote)===normalize(quote))))return;
-  facts.push({category,status,summary:quote.slice(0,650),sources:[{eventId,quote:quote.slice(0,2000)}]});
+  facts.push({category,status,summary:summary.slice(0,650),sources:[{eventId,quote:quote.slice(0,2000)}]});
  };
  for(const e of [...events].filter(e=>e.kind==='guest').sort((a,b)=>a.received.localeCompare(b.received)||a.id.localeCompare(b.id))){
   const sentences=e.guest_text.replace(/\s+/g,' ').split(/(?<=[.!?])\s+/).filter(Boolean);
   for(const quote of sentences){const n=normalize(quote);
-   const time=/\b\d{1,2}(?::\d{2}|\s*(?:am|pm|a\.m|p\.m|h\b))/.test(n);
-   if(time&&/arriv|check.?in|den (?:khach san|luc)|nhan phong/.test(n)&&!/flight|land|may bay|ha canh/.test(n))set('arrival','provided',quote,e.id);
+   const time=clockTime.test(n);
+   if(time&&/arriv|check.?in|den (?:khach san|luc)|nhan phong/.test(n)&&!flightWords.test(n))set('arrival','provided',quote,e.id);
+   else if(time&&flightWords.test(n)){const summary=hotelArrival(quote);if(summary)set('arrival','provided',quote,e.id,false,summary);}
    if(time&&/depart|leav|check.?out|roi (?:di|khach san)|gio ve|tra phong/.test(n))set('departure','provided',quote,e.id);
    if(/connecting|adjoining|twin|single beds|large bed|king bed|double bed|quiet room|high(?:er)? floor|non.smoking|giuong|phong thong|yen tinh|tang cao/.test(n))set('room','requested',quote,e.id,true);
    if(/late check.?out|early check.?in|luggage stor|cot\b|crib\b|wheelchair|allerg|anniversary|birthday|honeymoon|extra (?:towel|pillow)|giu hanh ly|di ung|sinh nhat|xe lan|khan|goi them/.test(n))set('stay','requested',quote,e.id,true);
