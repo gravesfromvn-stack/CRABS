@@ -90,3 +90,35 @@ For review / still open:
 - Departure extraction (lib/ota-profile.ts, departure regex) can still take a flight departure time ("flight leaves at 10:00") as hotel departure — same class of issue, not changed here.
 - AI composition notes ("Rà nội dung trước khi duyệt") are not rewritten for approved/sent drafts; only the two pending-approval phrases are.
 - Not done in this turn by instruction: OTA thread -> reception/request bridge.
+
+## Fix packet 2: arrival time meaning, questions/rules, corrections (18 October 2026)
+
+- Branch claude/local-setup. Base 82c1d56 (reviewed by Travis: 24 ota-profile + ota-draft-notice checks passed). One commit on top. Not pushed, merged or deployed. Synthetic sentences only; no AI key.
+- Changed: lib/ota-profile.ts (rule-based extraction only), tests/ota-profile.mjs (+6 checks), this section. AI profile cache, cache key, stored drafts and approval history untouched (lib/ota-profile-store.ts unchanged in this commit).
+
+Behaviour (summary shown in the profile; the source quote stays the full guest sentence):
+
+| Guest sentence | Before (actual run) | After (actual run) |
+|---|---|---|
+| Our flight lands at 1:30 PM and we will arrive at the hotel at 3:00 PM. | Đến khách sạn 3:00 · giờ chuyến bay 1:30 | Đến khách sạn 15:00 · giờ chuyến bay 13:30 |
+| … lands at 13:30 and we will arrive at the hotel between 15:00 and 16:00. | Đến khách sạn 15:00 | Đến khách sạn trong khoảng 15:00–16:00 |
+| … lands at 13:30 and we will not arrive at the hotel before 18:00. | Đến khách sạn 18:00 | Đến khách sạn không trước 18:00 |
+| Our flight lands at 08:00 and can we check-in at 10:00? | arrival: Đến khách sạn 10:00 | no arrival; stay request (requested): Khách hỏi nhận phòng lúc 10:00 · chưa xác nhận · giờ chuyến bay 08:00 |
+| … lands at 13:30 and the hotel says check-in is from 15:00. | arrival 15:00 | no arrival (Chưa có giờ đến) |
+| … arrive at the hotel at 15:00, but we will arrive at the hotel at 18:00 instead. | arrival 15:00 | Đến khách sạn 18:00 · khách đã đính chính (trước đó: 15:00) |
+| Can we check in at 10:00? (no flight) | arrival provided | no arrival; stay request (requested) |
+| The hotel says check-in is from 15:00. (no flight) | arrival provided | no arrival |
+
+Every "after" summary for a flight sentence ends with "· giờ chuyến bay HH:MM (không phải giờ đến khách sạn)" when a landing time is given.
+
+How: clock times are parsed to 24-hour HH:MM (am/pm, 15h, 15h30, giờ); bare numbers such as "2 adults", "26 October", "VN 123" are not times. "between A and B" stays in one clause. A hotel clause is skipped if it is a question or a quoted hotel rule. Qualifiers: range, "không trước", "sau", "trước", "chậm nhất" (by / no later than), "khoảng". Any other negation, two different hotel times without a correction word (instead/actually/rather/thay vào đó/đổi thành…), or two times that are not a range leave arrival unknown.
+
+Reproduction first: the new checks were added before the change; the first failed with actual 'Đến khách sạn 3:00 · giờ chuyến bay 1:30 …' and a probe of all eight sentences above produced the "Before" column. After the change all pass.
+
+Draft re-asking: each new case runs followupDraft on the resulting profile and asserts the draft does not ask for arrival time, check-in time or flight details.
+
+Full run after the change (Windows ARM64, Node 22.23.3 x64): tsc --noEmit passed; npm run build passed; ota 38, ota-profile 25, ota-stay 1, ota-draft-notice 5, quotes 14, reception 6, replies 14, source-data 12, review-queue 8, analysis 8 — all passed (131 checks). tests/local-flow.mjs not run. Local UI not re-checked for this commit (extraction-only change; covered by unit checks and the cache re-derivation check from 62cd06f).
+
+Behaviour changes to note in review:
+- Non-flight sentences that ask to check in at a time ("Can we check in at 10:00?", "Is it possible to check in early at 11:00?") were previously stored as provided arrival; they are now stay requests. Non-flight statements still use the full sentence as summary (unchanged).
+- Conservative gaps (left unknown, not guessed): a single clause holding both flight and hotel ("We get to the hotel by taxi around 15:00 after our flight lands at 13:30"); "arrive around 15:00" without naming the hotel in a flight sentence; questions about arrival without check-in wording. Departure/flight-departure separation is still not addressed.
