@@ -141,7 +141,13 @@ export function renderTemplate(t:Template,f:ThreadFacts):Rendered{
  const asks=body.split(/(?<=[.!?])\s+|\n+/).map(normalize).filter(x=>/\?$/.test(x)||/(?:could|can|would) you (?:please )?(?:let us know|share|tell|advise|confirm)|please (?:let us know|share|advise|tell)|may i ask|vui long cho|cho (?:minh|toi|chung toi) biet/.test(x));
  if(known('arrival')&&asks.some(x=>/what time|arrival time|time of arrival|\beta\b|when (?:will|do|would) you (?:arrive|reach|get)|may gio|gio (?:den|toi)|khi nao .{0,12}den/.test(x)))problems.push('Mẫu vẫn hỏi giờ đến dù khách đã cung cấp.');
  const offering=/(?:would (?:you )?(?:also )?like|shall (?:we|i)|can (?:we|i) (?:also )?arrange|do you (?:also )?need|if you (?:would )?(?:also )?(?:like|need|want)|let us know if|happy to arrange|ban co can|co muon|neu ban can)/.source;
- for(const c of ['pickup','dropoff'] as const)if(!offerOpen(c)&&new RegExp(offering+'.{0,80}(?:pick.?up|drop.?off|transfer|car|vehicle|taxi|\\bxe\\b|\\bdon\\b|\\btien\\b)').test(n))problems.push('Mẫu vẫn mời xe dù khách đã từ chối, tự di chuyển hoặc muốn để sau.');
+ // Direction matters: refusing the pickup does not refuse the dropoff. A sentence with a generic
+ // vehicle word and no direction counts as offering both.
+ for(const sentence of body.split(/(?<=[.!?])\s+|\n+/).map(normalize).filter(x=>new RegExp(offering).test(x))){
+  const pick=/pick.?up|from (?:the )?airport|airport to|for your arrival|xe don|\bdon\b/.test(sentence),drop=/drop.?off|to (?:the )?airport|end of your stay|departure|xe tien|\btien\b/.test(sentence),generic=/transfer|\bcar\b|vehicle|taxi|shuttle|\bxe\b/.test(sentence);
+  const offers={pickup:pick||generic&&!drop,dropoff:drop||generic&&!pick};
+  if(offers.pickup&&!offerOpen('pickup')||offers.dropoff&&!offerOpen('dropoff')){problems.push('Mẫu vẫn mời xe dù khách đã từ chối, tự di chuyển hoặc muốn để sau.');break;}
+ }
  if(!offerOpen('tour')&&new RegExp('(?:'+offering+'|interested in|recommend|goi y).{0,80}(?:tour|sightseeing|trip|tham quan)').test(n))problems.push('Mẫu vẫn mời tour dù khách muốn bàn sau hoặc từ chối.');
  if(commitment.test(body.replace(allowedNegations,' '))||money.test(body))problems.push('Nội dung sau khi điền có giá hoặc cam kết.');
  return {body,missing,problems};

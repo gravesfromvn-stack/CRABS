@@ -96,6 +96,23 @@ try{
   const loose={id:'t-loose',version:1,title:'Loose',body:'Dear {{guest_name}}, we have noted your arrival time of {{arrival_time}}. Please let us know if you would also like us to arrange airport pickup.',situations:['arrival','room','transfer_declined'],properties:['luxe-75pht'],channels:[],language:'en',approved_at:'2026-10-18',approved_by:'owner-one',source_thread:'',source_revision:0,retired_at:null};
   assert.match(renderTemplate(loose,s).problems.join(' '),/mời xe/);const p=planReply(s,[loose]);assert.equal(p.template,undefined);assert.match(p.reasons.join(' '),/mời xe/);
  });
+ await check('Arrival-only scope: refusal in the same message goes to Cua; a refusal answered earlier is respected when the template applies',async()=>{
+  const {planReply}=await import('../.quote-tests/tpl-tpl.mjs');
+  const body='Dear {{guest_name}}, we have noted your expected arrival time of {{arrival_time}} for your stay from {{check_in}} to {{check_out}}.[[offer:pickup]] If it helps, we can share private airport pick-up options for your arrival.[[/offer]][[offer:dropoff]] If you would like, we can also share transfer options to the airport for the end of your stay.[[/offer]]';
+  const t={id:'t-arr',version:1,title:'Arrival only',body,situations:['arrival'],properties:['luxe-suites'],channels:[],language:'en',approved_at:'2026-10-18',approved_by:'owner-one',source_thread:'',source_revision:0,retired_at:null};
+  const thread={id:'x',property_id:'luxe-suites',channel:'booking',booking_id:'5990000001'},stay={checkIn:'2026-10-25',checkOut:'2026-10-27',sourceId:'e1',conflict:false};
+  const ev=(id,text,at)=>({id,guest_text:text,received:at,kind:'guest',guest_name:'Example Guest'});
+  const fact=(category,status,quote,eventId)=>({category,status,summary:quote,sources:[{eventId,quote}]});
+  const same=[ev('e1','We will arrive at the hotel at 15:00. We do not need an airport transfer.','2026-10-18T01:00:00Z')];
+  let p=planReply({thread,stay,events:same,sent:[],profile:{facts:[fact('arrival','provided','We will arrive at the hotel at 15:00.','e1'),fact('pickup','declined','We do not need an airport transfer.','e1'),fact('dropoff','declined','We do not need an airport transfer.','e1')]}},[t]);
+  assert.equal(p.template,undefined);assert.match(p.reasons.join(' '),/Không cần xe/);
+  const later=[ev('e1','We do not need an airport transfer.','2026-10-17T01:00:00Z'),ev('e2','We will arrive at the hotel at 15:00.','2026-10-18T01:00:00Z')];
+  p=planReply({thread,stay,events:later,sent:[{created:'2026-10-17T05:00:00Z'}],profile:{facts:[fact('pickup','declined','We do not need an airport transfer.','e1'),fact('dropoff','declined','We do not need an airport transfer.','e1'),fact('arrival','provided','We will arrive at the hotel at 15:00.','e2')]}},[t]);
+  assert.ok(p.template);assert.match(p.body,/arrival time of 15:00/);assert.doesNotMatch(p.body,/pick-up|transfer options/);
+  // Declining only the pickup keeps the dropoff offer.
+  p=planReply({thread,stay,events:later,sent:[{created:'2026-10-17T05:00:00Z'}],profile:{facts:[fact('pickup','declined','We do not need a pickup.','e1'),fact('arrival','provided','We will arrive at the hotel at 15:00.','e2')]}},[t]);
+  assert.ok(p.template);assert.doesNotMatch(p.body,/pick-up options/);assert.match(p.body,/transfer options to the airport/);
+ });
  await check('Cua approves a template suggestion; only that action makes it approved',async()=>{const s=await threadState(db,'owner-one',B);assert.equal((await post({action:'approve',id:B,revision:s.drafts[0].revision,contextKey:s.contextKey})).status,200);const d=(await threadState(db,'owner-one',B)).drafts[0];assert.equal(d.status,'approved');assert.equal(d.source,'template');assert.ok((await queue('approved')).includes(B));});
 
  let approvedB;
