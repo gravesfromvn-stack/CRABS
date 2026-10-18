@@ -9,8 +9,10 @@ type Thread={id:string;property_id:string;channel:string;booking_id:string;creat
 export type TaskRow={id:string;source_kind:'ota'|'contact';source_id:string;version:number;payload:string;updated:string;last_operation:string};
 export function operationFact(f:GuestFact){
  const words=norm(f.summary);
- // Presentation-only guard. Do not alter the parallel OTA extraction implementation.
+ // Check-in requests are shown as unconfirmed requests. The OTA rules now classify them as stay
+ // requests; the arrival branch still covers older summaries.
  if(f.category==='arrival'&&/check.?in|nhan phong/.test(words)&&/request|would like|can we|could we|yeu cau|xin/.test(words))return {label:'Yêu cầu nhận phòng',text:f.summary+' · Chưa xác nhận đáp ứng'};
+ if(f.category==='stay'&&f.status==='requested'&&/check.?in|nhan phong/.test(words))return {label:'Yêu cầu nhận phòng',text:f.summary+' · Chưa xác nhận đáp ứng'};
  return {label:profileLabels[f.category],text:f.summary+' · '+profileStatuses[f.status]};
 }
 export async function operationsSources(db:D1Database,owner:string):Promise<OperationSource[]>{

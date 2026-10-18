@@ -15,8 +15,10 @@ const clockTime=/\b\d{1,2}(?::\d{2}|\.[0-5]\d(?!\d|\.\d)|\s*(?:am|pm|a\.m|p\.m|h
 const flightWords=/flight|land|\bplane\b|aircraft|may bay|ha canh/;
 const hotelArrivalWords=/(?:arriv\w*|reach\w*|get(?:ting)? to|check.?in)\b.{0,20}\bhotel|check.?in|den khach san|nhan phong/;
 const checkInWords=/check.?in|nhan phong/;
+// "I'd like to request check-in at 10:00 - 11:00" asks the hotel; it is not a known arrival time.
+const isRequest=(c:string)=>/\b(?:request(?:ing)?|would like to|'d like to|want to|wish to|hope to) (?:request )?(?:an? )?(?:early )?check.?in|\bearly check.?in (?:request|at|from)/.test(normalize(c));
 // Guests often skip the "?" and open with a greeting: "Hello can we please check in at 12.30pm".
-const isQuestion=(c:string)=>/\?\s*$/.test(c)||/^(?:(?:hi|hello|hey|dear|ok|okay)\b[\s,!.]*)*(?:can|could|may|would it be|is it (?:possible|ok|okay)|will it be possible|co the|lieu)\b|\b(?:can|could|may) (?:we|i) (?:please )?(?:check.?in|arrive early|get (?:the|our) room)\b/.test(normalize(c));
+const isQuestion=(c:string)=>isRequest(c)||/\?\s*$/.test(c)||/^(?:(?:hi|hello|hey|dear|ok|okay)\b[\s,!.]*)*(?:can|could|may|would it be|is it (?:possible|ok|okay)|will it be possible|co the|lieu)\b|\b(?:can|could|may) (?:we|i) (?:please )?(?:check.?in|arrive early|get (?:the|our) room)\b/.test(normalize(c));
 // The guest quoting hotel rules is not the guest's own plan.
 const isPolicy=(n:string)=>/hotel (?:says|said|states)|check.?in (?:time )?(?:is|starts|begins|opens)\b|check.?in from|policy|quy dinh|gio nhan phong (?:la|tu|bat dau)|nhan phong tu/.test(n);
 const isCorrection=(n:string)=>/instead|actually|correction|rather|change[sd]? to|thay vao do|doi (?:thanh|lai|sang)|chinh lai/.test(n);
