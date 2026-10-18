@@ -32,9 +32,11 @@ export async function prepareDraft(db:D1Database,owner:string,id:string,profileK
  // Cua is working on an unapproved version: never bury it under an automatic one.
  if(latest&&latest.stale&&latest.status==='pending'&&!isAutoDraft(latest))return {result:'kept_cua_edit'};
  const plan=planReply(s,await activeTemplates(db,owner));
- // A template suggestion that no longer fits (rules tightened, template retired) goes back to Cua; its text is kept.
- if(replaceable&&!plan.template&&draftSource(latest)==='template'){
-  const why=['Mẫu không còn phù hợp với hội thoại này: Cua rà lại trước khi duyệt.',...plan.reasons].join('\n');
+ // No template fits: keep the automatic draft's text but refresh why it needs Cua (e.g. a template now
+ // exists but does not cover this case). A template suggestion that no longer fits goes back to Cua.
+ if(replaceable&&!plan.template){
+  const why=[...(draftSource(latest)==='template'?['Mẫu không còn phù hợp với hội thoại này: Cua rà lại trước khi duyệt.']:[]),...plan.reasons,...(latest.body?[]:['Chưa soạn được nội dung tự động: Cua soạn câu trả lời.'])].join('\n');
+  if(!why||why===latest.attention)return {result:'kept'};
   const r=await db.prepare("UPDATE ota_drafts SET attention=? WHERE owner=? AND thread_id=? AND revision=? AND status IN ('pending','needs_writing') AND attention<>?").bind(why,owner,id,latest.revision,why).run();
   return {result:r.meta.changes?'flagged':'kept'};
  }

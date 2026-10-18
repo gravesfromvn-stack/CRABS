@@ -55,8 +55,11 @@ try{
  });
 
  const B=await ingest(add({guest:'Example Guest Bravo',booking:'5910000002',message:'We expect to arrive at the hotel around 14:00. A quiet room please.',hoursAgo:9}));
+ const Q=await ingest(add({guest:'Example Guest Quebec',property:PSUITES,booking:'5910000031',message:'We will arrive at the hotel at 13:00.',hoursAgo:9}));
+ assert.match((await threadState(db,'owner-one',Q)).drafts[0].attention,/Chưa có mẫu nào/);
  const operation=crypto.randomUUID();
  const created=await tplPost({...base,operationId:operation});
+ await check('After a template is allowed, non-matching automatic drafts show the current reason; their text is kept',async()=>{const d=(await threadState(db,'owner-one',Q)).drafts;assert.equal(d.length,1);assert.doesNotMatch(d[0].attention,/Chưa có mẫu nào/);assert.match(d[0].attention,/cơ sở\/kênh này/);assert.equal(d[0].source,'rules');});
  const tplId=created.data.id;
  await check('A matching conversation gets a template draft filled from its own booking, labelled as a suggestion, still pending',async()=>{
   assert.equal(created.status,200);assert.equal(created.data.version,1);assert.ok(created.data.refresh.created_template>=1);
