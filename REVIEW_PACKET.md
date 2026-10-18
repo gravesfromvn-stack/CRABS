@@ -122,3 +122,14 @@ Full run after the change (Windows ARM64, Node 22.23.3 x64): tsc --noEmit passed
 Behaviour changes to note in review:
 - Non-flight sentences that ask to check in at a time ("Can we check in at 10:00?", "Is it possible to check in early at 11:00?") were previously stored as provided arrival; they are now stay requests. Non-flight statements still use the full sentence as summary (unchanged).
 - Conservative gaps (left unknown, not guessed): a single clause holding both flight and hotel ("We get to the hotel by taxi around 15:00 after our flight lands at 13:30"); "arrive around 15:00" without naming the hotel in a flight sentence; questions about arrival without check-in wording. Departure/flight-departure separation is still not addressed.
+
+
+## Local anonymized OTA corpus (Travis, 18 October 2026)
+
+Cua explicitly requested an anonymized copy of the 803 live OTA emails for Claude's localhost testing, preserving property/booking relationships and reply history without changing production. Imported into the existing local_seedy D1 database after a SQLite backup of the 5-email synthetic dataset. No application code, migration, online data, Make setting, guest send, Git commit/push or deployment was changed.
+
+Counts: 803 events, 215 threads (55 luxe-75pht, 160 luxe-suites), 383 draft revisions, 89 reconciliation reviews, 0 sent records. UI confirmed 803 received / 205 needing action / 4 reconciliation / 0 sent. Latest drafts: 138 pending, 67 needs_writing, 10 approved. Direct identifiers are replaced consistently; raw source records and reverse maps are not in the Claude checkout. The 11 derived profile caches were excluded and local rules rebuild profiles; historical drafts and reviews were preserved. Operational dates and semantics remain, so this private test corpus must not be published.
+
+Evidence: 215/215 stay extractions and source links preserved; 215/215 draft-history metadata preserved; 803 guest clock-time checks passed; relationship and stale-context checks passed; SQLite integrity ok; non-OTA tables and other owners unchanged. UI opened Guest 0080's two-email/two-version history. On application commit 0ca901b, Travis independently reran ota-profile (25 PASS) and ota-draft-notice (5 PASS); this is not an independent rerun of all 131 checks/build or completed UAT.
+
+Local handoff, immutable snapshot, reports and pre-import backup: private-data/crabs-803-2026-10-18/README-CHO-CLAUDE.md. This directory and .wrangler/ are Git-ignored. Labels/links to the original mailbox and Make still exist in the UI; they are not proof of live local intake. Do not use external links or anonymized replies for real guest work. No OTA-to-reception bridge was added.
