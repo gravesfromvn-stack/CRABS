@@ -1,0 +1,17 @@
+import assert from 'node:assert/strict';
+import {build} from 'esbuild';
+await build({entryPoints:['lib/ota-stay.ts'],outfile:'.quote-tests/ota-stay.mjs',bundle:true,platform:'node',format:'esm'});
+const {stayDate,emailStay,threadStay,stayLabel}=await import('../.quote-tests/ota-stay.mjs');
+const e={id:'source-1',full_text:'Reservation details\nCheck-in:\nSat 10 Oct 2026\nCheck-out:\nMon 12 Oct 2026',guest_text:'Please change my dates to 20–22 October.',channel:'booking',authenticated:1,booking_id:'123456789',received:'2026-10-01'};
+assert.equal(stayLabel(emailStay(e)),'10/10–12/10/2026');
+assert.equal(stayDate('31/02/2026'),'');assert.equal(stayDate('2026年10月14日'),'2026-10-14');assert.equal(stayDate('10.10.2026'),'2026-10-10');
+assert.equal(stayDate('17 thg 10, 2026'),'2026-10-17');assert.equal(stayDate('2026. 11. 15.'),'2026-11-15');
+assert.equal(emailStay({...e,authenticated:0}).checkIn,'');
+assert.equal(emailStay({...e,full_text:e.guest_text,guest_text:e.guest_text}).checkIn,'');
+assert.equal(emailStay({...e,full_text:'Check-in:\n12/10/2026\nCheck-out:\n10/10/2026'}).checkIn,'');
+assert.equal(threadStay([e,{...e,id:'source-2',full_text:'Check-in:\n11/10/2026\nCheck-out:\n12/10/2026'}]).conflict,true);
+assert.equal(stayLabel({...emailStay(e),checkIn:'2026-12-31',checkOut:'2027-01-02'}),'31/12/2026–02/01/2027');
+const agoda={...e,channel:'agoda',full_text:'Booking details\nHotel\nBooking ID\n•\nCheck-in\n•\nCheck-out\nRoom(s)\nGuest(s)\n123456789\n2026年10月14日\n2026年10月15日'};
+assert.equal(stayLabel(emailStay(agoda)),'14/10–15/10/2026');
+assert.equal(stayLabel(), 'Chưa có ngày lưu trú');
+console.log('PASS stay: verified envelope dates, multilingual Agoda, conflicts, missing, invalid and cross-year dates');

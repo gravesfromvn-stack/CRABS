@@ -1,0 +1,1717 @@
+{
+  "durations": [
+    {
+      "id": "DURATION01",
+      "days": 1,
+      "nights": 0,
+      "route": "Hà Nội hoặc Bát Tràng hoặc Đường Lâm hoặc Ninh Bình hoặc vịnh trong ngày",
+      "ends": "Hà Nội",
+      "note": "Chọn 1 sản phẩm theo sở thích",
+      "checkedAt": "01/10/2026",
+      "status": "Draft"
+    },
+    {
+      "id": "DURATION02",
+      "days": 2,
+      "nights": 1,
+      "route": "Hà Nội 1 ngày + Ninh Bình hoặc Bát Tràng 1 ngày",
+      "ends": "Hà Nội",
+      "note": "1 đêm Hà Nội",
+      "checkedAt": "01/10/2026",
+      "status": "Draft"
+    },
+    {
+      "id": "DURATION03",
+      "days": 3,
+      "nights": 2,
+      "route": "Hà Nội + du thuyền 2 ngày 1 đêm",
+      "ends": "Hà Nội",
+      "note": "1 đêm Hà Nội + 1 đêm tàu",
+      "checkedAt": "01/10/2026",
+      "status": "Draft"
+    },
+    {
+      "id": "DURATION04",
+      "days": 4,
+      "nights": 3,
+      "route": "Hà Nội + Ninh Bình trong ngày + du thuyền 2 ngày 1 đêm",
+      "ends": "Hà Nội",
+      "note": "2 đêm Hà Nội + 1 đêm tàu",
+      "checkedAt": "01/10/2026",
+      "status": "Draft"
+    },
+    {
+      "id": "DURATION05",
+      "days": 5,
+      "nights": 4,
+      "route": "Lịch 4 ngày + Bát Tràng hoặc một ngày nghỉ Hà Nội",
+      "ends": "Hà Nội",
+      "note": "Thêm 1 đêm Hà Nội",
+      "checkedAt": "01/10/2026",
+      "status": "Draft"
+    },
+    {
+      "id": "DURATION06",
+      "days": 6,
+      "nights": 5,
+      "route": "Lịch 5 ngày + một đêm Ninh Bình hoặc nâng tàu lên 3 ngày 2 đêm",
+      "ends": "Hà Nội",
+      "note": "Ưu tiên tăng thời gian tại điểm",
+      "checkedAt": "01/10/2026",
+      "status": "Draft"
+    },
+    {
+      "id": "DURATION07",
+      "days": 7,
+      "nights": 6,
+      "route": "Hà Nội + Ninh Bình 2 ngày + du thuyền 2 ngày + văn hóa và nghỉ",
+      "ends": "Hà Nội",
+      "note": "Lịch nền 7 ngày trong Tour Catalog",
+      "checkedAt": "01/10/2026",
+      "status": "Draft"
+    },
+    {
+      "id": "DURATION08",
+      "days": 8,
+      "nights": 7,
+      "route": "Lịch 7 ngày + một ngày nghỉ Hà Nội hoặc thêm đêm Ninh Bình",
+      "ends": "Hà Nội",
+      "note": "Phù hợp gia đình",
+      "checkedAt": "01/10/2026",
+      "status": "Draft"
+    },
+    {
+      "id": "DURATION09",
+      "days": 9,
+      "nights": 8,
+      "route": "Hà Nội 2 ngày + Sa Pa 4 ngày + vịnh 2 ngày + ngày cuối Hà Nội",
+      "ends": "Hà Nội",
+      "note": "Chọn Sa Pa thay Ninh Bình",
+      "checkedAt": "01/10/2026",
+      "status": "Draft"
+    },
+    {
+      "id": "DURATION10",
+      "days": 10,
+      "nights": 9,
+      "route": "Hà Nội + Sa Pa 4 ngày + Ninh Bình trong ngày + vịnh 2 ngày",
+      "ends": "Hà Nội",
+      "note": "Lịch nền 10 ngày trong Tour Catalog",
+      "checkedAt": "01/10/2026",
+      "status": "Draft"
+    },
+    {
+      "id": "DURATION11",
+      "days": 11,
+      "nights": 10,
+      "route": "Lịch 10 ngày + nghỉ Hà Nội",
+      "ends": "Hà Nội",
+      "note": "Chừa ngày cho thời tiết",
+      "checkedAt": "01/10/2026",
+      "status": "Draft"
+    },
+    {
+      "id": "DURATION12",
+      "days": 12,
+      "nights": 11,
+      "route": "Hà Nội và vùng lân cận 6 ngày + bay vào Hội An 6 ngày",
+      "ends": "Đà Nẵng",
+      "note": "Hai miền, không thêm Sa Pa",
+      "checkedAt": "01/10/2026",
+      "status": "Draft"
+    },
+    {
+      "id": "DURATION13",
+      "days": 13,
+      "nights": 12,
+      "route": "Lịch 12 ngày + một ngày Huế hoặc nghỉ Hội An",
+      "ends": "Đà Nẵng",
+      "note": "Thêm đêm tại điểm đang ở",
+      "checkedAt": "01/10/2026",
+      "status": "Draft"
+    },
+    {
+      "id": "DURATION14",
+      "days": 14,
+      "nights": 13,
+      "route": "Hà Nội Ninh Bình vịnh Huế Hội An",
+      "ends": "Đà Nẵng",
+      "note": "Bản nhẹ hai miền; có bản ba miền",
+      "checkedAt": "01/10/2026",
+      "status": "Draft"
+    },
+    {
+      "id": "DURATION15",
+      "days": 15,
+      "nights": 14,
+      "route": "Lịch 14 ngày + nghỉ Hội An hoặc thêm một ngày Huế",
+      "ends": "Đà Nẵng",
+      "note": "Ưu tiên nhịp thoải mái",
+      "checkedAt": "01/10/2026",
+      "status": "Draft"
+    },
+    {
+      "id": "DURATION16",
+      "days": 16,
+      "nights": 15,
+      "route": "Hà Nội và lân cận 6 ngày + miền Trung 6 ngày + TP HCM 4 ngày",
+      "ends": "TP HCM",
+      "note": "Ba miền bằng máy bay",
+      "checkedAt": "01/10/2026",
+      "status": "Draft"
+    },
+    {
+      "id": "DURATION17",
+      "days": 17,
+      "nights": 16,
+      "route": "Lịch 16 ngày + Mekong trong ngày và một đêm TP HCM",
+      "ends": "TP HCM",
+      "note": "Hoặc tăng ngày nghỉ miền Trung",
+      "checkedAt": "01/10/2026",
+      "status": "Draft"
+    },
+    {
+      "id": "DURATION18",
+      "days": 18,
+      "nights": 17,
+      "route": "Lịch 17 ngày + thêm một đêm Cần Thơ để đi chợ nổi",
+      "ends": "TP HCM",
+      "note": "Thay Mekong trong ngày bằng 2 ngày",
+      "checkedAt": "01/10/2026",
+      "status": "Draft"
+    },
+    {
+      "id": "DURATION19",
+      "days": 19,
+      "nights": 18,
+      "route": "Lịch 18 ngày + một ngày nghỉ TP HCM hoặc Hội An",
+      "ends": "TP HCM",
+      "note": "Không thêm chặng bay mới",
+      "checkedAt": "01/10/2026",
+      "status": "Draft"
+    },
+    {
+      "id": "DURATION20",
+      "days": 20,
+      "nights": 19,
+      "route": "Lịch 21 ngày rút một ngày nghỉ TP HCM",
+      "ends": "TP HCM",
+      "note": "Giữ Phong Nha nếu điều kiện phù hợp",
+      "checkedAt": "01/10/2026",
+      "status": "Draft"
+    },
+    {
+      "id": "DURATION21",
+      "days": 21,
+      "nights": 20,
+      "route": "Hà Nội Ninh Bình vịnh Phong Nha Huế Hội An TP HCM Cần Thơ",
+      "ends": "TP HCM",
+      "note": "Lịch nền 21 ngày trong Tour Itinerary Days",
+      "checkedAt": "01/10/2026",
+      "status": "Draft"
+    },
+    {
+      "id": "DURATION22",
+      "days": 22,
+      "nights": 21,
+      "route": "Lịch 21 ngày + một ngày nghỉ Hội An",
+      "ends": "TP HCM",
+      "note": "Giảm mệt sau các chặng dài",
+      "checkedAt": "01/10/2026",
+      "status": "Draft"
+    },
+    {
+      "id": "DURATION23",
+      "days": 23,
+      "nights": 22,
+      "route": "Lịch 21 ngày + 2 ngày nghỉ hoặc tăng thời gian miền Bắc",
+      "ends": "TP HCM",
+      "note": "Có thể thêm Mai Châu 2 ngày",
+      "checkedAt": "01/10/2026",
+      "status": "Draft"
+    },
+    {
+      "id": "DURATION24",
+      "days": 24,
+      "nights": 23,
+      "route": "Lịch 21 ngày sửa đoạn cuối: ngày 20–23 Phú Quốc 4 ngày 3 đêm, về TP HCM; ngày 24 khởi hành",
+      "ends": "TP HCM",
+      "note": "Hai ngày chuyển đảo; ngủ TP HCM đêm 23",
+      "checkedAt": "01/10/2026",
+      "status": "Draft"
+    },
+    {
+      "id": "DURATION25",
+      "days": 25,
+      "nights": 24,
+      "route": "Lịch 24 ngày + thêm một ngày biển",
+      "ends": "TP HCM",
+      "note": "Ưu tiên nghỉ dưỡng",
+      "checkedAt": "01/10/2026",
+      "status": "Draft"
+    },
+    {
+      "id": "DURATION26",
+      "days": 26,
+      "nights": 25,
+      "route": "Lịch 25 ngày + một ngày Hà Nội hoặc Hội An",
+      "ends": "TP HCM",
+      "note": "Thêm trải nghiệm thực hành",
+      "checkedAt": "01/10/2026",
+      "status": "Draft"
+    },
+    {
+      "id": "DURATION27",
+      "days": 27,
+      "nights": 26,
+      "route": "Lịch 28 ngày rút một ngày nghỉ Hội An hoặc Sa Pa",
+      "ends": "TP HCM",
+      "note": "Chọn một điểm để giảm thời gian",
+      "checkedAt": "01/10/2026",
+      "status": "Draft"
+    },
+    {
+      "id": "DURATION28",
+      "days": 28,
+      "nights": 27,
+      "route": "Hà Nội Sa Pa Ninh Bình vịnh Phong Nha Huế Hội An TP HCM Mekong Phú Quốc",
+      "ends": "TP HCM",
+      "note": "Lịch nền 28 ngày trong Tour Itinerary Days",
+      "checkedAt": "01/10/2026",
+      "status": "Draft"
+    }
+  ],
+  "itineraryDays": [
+    {
+      "id": "PKG14-D01",
+      "program": "PKG14",
+      "day": 1,
+      "title": "Đến Hà Nội",
+      "morning": "Theo chuyến bay, đón về điểm lưu trú đã xác nhận; gửi hành lý/nhận phòng theo điều kiện khách sạn.",
+      "afternoon": "Nghỉ sau chuyến bay; nếu đến sớm dạo Trúc Bạch ngắn.",
+      "evening": "Phở cuốn hoặc bữa Việt gần khách sạn, về sớm.",
+      "overnight": "Khách sạn mẫu tại Hà Nội",
+      "sources": "SOURCE02; SOURCE10; SOURCE20; SOURCE32; SOURCE33; SOURCE43",
+      "status": "Draft"
+    },
+    {
+      "id": "PKG14-D02",
+      "program": "PKG14",
+      "day": 2,
+      "title": "Hà Nội văn hóa",
+      "morning": "Hoàng thành hoặc khu di tích mở cửa; chùa Trấn Quốc nếu phù hợp.",
+      "afternoon": "Văn Miếu, cà phê và một đoạn phố cổ.",
+      "evening": "Rối nước theo vé, hoặc bữa tối có hướng dẫn ẩm thực.",
+      "overnight": "Hà Nội",
+      "sources": "SOURCE02; SOURCE10; SOURCE20; SOURCE32; SOURCE33; SOURCE43",
+      "status": "Draft"
+    },
+    {
+      "id": "PKG14-D03",
+      "program": "PKG14",
+      "day": 3,
+      "title": "Hà Nội đến Ninh Bình",
+      "morning": "Xe khoảng 2–2,5 giờ; Hoa Lư và bữa trưa.",
+      "afternoon": "Thuyền Tràng An, nhận phòng và nghỉ.",
+      "evening": "Ẩm thực địa phương, không xếp thêm điểm xa.",
+      "overnight": "Ninh Bình",
+      "sources": "SOURCE02; SOURCE10; SOURCE20; SOURCE32; SOURCE33; SOURCE43",
+      "status": "Draft"
+    },
+    {
+      "id": "PKG14-D04",
+      "program": "PKG14",
+      "day": 4,
+      "title": "Ninh Bình trở lại Hà Nội",
+      "morning": "Hang Múa theo thể lực, hoặc Bích Động/đạp xe ngắn.",
+      "afternoon": "Ăn trưa, xe về Hà Nội; giặt đồ và nghỉ.",
+      "evening": "Ăn gần khách sạn.",
+      "overnight": "Hà Nội",
+      "sources": "SOURCE02; SOURCE10; SOURCE20; SOURCE32; SOURCE33; SOURCE43",
+      "status": "Draft"
+    },
+    {
+      "id": "PKG14-D05",
+      "program": "PKG14",
+      "day": 5,
+      "title": "Hà Nội đến vịnh",
+      "morning": "Xe tới cảng đúng giờ tập trung của tàu.",
+      "afternoon": "Lên tàu, ăn trưa, hoạt động theo tuyến đã chọn.",
+      "evening": "Hoàng hôn, ăn tối, nghỉ cabin.",
+      "overnight": "Tàu Hạ Long hoặc Lan Hạ",
+      "sources": "SOURCE02; SOURCE10; SOURCE20; SOURCE32; SOURCE33; SOURCE43",
+      "status": "Draft"
+    },
+    {
+      "id": "PKG14-D06",
+      "program": "PKG14",
+      "day": 6,
+      "title": "Vịnh trở lại Hà Nội",
+      "morning": "Ăn sáng và hoạt động ngắn; trả cabin.",
+      "afternoon": "Rời tàu, xe về Hà Nội, nghỉ.",
+      "evening": "Chuẩn bị hành lý cho chặng bay ngày sau.",
+      "overnight": "Hà Nội",
+      "sources": "SOURCE02; SOURCE10; SOURCE20; SOURCE32; SOURCE33; SOURCE43",
+      "status": "Draft"
+    },
+    {
+      "id": "PKG14-D07",
+      "program": "PKG14",
+      "day": 7,
+      "title": "Hà Nội bay Huế",
+      "morning": "Xe ra Nội Bài, bay Huế theo chuyến xác nhận; dành nửa ngày cho di chuyển.",
+      "afternoon": "Nhận phòng; bờ sông Hương hoặc Thiên Mụ nếu tới sớm.",
+      "evening": "Bánh Huế hoặc bún bò; nghỉ.",
+      "overnight": "Huế",
+      "sources": "SOURCE02; SOURCE10; SOURCE20; SOURCE32; SOURCE33; SOURCE43",
+      "status": "Draft"
+    },
+    {
+      "id": "PKG14-D08",
+      "program": "PKG14",
+      "day": 8,
+      "title": "Huế di sản",
+      "morning": "Đại Nội với hướng dẫn, nghỉ giữa buổi.",
+      "afternoon": "Ăn trưa và nghỉ; một lăng vua theo sở thích.",
+      "evening": "Ca Huế nếu có suất phù hợp hoặc bữa tối địa phương.",
+      "overnight": "Huế",
+      "sources": "SOURCE02; SOURCE10; SOURCE20; SOURCE32; SOURCE33; SOURCE43",
+      "status": "Draft"
+    },
+    {
+      "id": "PKG14-D09",
+      "program": "PKG14",
+      "day": 9,
+      "title": "Huế đến Hội An",
+      "morning": "Trả phòng; xe qua Lăng Cô/Hải Vân nếu điều kiện phù hợp, hoặc tàu đến Đà Nẵng rồi xe.",
+      "afternoon": "Nhận phòng, hồ bơi và nghỉ.",
+      "evening": "Dạo phố cổ ngắn và cao lầu.",
+      "overnight": "Hội An",
+      "sources": "SOURCE02; SOURCE10; SOURCE20; SOURCE32; SOURCE33; SOURCE43",
+      "status": "Draft"
+    },
+    {
+      "id": "PKG14-D10",
+      "program": "PKG14",
+      "day": 10,
+      "title": "Hội An phố cổ",
+      "morning": "Tham quan phố cổ theo vé và các điểm đang mở; tìm hiểu nhà buôn và nghề truyền thống.",
+      "afternoon": "Nghỉ trưa; đèn lồng hoặc tự do mua đồ.",
+      "evening": "Phố cổ, bữa tối nhẹ.",
+      "overnight": "Hội An",
+      "sources": "SOURCE02; SOURCE10; SOURCE20; SOURCE32; SOURCE33; SOURCE43",
+      "status": "Draft"
+    },
+    {
+      "id": "PKG14-D11",
+      "program": "PKG14",
+      "day": 11,
+      "title": "Hội An làng quê và nấu ăn",
+      "morning": "Trà Quế hoặc lớp nấu ăn có đi chợ đã đặt.",
+      "afternoon": "Nghỉ tại nơi ở; đạp xe ngắn nếu đường và thể lực phù hợp.",
+      "evening": "Ăn tối, không thêm tour dài.",
+      "overnight": "Hội An",
+      "sources": "SOURCE02; SOURCE10; SOURCE20; SOURCE32; SOURCE33; SOURCE43",
+      "status": "Draft"
+    },
+    {
+      "id": "PKG14-D12",
+      "program": "PKG14",
+      "day": 12,
+      "title": "Mỹ Sơn hoặc ngày tự chọn",
+      "morning": "Chọn Mỹ Sơn từ sớm; hoặc chọn một ngày Đà Nẵng/Bà Nà thay thế.",
+      "afternoon": "Về nghỉ; không nối thêm điểm xa khác.",
+      "evening": "Ẩm thực và dạo ngắn.",
+      "overnight": "Hội An",
+      "sources": "SOURCE02; SOURCE10; SOURCE20; SOURCE32; SOURCE33; SOURCE43",
+      "status": "Draft"
+    },
+    {
+      "id": "PKG14-D13",
+      "program": "PKG14",
+      "day": 13,
+      "title": "Ngày nghỉ Hội An",
+      "morning": "An Bàng hoặc hồ bơi theo điều kiện thời tiết.",
+      "afternoon": "Nghỉ, spa hoặc mua quà; kiểm tra giờ bay.",
+      "evening": "Bữa tối cuối miền Trung.",
+      "overnight": "Hội An",
+      "sources": "SOURCE02; SOURCE10; SOURCE20; SOURCE32; SOURCE33; SOURCE43",
+      "status": "Draft"
+    },
+    {
+      "id": "PKG14-D14",
+      "program": "PKG14",
+      "day": 14,
+      "title": "Rời miền Trung",
+      "morning": "Bữa sáng và trả phòng theo giờ vé.",
+      "afternoon": "Xe tới sân bay Đà Nẵng; bay quốc tế/chặng tiếp theo có thật.",
+      "evening": "Kết thúc; nếu phải về Hà Nội cần bố trí lại đêm cuối.",
+      "overnight": "Không bao gồm đêm cuối",
+      "sources": "SOURCE02; SOURCE10; SOURCE20; SOURCE32; SOURCE33; SOURCE43",
+      "status": "Draft"
+    },
+    {
+      "id": "PKG21-D01",
+      "program": "PKG21",
+      "day": 1,
+      "title": "Đến Hà Nội",
+      "morning": "Đón theo chuyến bay và về Luxe Paradise.",
+      "afternoon": "Nhận phòng, nghỉ, dạo Trúc Bạch nếu có thời gian.",
+      "evening": "Bữa Việt gần khách sạn.",
+      "overnight": "Hà Nội",
+      "sources": "SOURCE02; SOURCE10; SOURCE20; SOURCE30; SOURCE32; SOURCE33; SOURCE35; SOURCE37; SOURCE41; SOURCE44",
+      "status": "Draft"
+    },
+    {
+      "id": "PKG21-D02",
+      "program": "PKG21",
+      "day": 2,
+      "title": "Hà Nội đến Ninh Bình",
+      "morning": "Xe, Hoa Lư; ăn trưa.",
+      "afternoon": "Thuyền Tràng An; nhận phòng.",
+      "evening": "Nghỉ và món địa phương.",
+      "overnight": "Ninh Bình",
+      "sources": "SOURCE02; SOURCE10; SOURCE20; SOURCE30; SOURCE32; SOURCE33; SOURCE35; SOURCE37; SOURCE41; SOURCE44",
+      "status": "Draft"
+    },
+    {
+      "id": "PKG21-D03",
+      "program": "PKG21",
+      "day": 3,
+      "title": "Ninh Bình trở lại Hà Nội",
+      "morning": "Đi bộ/đạp xe hoặc Hang Múa theo thể lực.",
+      "afternoon": "Xe về Hà Nội sau bữa trưa, nghỉ.",
+      "evening": "Phố cổ hoặc bữa tối gần khách sạn.",
+      "overnight": "Hà Nội",
+      "sources": "SOURCE02; SOURCE10; SOURCE20; SOURCE30; SOURCE32; SOURCE33; SOURCE35; SOURCE37; SOURCE41; SOURCE44",
+      "status": "Draft"
+    },
+    {
+      "id": "PKG21-D04",
+      "program": "PKG21",
+      "day": 4,
+      "title": "Hà Nội đến vịnh",
+      "morning": "Xe tới cảng theo giờ tàu.",
+      "afternoon": "Lên tàu, hoạt động đúng tuyến.",
+      "evening": "Ăn tối và nghỉ cabin.",
+      "overnight": "Tàu",
+      "sources": "SOURCE02; SOURCE10; SOURCE20; SOURCE30; SOURCE32; SOURCE33; SOURCE35; SOURCE37; SOURCE41; SOURCE44",
+      "status": "Draft"
+    },
+    {
+      "id": "PKG21-D05",
+      "program": "PKG21",
+      "day": 5,
+      "title": "Vịnh trở lại Hà Nội",
+      "morning": "Hoạt động ngắn và trả cabin.",
+      "afternoon": "Xe về Hà Nội.",
+      "evening": "Nghỉ, chuẩn bị bay.",
+      "overnight": "Hà Nội",
+      "sources": "SOURCE02; SOURCE10; SOURCE20; SOURCE30; SOURCE32; SOURCE33; SOURCE35; SOURCE37; SOURCE41; SOURCE44",
+      "status": "Draft"
+    },
+    {
+      "id": "PKG21-D06",
+      "program": "PKG21",
+      "day": 6,
+      "title": "Hà Nội đến Phong Nha",
+      "morning": "Bay Đồng Hới nếu có chuyến phù hợp, xe đến Phong Nha.",
+      "afternoon": "Nhận phòng, nghỉ hoặc dạo bờ sông.",
+      "evening": "Bữa tối địa phương.",
+      "overnight": "Phong Nha",
+      "sources": "SOURCE02; SOURCE10; SOURCE20; SOURCE30; SOURCE32; SOURCE33; SOURCE35; SOURCE37; SOURCE41; SOURCE44",
+      "status": "Draft"
+    },
+    {
+      "id": "PKG21-D07",
+      "program": "PKG21",
+      "day": 7,
+      "title": "Phong Nha một hang chính",
+      "morning": "Động Thiên Đường hoặc hang phù hợp đã đặt.",
+      "afternoon": "Ăn trưa, nghỉ, làng quê nhẹ.",
+      "evening": "Nghỉ tại nơi ở.",
+      "overnight": "Phong Nha",
+      "sources": "SOURCE02; SOURCE10; SOURCE20; SOURCE30; SOURCE32; SOURCE33; SOURCE35; SOURCE37; SOURCE41; SOURCE44",
+      "status": "Draft"
+    },
+    {
+      "id": "PKG21-D08",
+      "program": "PKG21",
+      "day": 8,
+      "title": "Phong Nha theo điều kiện",
+      "morning": "Động Phong Nha bằng thuyền khi mở cửa; hoặc trải nghiệm làng quê.",
+      "afternoon": "Nghỉ; không tự động chuyển sang hang khó khi một điểm đóng.",
+      "evening": "Chuẩn bị hành lý.",
+      "overnight": "Phong Nha",
+      "sources": "SOURCE02; SOURCE10; SOURCE20; SOURCE30; SOURCE32; SOURCE33; SOURCE35; SOURCE37; SOURCE41; SOURCE44",
+      "status": "Draft"
+    },
+    {
+      "id": "PKG21-D09",
+      "program": "PKG21",
+      "day": 9,
+      "title": "Phong Nha đến Huế",
+      "morning": "Trả phòng; xe đường bộ hoặc xe ra ga theo phương án đã chọn.",
+      "afternoon": "Di chuyển và nhận phòng; tránh xếp Đại Nội nếu đến muộn.",
+      "evening": "Bữa Huế nhẹ.",
+      "overnight": "Huế",
+      "sources": "SOURCE02; SOURCE10; SOURCE20; SOURCE30; SOURCE32; SOURCE33; SOURCE35; SOURCE37; SOURCE41; SOURCE44",
+      "status": "Draft"
+    },
+    {
+      "id": "PKG21-D10",
+      "program": "PKG21",
+      "day": 10,
+      "title": "Huế",
+      "morning": "Đại Nội.",
+      "afternoon": "Nghỉ trưa; một lăng vua, nhà vườn hoặc Thiên Mụ.",
+      "evening": "Ẩm thực hoặc ca Huế theo lịch.",
+      "overnight": "Huế",
+      "sources": "SOURCE02; SOURCE10; SOURCE20; SOURCE30; SOURCE32; SOURCE33; SOURCE35; SOURCE37; SOURCE41; SOURCE44",
+      "status": "Draft"
+    },
+    {
+      "id": "PKG21-D11",
+      "program": "PKG21",
+      "day": 11,
+      "title": "Huế đến Hội An",
+      "morning": "Chuyển xe qua Hải Vân khi phù hợp, hoặc tàu và xe nối.",
+      "afternoon": "Nhận phòng, nghỉ.",
+      "evening": "Phố cổ ngắn.",
+      "overnight": "Hội An",
+      "sources": "SOURCE02; SOURCE10; SOURCE20; SOURCE30; SOURCE32; SOURCE33; SOURCE35; SOURCE37; SOURCE41; SOURCE44",
+      "status": "Draft"
+    },
+    {
+      "id": "PKG21-D12",
+      "program": "PKG21",
+      "day": 12,
+      "title": "Hội An văn hóa",
+      "morning": "Phố cổ với hướng dẫn.",
+      "afternoon": "Workshop đèn lồng hoặc tự do, có nghỉ trưa.",
+      "evening": "Cao lầu và dạo phố.",
+      "overnight": "Hội An",
+      "sources": "SOURCE02; SOURCE10; SOURCE20; SOURCE30; SOURCE32; SOURCE33; SOURCE35; SOURCE37; SOURCE41; SOURCE44",
+      "status": "Draft"
+    },
+    {
+      "id": "PKG21-D13",
+      "program": "PKG21",
+      "day": 13,
+      "title": "Hội An làng quê",
+      "morning": "Trà Quế/lớp nấu ăn đã đặt.",
+      "afternoon": "Nghỉ hoặc đạp xe ngắn.",
+      "evening": "Ăn tối gần nơi ở.",
+      "overnight": "Hội An",
+      "sources": "SOURCE02; SOURCE10; SOURCE20; SOURCE30; SOURCE32; SOURCE33; SOURCE35; SOURCE37; SOURCE41; SOURCE44",
+      "status": "Draft"
+    },
+    {
+      "id": "PKG21-D14",
+      "program": "PKG21",
+      "day": 14,
+      "title": "Hội An ngày chọn",
+      "morning": "Mỹ Sơn nếu khách thích; hoặc biển, hồ bơi.",
+      "afternoon": "Nghỉ; không thêm tour thứ hai.",
+      "evening": "Kiểm tra chuyến bay và hành lý.",
+      "overnight": "Hội An",
+      "sources": "SOURCE02; SOURCE10; SOURCE20; SOURCE30; SOURCE32; SOURCE33; SOURCE35; SOURCE37; SOURCE41; SOURCE44",
+      "status": "Draft"
+    },
+    {
+      "id": "PKG21-D15",
+      "program": "PKG21",
+      "day": 15,
+      "title": "Hội An đến TP Hồ Chí Minh",
+      "morning": "Xe ra sân bay Đà Nẵng và bay.",
+      "afternoon": "Nhận phòng; kiến trúc trung tâm nếu còn thời gian.",
+      "evening": "Nguyễn Huệ, món địa phương.",
+      "overnight": "TP Hồ Chí Minh",
+      "sources": "SOURCE02; SOURCE10; SOURCE20; SOURCE30; SOURCE32; SOURCE33; SOURCE35; SOURCE37; SOURCE41; SOURCE44",
+      "status": "Draft"
+    },
+    {
+      "id": "PKG21-D16",
+      "program": "PKG21",
+      "day": 16,
+      "title": "TP Hồ Chí Minh",
+      "morning": "Dinh Độc Lập; bảo tàng theo sở thích và tuổi.",
+      "afternoon": "Chợ Lớn hoặc Bến Thành, cà phê.",
+      "evening": "Ẩm thực có hướng dẫn nếu muốn.",
+      "overnight": "TP Hồ Chí Minh",
+      "sources": "SOURCE02; SOURCE10; SOURCE20; SOURCE30; SOURCE32; SOURCE33; SOURCE35; SOURCE37; SOURCE41; SOURCE44",
+      "status": "Draft"
+    },
+    {
+      "id": "PKG21-D17",
+      "program": "PKG21",
+      "day": 17,
+      "title": "TP Hồ Chí Minh đến Cần Thơ",
+      "morning": "Xe khoảng 3,5–5 giờ gồm nghỉ.",
+      "afternoon": "Nhận phòng; nhà cổ/cồn/vườn, chọn một cụm.",
+      "evening": "Ninh Kiều; ngủ sớm.",
+      "overnight": "Cần Thơ",
+      "sources": "SOURCE02; SOURCE10; SOURCE20; SOURCE30; SOURCE32; SOURCE33; SOURCE35; SOURCE37; SOURCE41; SOURCE44",
+      "status": "Draft"
+    },
+    {
+      "id": "PKG21-D18",
+      "program": "PKG21",
+      "day": 18,
+      "title": "Cần Thơ trở lại TP Hồ Chí Minh",
+      "morning": "Thuyền chợ Cái Răng theo giờ đã hẹn; ăn sáng và nghỉ.",
+      "afternoon": "Xe về TP Hồ Chí Minh.",
+      "evening": "Bữa tối nhẹ.",
+      "overnight": "TP Hồ Chí Minh",
+      "sources": "SOURCE02; SOURCE10; SOURCE20; SOURCE30; SOURCE32; SOURCE33; SOURCE35; SOURCE37; SOURCE41; SOURCE44",
+      "status": "Draft"
+    },
+    {
+      "id": "PKG21-D19",
+      "program": "PKG21",
+      "day": 19,
+      "title": "Củ Chi hoặc ngày tự do",
+      "morning": "Củ Chi theo thể lực; hoặc lớp nấu ăn/cà phê nếu khách muốn nghỉ.",
+      "afternoon": "Về nghỉ; mua quà ngắn.",
+      "evening": "Tự do.",
+      "overnight": "TP Hồ Chí Minh",
+      "sources": "SOURCE02; SOURCE10; SOURCE20; SOURCE30; SOURCE32; SOURCE33; SOURCE35; SOURCE37; SOURCE41; SOURCE44",
+      "status": "Draft"
+    },
+    {
+      "id": "PKG21-D20",
+      "program": "PKG21",
+      "day": 20,
+      "title": "Ngày nghỉ cuối",
+      "morning": "Bữa sáng chậm và hoạt động tự chọn.",
+      "afternoon": "Giặt đồ, mua quà, kiểm tra chuyến bay.",
+      "evening": "Bữa tối cuối Việt Nam.",
+      "overnight": "TP Hồ Chí Minh",
+      "sources": "SOURCE02; SOURCE10; SOURCE20; SOURCE30; SOURCE32; SOURCE33; SOURCE35; SOURCE37; SOURCE41; SOURCE44",
+      "status": "Draft"
+    },
+    {
+      "id": "PKG21-D21",
+      "program": "PKG21",
+      "day": 21,
+      "title": "Rời Việt Nam",
+      "morning": "Trả phòng theo giờ chuyến bay.",
+      "afternoon": "Ra sân bay với thời gian dự phòng phù hợp vé.",
+      "evening": "Kết thúc.",
+      "overnight": "Không bao gồm đêm cuối",
+      "sources": "SOURCE02; SOURCE10; SOURCE20; SOURCE30; SOURCE32; SOURCE33; SOURCE35; SOURCE37; SOURCE41; SOURCE44",
+      "status": "Draft"
+    },
+    {
+      "id": "PKG28-D01",
+      "program": "PKG28",
+      "day": 1,
+      "title": "Đến Hà Nội",
+      "morning": "Đón theo chuyến bay về Luxe Paradise.",
+      "afternoon": "Nhận phòng, nghỉ.",
+      "evening": "Trúc Bạch và bữa Việt nếu có sức.",
+      "overnight": "Hà Nội",
+      "sources": "SOURCE24; SOURCE10; SOURCE20; SOURCE30; SOURCE32; SOURCE33; SOURCE35; SOURCE38; SOURCE39; SOURCE46",
+      "status": "Draft"
+    },
+    {
+      "id": "PKG28-D02",
+      "program": "PKG28",
+      "day": 2,
+      "title": "Hà Nội",
+      "morning": "Một di tích chính và hồ.",
+      "afternoon": "Văn Miếu hoặc phố cổ; có nghỉ.",
+      "evening": "Rối nước hoặc ẩm thực theo sở thích.",
+      "overnight": "Hà Nội",
+      "sources": "SOURCE24; SOURCE10; SOURCE20; SOURCE30; SOURCE32; SOURCE33; SOURCE35; SOURCE38; SOURCE39; SOURCE46",
+      "status": "Draft"
+    },
+    {
+      "id": "PKG28-D03",
+      "program": "PKG28",
+      "day": 3,
+      "title": "Hà Nội đến Sa Pa",
+      "morning": "Xe ban ngày, nghỉ trên đường.",
+      "afternoon": "Nhận phòng, đi bộ nhẹ.",
+      "evening": "Nghỉ.",
+      "overnight": "Sa Pa",
+      "sources": "SOURCE24; SOURCE10; SOURCE20; SOURCE30; SOURCE32; SOURCE33; SOURCE35; SOURCE38; SOURCE39; SOURCE46",
+      "status": "Draft"
+    },
+    {
+      "id": "PKG28-D04",
+      "program": "PKG28",
+      "day": 4,
+      "title": "Sa Pa bản làng",
+      "morning": "Tuyến Mường Hoa/Lao Chải Tả Van phù hợp thể lực.",
+      "afternoon": "Bữa trưa trong tuyến; quay về nghỉ.",
+      "evening": "Bữa địa phương.",
+      "overnight": "Sa Pa",
+      "sources": "SOURCE24; SOURCE10; SOURCE20; SOURCE30; SOURCE32; SOURCE33; SOURCE35; SOURCE38; SOURCE39; SOURCE46",
+      "status": "Draft"
+    },
+    {
+      "id": "PKG28-D05",
+      "program": "PKG28",
+      "day": 5,
+      "title": "Sa Pa Fansipan hoặc nghỉ",
+      "morning": "Fansipan theo thời tiết và vận hành.",
+      "afternoon": "Nghỉ, trải nghiệm tắm lá nếu đã đặt.",
+      "evening": "Chuẩn bị về Hà Nội.",
+      "overnight": "Sa Pa",
+      "sources": "SOURCE24; SOURCE10; SOURCE20; SOURCE30; SOURCE32; SOURCE33; SOURCE35; SOURCE38; SOURCE39; SOURCE46",
+      "status": "Draft"
+    },
+    {
+      "id": "PKG28-D06",
+      "program": "PKG28",
+      "day": 6,
+      "title": "Sa Pa trở lại Hà Nội",
+      "morning": "Trả phòng và đi xe.",
+      "afternoon": "Di chuyển; tới Hà Nội nghỉ.",
+      "evening": "Ăn gần khách sạn.",
+      "overnight": "Hà Nội",
+      "sources": "SOURCE24; SOURCE10; SOURCE20; SOURCE30; SOURCE32; SOURCE33; SOURCE35; SOURCE38; SOURCE39; SOURCE46",
+      "status": "Draft"
+    },
+    {
+      "id": "PKG28-D07",
+      "program": "PKG28",
+      "day": 7,
+      "title": "Hà Nội đến Ninh Bình",
+      "morning": "Xe, Hoa Lư, bữa trưa.",
+      "afternoon": "Thuyền Tràng An, nhận phòng.",
+      "evening": "Nghỉ.",
+      "overnight": "Ninh Bình",
+      "sources": "SOURCE24; SOURCE10; SOURCE20; SOURCE30; SOURCE32; SOURCE33; SOURCE35; SOURCE38; SOURCE39; SOURCE46",
+      "status": "Draft"
+    },
+    {
+      "id": "PKG28-D08",
+      "program": "PKG28",
+      "day": 8,
+      "title": "Ninh Bình trọn ngày",
+      "morning": "Hang Múa hoặc Bích Động theo thể lực.",
+      "afternoon": "Nghỉ, đi bộ/đạp xe làng quê ngắn.",
+      "evening": "Món địa phương.",
+      "overnight": "Ninh Bình",
+      "sources": "SOURCE24; SOURCE10; SOURCE20; SOURCE30; SOURCE32; SOURCE33; SOURCE35; SOURCE38; SOURCE39; SOURCE46",
+      "status": "Draft"
+    },
+    {
+      "id": "PKG28-D09",
+      "program": "PKG28",
+      "day": 9,
+      "title": "Ninh Bình trở lại Hà Nội",
+      "morning": "Bữa sáng chậm và thời gian tự do.",
+      "afternoon": "Xe về Hà Nội, giặt đồ và nghỉ.",
+      "evening": "Tự do.",
+      "overnight": "Hà Nội",
+      "sources": "SOURCE24; SOURCE10; SOURCE20; SOURCE30; SOURCE32; SOURCE33; SOURCE35; SOURCE38; SOURCE39; SOURCE46",
+      "status": "Draft"
+    },
+    {
+      "id": "PKG28-D10",
+      "program": "PKG28",
+      "day": 10,
+      "title": "Hà Nội đến vịnh",
+      "morning": "Xe tới cảng, làm thủ tục.",
+      "afternoon": "Lên tàu, ăn trưa và hoạt động chiều.",
+      "evening": "Nghỉ cabin.",
+      "overnight": "Tàu",
+      "sources": "SOURCE24; SOURCE10; SOURCE20; SOURCE30; SOURCE32; SOURCE33; SOURCE35; SOURCE38; SOURCE39; SOURCE46",
+      "status": "Draft"
+    },
+    {
+      "id": "PKG28-D11",
+      "program": "PKG28",
+      "day": 11,
+      "title": "Vịnh trở lại Hà Nội",
+      "morning": "Hoạt động sáng và trả cabin.",
+      "afternoon": "Xe về Hà Nội, nghỉ.",
+      "evening": "Chuẩn bị chặng bay.",
+      "overnight": "Hà Nội",
+      "sources": "SOURCE24; SOURCE10; SOURCE20; SOURCE30; SOURCE32; SOURCE33; SOURCE35; SOURCE38; SOURCE39; SOURCE46",
+      "status": "Draft"
+    },
+    {
+      "id": "PKG28-D12",
+      "program": "PKG28",
+      "day": 12,
+      "title": "Hà Nội đến Phong Nha",
+      "morning": "Bay Đồng Hới nếu có chuyến phù hợp; xe tới Phong Nha.",
+      "afternoon": "Nhận phòng và nghỉ.",
+      "evening": "Bữa địa phương.",
+      "overnight": "Phong Nha",
+      "sources": "SOURCE24; SOURCE10; SOURCE20; SOURCE30; SOURCE32; SOURCE33; SOURCE35; SOURCE38; SOURCE39; SOURCE46",
+      "status": "Draft"
+    },
+    {
+      "id": "PKG28-D13",
+      "program": "PKG28",
+      "day": 13,
+      "title": "Phong Nha hang chính",
+      "morning": "Động Thiên Đường hoặc hang phù hợp đã xác nhận.",
+      "afternoon": "Nghỉ và cảnh làng quê.",
+      "evening": "Tự do.",
+      "overnight": "Phong Nha",
+      "sources": "SOURCE24; SOURCE10; SOURCE20; SOURCE30; SOURCE32; SOURCE33; SOURCE35; SOURCE38; SOURCE39; SOURCE46",
+      "status": "Draft"
+    },
+    {
+      "id": "PKG28-D14",
+      "program": "PKG28",
+      "day": 14,
+      "title": "Phong Nha theo điều kiện",
+      "morning": "Động Phong Nha khi mở cửa; hoặc hoạt động đã đặt phù hợp mùa.",
+      "afternoon": "Nghỉ, đạp xe nhẹ nếu thời tiết cho phép.",
+      "evening": "Chuẩn bị đi Huế.",
+      "overnight": "Phong Nha",
+      "sources": "SOURCE24; SOURCE10; SOURCE20; SOURCE30; SOURCE32; SOURCE33; SOURCE35; SOURCE38; SOURCE39; SOURCE46",
+      "status": "Draft"
+    },
+    {
+      "id": "PKG28-D15",
+      "program": "PKG28",
+      "day": 15,
+      "title": "Phong Nha đến Huế",
+      "morning": "Xe đường bộ hoặc xe ra ga theo lịch xác nhận.",
+      "afternoon": "Di chuyển và nhận phòng.",
+      "evening": "Bữa Huế.",
+      "overnight": "Huế",
+      "sources": "SOURCE24; SOURCE10; SOURCE20; SOURCE30; SOURCE32; SOURCE33; SOURCE35; SOURCE38; SOURCE39; SOURCE46",
+      "status": "Draft"
+    },
+    {
+      "id": "PKG28-D16",
+      "program": "PKG28",
+      "day": 16,
+      "title": "Huế",
+      "morning": "Đại Nội.",
+      "afternoon": "Nghỉ trưa, một lăng hoặc nhà vườn.",
+      "evening": "Ca Huế/ẩm thực theo lịch.",
+      "overnight": "Huế",
+      "sources": "SOURCE24; SOURCE10; SOURCE20; SOURCE30; SOURCE32; SOURCE33; SOURCE35; SOURCE38; SOURCE39; SOURCE46",
+      "status": "Draft"
+    },
+    {
+      "id": "PKG28-D17",
+      "program": "PKG28",
+      "day": 17,
+      "title": "Huế đến Hội An",
+      "morning": "Xe qua Hải Vân nếu phù hợp hoặc tàu và xe nối.",
+      "afternoon": "Nhận phòng, nghỉ.",
+      "evening": "Phố cổ ngắn.",
+      "overnight": "Hội An",
+      "sources": "SOURCE24; SOURCE10; SOURCE20; SOURCE30; SOURCE32; SOURCE33; SOURCE35; SOURCE38; SOURCE39; SOURCE46",
+      "status": "Draft"
+    },
+    {
+      "id": "PKG28-D18",
+      "program": "PKG28",
+      "day": 18,
+      "title": "Hội An văn hóa",
+      "morning": "Phố cổ và một trải nghiệm thủ công.",
+      "afternoon": "Nghỉ, mua đồ theo nhu cầu.",
+      "evening": "Cao lầu và dạo phố.",
+      "overnight": "Hội An",
+      "sources": "SOURCE24; SOURCE10; SOURCE20; SOURCE30; SOURCE32; SOURCE33; SOURCE35; SOURCE38; SOURCE39; SOURCE46",
+      "status": "Draft"
+    },
+    {
+      "id": "PKG28-D19",
+      "program": "PKG28",
+      "day": 19,
+      "title": "Hội An nấu ăn và làng quê",
+      "morning": "Trà Quế/lớp nấu ăn đã đặt.",
+      "afternoon": "Nghỉ hoặc xe đạp ngắn.",
+      "evening": "Tự do.",
+      "overnight": "Hội An",
+      "sources": "SOURCE24; SOURCE10; SOURCE20; SOURCE30; SOURCE32; SOURCE33; SOURCE35; SOURCE38; SOURCE39; SOURCE46",
+      "status": "Draft"
+    },
+    {
+      "id": "PKG28-D20",
+      "program": "PKG28",
+      "day": 20,
+      "title": "Hội An ngày nghỉ",
+      "morning": "Biển/hồ bơi; có thể thay bằng Mỹ Sơn nếu khách muốn.",
+      "afternoon": "Nghỉ, spa, chuẩn bị hành lý.",
+      "evening": "Bữa tối cuối miền Trung.",
+      "overnight": "Hội An",
+      "sources": "SOURCE24; SOURCE10; SOURCE20; SOURCE30; SOURCE32; SOURCE33; SOURCE35; SOURCE38; SOURCE39; SOURCE46",
+      "status": "Draft"
+    },
+    {
+      "id": "PKG28-D21",
+      "program": "PKG28",
+      "day": 21,
+      "title": "Hội An đến TP Hồ Chí Minh",
+      "morning": "Xe ra Đà Nẵng, bay TP Hồ Chí Minh.",
+      "afternoon": "Nhận phòng, nghỉ.",
+      "evening": "Đi bộ trung tâm ngắn nếu còn sức.",
+      "overnight": "TP Hồ Chí Minh",
+      "sources": "SOURCE24; SOURCE10; SOURCE20; SOURCE30; SOURCE32; SOURCE33; SOURCE35; SOURCE38; SOURCE39; SOURCE46",
+      "status": "Draft"
+    },
+    {
+      "id": "PKG28-D22",
+      "program": "PKG28",
+      "day": 22,
+      "title": "TP Hồ Chí Minh",
+      "morning": "Dinh Độc Lập; bảo tàng theo sở thích.",
+      "afternoon": "Chợ Lớn hoặc Bến Thành, cà phê.",
+      "evening": "Ẩm thực.",
+      "overnight": "TP Hồ Chí Minh",
+      "sources": "SOURCE24; SOURCE10; SOURCE20; SOURCE30; SOURCE32; SOURCE33; SOURCE35; SOURCE38; SOURCE39; SOURCE46",
+      "status": "Draft"
+    },
+    {
+      "id": "PKG28-D23",
+      "program": "PKG28",
+      "day": 23,
+      "title": "Bến Tre trong ngày",
+      "morning": "Xe tới Bến Tre, thuyền và nghề dừa.",
+      "afternoon": "Ăn trưa, làng quê; xe về TP Hồ Chí Minh.",
+      "evening": "Nghỉ, không nối show cố định.",
+      "overnight": "TP Hồ Chí Minh",
+      "sources": "SOURCE24; SOURCE10; SOURCE20; SOURCE30; SOURCE32; SOURCE33; SOURCE35; SOURCE38; SOURCE39; SOURCE46",
+      "status": "Draft"
+    },
+    {
+      "id": "PKG28-D24",
+      "program": "PKG28",
+      "day": 24,
+      "title": "TP Hồ Chí Minh đến Phú Quốc",
+      "morning": "Bay theo chuyến xác nhận.",
+      "afternoon": "Nhận phòng, bãi biển/hồ bơi.",
+      "evening": "Hoàng hôn và bữa tối.",
+      "overnight": "Phú Quốc",
+      "sources": "SOURCE24; SOURCE10; SOURCE20; SOURCE30; SOURCE32; SOURCE33; SOURCE35; SOURCE38; SOURCE39; SOURCE46",
+      "status": "Draft"
+    },
+    {
+      "id": "PKG28-D25",
+      "program": "PKG28",
+      "day": 25,
+      "title": "Phú Quốc nghỉ biển",
+      "morning": "Bãi biển và nghỉ.",
+      "afternoon": "Spa/hồ bơi hoặc hoạt động gia đình.",
+      "evening": "Tự do.",
+      "overnight": "Phú Quốc",
+      "sources": "SOURCE24; SOURCE10; SOURCE20; SOURCE30; SOURCE32; SOURCE33; SOURCE35; SOURCE38; SOURCE39; SOURCE46",
+      "status": "Draft"
+    },
+    {
+      "id": "PKG28-D26",
+      "program": "PKG28",
+      "day": 26,
+      "title": "Phú Quốc trải nghiệm tùy chọn",
+      "morning": "Một tour biển hoặc Hòn Thơm khi điều kiện phù hợp; hoặc ngày nghỉ.",
+      "afternoon": "Hoàn tất một chương trình, tránh chạy hai đầu đảo.",
+      "evening": "Bữa tối cuối trên đảo.",
+      "overnight": "Phú Quốc",
+      "sources": "SOURCE24; SOURCE10; SOURCE20; SOURCE30; SOURCE32; SOURCE33; SOURCE35; SOURCE38; SOURCE39; SOURCE46",
+      "status": "Draft"
+    },
+    {
+      "id": "PKG28-D27",
+      "program": "PKG28",
+      "day": 27,
+      "title": "Phú Quốc trở lại TP Hồ Chí Minh",
+      "morning": "Bữa sáng, trả phòng và ra sân bay.",
+      "afternoon": "Bay về TP Hồ Chí Minh; nhận phòng.",
+      "evening": "Nghỉ và kiểm tra chuyến quốc tế.",
+      "overnight": "TP Hồ Chí Minh",
+      "sources": "SOURCE24; SOURCE10; SOURCE20; SOURCE30; SOURCE32; SOURCE33; SOURCE35; SOURCE38; SOURCE39; SOURCE46",
+      "status": "Draft"
+    },
+    {
+      "id": "PKG28-D28",
+      "program": "PKG28",
+      "day": 28,
+      "title": "Rời Việt Nam",
+      "morning": "Trả phòng theo giờ vé.",
+      "afternoon": "Ra sân bay và khởi hành.",
+      "evening": "Kết thúc.",
+      "overnight": "Không bao gồm đêm cuối",
+      "sources": "SOURCE24; SOURCE10; SOURCE20; SOURCE30; SOURCE32; SOURCE33; SOURCE35; SOURCE38; SOURCE39; SOURCE46",
+      "status": "Draft"
+    }
+  ],
+  "rules": [
+    {
+      "id": "AI01",
+      "title": "Điểm xuất phát",
+      "content": "Dùng khách sạn mẫu tại Hà Nội làm điểm gốc. Hỏi/kiểm tra đúng điểm đón từng dịch vụ.",
+      "condition": "Tour ghép chưa chắc đón tận cửa khách sạn.",
+      "urls": [
+        "https://lpp75.luxeparadisehospitality.com/en/"
+      ],
+      "checkedAt": "01/10/2026",
+      "status": "Draft · nguồn lịch sử"
+    },
+    {
+      "id": "AI02",
+      "title": "Thông tin để chọn tour",
+      "content": "Trước tư vấn lịch cụ thể: số ngày thực có, ngày đến/đi và giờ bay, số người/tuổi trẻ, ngân sách, sở thích, thể lực và nhu cầu phòng.",
+      "condition": "Phân biệt khách trung cấp, gia đình có trẻ và cao cấp; không suy ra thể lực chỉ từ phân khúc.",
+      "urls": [
+        "https://vietnam.travel/things-to-do/family"
+      ],
+      "checkedAt": "01/10/2026",
+      "status": "Draft · nguồn lịch sử"
+    },
+    {
+      "id": "AI03",
+      "title": "Trạng thái nội dung",
+      "content": "Draft chỉ để nhân viên tham khảo và rà soát. Khi dự án dùng để trả lời khách, tuân thủ quy trình Approved hiện có; không tự chuyển trạng thái.",
+      "condition": "Nội dung nghiên cứu không đồng nghĩa dịch vụ đã được phê duyệt bán.",
+      "urls": [],
+      "checkedAt": "01/10/2026",
+      "status": "Draft · nguồn lịch sử"
+    },
+    {
+      "id": "AI04",
+      "title": "Giá và chỗ trống",
+      "content": "Giá và nhà cung cấp chưa xác nhận thì để trống. Chỉ báo giá, hứa chỗ và chốt đặt khi có dữ liệu nhà cung cấp đúng ngày.",
+      "condition": "Không lấy giá tham khảo trên web làm giá bán của khách sạn.",
+      "urls": [],
+      "checkedAt": "01/10/2026",
+      "status": "Draft · nguồn lịch sử"
+    },
+    {
+      "id": "AI05",
+      "title": "Bao gồm / không bao gồm",
+      "content": "Xác nhận xe, hướng dẫn, ăn, vé, đồ uống, phòng/cabin, thuế/phí, trẻ em và hủy/đổi từ nhà cung cấp trước báo giá.",
+      "condition": "Hoạt động đề xuất không tự trở thành quyền lợi đã bao gồm.",
+      "urls": [],
+      "checkedAt": "01/10/2026",
+      "status": "Draft · nguồn lịch sử"
+    },
+    {
+      "id": "AI06",
+      "title": "Cách tính ngày / đêm",
+      "content": "Lịch 1–10 ngày giả định khách đã ở khách sạn đầu ngày 1. Gói 14/21/28 ngày tính ngày đến đầu và ngày khởi hành cuối; n ngày có n−1 đêm.",
+      "condition": "Tour trong ngày 0 đêm. Đổi sang tàu đêm phải sửa nơi ngủ và tổng số đêm.",
+      "urls": [],
+      "checkedAt": "01/10/2026",
+      "status": "Draft · nguồn lịch sử"
+    },
+    {
+      "id": "AI07",
+      "title": "Đọc gói và mô-đun",
+      "content": "Đọc Tour Catalog, Tour Program Details, các mô-đun liên quan, Tour Itinerary Days và Tour AI Rules cùng nhau. Gói kế thừa điều kiện của mô-đun.",
+      "condition": "PKG21/PKG28 phải áp dụng điều kiện PN04; không bỏ qua lưu ý chuyến Đồng Hới.",
+      "urls": [],
+      "checkedAt": "01/10/2026",
+      "status": "Draft · nguồn lịch sử"
+    },
+    {
+      "id": "AI08",
+      "title": "Thời gian dự trù",
+      "content": "Khung giờ và thời gian đường bộ là dự trù có nghỉ; kiểm tra giao thông, điểm đón và xác nhận nhà vận hành theo ngày.",
+      "condition": "Không hứa giờ đến chính xác từ lịch mẫu.",
+      "urls": [
+        "https://vietnam.travel/plan-your-trip/transport-within-vietnam"
+      ],
+      "checkedAt": "01/10/2026",
+      "status": "Draft · nguồn lịch sử"
+    },
+    {
+      "id": "AI09",
+      "title": "Lăng tháng 10/2026",
+      "content": "Lăng Chủ tịch Hồ Chí Minh đóng tu bổ 04/09/2026–02/11/2026; thông báo mở lại 03/11/2026. Không xếp tham quan bên trong trong thời gian đóng.",
+      "condition": "Ưu tiên Hoàng thành; chỉ đi khu Ba Đình bên ngoài khi tiếp cận được.",
+      "urls": [
+        "https://btllang.bqp.vn/tin-tuc/tin-tu-bo-tu-lenh-lang/16007-thong-bao-ke-hoach-tu-bo-dinh-ky-lang-chu-tich-ho-chi-minh-nam-2026.html"
+      ],
+      "checkedAt": "01/10/2026",
+      "status": "Draft · nguồn lịch sử"
+    },
+    {
+      "id": "AI10",
+      "title": "Giờ mở cửa / suất diễn",
+      "content": "Kiểm tra ngày nghỉ bảo tàng/di tích, giờ mở cửa và suất rối nước trước xác nhận lịch.",
+      "condition": "Lịch điểm đến là mẫu; không hứa mọi điểm đều mở mỗi ngày.",
+      "urls": [
+        "https://www.vanmieu.gov.vn/en/introduction/visitor-information",
+        "https://hoangthanhthanglong.vn/",
+        "https://hoalo.vn/Home/QuyDinh",
+        "https://vme.org.vn/en"
+      ],
+      "checkedAt": "01/10/2026",
+      "status": "Draft · nguồn lịch sử"
+    },
+    {
+      "id": "AI11",
+      "title": "Các tuyến vịnh",
+      "content": "Phân biệt Hạ Long, Lan Hạ và Bái Tử Long. Chọn đúng tàu, cảng và lịch chính thức; không ghép điểm của nhiều tuyến vào một chương trình.",
+      "condition": "BAY03 có biến thể 2N1Đ và 3N2Đ; giá/cabin/lịch phải xác nhận riêng.",
+      "urls": [
+        "https://jadesails.com/itinerary.htm",
+        "https://www.paradisevietnam.com/en/lan-ha-bay-cruise-2-days-1-night",
+        "https://www.paradisevietnam.com/en/intineraries/3-day-2-night-cruise-on-paradise-legacy"
+      ],
+      "checkedAt": "01/10/2026",
+      "status": "Draft · nguồn lịch sử"
+    },
+    {
+      "id": "AI12",
+      "title": "Hà Giang 4 hoặc 6 ngày",
+      "content": "Vòng 4 ngày ở Hà Giang thường không tính hai ngày Hà Nội đi/về. HG04 là bản ô tô gọn; HG06 mới dành nhiều thời gian cho vòng núi.",
+      "condition": "Mặc định ô tô có tài xế; xe máy cần lựa chọn riêng và kiểm tra điều kiện.",
+      "urls": [
+        "https://vietnam.travel/node/647",
+        "https://yesd.org/tours-vietnam/ha-giang-tours/ha-giang-loop-car-tour/ha-giang-car-tour/"
+      ],
+      "checkedAt": "01/10/2026",
+      "status": "Draft · nguồn lịch sử"
+    },
+    {
+      "id": "AI13",
+      "title": "Chặng Hà Nội–Đồng Hới",
+      "content": "Kiểm tra chuyến bay đúng ngày. Nếu không có chuyến phù hợp, đổi tàu đêm và sửa đêm ngủ hoặc bỏ Phong Nha, bay Huế rồi phân bổ lại ngày.",
+      "condition": "Áp dụng PN04, PKG21, PKG28; không khẳng định tuyến có chuyến hàng ngày.",
+      "urls": [
+        "https://giotaugiave.dsvn.vn/",
+        "https://www.vietnamairlines.com/en-vn/flights-from-hanoi-to-hue",
+        "https://www.vietnamairlines.com/en-vn/flights-from-hanoi-to-dong-hoi"
+      ],
+      "checkedAt": "01/10/2026",
+      "status": "Draft · nguồn lịch sử"
+    },
+    {
+      "id": "AI14",
+      "title": "Hang Phong Nha / Thiên Đường",
+      "content": "Kiểm tra hoạt động cả hai hang theo mực nước, mưa và thông báo vận hành. Nếu đóng, thay hoạt động làng quê/nghỉ khi phù hợp.",
+      "condition": "Không mặc định Thiên Đường mở khi Phong Nha đóng hoặc ngược lại.",
+      "urls": [
+        "https://vietnam.travel/things-to-do/complete-guide-phong-nha"
+      ],
+      "checkedAt": "01/10/2026",
+      "status": "Draft · nguồn lịch sử"
+    },
+    {
+      "id": "AI15",
+      "title": "Tú Làn Family",
+      "content": "Oxalis công bố tuổi 6–70; mùa từ giữa tháng 11 đến giữa tháng 9. Không đưa vào lịch tháng 10 khi chưa có xác nhận mới.",
+      "condition": "Tour hang chuyên biệt cần kiểm tra tuổi, thể lực, mùa, trang thiết bị và chỗ.",
+      "urls": [
+        "https://oxalisadventure.com/tour/tu-lan-family-experience-1-day/"
+      ],
+      "checkedAt": "01/10/2026",
+      "status": "Draft · nguồn lịch sử"
+    },
+    {
+      "id": "AI16",
+      "title": "Thời tiết theo vùng",
+      "content": "Kiểm tra thời tiết và điều kiện hoạt động gần ngày đi; linh hoạt miền Trung mùa mưa, vịnh/biển khi bão và đường núi.",
+      "condition": "Dùng mùa để định hướng; không đảm bảo nắng hay mọi hoạt động mở.",
+      "urls": [
+        "https://vietnam.travel/things-to-do/weather-and-climate-vietnam"
+      ],
+      "checkedAt": "01/10/2026",
+      "status": "Draft · nguồn lịch sử"
+    },
+    {
+      "id": "AI17",
+      "title": "Gia đình / thể lực",
+      "content": "Hỏi tuổi trẻ và khả năng đi bộ/leo bậc. Giảm điểm, tăng nghỉ; kiểm tra ghế trẻ, cabin, giường, lan can và áo phao đúng cỡ.",
+      "condition": "Hang Múa, trek bản, hang chuyên biệt và đường núi cần đánh giá riêng.",
+      "urls": [
+        "https://vietnam.travel/things-to-do/family",
+        "https://oxalisadventure.com/tour/tu-lan-family-experience-1-day/"
+      ],
+      "checkedAt": "01/10/2026",
+      "status": "Draft · nguồn lịch sử"
+    },
+    {
+      "id": "AI18",
+      "title": "Khách cao cấp",
+      "content": "Đề xuất xe/hướng dẫn riêng và giờ linh hoạt; xác nhận phòng/cabin và dịch vụ cụ thể.",
+      "condition": "Không chỉ dựa vào nhãn sao quảng cáo để cam kết chất lượng.",
+      "urls": [
+        "https://www.paradisevietnam.com/en/lan-ha-bay-cruise-2-days-1-night"
+      ],
+      "checkedAt": "01/10/2026",
+      "status": "Draft · nguồn lịch sử"
+    },
+    {
+      "id": "AI19",
+      "title": "Kết thúc hành trình / sân bay",
+      "content": "Xác nhận khách rời Đà Nẵng hay TP Hồ Chí Minh. Đặt thời gian ra sân bay theo vé và yêu cầu hãng; chừa đệm sau chặng núi/đảo.",
+      "condition": "PKG28 về TP Hồ Chí Minh ngày 27, ngủ đêm rồi khởi hành ngày 28.",
+      "urls": [
+        "https://vietnam.travel/plan-your-trip/transport-within-vietnam",
+        "https://www.vietnamairlines.com/en-vn/flights-from-ho-chi-minh-city-to-phu-quoc"
+      ],
+      "checkedAt": "01/10/2026",
+      "status": "Draft · nguồn lịch sử"
+    },
+    {
+      "id": "AI20",
+      "title": "Phú Quốc / tàu biển",
+      "content": "Kiểm tra chuyến bay/tàu, mùa biển và hoạt động trước bán. Hai ngày đến/rời đảo vẫn tính là ngày hành trình.",
+      "condition": "Lịch 24 ngày: Phú Quốc ngày 20–23, về TP Hồ Chí Minh ngủ đêm 23, khởi hành ngày 24.",
+      "urls": [
+        "https://vietnam.travel/places-to-go/southern-vietnam/phu-quoc",
+        "https://www.vietnamairlines.com/en-vn/flights-from-ho-chi-minh-city-to-phu-quoc",
+        "https://online.superdong.com.vn/Home/ScheduleBoat"
+      ],
+      "checkedAt": "01/10/2026",
+      "status": "Draft · nguồn lịch sử"
+    },
+    {
+      "id": "AI21",
+      "title": "Nguồn và hiệu lực",
+      "content": "Giữ URL và ngày nghiên cứu 2026-10-01. Kiểm tra lại thông tin biến động trước xác nhận với khách; nguồn tham khảo không chứng minh đã có hợp đồng.",
+      "condition": "Cập nhật bảng và ghi Tour Change Log khi có dữ liệu mới.",
+      "urls": [],
+      "checkedAt": "01/10/2026",
+      "status": "Draft · nguồn lịch sử"
+    },
+    {
+      "id": "AI22",
+      "title": "Quan hệ với dữ liệu khách",
+      "content": "Thư viện tour là dữ liệu tham khảo; Tour information tiếp tục lưu nhu cầu của từng khách. Đồng bộ này không tạo booking hay gửi tin khách.",
+      "condition": "AI gợi ý; nhân viên kiểm duyệt theo quy trình WhatsApp hiện có.",
+      "urls": [],
+      "checkedAt": "01/10/2026",
+      "status": "Draft · nguồn lịch sử"
+    }
+  ],
+  "sourceRegister": [
+    {
+      "id": "SOURCE01",
+      "title": "Luxe Paradise Premium Hotel website chính thức",
+      "url": "https://lpp75.luxeparadisehospitality.com/en/",
+      "checkedAt": "01/10/2026",
+      "status": "Nguồn đã ghi trong bảng; chưa kiểm chứng lại"
+    },
+    {
+      "id": "SOURCE02",
+      "title": "Vietnam Tourism The perfect weekend in Ha Noi",
+      "url": "https://vietnam.travel/things-to-do/perfect-weekend-ha-noi",
+      "checkedAt": "01/10/2026",
+      "status": "Nguồn đã ghi trong bảng; chưa kiểm chứng lại"
+    },
+    {
+      "id": "SOURCE03",
+      "title": "Bộ Tư lệnh Lăng Thông báo tu bổ định kỳ năm 2026",
+      "url": "https://btllang.bqp.vn/tin-tuc/tin-tu-bo-tu-lenh-lang/16007-thong-bao-ke-hoach-tu-bo-dinh-ky-lang-chu-tich-ho-chi-minh-nam-2026.html",
+      "checkedAt": "01/10/2026",
+      "status": "Nguồn đã ghi trong bảng; chưa kiểm chứng lại"
+    },
+    {
+      "id": "SOURCE04",
+      "title": "Văn Miếu Visitor information",
+      "url": "https://www.vanmieu.gov.vn/en/introduction/visitor-information",
+      "checkedAt": "01/10/2026",
+      "status": "Nguồn đã ghi trong bảng; chưa kiểm chứng lại"
+    },
+    {
+      "id": "SOURCE05",
+      "title": "Trung tâm bảo tồn di sản Thăng Long Hà Nội",
+      "url": "https://hoangthanhthanglong.vn/",
+      "checkedAt": "01/10/2026",
+      "status": "Nguồn đã ghi trong bảng; chưa kiểm chứng lại"
+    },
+    {
+      "id": "SOURCE06",
+      "title": "Di tích Nhà tù Hỏa Lò Nội quy tham quan",
+      "url": "https://hoalo.vn/Home/QuyDinh",
+      "checkedAt": "01/10/2026",
+      "status": "Nguồn đã ghi trong bảng; chưa kiểm chứng lại"
+    },
+    {
+      "id": "SOURCE07",
+      "title": "Bảo tàng Dân tộc học Việt Nam",
+      "url": "https://vme.org.vn/en",
+      "checkedAt": "01/10/2026",
+      "status": "Nguồn đã ghi trong bảng; chưa kiểm chứng lại"
+    },
+    {
+      "id": "SOURCE08",
+      "title": "Vietnam Tourism Full day trip to Bat Trang Pottery Village",
+      "url": "https://www.vietnam.travel/vi/things-to-do/full-day-trip-bat-trang-pottery-village",
+      "checkedAt": "01/10/2026",
+      "status": "Nguồn đã ghi trong bảng; chưa kiểm chứng lại"
+    },
+    {
+      "id": "SOURCE09",
+      "title": "Sở Văn hóa và Thể thao Hà Nội Làng cổ Đường Lâm",
+      "url": "https://sovhtt.hanoi.gov.vn/dua-lang-co-o-duong-lam-tro-thanh-di-tich-quoc-gia-dac-biet/",
+      "checkedAt": "01/10/2026",
+      "status": "Nguồn đã ghi trong bảng; chưa kiểm chứng lại"
+    },
+    {
+      "id": "SOURCE10",
+      "title": "Vietnam Tourism The perfect day in Ninh Binh",
+      "url": "https://vietnam.travel/things-to-do/perfect-day-ninh-binh",
+      "checkedAt": "01/10/2026",
+      "status": "Nguồn đã ghi trong bảng; chưa kiểm chứng lại"
+    },
+    {
+      "id": "SOURCE11",
+      "title": "Vietnam Tourism Five day trip destinations from Hanoi",
+      "url": "https://www.vietnam.travel/vi/things-to-do/5-day-trip-destinations-hanoi",
+      "checkedAt": "01/10/2026",
+      "status": "Nguồn đã ghi trong bảng; chưa kiểm chứng lại"
+    },
+    {
+      "id": "SOURCE12",
+      "title": "Jade Sails Lịch trình tàu trong ngày",
+      "url": "https://jadesails.com/itinerary.htm",
+      "checkedAt": "01/10/2026",
+      "status": "Nguồn đã ghi trong bảng; chưa kiểm chứng lại"
+    },
+    {
+      "id": "SOURCE13",
+      "title": "Vespa Adventures Hanoi Foodie Experience",
+      "url": "https://vespaadventures.com/tour/hanoi-foodie-experience",
+      "checkedAt": "01/10/2026",
+      "status": "Nguồn đã ghi trong bảng; chưa kiểm chứng lại"
+    },
+    {
+      "id": "SOURCE14",
+      "title": "Vietnam Tourism Weather and climate in Vietnam",
+      "url": "https://vietnam.travel/things-to-do/weather-and-climate-vietnam",
+      "checkedAt": "01/10/2026",
+      "status": "Nguồn đã ghi trong bảng; chưa kiểm chứng lại"
+    },
+    {
+      "id": "SOURCE15",
+      "title": "Vietnam Tourism Transport within Vietnam",
+      "url": "https://vietnam.travel/plan-your-trip/transport-within-vietnam",
+      "checkedAt": "01/10/2026",
+      "status": "Nguồn đã ghi trong bảng; chưa kiểm chứng lại"
+    },
+    {
+      "id": "SOURCE16",
+      "title": "Vietnam Tourism Family travel",
+      "url": "https://vietnam.travel/things-to-do/family",
+      "checkedAt": "01/10/2026",
+      "status": "Nguồn đã ghi trong bảng; chưa kiểm chứng lại"
+    },
+    {
+      "id": "SOURCE17",
+      "title": "Vietnam Airlines Tuyến Hà Nội Đà Nẵng",
+      "url": "https://www.vietnamairlines.com/en-vn/flights-from-hanoi-to-da-nang",
+      "checkedAt": "01/10/2026",
+      "status": "Nguồn đã ghi trong bảng; chưa kiểm chứng lại"
+    },
+    {
+      "id": "SOURCE18",
+      "title": "Vietnam Airlines Tuyến Hà Nội TP Hồ Chí Minh",
+      "url": "https://www.vietnamairlines.com/en-vn/flights-from-hanoi-to-ho-chi-minh-city",
+      "checkedAt": "01/10/2026",
+      "status": "Nguồn đã ghi trong bảng; chưa kiểm chứng lại"
+    },
+    {
+      "id": "SOURCE19",
+      "title": "Vietnam Tourism Ninh Binh điểm đến",
+      "url": "https://vietnam.travel/places-to-go/northern-vietnam/ninh-binh",
+      "checkedAt": "01/10/2026",
+      "status": "Nguồn đã ghi trong bảng; chưa kiểm chứng lại"
+    },
+    {
+      "id": "SOURCE20",
+      "title": "Paradise Grand Lan Ha Bay 2 days 1 night",
+      "url": "https://www.paradisevietnam.com/en/lan-ha-bay-cruise-2-days-1-night",
+      "checkedAt": "01/10/2026",
+      "status": "Nguồn đã ghi trong bảng; chưa kiểm chứng lại"
+    },
+    {
+      "id": "SOURCE21",
+      "title": "Paradise Legacy Ha Long 3 days 2 nights",
+      "url": "https://www.paradisevietnam.com/en/intineraries/3-day-2-night-cruise-on-paradise-legacy",
+      "checkedAt": "01/10/2026",
+      "status": "Nguồn đã ghi trong bảng; chưa kiểm chứng lại"
+    },
+    {
+      "id": "SOURCE22",
+      "title": "Vietnam Tourism Mai Chau",
+      "url": "https://vietnam.travel/node/197",
+      "checkedAt": "01/10/2026",
+      "status": "Nguồn đã ghi trong bảng; chưa kiểm chứng lại"
+    },
+    {
+      "id": "SOURCE23",
+      "title": "Vietnam Tourism Pu Luong for nature lovers",
+      "url": "https://vietnam.travel/things-to-do/pu-luong-nature-lovers",
+      "checkedAt": "01/10/2026",
+      "status": "Nguồn đã ghi trong bảng; chưa kiểm chứng lại"
+    },
+    {
+      "id": "SOURCE24",
+      "title": "Vietnam Tourism Sa Pa",
+      "url": "https://vietnam.travel/places-to-go/northern-vietnam/sapa",
+      "checkedAt": "01/10/2026",
+      "status": "Nguồn đã ghi trong bảng; chưa kiểm chứng lại"
+    },
+    {
+      "id": "SOURCE25",
+      "title": "Vietnam Tourism Ha Giang",
+      "url": "https://www.vietnam.travel/places-to-go/northern-vietnam/ha-giang",
+      "checkedAt": "01/10/2026",
+      "status": "Nguồn đã ghi trong bảng; chưa kiểm chứng lại"
+    },
+    {
+      "id": "SOURCE26",
+      "title": "Vietnam Tourism The Ha Giang loop a four day road trip",
+      "url": "https://vietnam.travel/node/647",
+      "checkedAt": "01/10/2026",
+      "status": "Nguồn đã ghi trong bảng; chưa kiểm chứng lại"
+    },
+    {
+      "id": "SOURCE27",
+      "title": "YESD Hà Giang bằng ô tô từ Hà Nội 4 ngày 3 đêm",
+      "url": "https://yesd.org/tours-vietnam/ha-giang-tours/ha-giang-loop-car-tour/ha-giang-car-tour/",
+      "checkedAt": "01/10/2026",
+      "status": "Nguồn đã ghi trong bảng; chưa kiểm chứng lại"
+    },
+    {
+      "id": "SOURCE28",
+      "title": "Vietnam Tourism Discovering Cao Bang",
+      "url": "https://www.vietnam.travel/things-to-do/discovering-cao-bang-7-must-do-experiences",
+      "checkedAt": "01/10/2026",
+      "status": "Nguồn đã ghi trong bảng; chưa kiểm chứng lại"
+    },
+    {
+      "id": "SOURCE29",
+      "title": "Vietnam Tourism Ban Gioc waterfall",
+      "url": "https://vietnam.travel/node/1866",
+      "checkedAt": "01/10/2026",
+      "status": "Nguồn đã ghi trong bảng; chưa kiểm chứng lại"
+    },
+    {
+      "id": "SOURCE30",
+      "title": "Vietnam Tourism A complete guide to Phong Nha",
+      "url": "https://vietnam.travel/things-to-do/complete-guide-phong-nha",
+      "checkedAt": "01/10/2026",
+      "status": "Nguồn đã ghi trong bảng; chưa kiểm chứng lại"
+    },
+    {
+      "id": "SOURCE31",
+      "title": "Oxalis Tu Lan Family Experience 1 day",
+      "url": "https://oxalisadventure.com/tour/tu-lan-family-experience-1-day/",
+      "checkedAt": "01/10/2026",
+      "status": "Nguồn đã ghi trong bảng; chưa kiểm chứng lại"
+    },
+    {
+      "id": "SOURCE32",
+      "title": "Vietnam Tourism Hue itinerary",
+      "url": "https://vietnam.travel/things-to-do/hue-itinerary",
+      "checkedAt": "01/10/2026",
+      "status": "Nguồn đã ghi trong bảng; chưa kiểm chứng lại"
+    },
+    {
+      "id": "SOURCE33",
+      "title": "Vietnam Tourism Hoi An",
+      "url": "https://vietnam.travel/node/99",
+      "checkedAt": "01/10/2026",
+      "status": "Nguồn đã ghi trong bảng; chưa kiểm chứng lại"
+    },
+    {
+      "id": "SOURCE34",
+      "title": "Vietnam Tourism Da Nang",
+      "url": "https://vietnam.travel/places-to-go/central-vietnam/da-nang",
+      "checkedAt": "01/10/2026",
+      "status": "Nguồn đã ghi trong bảng; chưa kiểm chứng lại"
+    },
+    {
+      "id": "SOURCE35",
+      "title": "Vietnam Tourism Ho Chi Minh City",
+      "url": "https://vietnam.travel/places-to-go/southern-vietnam/ho-chi-minh-city",
+      "checkedAt": "01/10/2026",
+      "status": "Nguồn đã ghi trong bảng; chưa kiểm chứng lại"
+    },
+    {
+      "id": "SOURCE36",
+      "title": "Bảo tàng Chứng tích Chiến tranh",
+      "url": "https://www.baotangchungtichchientranh.vn/",
+      "checkedAt": "01/10/2026",
+      "status": "Nguồn đã ghi trong bảng; chưa kiểm chứng lại"
+    },
+    {
+      "id": "SOURCE37",
+      "title": "Vietnam Tourism Can Tho",
+      "url": "https://vietnam.travel/places-to-go/southern-vietnam/can-tho",
+      "checkedAt": "01/10/2026",
+      "status": "Nguồn đã ghi trong bảng; chưa kiểm chứng lại"
+    },
+    {
+      "id": "SOURCE38",
+      "title": "Vietnam Tourism Towns of the Mekong Delta",
+      "url": "https://vietnam.travel/things-to-do/towns-mekong-delta",
+      "checkedAt": "01/10/2026",
+      "status": "Nguồn đã ghi trong bảng; chưa kiểm chứng lại"
+    },
+    {
+      "id": "SOURCE39",
+      "title": "Vietnam Tourism Phu Quoc",
+      "url": "https://vietnam.travel/places-to-go/southern-vietnam/phu-quoc",
+      "checkedAt": "01/10/2026",
+      "status": "Nguồn đã ghi trong bảng; chưa kiểm chứng lại"
+    },
+    {
+      "id": "SOURCE40",
+      "title": "Sun World Hòn Thơm",
+      "url": "https://sunworld.vn/vi/hon-thom/gioi-thieu",
+      "checkedAt": "01/10/2026",
+      "status": "Nguồn đã ghi trong bảng; chưa kiểm chứng lại"
+    },
+    {
+      "id": "SOURCE41",
+      "title": "Đường sắt Việt Nam Giờ tàu giá vé",
+      "url": "https://giotaugiave.dsvn.vn/",
+      "checkedAt": "01/10/2026",
+      "status": "Nguồn đã ghi trong bảng; chưa kiểm chứng lại"
+    },
+    {
+      "id": "SOURCE42",
+      "title": "Đường sắt Việt Nam Hành trình di sản thế giới Huế Thọ Lộc",
+      "url": "https://hanhtrinhdisanthegioi.dsvn.vn/",
+      "checkedAt": "01/10/2026",
+      "status": "Nguồn đã ghi trong bảng; chưa kiểm chứng lại"
+    },
+    {
+      "id": "SOURCE43",
+      "title": "Vietnam Airlines Tuyến Hà Nội Huế",
+      "url": "https://www.vietnamairlines.com/en-vn/flights-from-hanoi-to-hue",
+      "checkedAt": "01/10/2026",
+      "status": "Nguồn đã ghi trong bảng; chưa kiểm chứng lại"
+    },
+    {
+      "id": "SOURCE44",
+      "title": "Vietnam Airlines Tuyến Hà Nội Đồng Hới",
+      "url": "https://www.vietnamairlines.com/en-vn/flights-from-hanoi-to-dong-hoi",
+      "checkedAt": "01/10/2026",
+      "status": "Nguồn đã ghi trong bảng; chưa kiểm chứng lại"
+    },
+    {
+      "id": "SOURCE45",
+      "title": "Vietnam Airlines Các chuyến bay đến TP Hồ Chí Minh",
+      "url": "https://www.vietnamairlines.com/en-vn/flights-to-ho-chi-minh-city",
+      "checkedAt": "01/10/2026",
+      "status": "Nguồn đã ghi trong bảng; chưa kiểm chứng lại"
+    },
+    {
+      "id": "SOURCE46",
+      "title": "Vietnam Airlines Tuyến TP Hồ Chí Minh Phú Quốc",
+      "url": "https://www.vietnamairlines.com/en-vn/flights-from-ho-chi-minh-city-to-phu-quoc",
+      "checkedAt": "01/10/2026",
+      "status": "Nguồn đã ghi trong bảng; chưa kiểm chứng lại"
+    },
+    {
+      "id": "SOURCE47",
+      "title": "Superdong Lịch tàu",
+      "url": "https://online.superdong.com.vn/Home/ScheduleBoat",
+      "checkedAt": "01/10/2026",
+      "status": "Nguồn đã ghi trong bảng; chưa kiểm chứng lại"
+    },
+    {
+      "id": "SOURCE48",
+      "title": "Mekong Eyes Saigon to Phu Quoc 3 day tour",
+      "url": "https://www.mekongeyes.com/tours/saigon-to-phu-quoc/saigon-to-phu-quoc-3-day-tour/",
+      "checkedAt": "01/10/2026",
+      "status": "Nguồn đã ghi trong bảng; chưa kiểm chứng lại"
+    }
+  ],
+  "templates": [
+    {
+      "id": "MSG-01",
+      "title": "Trước ngày đến",
+      "stage": "Trước lưu trú",
+      "body": "Hello [Guest name], welcome to [Hotel]. Could you confirm your booking dates and expected arrival time? Check-in and check-out follow your confirmed reservation. Please let us know if you need arrival assistance.",
+      "note": "Biên tập từ mẫu chào khách; thay giờ/policy bằng dữ liệu được duyệt.",
+      "status": "Mẫu biên tập cho demo · duyệt trước khi gửi"
+    },
+    {
+      "id": "MSG-02",
+      "title": "Thu thập yêu cầu xe",
+      "stage": "Xe sân bay",
+      "body": "To prepare your airport transfer request, please share your flight number, arrival date and time, number of passengers, luggage and preferred vehicle. We will confirm the quotation and availability before booking.",
+      "note": "Chưa có xác nhận nhà xe; không gửi lời hứa đã chốt.",
+      "status": "Mẫu biên tập cho demo · duyệt trước khi gửi"
+    },
+    {
+      "id": "MSG-03",
+      "title": "Chờ nhà cung cấp xác nhận",
+      "stage": "Xe sân bay",
+      "body": "Thank you. We have recorded your request for [Service] on [Date/time]. Your request is awaiting supplier confirmation. We will send the confirmed price, pickup details and next steps once available.",
+      "note": "Tách khách đồng ý khỏi nhà cung cấp nhận dịch vụ.",
+      "status": "Mẫu biên tập cho demo · duyệt trước khi gửi"
+    },
+    {
+      "id": "MSG-04",
+      "title": "Khám phá nhu cầu tour",
+      "stage": "Tư vấn tour",
+      "body": "We would be happy to help plan your trip. Which dates are available, how many adults and children are travelling, and what interests you most? Please share your preferred budget and pace so we can prepare suitable options.",
+      "note": "Hỏi thời gian, tuổi trẻ, ngân sách và nhịp đi; chưa báo giá.",
+      "status": "Mẫu biên tập cho demo · duyệt trước khi gửi"
+    },
+    {
+      "id": "MSG-05",
+      "title": "Chăm sóc trong lưu trú",
+      "stage": "Trong lưu trú",
+      "body": "Hello [Guest name], how is your stay so far? Please let us know if anything needs attention or if you would like assistance with local activities. Our team will follow up on your request.",
+      "note": "Biên tập từ mẫu chăm sóc; chuyển việc có người phụ trách.",
+      "status": "Mẫu biên tập cho demo · duyệt trước khi gửi"
+    },
+    {
+      "id": "MSG-06",
+      "title": "Sau khi trả phòng",
+      "stage": "Sau lưu trú",
+      "body": "Thank you for staying with [Hotel]. We hope you had a comfortable visit and a safe onward journey. Your honest feedback is welcome and helps us improve. We look forward to welcoming you again.",
+      "note": "Mẫu xin phản hồi trung thực; không yêu cầu điểm đánh giá cụ thể.",
+      "status": "Mẫu biên tập cho demo · duyệt trước khi gửi"
+    }
+  ],
+  "sops": [
+    {
+      "id": "SOP-01",
+      "title": "Chốt xe sân bay",
+      "content": "Kiểm tra ngày, giờ, mã chuyến bay, số người, loại xe và giá; đối chiếu yêu cầu; liên hệ nhà xe; chỉ đánh dấu nhà xe đã nhận sau xác nhận của nhà xe.",
+      "status": "Tham khảo từ SOP mẫu trong FO; chưa phải quy trình đã ban hành."
+    },
+    {
+      "id": "SOP-02",
+      "title": "Bàn giao ca",
+      "content": "Việc chưa xong cần người nhận, hạn xử lý và lý do đang chờ. Bàn giao không đồng nghĩa hoàn thành.",
+      "status": "Tham khảo từ SOP mẫu trong FO; chưa phải quy trình đã ban hành."
+    },
+    {
+      "id": "SOP-03",
+      "title": "Yêu cầu nâng hạng phòng",
+      "content": "Bản nguồn mới có mô tả dùng để thử phát hành và đọc phiên bản; chưa đủ nội dung nghiệp vụ để áp dụng.",
+      "status": "Bản nháp 0.2 trong nguồn thử."
+    }
+  ],
+  "brochures": [
+    {
+      "id": "PDF-01",
+      "title": "Làng nghề sơn mài · nón · hương",
+      "sourceTitle": "Sơn mài - Nón - Hương FULL n Half.pdf",
+      "url": "https://drive.google.com/file/d/1PdABLpki2G_KfCvAxduLy8_4NcV9qF2B/view",
+      "summary": "Bản trọn ngày: Hạ Thái, làng Chuông, Quảng Phú Cầu; trải nghiệm nghệ nhân và bữa trưa tại làng. Bản nửa ngày: làng Chuông và làng hương, không gồm bữa trưa.",
+      "conditions": "Bản lịch sử ghi đoàn tối đa 15 người, xe, hướng dẫn tiếng Anh và vé theo chương trình. Cần làm rõ giờ kết thúc của bản nửa ngày và cách tính trẻ đúng 10 tuổi. Giá lịch sử chưa dùng báo khách.",
+      "checkedAt": "Đọc văn bản ngày 14/10/2026; tệp nguồn sửa tháng 02/2025"
+    },
+    {
+      "id": "PDF-02",
+      "title": "Hà Nội · Mai Châu trong ngày",
+      "sourceTitle": "MC02 - HANOI – MAI CHAU – FULL DAY TRIP.pdf",
+      "url": "https://drive.google.com/file/d/1wtqc00M9tTdLSFjgyl8ITGB6TygClt2m/view",
+      "summary": "Lộ trình qua đèo Thung Khe, thăm bản và ăn trưa; đạp xe, khu vực Chiềng Châu, Pom Coọng và Nà Phòn; về Hà Nội. Có hoạt động thuyền trong mô tả, cần xác nhận lại điều kiện và phần bao gồm.",
+      "conditions": "Nguồn ghi xe, hướng dẫn tiếng Anh, bữa ăn, vé và xe đạp; đồ uống và chi phí cá nhân tính riêng. Dưới 2 tuổi miễn phí, 2–5 tuổi 75%, từ 6 tuổi giá người lớn theo tài liệu lịch sử. Cần báo giá mới và xác nhận lịch cụ thể.",
+      "checkedAt": "Đọc văn bản ngày 14/10/2026; tệp nguồn sửa tháng 08/2025"
+    }
+  ],
+  "templateSource": {
+    "title": "WhatsApp Guest Communication Templates (Manual Version)",
+    "url": "https://docs.google.com/document/d/1-tgsrPNaxdbWfAaU6GMc6fxGtPuSqQSrOXeJWhndcGo/edit",
+    "note": "6 mẫu được biên tập lại để luyện tư vấn; không sao chép chương trình khuyến mãi hoặc lời xác nhận giá từ bản cũ."
+  }
+}

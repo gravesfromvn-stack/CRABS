@@ -1,0 +1,62 @@
+{
+  "version": "7",
+  "dialect": "sqlite",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "6",
+      "when": 1791946319789,
+      "tag": "0000_rainy_hitman",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "6",
+      "when": 1791970301489,
+      "tag": "0001_dizzy_spectrum",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "6",
+      "when": 1792026034834,
+      "tag": "0002_amused_bedlam",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "6",
+      "when": 1792028892333,
+      "tag": "0003_hot_roland_deschain",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "6",
+      "when": 1792172668822,
+      "tag": "0004_gigantic_fixer",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "6",
+      "when": 1792174014827,
+      "tag": "0005_ota_intake_window",
+      "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "6",
+      "when": 1792176300000,
+      "tag": "0006_ota_reviews",
+      "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "6",
+      "when": 1792233000000,
+      "tag": "0007_ota_guest_profiles",
+      "breakpoints": true
+    }
+  ]
+}

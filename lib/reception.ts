@@ -1,0 +1,10 @@
+import { z } from 'zod';
+import { assignees } from './demo-data';
+const date=z.string().refine(v=>v===''||(/^\d{4}-\d{2}-\d{2}$/.test(v)&&!isNaN(Date.parse(v))&&new Date(v).toISOString().slice(0,10)===v));
+const time=z.string().refine(v=>v===''||(/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}$/.test(v)&&!isNaN(Date.parse(v+'+07:00'))&&new Date(Date.parse(v+'+07:00')+7*3600000).toISOString().slice(0,16)===v));
+export const requestStatuses={new:'Mới',working:'Đang xử lý',handoff:'Bàn giao sales',confirmed:'Đã xác nhận',done:'Hoàn tất',cancelled:'Hủy'} as const;
+export const receptionInput=z.object({arrival:date,departure:date,language:z.string().trim().max(80),flight:z.string().trim().max(100),flightTime:time,pickup:z.string().trim().max(200),dropoff:z.string().trim().max(200),preferences:z.string().trim().max(500),careStage:z.enum(['prearrival','staying','departed']),requests:z.array(z.object({id:z.string().uuid(),title:z.string().trim().min(2).max(300),owner:z.string().refine(v=>assignees.includes(v)),status:z.enum(['new','working','handoff','confirmed','done','cancelled']),due:time,note:z.string().trim().max(1000)})).max(20)}).refine(v=>new Set(v.requests.map(r=>r.id)).size===v.requests.length,{message:'Yêu cầu trùng mã'}).refine(v=>!v.arrival||!v.departure||v.departure>=v.arrival,{message:'Ngày đi phải sau ngày đến'});
+export type Reception=z.infer<typeof receptionInput>;
+export const emptyReception=():Reception=>({arrival:'',departure:'',language:'',flight:'',flightTime:'',pickup:'',dropoff:'',preferences:'',careStage:'prearrival',requests:[]});
+export function readReception(raw:unknown):Reception{try{const v=typeof raw==='string'?JSON.parse(raw):raw;const parsed=receptionInput.safeParse(v);return parsed.success?parsed.data:emptyReception();}catch{return emptyReception();}}
+export const provenance={context:'Luxe Paradise / 75PHT · demo tư vấn dịch vụ',dataSource:'Luxe Paradise / 75PHT · dữ liệu giả lập hoặc tổng hợp ẩn danh',notHotelKpi:true,notOfficialHotelSoftware:true} as const;

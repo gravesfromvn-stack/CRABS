@@ -1,0 +1,1089 @@
+{
+  "sourceDate": "2026-10-04",
+  "reviewDate": "2026-10-15",
+  "customerCount": 83,
+  "internalCount": 1,
+  "overlap": "65 mẫu Hospitality v2 đã được kế thừa; không cộng thành 148 mẫu.",
+  "templates": [
+    {
+      "id": "M01",
+      "title": "M01 Chào khách trước khi đến bản tài liệu",
+      "lines": [
+        "Mẫu gốc trong tài liệu  |  Nguồn S1 mục Step 1",
+        "Lưu ý khi dùng: Câu early check-in chưa nêu phí và điều kiện bảo đảm phòng. Đối chiếu N16.1, N16.2 và A04 trước khi chốt bản mới.",
+        "Dear Mr./Mrs. [Guest Name],\nWarm greetings from Luxe Paradise Premium Hotel!\n\nWe are delighted to welcome you to Hanoi and truly look forward to hosting your stay with us.\n\nWe are pleased to reconfirm your upcoming reservation:\n\nCheck-in: [Check-in Date] from 14:00\nCheck-out: [Check-out Date] until 12:00\nRoom type: [Room Type]\n\nCould you kindly confirm that the reservation details above are correct?\n\nMay I also ask what time you expect to arrive at the hotel? If a room is available, we will be happy to arrange an early check-in for you. If you have any special requests for your stay, please let us know—we will be happy to assist and make your visit as comfortable as possible.\n\nThis is our location : https://maps.app.goo.gl/3ADvW9W6AJpd7dtP9\nWe look forward to welcoming you soon. 💛"
+      ],
+      "scope": "Luxe Paradise · nguồn lịch sử 04/10/2026",
+      "status": "Cần duyệt theo tình huống"
+    },
+    {
+      "id": "M02",
+      "title": "M02 Chào khách trước khi đến bản ảnh",
+      "lines": [
+        "Nội dung chữ trong ảnh  |  Nguồn S1 trang 2 bản PDF",
+        "Lưu ý khi dùng: Ảnh gốc ghi 11:00; mẫu chữ và hệ thống ghi 12:00. Tên khách, ngày ở và hạng phòng minh họa đã đổi thành trường điền.",
+        "WELCOME TO HANOI\nDear Mr./Mrs. [Guest Name],\nWarm greetings from Luxe Paradise Premium Hotel!\nWe are delighted to welcome you and are pleased to reconfirm your upcoming reservation.\n\nCHECK-IN\n[Check-in Date]\nFrom 14:00\nCHECK-OUT\n[Check-out Date]\nUntil 11:00\nROOM TYPE\n[Room Type]\n\nCould you kindly confirm that the reservation details above are correct?\nPlease also let us know your expected arrival time and any special requests for your stay.\nWe look forward to welcoming you soon.\nCustomer Service Team\n75 Phạm Hồng Thái • Hanoi"
+      ],
+      "scope": "Luxe Paradise · nguồn lịch sử 04/10/2026",
+      "status": "Cần duyệt theo tình huống"
+    },
+    {
+      "id": "M03",
+      "title": "M03 Thông tin khách sạn trong ảnh",
+      "lines": [
+        "Nội dung chữ trong ảnh  |  Nguồn S1 trang 4 bản PDF",
+        "Lưu ý khi dùng: Xác nhận lại thông tin riêng của từng cơ sở trước khi dùng.",
+        "ESSENTIAL HOTEL INFORMATION\nHOTEL INFORMATION\n• Check-in: From 14:00\n• Check-out: by 12:00\n• Breakfast: 06:30–09:30 | B1\n• Gym: 06:00–18:00 | B2\n• Swimming Pool: 06:00–21:00 | 9th Floor\n• Wi-Fi: paradisewelcome\n• Front Desk: Dial “0” | Available 24/7\n\nAll rooms and indoor areas are non-smoking.\nCash: No extra charge\nCredit card: 5% service fee\nOn-site parking is unavailable.\nOur Front Desk can guide you to nearby public parking.\n75 Phạm Hồng Thái, Trúc Bạch, Ba Đình, Hà Nội"
+      ],
+      "scope": "Luxe Paradise · nguồn lịch sử 04/10/2026",
+      "status": "Cần duyệt theo tình huống"
+    },
+    {
+      "id": "M04",
+      "title": "M04 Giới thiệu xe sân bay bản tài liệu và ảnh",
+      "lines": [
+        "Mẫu gốc gồm chữ và bảng giá trong ảnh  |  Nguồn S1 Step 2 và trang 5 đến 6 bản PDF",
+        "Lưu ý khi dùng: Bảng giá đã chép từ ảnh sang chữ để sửa được. Hai ảnh xe dùng cùng nội dung nên gộp một mẫu. Cần đối chiếu giá tiễn và cách tính phần tiết kiệm ở phần rà soát.",
+        "🚗 AIRPORT PICK-UP\n\nFor a safe and convenient arrival, Luxe Paradise Premium Hotel offers special private airport transfers:\n\n4-seater (Big Space)\n400,000 VND/way\n700,000 VND/round trip\nSave 100,000 VND — 12.5%\n\n7-seater SUV (Big Space)\n500,000 VND/way\n850,000 VND/round trip\nSave 150,000 VND — 15%\n\n16-seater Van (Big Space)\n800,000 VND/way\n1,450,000 VND/round trip\nSave 150,000 VND — 9.4%\n\nTo book, please send us:\n• Flight number\n• Arrival date and time\n• Number of passengers\n• Preferred vehicle"
+      ],
+      "scope": "Luxe Paradise · nguồn lịch sử 04/10/2026",
+      "status": "Cần duyệt theo tình huống"
+    },
+    {
+      "id": "M05",
+      "title": "M05 Xác nhận xe đón theo mẫu cũ",
+      "lines": [
+        "Mẫu gốc cần rà soát  |  Nguồn S1 Step 3",
+        "Lưu ý khi dùng: Chỉ dùng nội dung khẳng định tài xế chờ khi đã có xác nhận điều xe thực tế. Khách đồng ý đặt xe chưa đủ để dùng mẫu này.",
+        "Thank you! Your airport pick-up has been confirmed. \nTransfer Details\n* Flight Number: \n* Vehicle: 4-seater \n* Price: \nOur driver will be waiting for you at the : \n* International flight : outside at column 3 \n* Domestic flight : outside at column 12\nIf there are any changes to your flight, please let us know.\nWe look forward to welcoming you to Luxe Paradise Premium Hotel!"
+      ],
+      "scope": "Luxe Paradise · nguồn lịch sử 04/10/2026",
+      "status": "Cần duyệt theo tình huống"
+    },
+    {
+      "id": "M06",
+      "title": "M06 Khách từ chối xe đón",
+      "lines": [
+        "Mẫu gốc trong tài liệu  |  Nguồn S1 Step 3",
+        "Thank you for letting us know. No problem at all! 😊\nWe look forward to welcoming you to Luxe Paradise Premium Hotel."
+      ],
+      "scope": "Luxe Paradise · nguồn lịch sử 04/10/2026",
+      "status": "Cần duyệt theo tình huống"
+    },
+    {
+      "id": "M07",
+      "title": "M07 Giới thiệu tour và ưu đãi mua nhiều tour",
+      "lines": [
+        "Mẫu gốc cần rà soát  |  Nguồn S1 Step 4",
+        "Lưu ý khi dùng: Giá From và các ưu đãi là nội dung nguồn cũ. Cần xác minh giá, nhà cung cấp, điều kiện và thời hạn trước khi gửi báo giá.",
+        "🗺️ TOUR PROMOTIONS\n\nExplore Northern Vietnam with our selected tours:\n\n• Hanoi Street Food Tour — From USD 25/person\n• Hanoi Full-Day Tour — From USD 35++/person\n• Ninh Binh Full-Day Tour — From USD 40++/person\n• Halong Bay Full-Day Tour — From USD 45++/person\n• Halong Bay 2D1N Cruise — From USD 99++/person\n• Sapa 2D1N Tour — From USD 55++/person\n• Ha Giang Loop Tour — From USD 99++/person\n\nLet us know your preferred destination, travel date and number of guests. We will recommend the most suitable option.\n\n🎁 SPECIAL COMBO OFFER\n\nBook 2 or more overnight tours and receive:\n\n• FREE one-way airport transfer\n• Up to 20% OFF massage and spa services\n• FREE early check-in or late check-out, subject to availability\n\nThank you again for choosing Luxe Paradise Premium Hotel.\n\nWarmest regards,"
+      ],
+      "scope": "Luxe Paradise · nguồn lịch sử 04/10/2026",
+      "status": "Cần duyệt theo tình huống"
+    },
+    {
+      "id": "M08",
+      "title": "M08 Hỏi thăm sau khi nhận phòng",
+      "lines": [
+        "Mẫu gốc trong tài liệu  |  Nguồn S1 Arrival",
+        "Xin chào Mr./Mrs. [Guest Name], We hope you're settling in well! \nis everything in your room comfortable, and is there anything we can arrange to make your stay even better? We're just a message away. 💛"
+      ],
+      "scope": "Luxe Paradise · nguồn lịch sử 04/10/2026",
+      "status": "Cần duyệt theo tình huống"
+    },
+    {
+      "id": "M09",
+      "title": "M09 Cảm ơn và xin đánh giá sau trả phòng",
+      "lines": [
+        "Mẫu gốc cần rà soát  |  Nguồn S1 Check out",
+        "Lưu ý khi dùng: Đề xuất khi tối ưu: mời khách đánh giá trung thực, bỏ cách xin điểm 10/10 và chỉ hỏi người hài lòng. Đây là ghi chú biên tập, chưa thay mẫu gốc.",
+        "Xin chào Mr./Mrs. [Guest Name]\nThank you for choosing Luxe Paradise Premium Hotel as your place to stay in Hanoi. It has been our pleasure to host you, and we truly hope you enjoyed your stay with us. 💛\nIf you were satisfied with our service, may I kindly ask for a small favor? A 10/10 review would mean so much to us. It helps our hotel reach more travelers and is also a wonderful encouragement for our entire team.\nThank you very much for your support, and we hope to welcome you back to Hanoi again soon! 🌸"
+      ],
+      "scope": "Luxe Paradise · nguồn lịch sử 04/10/2026",
+      "status": "Cần duyệt theo tình huống"
+    },
+    {
+      "id": "S01",
+      "title": "S01 Chào khách đang lưu ở Guest Master",
+      "lines": [
+        "Mẫu đang lưu trong Sheets  |  Nguồn S2 Guest Master cột J",
+        "Lưu ý khi dùng: Khác bản Welcome trong bảng tháng: có lời nhắc taxi và điểm đón tour. Nội dung cảnh báo taxi cần rà lại giọng điệu; thông tin khách minh họa đã chuyển thành trường điền.",
+        "Dear Mr./Mrs. [Guest Name],\n\n💛 Warm greetings from Luxe Paradise Premium Hotel! We’re delighted to welcome you to Hanoi.\n\nYour reservation is reconfirmed:\n\n- Check-in: [Check-in Date] from 14:00\n- Check-out: [Check-out Date] until 12:00\n- Room: [Room Type]\n\nCould you kindly confirm these details and let us know your expected arrival time? If a room is available, we’ll be happy to arrange early check-in.\n\nA small reminder: please be careful when catching a taxi at the airport — some drivers may charge more than the official price.\nIf you need a safe airport transfer, we can arrange it for you.\n\nRegarding tours: our hotel is located in an area where tour buses may not pick up directly at the property.\nPlease feel free to contact us for tour bookings or assistance — we’ll help arrange the most convenient meeting point for you.\n\nOur location: https://maps.app.goo.gl/3ADvW9W6AJpd7dtP9\nWe look forward to welcoming you soon."
+      ],
+      "scope": "Luxe Paradise · nguồn lịch sử 04/10/2026",
+      "status": "Cần duyệt theo tình huống"
+    },
+    {
+      "id": "S02",
+      "title": "S02 Chào khách trong bảng tháng",
+      "lines": [
+        "Mẫu đang cấu hình trong Sheets  |  Nguồn S2 bảng 10.2026 cột F",
+        "Dear Mr./Mrs. [Guest Name],\n\nWarm greetings from Luxe Paradise Premium Hotel! 💛\n\nWe look forward to hosting your stay with us.\n\n📅 Reservation details:\nStay dates: [Stay Dates]\n🕑 Check-in: from 14:00\n🕑 Check-out: by 12:00\n🛏️ Room type: [Room Type]\n\nCould you kindly confirm that the reservation details above are correct?\n\nMay I ask what time you expect to arrive at the hotel?\nPlease also let us know if you have any special requests.\n\n📍 Location: https://maps.app.goo.gl/3ADvW9W6AJpd7dtP9\n\nWarm regards,\nReception Desk\nLuxe Paradise Premium Hotel"
+      ],
+      "scope": "Luxe Paradise · nguồn lịch sử 04/10/2026",
+      "status": "Cần duyệt theo tình huống"
+    },
+    {
+      "id": "S03",
+      "title": "S03 Giới thiệu xe sân bay trong Sheets",
+      "lines": [
+        "Mẫu đang lưu trong Sheets  |  Nguồn S2 Guest Master cột N và 10.2026 cột U",
+        "Lưu ý khi dùng: Bản Guest Master cùng lời nhắn, thêm emoji đầu câu và khác cách xuống dòng. Cần thống nhất giá đón và giá tiễn; chỉ hỏi số người hoặc hành lý khi cần chọn xe.",
+        "Thank you for letting us know your arrival time. We really appreciate it!\n\nFor a safe and convenient arrival, Luxe Paradise Premium Hotel offers private airport transfer services:\n\n• 4-seater (Big Space): 400,000 VND/one way\n700,000 VND/round trip\nSave 100,000 VND — 12.5%\n\n• 7-seater SUV (Big Space): 500,000 VND/one way\n850,000 VND/round trip\nSave 150,000 VND — 15%\n\n• 16-seater Van (Big Space): 800,000 VND/one way\n1,450,000 VND/round trip\nSave 150,000 VND — 9.4%\n\nIf you would like to book, please let us know:\n\n• One-way or round-trip transfer\n• Arrival and/or departure flight number\n• Number of passengers\n• Preferred vehicle\n\nWe will be happy to arrange everything for you."
+      ],
+      "scope": "Luxe Paradise · nguồn lịch sử 04/10/2026",
+      "status": "Cần duyệt theo tình huống"
+    },
+    {
+      "id": "S04",
+      "title": "S04 Giới thiệu tour trong Sheets",
+      "lines": [
+        "Mẫu đang lưu trong Sheets  |  Nguồn S2 Guest Master cột Q và 10.2026 cột X",
+        "Lưu ý khi dùng: Bản Guest Master cùng lời nhắn, thêm emoji đầu câu và khác cách xuống dòng. Cần duyệt lại điều kiện ưu đãi, thời hạn và khả năng cung cấp trước khi gửi.",
+        "During your stay in Hanoi, would you be interested in exploring Ha Long Bay, Ninh Binh, Sapa, Ha Giang, or discovering Hanoi through one of our local experiences?\n\nLuxe Paradise Premium Hotel offers carefully selected tours at special hotel rates with trusted local operators.\n\n🎁 SPECIAL PACKAGE OFFER\n\nBook two or more overnight tours with us and receive:\n\n• Free one-way airport transfer — pick-up or drop-off\n• Up to 20% discount on massage and spa packages\n• Complimentary early check-in or late check-out, subject to room availability\n\nIf you are interested, please let us know:\n\n• Preferred destination\n• Travel date\n• Number of guests\n• Preferred tour type\n• Estimated budget\n\nWe will recommend the most suitable itinerary for your schedule and budget."
+      ],
+      "scope": "Luxe Paradise · nguồn lịch sử 04/10/2026",
+      "status": "Cần duyệt theo tình huống"
+    },
+    {
+      "id": "A01",
+      "title": "A01 Yêu cầu nâng hạng phòng miễn phí",
+      "lines": [
+        "Lời nhắn mẫu trong cấu hình AI  |  Nguồn S3 mục A",
+        "Dear Mr./Ms. [Guest Name], thank you for your message. A complimentary room upgrade can only be considered on the day of arrival and is strictly subject to availability. If a higher room category remains available, our Front Office team will be happy to check and let you know upon arrival. Unfortunately, we cannot confirm a free upgrade in advance. If you would like to guarantee your preferred room category, please modify your reservation or book that category in advance. We recommend keeping your current reservation until the new room is confirmed."
+      ],
+      "scope": "Luxe Paradise · nguồn lịch sử 04/10/2026",
+      "status": "Cần duyệt theo tình huống"
+    },
+    {
+      "id": "A02",
+      "title": "A02 Ghi nhận thông tin khách cung cấp",
+      "lines": [
+        "Lời nhắn mẫu trong cấu hình AI  |  Nguồn S3 mục B",
+        "Thank you very much for the information. We have noted it carefully in our system and look forward to welcoming you soon. Warmest regards, Reception Desk, Luxe Paradise Premium Hotel."
+      ],
+      "scope": "Luxe Paradise · nguồn lịch sử 04/10/2026",
+      "status": "Cần duyệt theo tình huống"
+    },
+    {
+      "id": "A03",
+      "title": "A03 Hỏi hoặc xác nhận lại giờ đến",
+      "lines": [
+        "Lời nhắn mẫu trong cấu hình AI  |  Nguồn S3 mục C",
+        "Dear Mr./Ms. [Guest Name], warm greetings from the Reception Desk of Luxe Paradise Premium Hotel. You have a reservation with us from [Check-in Date] to [Check-out Date]. Could you please let us know your expected arrival time, or kindly reconfirm whether the arrival time previously shared is still correct? This will help us prepare and welcome you in the best possible way. Thank you very much, and we look forward to seeing you soon."
+      ],
+      "scope": "Luxe Paradise · nguồn lịch sử 04/10/2026",
+      "status": "Cần duyệt theo tình huống"
+    },
+    {
+      "id": "A04",
+      "title": "A04 Đã đặt đêm trước để nhận phòng vào sáng hôm sau",
+      "lines": [
+        "Khung cố định được hệ thống điền theo dữ liệu  |  Nguồn S3 bước xử lý ngày đến",
+        "Lưu ý khi dùng: Chỉ dùng khi đêm trước đã thuộc booking. Đoạn bữa sáng chỉ xuất hiện khi giá phòng gồm bữa sáng; giờ hạ cánh khác giờ tới khách sạn.",
+        "Dear [Guest Name],\n\nThank you for confirming your reservation.\nWe have noted your flight landing in Hanoi on [Arrival Date] at [Arrival Time].\n\nYour reservation already includes the night of [Check-in Date].\nYour room is reserved from that night so you can check in when you reach the hotel, without waiting until 14:00 or paying for another early-check-in night.\n\nBreakfast on [Arrival Date] is included and is served from 06:30 to 09:30 at B1.\nPlease join us after you reach the hotel during those hours.\n\nWe look forward to welcoming you.\n\nWarm regards,\nReception Desk\nLuxe Paradise Premium Hotel"
+      ],
+      "scope": "Luxe Paradise · nguồn lịch sử 04/10/2026",
+      "status": "Cần duyệt theo tình huống"
+    },
+    {
+      "id": "A05",
+      "title": "A05 Ngày đến có nhiều cách hiểu",
+      "lines": [
+        "Khung cố định được hệ thống điền theo dữ liệu  |  Nguồn S3 bước xử lý ngày đến",
+        "Lưu ý khi dùng: Dùng khi ngày chưa được giải quyết bằng thông tin khách hoặc xác nhận của nhân viên; không tự sửa ngày để ép khớp booking.",
+        "Dear [Guest Name],\n\nThank you for your arrival information.\nYour reservation is from [Check-in Date] to [Check-out Date].\nThe date you wrote (“[Original Date]”) could have more than one meaning.\nCould you please confirm your arrival date using the month name?\n\nWarm regards,\nReception Desk\nLuxe Paradise Premium Hotel"
+      ],
+      "scope": "Luxe Paradise · nguồn lịch sử 04/10/2026",
+      "status": "Cần duyệt theo tình huống"
+    },
+    {
+      "id": "A06",
+      "title": "A06 Ngày đến nằm ngoài kỳ đặt phòng",
+      "lines": [
+        "Khung cố định được hệ thống điền theo dữ liệu  |  Nguồn S3 bước xử lý ngày đến",
+        "Lưu ý khi dùng: Dùng khi ngày chưa được giải quyết bằng thông tin khách hoặc xác nhận của nhân viên; không tự sửa ngày để ép khớp booking.",
+        "Dear [Guest Name],\n\nThank you for your arrival information.\nYour reservation is from [Check-in Date] to [Check-out Date].\nYou mentioned arriving on [Arrival Date], which is outside those dates.\nCould you please confirm the intended arrival date or whether your stay dates have changed?\n\nWarm regards,\nReception Desk\nLuxe Paradise Premium Hotel"
+      ],
+      "scope": "Luxe Paradise · nguồn lịch sử 04/10/2026",
+      "status": "Cần duyệt theo tình huống"
+    },
+    {
+      "id": "N3.1",
+      "title": "N3 1 Khách hỏi chung về tour",
+      "lines": [
+        "Mẫu trong thư viện Notion  |  Nguồn S4 mục 3.1",
+        "Tình huống gốc: Guest asks what tours are available.",
+        "Thông tin cần có: Guest name, available date range, stay dates.",
+        "Trạng thái trong thư viện: New Inquiry",
+        "Lưu ý khi dùng: Do not quote before the destination and minimum booking data are known.",
+        "Dear Mr./Ms. [Guest Name],\nWe would be delighted to help you explore Hanoi and Northern Vietnam. Popular experiences include:\n🏞️ Ninh Binh\n🚢 Ha Long Bay\n🏔️ Sapa\n🛵 Ha Giang Loop\n🍜 Hanoi food and cultural tours\nPlease let us know:\n📅 Preferred travel date\n👥 Number of guests\n🗺️ Day trip or overnight tour\n💰 Preferred budget or comfort level\nWe will recommend the most suitable options for your schedule."
+      ],
+      "scope": "Luxe Paradise · nguồn lịch sử 04/10/2026",
+      "status": "Cần duyệt theo tình huống"
+    },
+    {
+      "id": "N3.2",
+      "title": "N3 2 Trả lời ngắn khi khách hỏi tour",
+      "lines": [
+        "Mẫu trong thư viện Notion  |  Nguồn S4 mục 3.2",
+        "Tình huống gốc: Guest wants a fast answer.",
+        "Thông tin cần có: Date, guests, destination.",
+        "Trạng thái trong thư viện: Missing Information",
+        "Hi [Guest Name]! Please send us your preferred destination, travel date and number of guests. We will check the best available option for you right away."
+      ],
+      "scope": "Luxe Paradise · nguồn lịch sử 04/10/2026",
+      "status": "Cần duyệt theo tình huống"
+    },
+    {
+      "id": "N3.3",
+      "title": "N3 3 Giọng điệu dành cho khách cao cấp",
+      "lines": [
+        "Mẫu trong thư viện Notion  |  Nguồn S4 mục 3.3",
+        "Tình huống gốc: VIP guest or premium request.",
+        "Thông tin cần có: Date, guests, interests, preferred comfort.",
+        "Trạng thái trong thư viện: New Inquiry",
+        "Dear Mr./Ms. [Guest Name],\nIt would be our pleasure to curate a personalized travel experience for you. Kindly share your preferred date, number of guests and any special interests or comfort preferences.\nWe will prepare a refined selection tailored to your stay."
+      ],
+      "scope": "Luxe Paradise · nguồn lịch sử 04/10/2026",
+      "status": "Cần duyệt theo tình huống"
+    },
+    {
+      "id": "N3.4",
+      "title": "N3 4 Khách so sánh nhiều tour",
+      "lines": [
+        "Mẫu trong thư viện Notion  |  Nguồn S4 mục 3.4",
+        "Tình huống gốc: Guest compares several destinations.",
+        "Thông tin cần có: Dates, guests, pace, interests, budget.",
+        "Trạng thái trong thư viện: New Inquiry",
+        "Lưu ý khi dùng: Compare itinerary fit first. Do not create price links until rates are verified.",
+        "Dear Mr./Ms. [Guest Name],\nThank you for your interest in several destinations. To compare the most suitable options, may we know:\n📅 Your available dates\n👥 Number of guests\n🚶 Preferred pace: relaxed or active\n🌿 Main interests: nature, culture, food or adventure\n💰 Approximate budget\nWe will prepare a clear comparison for you."
+      ],
+      "scope": "Luxe Paradise · nguồn lịch sử 04/10/2026",
+      "status": "Cần duyệt theo tình huống"
+    },
+    {
+      "id": "N4.1",
+      "title": "N4 1 Tư vấn Ha Giang Loop",
+      "lines": [
+        "Mẫu trong thư viện Notion  |  Nguồn S4 mục 4.1",
+        "Tình huống gốc: Guest asks about Ha Giang.",
+        "Thông tin cần có: Date, guests, 3D2N or 4D3N, Easy Rider or car, health limits.",
+        "Trạng thái trong thư viện: Missing Information",
+        "Lưu ý khi dùng: Never recommend self-driving without appropriate licensing and supplier confirmation. Flag mobility, pregnancy and serious health concerns for review.",
+        "Dear Mr./Ms. [Guest Name],\nThe Ha Giang Loop is ideal for travelers who enjoy dramatic mountain scenery and adventure. To recommend the right option, please share:\n📅 Travel date\n👥 Number of guests\n🗓️ 3 days 2 nights or 4 days 3 nights\n🏍️ Easy Rider motorbike or 🚙 car\n🩺 Any health, mobility or comfort requirements\nWe will check availability and send the most suitable options."
+      ],
+      "scope": "Luxe Paradise · nguồn lịch sử 04/10/2026",
+      "status": "Cần duyệt theo tình huống"
+    },
+    {
+      "id": "N4.2",
+      "title": "N4 2 Tư vấn Sapa",
+      "lines": [
+        "Mẫu trong thư viện Notion  |  Nguồn S4 mục 4.2",
+        "Tình huống gốc: Guest asks about Sapa.",
+        "Thông tin cần có: Date, guests, day/overnight, trekking level, hotel/homestay, physical limits.",
+        "Trạng thái trong thư viện: Missing Information",
+        "Dear Mr./Ms. [Guest Name],\nSapa offers mountain scenery, rice terraces and ethnic minority villages. Please let us know:\n📅 Travel date\n👥 Number of guests\n🗓️ Day trip, 2D1N or 3D2N\n🥾 Preferred trekking level: easy, moderate or active\n🏨 Hotel or homestay\n🩺 Any physical limitations\nWe will recommend the best available option."
+      ],
+      "scope": "Luxe Paradise · nguồn lịch sử 04/10/2026",
+      "status": "Cần duyệt theo tình huống"
+    },
+    {
+      "id": "N4.3",
+      "title": "N4 3 Tư vấn Ha Long và Lan Ha",
+      "lines": [
+        "Mẫu trong thư viện Notion  |  Nguồn S4 mục 4.3",
+        "Tình huống gốc: Guest asks about Ha Long or Lan Ha Bay.",
+        "Thông tin cần có: Date, guests, day/overnight, cabin, comfort, dietary needs.",
+        "Trạng thái trong thư viện: Missing Information",
+        "Lưu ý khi dùng: Price must be labeled per person or per cabin. Never merge day-cruise and overnight-cruise rates.",
+        "Dear Mr./Ms. [Guest Name],\nHa Long Bay cruises vary by route, vessel, cabin and service level. Kindly share:\n📅 Travel date\n👥 Number of guests\n🚢 Full-day, 2D1N or 3D2N\n⭐ Standard, luxury or premium\n🛏️ Preferred bed and cabin type\n🍽️ Dietary requirements\nWe will check the most suitable cruise and current availability."
+      ],
+      "scope": "Luxe Paradise · nguồn lịch sử 04/10/2026",
+      "status": "Cần duyệt theo tình huống"
+    },
+    {
+      "id": "N4.4",
+      "title": "N4 4 Tư vấn Ninh Binh",
+      "lines": [
+        "Mẫu trong thư viện Notion  |  Nguồn S4 mục 4.4",
+        "Tình huống gốc: Guest asks about Ninh Binh.",
+        "Thông tin cần có: Date, guests, route, transport tier, walking ability.",
+        "Trạng thái trong thư viện: Missing Information",
+        "Lưu ý khi dùng: Warn guests that Mua Cave involves about 500 steps.",
+        "Dear Mr./Ms. [Guest Name],\nNinh Binh is a beautiful day trip combining limestone landscapes, boat rides and cultural sites. Please let us know:\n📅 Travel date\n👥 Number of guests\n🚐 Standard bus, limousine or private car\n🏯 Preferred route, if known\n🚶 Any walking or mobility limitations\nWe will check the most suitable itinerary."
+      ],
+      "scope": "Luxe Paradise · nguồn lịch sử 04/10/2026",
+      "status": "Cần duyệt theo tình huống"
+    },
+    {
+      "id": "N5.2",
+      "title": "N5 2 Báo giá đã được duyệt",
+      "lines": [
+        "Mẫu trong thư viện Notion  |  Nguồn S4 mục 5.2",
+        "Tình huống gốc: A staff member approved the selling price.",
+        "Thông tin cần có: Approved price, itinerary, inclusions, exclusions, pickup and validity.",
+        "Trạng thái trong thư viện: Link Ready",
+        "Lưu ý khi dùng: Create WhatsApp link only after Approved.",
+        "Dear Mr./Ms. [Guest Name],\n✨ [Tour Name]\n📅 Date: [Travel Date]\n⏳ Duration: [Duration]\n👥 Guests: [Guest Count]\n🚐 Transport: [Transport]\n💵 Price: [Approved Price] per [Unit]\n📍 Highlights:\n[Short Itinerary]\n✅ Included:\n[Inclusions]\n❌ Not included:\n[Exclusions]\n⏰ Estimated pickup: [Pickup Time]\n⏰ Estimated return: [Return Time]\nWould you like us to reserve this option for you?"
+      ],
+      "scope": "Luxe Paradise · nguồn lịch sử 04/10/2026",
+      "status": "Cần duyệt theo tình huống"
+    },
+    {
+      "id": "N5.3",
+      "title": "N5 3 Chưa có giá đã xác minh",
+      "lines": [
+        "Mẫu trong thư viện Notion  |  Nguồn S4 mục 5.3",
+        "Tình huống gốc: No verified price exists.",
+        "Thông tin cần có: Tour and requested date.",
+        "Trạng thái trong thư viện: Missing Information",
+        "Lưu ý khi dùng: Do not create a quotation link.",
+        "Dear Mr./Ms. [Guest Name],\nThank you for your interest in [Tour Name]. We are checking the latest rate and availability with the operator and will update you as soon as the information is confirmed."
+      ],
+      "scope": "Luxe Paradise · nguồn lịch sử 04/10/2026",
+      "status": "Cần duyệt theo tình huống"
+    },
+    {
+      "id": "N5.4",
+      "title": "N5 4 Chờ nhà cung cấp trả lời",
+      "lines": [
+        "Mẫu trong thư viện Notion  |  Nguồn S4 mục 5.4",
+        "Tình huống gốc: Supplier has not replied.",
+        "Thông tin cần có: Tour, request time, supplier.",
+        "Trạng thái trong thư viện: Checking Supplier",
+        "Dear Mr./Ms. [Guest Name],\nWe are still waiting for final confirmation from the tour operator regarding [Tour Name]. Thank you for your patience. We will update you once the availability and rate are confirmed."
+      ],
+      "scope": "Luxe Paradise · nguồn lịch sử 04/10/2026",
+      "status": "Cần duyệt theo tình huống"
+    },
+    {
+      "id": "N5.5",
+      "title": "N5 5 Nhà cung cấp tăng giá",
+      "lines": [
+        "Mẫu trong thư viện Notion  |  Nguồn S4 mục 5.5",
+        "Tình huống gốc: Supplier changed the price before booking.",
+        "Thông tin cần có: Old rate, new rate, reason, validity.",
+        "Trạng thái trong thư viện: Need Review",
+        "Lưu ý khi dùng: Staff must approve the revised selling price.",
+        "Dear Mr./Ms. [Guest Name],\nThe operator has updated the rate for [Tour Name] to [New Price] per [Unit] for [Travel Date]. The previous rate is no longer available.\nPlease let us know if you would like to proceed at the updated rate or review an alternative option."
+      ],
+      "scope": "Luxe Paradise · nguồn lịch sử 04/10/2026",
+      "status": "Cần duyệt theo tình huống"
+    },
+    {
+      "id": "N5.6",
+      "title": "N5 6 Giá khuyến mại hoặc giảm giá",
+      "lines": [
+        "Mẫu trong thư viện Notion  |  Nguồn S4 mục 5.6",
+        "Tình huống gốc: A verified promotion is available.",
+        "Thông tin cần có: New price, conditions, expiry.",
+        "Trạng thái trong thư viện: Approved",
+        "Dear Mr./Ms. [Guest Name],\nGood news! A verified promotion is available for [Tour Name]:\n💵 Promotional price: [Price] per [Unit]\n📅 Valid for: [Date/Period]\n📌 Conditions: [Conditions]\nWould you like us to reserve this option?"
+      ],
+      "scope": "Luxe Paradise · nguồn lịch sử 04/10/2026",
+      "status": "Cần duyệt theo tình huống"
+    },
+    {
+      "id": "N6.1",
+      "title": "N6 1 Khách muốn đi tour trong ngày",
+      "lines": [
+        "Mẫu trong thư viện Notion  |  Nguồn S4 mục 6.1",
+        "Tình huống gốc: Guest requests a tour today.",
+        "Thông tin cần có: Tour, guests, desired departure, contact number.",
+        "Trạng thái trong thư viện: Checking Supplier",
+        "Dear Mr./Ms. [Guest Name],\nWe will check same-day availability for [Tour Name] immediately. Please confirm the number of guests and your preferred departure time. Availability cannot be guaranteed until the operator confirms."
+      ],
+      "scope": "Luxe Paradise · nguồn lịch sử 04/10/2026",
+      "status": "Cần duyệt theo tình huống"
+    },
+    {
+      "id": "N6.2",
+      "title": "N6 2 Đã qua giờ khởi hành",
+      "lines": [
+        "Mẫu trong thư viện Notion  |  Nguồn S4 mục 6.2",
+        "Tình huống gốc: Guest requests a tour after departure.",
+        "Thông tin cần có: Tour, current time, next availability.",
+        "Trạng thái trong thư viện: Need Review",
+        "Dear Mr./Ms. [Guest Name],\nToday’s departure for [Tour Name] has already closed. We can check the next available departure on [Next Date] or recommend an alternative experience for today. Would you like to review those options?"
+      ],
+      "scope": "Luxe Paradise · nguồn lịch sử 04/10/2026",
+      "status": "Cần duyệt theo tình huống"
+    },
+    {
+      "id": "N6.3",
+      "title": "N6 3 Tour hết chỗ",
+      "lines": [
+        "Mẫu trong thư viện Notion  |  Nguồn S4 mục 6.3",
+        "Tình huống gốc: Selected tour is sold out.",
+        "Thông tin cần có: Tour, date, alternatives.",
+        "Trạng thái trong thư viện: Need Review",
+        "Dear Mr./Ms. [Guest Name],\nUnfortunately, [Tour Name] is fully booked on [Date]. We can offer:\n📅 An alternative date\n🗺️ A similar tour\n🚐 A private option, subject to availability\nPlease let us know which alternative you would prefer."
+      ],
+      "scope": "Luxe Paradise · nguồn lịch sử 04/10/2026",
+      "status": "Cần duyệt theo tình huống"
+    },
+    {
+      "id": "N6.4",
+      "title": "N6 4 Nhà cung cấp hủy tour",
+      "lines": [
+        "Mẫu trong thư viện Notion  |  Nguồn S4 mục 6.4",
+        "Tình huống gốc: Operator cancels the tour.",
+        "Thông tin cần có: Tour, date, operator reason, refund/rebooking status.",
+        "Trạng thái trong thư viện: Cancelled",
+        "Lưu ý khi dùng: Do not promise a refund amount until supplier policy is confirmed.",
+        "Dear Mr./Ms. [Guest Name],\nWe sincerely apologize. The operator has cancelled [Tour Name] on [Date] due to [Confirmed Reason].\nWe can assist with:\n- Rescheduling\n- A similar alternative tour\n- The applicable refund process\nPlease let us know your preferred option."
+      ],
+      "scope": "Luxe Paradise · nguồn lịch sử 04/10/2026",
+      "status": "Cần duyệt theo tình huống"
+    },
+    {
+      "id": "N6.5",
+      "title": "N6 5 Lịch trình thay đổi",
+      "lines": [
+        "Mẫu trong thư viện Notion  |  Nguồn S4 mục 6.5",
+        "Tình huống gốc: Operator changes pickup or itinerary.",
+        "Thông tin cần có: Old and new details, impact, guest approval need.",
+        "Trạng thái trong thư viện: Changed",
+        "Dear Mr./Ms. [Guest Name],\nThe operator has updated the schedule for [Tour Name]:\nPrevious: [Old Details]\nUpdated: [New Details]\nPlease confirm whether the revised arrangement is suitable for you."
+      ],
+      "scope": "Luxe Paradise · nguồn lịch sử 04/10/2026",
+      "status": "Cần duyệt theo tình huống"
+    },
+    {
+      "id": "N6.6",
+      "title": "N6 6 Thời tiết ảnh hưởng tour",
+      "lines": [
+        "Mẫu trong thư viện Notion  |  Nguồn S4 mục 6.6",
+        "Tình huống gốc: Outdoor conditions may affect tour.",
+        "Thông tin cần có: Verified forecast/operator notice, alternatives.",
+        "Trạng thái trong thư viện: Need Review",
+        "Lưu ý khi dùng: Weather data must be current and the operator decides cancellation.",
+        "Dear Mr./Ms. [Guest Name],\nDue to the expected weather conditions, some outdoor activities may be adjusted. The operator will make the final safety decision.\nAlternative experiences may include:\n🏛️ Museums and cultural attractions\n🍜 Hanoi food experiences\n☕ Indoor workshops and local cafés\nWould you like us to check the available alternatives?"
+      ],
+      "scope": "Luxe Paradise · nguồn lịch sử 04/10/2026",
+      "status": "Cần duyệt theo tình huống"
+    },
+    {
+      "id": "N7.1",
+      "title": "N7 1 Khách muốn phương án tiết kiệm",
+      "lines": [
+        "Mẫu trong thư viện Notion  |  Nguồn S4 mục 7.1",
+        "Tình huống gốc: Guest requests lower cost.",
+        "Thông tin cần có: Budget per person, date, guests.",
+        "Trạng thái trong thư viện: New Inquiry",
+        "Dear Mr./Ms. [Guest Name],\nWe can check budget-friendly options such as standard Ninh Binh day tours, Hanoi experiences or selected Ha Long day cruises. Please share your preferred date, number of guests and approximate budget per person."
+      ],
+      "scope": "Luxe Paradise · nguồn lịch sử 04/10/2026",
+      "status": "Cần duyệt theo tình huống"
+    },
+    {
+      "id": "N7.2",
+      "title": "N7 2 Khách muốn tiện nghi tầm trung",
+      "lines": [
+        "Mẫu trong thư viện Notion  |  Nguồn S4 mục 7.2",
+        "Tình huống gốc: Guest wants more comfort.",
+        "Thông tin cần có: Budget, date, guests, duration.",
+        "Trạng thái trong thư viện: New Inquiry",
+        "Dear Mr./Ms. [Guest Name],\nFor a balance of comfort and value, we can check limousine Ninh Binh tours, upgraded Ha Long day cruises or Sapa 2D1N packages. Please share your date and number of guests."
+      ],
+      "scope": "Luxe Paradise · nguồn lịch sử 04/10/2026",
+      "status": "Cần duyệt theo tình huống"
+    },
+    {
+      "id": "N7.3",
+      "title": "N7 3 Khách muốn dịch vụ cao cấp",
+      "lines": [
+        "Mẫu trong thư viện Notion  |  Nguồn S4 mục 7.3",
+        "Tình huống gốc: Guest requests luxury.",
+        "Thông tin cần có: Date, guests, cabin/vehicle preferences.",
+        "Trạng thái trong thư viện: New Inquiry",
+        "Dear Mr./Ms. [Guest Name],\nPremium options may include a five-star Ha Long overnight cruise, a private Ha Giang car tour or a customized private itinerary. Please share your travel date, number of guests and preferred level of comfort."
+      ],
+      "scope": "Luxe Paradise · nguồn lịch sử 04/10/2026",
+      "status": "Cần duyệt theo tình huống"
+    },
+    {
+      "id": "N7.4",
+      "title": "N7 4 Kiểm tra mức vận động phù hợp",
+      "lines": [
+        "Mẫu trong thư viện Notion  |  Nguồn S4 mục 7.4",
+        "Tình huống gốc: Tour includes demanding activity.",
+        "Thông tin cần có: Age, mobility issue, medical concerns voluntarily disclosed.",
+        "Trạng thái trong thư viện: Need Review",
+        "Lưu ý khi dùng: Do not request diagnosis. Escalate safety concerns to staff and supplier.",
+        "Dear Mr./Ms. [Guest Name],\nThis experience includes [walking/trekking/steps/motorbike travel]. To help us recommend a safe and comfortable option, please let us know whether anyone in your group has mobility limitations or would prefer a less physically demanding itinerary."
+      ],
+      "scope": "Luxe Paradise · nguồn lịch sử 04/10/2026",
+      "status": "Cần duyệt theo tình huống"
+    },
+    {
+      "id": "N7.5",
+      "title": "N7 5 Trang phục và đồ cần chuẩn bị",
+      "lines": [
+        "Mẫu trong thư viện Notion  |  Nguồn S4 mục 7.5",
+        "Tình huống gốc: Guest asks what to bring.",
+        "Thông tin cần có: Tour, weather, activity.",
+        "Trạng thái trong thư viện: Approved",
+        "Dear Mr./Ms. [Guest Name],\nFor [Tour Name], we recommend comfortable walking shoes, weather-appropriate clothing, sunscreen, a hat and a light raincoat. For temples, please wear clothing that covers the shoulders and knees. Additional recommendations: [Tour-Specific Items]."
+      ],
+      "scope": "Luxe Paradise · nguồn lịch sử 04/10/2026",
+      "status": "Cần duyệt theo tình huống"
+    },
+    {
+      "id": "N8.1",
+      "title": "N8 1 Tour riêng cho khách VIP",
+      "lines": [
+        "Mẫu trong thư viện Notion  |  Nguồn S4 mục 8.1",
+        "Tình huống gốc: Guest requests exclusive service.",
+        "Thông tin cần có: Date, guests, preferences, language, vehicle, budget.",
+        "Trạng thái trong thư viện: New Inquiry",
+        "Dear Mr./Ms. [Guest Name],\nWe would be delighted to arrange a private, customized experience. Please share your preferred date, number of guests, interests, guide language, vehicle preference and any special requirements. We will prepare a tailored proposal for your review."
+      ],
+      "scope": "Luxe Paradise · nguồn lịch sử 04/10/2026",
+      "status": "Cần duyệt theo tình huống"
+    },
+    {
+      "id": "N8.2",
+      "title": "N8 2 Yêu cầu của đoàn khách",
+      "lines": [
+        "Mẫu trong thư viện Notion  |  Nguồn S4 mục 8.2",
+        "Tình huống gốc: Larger leisure group.",
+        "Thông tin cần có: Guests, ages, date, destination, shared/private, meal needs.",
+        "Trạng thái trong thư viện: Missing Information",
+        "Dear Mr./Ms. [Guest Name],\nFor your group arrangement, kindly provide:\n👥 Number of adults and children\n📅 Travel date\n🗺️ Preferred destination\n🚐 Shared or private service\n🍽️ Dietary requirements\nWe will prepare suitable options and a group quotation."
+      ],
+      "scope": "Luxe Paradise · nguồn lịch sử 04/10/2026",
+      "status": "Cần duyệt theo tình huống"
+    },
+    {
+      "id": "N8.3",
+      "title": "N8 3 Yêu cầu tour doanh nghiệp",
+      "lines": [
+        "Mẫu trong thư viện Notion  |  Nguồn S4 mục 8.3",
+        "Tình huống gốc: Company or event booking.",
+        "Thông tin cần có: Participants, dates, itinerary, billing, invoice details, contact person.",
+        "Trạng thái trong thư viện: Need Review",
+        "Lưu ý khi dùng: Route to a designated manager before quotation.",
+        "Dear Mr./Ms. [Guest Name],\nTo prepare a professional proposal, please provide the number of participants, travel date, preferred destination, transport requirements and billing or invoice details. We will review the request and return with the suitable arrangements."
+      ],
+      "scope": "Luxe Paradise · nguồn lịch sử 04/10/2026",
+      "status": "Cần duyệt theo tình huống"
+    },
+    {
+      "id": "N9.1",
+      "title": "N9 1 Yêu cầu đặt cọc hoặc trả trước",
+      "lines": [
+        "Mẫu trong thư viện Notion  |  Nguồn S4 mục 9.1",
+        "Tình huống gốc: Supplier requires a deposit.",
+        "Thông tin cần có: Amount, currency, due time, refund terms, authorized payment method.",
+        "Trạng thái trong thư viện: Awaiting Payment",
+        "Lưu ý khi dùng: Never request card numbers in chat. Use only approved payment channels.",
+        "Dear Mr./Ms. [Guest Name],\nTo secure [Tour Name], an advance payment of [Amount] is required by [Deadline].\nPayment method: [Approved Method]\nCancellation terms: [Verified Terms]\nWe will issue the booking confirmation after the payment is verified."
+      ],
+      "scope": "Luxe Paradise · nguồn lịch sử 04/10/2026",
+      "status": "Cần duyệt theo tình huống"
+    },
+    {
+      "id": "N9.2",
+      "title": "N9 2 Xác nhận đặt tour thành công",
+      "lines": [
+        "Mẫu trong thư viện Notion  |  Nguồn S4 mục 9.2",
+        "Tình huống gốc: Supplier and payment conditions are complete.",
+        "Thông tin cần có: Confirmation number, date, guests, pickup, price, payment status.",
+        "Trạng thái trong thư viện: Booked",
+        "Lưu ý khi dùng: Chỉ nhắc chờ tại sảnh khách sạn nếu nhà cung cấp đã xác nhận đó là điểm đón. Write booking into Tour Information only after supplier confirmation.",
+        "✨ TOUR BOOKING CONFIRMED\nDear Mr./Ms. [Guest Name],\n🗺️ Tour: [Tour Name]\n📅 Date: [Travel Date]\n👥 Guests: [Guest Count]\n⏰ Pickup: [Pickup Time]\n📍 Pickup point: [Pickup Location]\n🚐 Transport: [Transport]\n💵 Total: [Total Price]\n💳 Payment status: [Payment Status]\n🔖 Confirmation: [Supplier Reference]\nPlease be ready in the hotel lobby 10 minutes before pickup. Let us know in advance about any dietary or special requirements.\nWe wish you a wonderful journey!"
+      ],
+      "scope": "Luxe Paradise · nguồn lịch sử 04/10/2026",
+      "status": "Cần duyệt theo tình huống"
+    },
+    {
+      "id": "N9.3",
+      "title": "N9 3 Khách từ chối tour",
+      "lines": [
+        "Mẫu trong thư viện Notion  |  Nguồn S4 mục 9.3",
+        "Tình huống gốc: Guest does not want the tour.",
+        "Thông tin cần có: Guest and tour.",
+        "Trạng thái trong thư viện: Closed No Sale",
+        "Thank you for letting us know. No problem at all. 😊 If you change your mind or would like recommendations during your stay, our Reception Desk will be happy to assist."
+      ],
+      "scope": "Luxe Paradise · nguồn lịch sử 04/10/2026",
+      "status": "Cần duyệt theo tình huống"
+    },
+    {
+      "id": "N10.1",
+      "title": "N10 1 Khách phản hồi giá cao",
+      "lines": [
+        "Mẫu trong thư viện Notion  |  Nguồn S4 mục 10.1",
+        "Tình huống gốc: Guest says the price is high.",
+        "Thông tin cần có: Quoted product and price, comparison basis if provided.",
+        "Trạng thái trong thư viện: Need Review",
+        "Lưu ý khi dùng: Do not claim lowest price. Explain product differences factually.",
+        "Dear Mr./Ms. [Guest Name],\nThank you for your feedback. The quoted rate applies to [Specific Package] and includes [Key Inclusions]. We would be happy to check a more economical option within your preferred budget."
+      ],
+      "scope": "Luxe Paradise · nguồn lịch sử 04/10/2026",
+      "status": "Cần duyệt theo tình huống"
+    },
+    {
+      "id": "N10.2",
+      "title": "N10 2 Khách yêu cầu thay đổi tour",
+      "lines": [
+        "Mẫu trong thư viện Notion  |  Nguồn S4 mục 10.2",
+        "Tình huống gốc: Booked guest changes date or option.",
+        "Thông tin cần có: Booking reference, requested change, supplier policy.",
+        "Trạng thái trong thư viện: Checking Supplier",
+        "Dear Mr./Ms. [Guest Name],\nThank you for informing us. We are checking your requested change from [Old Details] to [New Details] with the operator. The change is not confirmed until the operator approves it. We will update you shortly."
+      ],
+      "scope": "Luxe Paradise · nguồn lịch sử 04/10/2026",
+      "status": "Cần duyệt theo tình huống"
+    },
+    {
+      "id": "N10.3",
+      "title": "N10 3 Khách yêu cầu hủy tour",
+      "lines": [
+        "Mẫu trong thư viện Notion  |  Nguồn S4 mục 10.3",
+        "Tình huống gốc: Guest wants to cancel.",
+        "Thông tin cần có: Booking reference, payment, supplier cancellation policy.",
+        "Trạng thái trong thư viện: Checking Supplier",
+        "Lưu ý khi dùng: Never promise a full refund before confirmation.",
+        "Dear Mr./Ms. [Guest Name],\nWe are sorry to hear that you may need to cancel [Tour Name]. We are checking the operator’s cancellation and refund conditions for your booking and will update you with the confirmed outcome."
+      ],
+      "scope": "Luxe Paradise · nguồn lịch sử 04/10/2026",
+      "status": "Cần duyệt theo tình huống"
+    },
+    {
+      "id": "N10.4",
+      "title": "N10 4 Tiếp nhận phàn nàn về tour",
+      "lines": [
+        "Mẫu trong thư viện Notion  |  Nguồn S4 mục 10.4",
+        "Tình huống gốc: Guest complains about tour service.",
+        "Thông tin cần có: Original text, booking reference, facts, urgency.",
+        "Trạng thái trong thư viện: Escalated",
+        "Lưu ý khi dùng: Preserve original guest message and escalate serious safety issues immediately.",
+        "Dear Mr./Ms. [Guest Name],\nThank you for informing us, and we are sorry to hear about your experience. We have recorded the issue regarding [Issue Summary] and are contacting the operator for an urgent review. We will update you as soon as we receive their response."
+      ],
+      "scope": "Luxe Paradise · nguồn lịch sử 04/10/2026",
+      "status": "Cần duyệt theo tình huống"
+    },
+    {
+      "id": "N11.1",
+      "title": "N11 1 Nhắc lại sau khi gửi báo giá",
+      "lines": [
+        "Mẫu trong thư viện Notion  |  Nguồn S4 mục 11.1",
+        "Tình huống gốc: Approved quote sent but no reply.",
+        "Thông tin cần có: Quote sent time, departure deadline.",
+        "Trạng thái trong thư viện: Follow-up Sent",
+        "Dear Mr./Ms. [Guest Name],\nWe are following up regarding the [Tour Name] option shared with you. Please let us know if you would like us to check availability and proceed with the reservation. Rates and availability remain subject to reconfirmation."
+      ],
+      "scope": "Luxe Paradise · nguồn lịch sử 04/10/2026",
+      "status": "Cần duyệt theo tình huống"
+    },
+    {
+      "id": "N11.2",
+      "title": "N11 2 Nhắc trước ngày đi tour",
+      "lines": [
+        "Mẫu trong thư viện Notion  |  Nguồn S4 mục 11.2",
+        "Tình huống gốc: Tour is confirmed for the next day.",
+        "Thông tin cần có: Tour, pickup, point, preparation.",
+        "Trạng thái trong thư viện: Booked",
+        "Dear Mr./Ms. [Guest Name],\nThis is a friendly reminder for your tour tomorrow:\n🗺️ [Tour Name]\n⏰ Pickup: [Pickup Time]\n📍 Meeting point: [Pickup Location]\nPlease be ready 10 minutes early and bring [Recommended Items]. We wish you a wonderful trip!"
+      ],
+      "scope": "Luxe Paradise · nguồn lịch sử 04/10/2026",
+      "status": "Cần duyệt theo tình huống"
+    },
+    {
+      "id": "N11.3",
+      "title": "N11 3 Chăm sóc sau tour",
+      "lines": [
+        "Mẫu trong thư viện Notion  |  Nguồn S4 mục 11.3",
+        "Tình huống gốc: Guest returned from tour.",
+        "Thông tin cần có: Tour and completion status.",
+        "Trạng thái trong thư viện: Completed",
+        "Dear Mr./Ms. [Guest Name],\nWe hope you had a wonderful experience on [Tour Name]. If you need assistance with transportation, photos or planning another experience, our team is always happy to help."
+      ],
+      "scope": "Luxe Paradise · nguồn lịch sử 04/10/2026",
+      "status": "Cần duyệt theo tình huống"
+    },
+    {
+      "id": "N15.1",
+      "title": "N15 1 Khách hỏi tour qua OTA",
+      "lines": [
+        "Mẫu trong thư viện Notion  |  Nguồn S4 mục 15.1",
+        "Tình huống gốc: Guest asks about a tour through Booking.com, Agoda, Expedia or another OTA.",
+        "Thông tin cần có: Guest name, booking ID, stay dates, requested destination.",
+        "Trạng thái trong thư viện: New Inquiry",
+        "Lưu ý khi dùng: Keep the conversation on the OTA unless the guest voluntarily provides permission to use another channel.",
+        "Dear Mr./Ms. [Guest Name],\nThank you for your message through [OTA Name]. We would be happy to assist with tour arrangements during your stay.\nPlease let us know your preferred travel date, number of guests and destination. We will check suitable options for you."
+      ],
+      "scope": "Luxe Paradise · nguồn lịch sử 04/10/2026",
+      "status": "Cần duyệt theo tình huống"
+    },
+    {
+      "id": "N15.2",
+      "title": "N15 2 Khách hỏi xe sân bay qua OTA",
+      "lines": [
+        "Mẫu trong thư viện Notion  |  Nguồn S4 mục 15.2",
+        "Tình huống gốc: Guest asks about transportation through an OTA.",
+        "Thông tin cần có: Guest name, booking ID, date, flight information.",
+        "Trạng thái trong thư viện: Missing Information",
+        "Lưu ý khi dùng: Do not ask for guest count or baggage again when the guest has already selected a suitable vehicle.",
+        "Dear Mr./Ms. [Guest Name],\nThank you for your airport transfer request. To check the correct service, please share your flight number, arrival date and time, and preferred vehicle. We will confirm the availability and price before booking."
+      ],
+      "scope": "Luxe Paradise · nguồn lịch sử 04/10/2026",
+      "status": "Cần duyệt theo tình huống"
+    },
+    {
+      "id": "N15.3",
+      "title": "N15 3 Khách hỏi tour qua email",
+      "lines": [
+        "Mẫu trong thư viện Notion  |  Nguồn S4 mục 15.3",
+        "Tình huống gốc: Guest contacts the hotel by email.",
+        "Thông tin cần có: Guest name, booking ID if available, date, guests, destination.",
+        "Trạng thái trong thư viện: New Inquiry",
+        "Dear Mr./Ms. [Guest Name],\nThank you for contacting Luxe Paradise Premium Hotel. We would be delighted to assist with your tour arrangements. Please share your preferred travel date, number of guests and destination. We will prepare suitable options for your review."
+      ],
+      "scope": "Luxe Paradise · nguồn lịch sử 04/10/2026",
+      "status": "Cần duyệt theo tình huống"
+    },
+    {
+      "id": "N15.4",
+      "title": "N15 4 Khách hỏi xe sân bay qua email",
+      "lines": [
+        "Mẫu trong thư viện Notion  |  Nguồn S4 mục 15.4",
+        "Tình huống gốc: Guest requests transfer by email.",
+        "Thông tin cần có: Flight number, arrival/departure date and time, direction, vehicle.",
+        "Trạng thái trong thư viện: Missing Information",
+        "Dear Mr./Ms. [Guest Name],\nThank you for your email. To arrange your airport transfer, kindly share the flight number, travel date and time, transfer direction, and preferred vehicle. We will check and confirm the service details."
+      ],
+      "scope": "Luxe Paradise · nguồn lịch sử 04/10/2026",
+      "status": "Cần duyệt theo tình huống"
+    },
+    {
+      "id": "N15.5",
+      "title": "N15 5 Khách hỏi tour bằng tiếng Việt",
+      "lines": [
+        "Mẫu trong thư viện Notion  |  Nguồn S4 mục 15.5",
+        "Tình huống gốc: Vietnamese-speaking guest asks for a tour.",
+        "Thông tin cần có: Ngày đi, số khách, điểm đến.",
+        "Trạng thái trong thư viện: New Inquiry",
+        "Chào Anh/Chị [Tên khách],\nCảm ơn Anh/Chị đã liên hệ Luxe Paradise Premium Hotel. Anh/Chị vui lòng cho khách sạn biết ngày đi, số lượng khách và điểm đến mong muốn. Chúng tôi sẽ kiểm tra và gửi các lựa chọn phù hợp để Anh/Chị tham khảo."
+      ],
+      "scope": "Luxe Paradise · nguồn lịch sử 04/10/2026",
+      "status": "Cần duyệt theo tình huống"
+    },
+    {
+      "id": "N16.1",
+      "title": "N16 1 Khách đến trước 09 giờ",
+      "lines": [
+        "Mẫu trong thư viện Notion  |  Nguồn S4 mục 16.1",
+        "Tình huống gốc: Guest expects to arrive before 09:00.",
+        "Thông tin cần có: Arrival date and time, booking dates.",
+        "Trạng thái trong thư viện: Need Review",
+        "Lưu ý khi dùng: Áp dụng khi chưa đặt đêm trước. Nếu đêm trước đã có trong booking thì dùng A04, không yêu cầu mua lại. Do not promise a room without the previous night being booked.",
+        "Dear Mr./Ms. [Guest Name],\nAs your expected arrival is before 09:00, booking the previous night is required to guarantee immediate room access. Otherwise, early check-in remains subject to availability when you arrive.\nWe will be happy to store your luggage free of charge, and a lobby bathroom is available for changing and personal refreshment."
+      ],
+      "scope": "Luxe Paradise · nguồn lịch sử 04/10/2026",
+      "status": "Cần duyệt theo tình huống"
+    },
+    {
+      "id": "N16.2",
+      "title": "N16 2 Khách đến từ 09 đến 14 giờ",
+      "lines": [
+        "Mẫu trong thư viện Notion  |  Nguồn S4 mục 16.2",
+        "Tình huống gốc: Guest requests early check-in in this time range.",
+        "Thông tin cần có: Arrival time and applicable room rate.",
+        "Trạng thái trong thư viện: Need Review",
+        "Lưu ý khi dùng: Chỉ áp dụng nếu chưa được bao phủ bởi đêm đã đặt. ",
+        "Dear Mr./Ms. [Guest Name],\nEarly check-in between 09:00 and 14:00 is subject to room availability and a charge of 50% of the room rate plus applicable tax. We have noted your request and the Front Office will confirm availability."
+      ],
+      "scope": "Luxe Paradise · nguồn lịch sử 04/10/2026",
+      "status": "Cần duyệt theo tình huống"
+    },
+    {
+      "id": "N16.3",
+      "title": "N16 3 Khách đến muộn ban đêm",
+      "lines": [
+        "Mẫu trong thư viện Notion  |  Nguồn S4 mục 16.3",
+        "Tình huống gốc: Guest expects to arrive late at night.",
+        "Thông tin cần có: Arrival time, booking ID, transportation need.",
+        "Trạng thái trong thư viện: Approved",
+        "Dear Mr./Ms. [Guest Name],\nThank you for informing us of your late arrival. Our Reception Desk is available 24 hours, and we have noted your expected arrival time of [Arrival Time]. Please let us know if you need transportation assistance."
+      ],
+      "scope": "Luxe Paradise · nguồn lịch sử 04/10/2026",
+      "status": "Cần duyệt theo tình huống"
+    },
+    {
+      "id": "N16.4",
+      "title": "N16 4 Khách đến sau 01 giờ",
+      "lines": [
+        "Mẫu trong thư viện Notion  |  Nguồn S4 mục 16.4",
+        "Tình huống gốc: Guest arrives after 01:00.",
+        "Thông tin cần có: Arrival time and night access instructions verified by hotel.",
+        "Trạng thái trong thư viện: Approved",
+        "Lưu ý khi dùng: Use only while this entrance procedure remains valid.",
+        "Dear Mr./Ms. [Guest Name],\nWe have noted your expected arrival after 01:00. Upon arrival, please use the entrance bell and our night team will assist you. If your arrival time changes, please let us know."
+      ],
+      "scope": "Luxe Paradise · nguồn lịch sử 04/10/2026",
+      "status": "Cần duyệt theo tình huống"
+    },
+    {
+      "id": "N16.5",
+      "title": "N16 5 Khách đi tour về muộn",
+      "lines": [
+        "Mẫu trong thư viện Notion  |  Nguồn S4 mục 16.5",
+        "Tình huống gốc: Guest returns to the hotel after normal hours.",
+        "Thông tin cần có: Expected return time and access instructions.",
+        "Trạng thái trong thư viện: Approved",
+        "Dear Mr./Ms. [Guest Name],\nWe have noted your expected late return. If the entrance is closed, please use the entrance bell and our night team will assist you. Please let us know if you need transportation or late-night food recommendations."
+      ],
+      "scope": "Luxe Paradise · nguồn lịch sử 04/10/2026",
+      "status": "Cần duyệt theo tình huống"
+    },
+    {
+      "id": "N17.1",
+      "title": "N17 1 Khách ăn chay",
+      "lines": [
+        "Mẫu trong thư viện Notion  |  Nguồn S4 mục 17.1",
+        "Tình huống gốc: Guest requests vegetarian food.",
+        "Thông tin cần có: Tour, date, guest count, strictness and allergies if volunteered.",
+        "Trạng thái trong thư viện: Checking Supplier",
+        "Lưu ý khi dùng: Do not state that the meal is guaranteed until the operator confirms.",
+        "Dear Mr./Ms. [Guest Name],\nThank you for informing us of your vegetarian preference. We will send the request to the tour operator and ask them to confirm the available meal arrangement."
+      ],
+      "scope": "Luxe Paradise · nguồn lịch sử 04/10/2026",
+      "status": "Cần duyệt theo tình huống"
+    },
+    {
+      "id": "N17.2",
+      "title": "N17 2 Khách dị ứng hoặc kiêng thực phẩm",
+      "lines": [
+        "Mẫu trong thư viện Notion  |  Nguồn S4 mục 17.2",
+        "Tình huống gốc: Guest reports an allergy or restriction.",
+        "Thông tin cần có: Exact restriction in the guest’s own words, tour, date.",
+        "Trạng thái trong thư viện: Need Review",
+        "Lưu ý khi dùng: Flag severe allergies for staff review; do not provide medical assurances.",
+        "Dear Mr./Ms. [Guest Name],\nThank you for sharing this important dietary information. We will forward your requirements to the operator and request written confirmation of what can be accommodated. Please note that kitchen environments and cross-contact controls vary by supplier."
+      ],
+      "scope": "Luxe Paradise · nguồn lịch sử 04/10/2026",
+      "status": "Cần duyệt theo tình huống"
+    },
+    {
+      "id": "N17.3",
+      "title": "N17 3 Khách yêu cầu bữa ăn Halal",
+      "lines": [
+        "Mẫu trong thư viện Notion  |  Nguồn S4 mục 17.3",
+        "Tình huống gốc: Guest requests Halal food.",
+        "Thông tin cần có: Tour, date, definition required, guests.",
+        "Trạng thái trong thư viện: Checking Supplier",
+        "Dear Mr./Ms. [Guest Name],\nThank you for your Halal meal request. We will check whether the operator can provide a verified Halal meal or the closest available alternative and update you before confirmation."
+      ],
+      "scope": "Luxe Paradise · nguồn lịch sử 04/10/2026",
+      "status": "Cần duyệt theo tình huống"
+    },
+    {
+      "id": "N18.1",
+      "title": "N18 1 Khách muốn đi bộ ít",
+      "lines": [
+        "Mẫu trong thư viện Notion  |  Nguồn S4 mục 18.1",
+        "Tình huống gốc: Guest requests low-activity itinerary.",
+        "Thông tin cần có: Mobility preference, date, guests.",
+        "Trạng thái trong thư viện: Need Review",
+        "Dear Mr./Ms. [Guest Name],\nThank you for letting us know. We will prioritize options with minimal walking, comfortable transportation and easier access. We will clearly identify any stairs, uneven paths, boat boarding or other physical requirements before you decide."
+      ],
+      "scope": "Luxe Paradise · nguồn lịch sử 04/10/2026",
+      "status": "Cần duyệt theo tình huống"
+    },
+    {
+      "id": "N18.2",
+      "title": "N18 2 Tour phù hợp người cao tuổi",
+      "lines": [
+        "Mẫu trong thư viện Notion  |  Nguồn S4 mục 18.2",
+        "Tình huống gốc: Group includes senior guests.",
+        "Thông tin cần có: Ages if volunteered, walking comfort, assistance required.",
+        "Trạng thái trong thư viện: Missing Information",
+        "Dear Mr./Ms. [Guest Name],\nWe will be happy to recommend a more comfortable itinerary for senior travelers. Please let us know the preferred walking level and whether anyone requires additional assistance, so we can confirm suitable transport and access with the operator."
+      ],
+      "scope": "Luxe Paradise · nguồn lịch sử 04/10/2026",
+      "status": "Cần duyệt theo tình huống"
+    },
+    {
+      "id": "N18.3",
+      "title": "N18 3 Khách có thai hoặc có vấn đề sức khỏe",
+      "lines": [
+        "Mẫu trong thư viện Notion  |  Nguồn S4 mục 18.3",
+        "Tình huống gốc: Guest voluntarily discloses pregnancy or a health concern.",
+        "Thông tin cần có: Guest preference and supplier restrictions.",
+        "Trạng thái trong thư viện: Need Review",
+        "Lưu ý khi dùng: Do not give medical advice or claim a tour is medically safe.",
+        "Dear Mr./Ms. [Guest Name],\nThank you for sharing this important information. We will avoid recommending strenuous activities and will ask the operator to confirm the relevant access and safety conditions. The final decision should also take into account advice from your healthcare professional."
+      ],
+      "scope": "Luxe Paradise · nguồn lịch sử 04/10/2026",
+      "status": "Cần duyệt theo tình huống"
+    },
+    {
+      "id": "N19.1",
+      "title": "N19 1 Tour cho gia đình có trẻ em",
+      "lines": [
+        "Mẫu trong thư viện Notion  |  Nguồn S4 mục 19.1",
+        "Tình huống gốc: Family asks for suitable tours.",
+        "Thông tin cần có: Children’s ages, date, guests, stroller or seat needs.",
+        "Trạng thái trong thư viện: Missing Information",
+        "Dear Mr./Ms. [Guest Name],\nWe would be happy to recommend family-friendly tours with suitable activities and comfortable transportation. Please share the children’s ages and let us know whether you require a child seat, stroller-friendly access or a gentler schedule."
+      ],
+      "scope": "Luxe Paradise · nguồn lịch sử 04/10/2026",
+      "status": "Cần duyệt theo tình huống"
+    },
+    {
+      "id": "N19.2",
+      "title": "N19 2 Giá tour cho trẻ em",
+      "lines": [
+        "Mẫu trong thư viện Notion  |  Nguồn S4 mục 19.2",
+        "Tình huống gốc: Guest asks about child pricing.",
+        "Thông tin cần có: Child age and operator policy.",
+        "Trạng thái trong thư viện: Checking Supplier",
+        "Lưu ý khi dùng: Never assume one child policy applies to all suppliers.",
+        "Dear Mr./Ms. [Guest Name],\nChild pricing varies by tour operator and age category. Please share the child’s age on the travel date, and we will check the exact rate and included services."
+      ],
+      "scope": "Luxe Paradise · nguồn lịch sử 04/10/2026",
+      "status": "Cần duyệt theo tình huống"
+    },
+    {
+      "id": "N19.3",
+      "title": "N19 3 Ghế trẻ em trên xe",
+      "lines": [
+        "Mẫu trong thư viện Notion  |  Nguồn S4 mục 19.3",
+        "Tình huống gốc: Guest requests a child seat.",
+        "Thông tin cần có: Child age, approximate height/weight if supplier requires, vehicle.",
+        "Trạng thái trong thư viện: Checking Supplier",
+        "Dear Mr./Ms. [Guest Name],\nWe will check child-seat availability with the transport provider. Please share the child’s age and any sizing information requested by the provider. The seat is confirmed only after the provider accepts the request."
+      ],
+      "scope": "Luxe Paradise · nguồn lịch sử 04/10/2026",
+      "status": "Cần duyệt theo tình huống"
+    },
+    {
+      "id": "N20.1",
+      "title": "N20 1 Khách hỏi độ an toàn của tour",
+      "lines": [
+        "Mẫu trong thư viện Notion  |  Nguồn S4 mục 20.1",
+        "Tình huống gốc: Guest asks about safety.",
+        "Thông tin cần có: Tour, supplier credentials available, current conditions.",
+        "Trạng thái trong thư viện: Need Review",
+        "Lưu ý khi dùng: Avoid absolute statements such as completely safe or guaranteed safety.",
+        "Dear Mr./Ms. [Guest Name],\nWe work with selected tour operators and will provide the confirmed transport, guide and activity information available for [Tour Name]. Please tell us if you have any specific safety concerns so we can verify them directly with the operator before booking."
+      ],
+      "scope": "Luxe Paradise · nguồn lịch sử 04/10/2026",
+      "status": "Cần duyệt theo tình huống"
+    },
+    {
+      "id": "N20.2",
+      "title": "N20 2 Khách hỏi an toàn xe và tài xế",
+      "lines": [
+        "Mẫu trong thư viện Notion  |  Nguồn S4 mục 20.2",
+        "Tình huống gốc: Guest asks about the vehicle or driver.",
+        "Thông tin cần có: Provider, vehicle type and verified operating information.",
+        "Trạng thái trong thư viện: Checking Supplier",
+        "Lưu ý khi dùng: Use only verified supplier facts.",
+        "Dear Mr./Ms. [Guest Name],\nWe will confirm the vehicle type, driver arrangement and applicable provider information for your service. If you have a specific concern, please let us know and we will check it before confirmation."
+      ],
+      "scope": "Luxe Paradise · nguồn lịch sử 04/10/2026",
+      "status": "Cần duyệt theo tình huống"
+    },
+    {
+      "id": "N21.1",
+      "title": "N21 1 Phương thức thanh toán khách sạn",
+      "lines": [
+        "Mẫu trong thư viện Notion  |  Nguồn S4 mục 21.1",
+        "Tình huống gốc: Guest asks how to pay the hotel.",
+        "Thông tin cần có: Current hotel payment policy.",
+        "Trạng thái trong thư viện: Approved",
+        "Lưu ý khi dùng: Keep this separate from tour-operator payment rules.",
+        "Dear Mr./Ms. [Guest Name],\nCash payment is accepted without an additional charge. Credit card payment is available with a 5% service fee."
+      ],
+      "scope": "Luxe Paradise · nguồn lịch sử 04/10/2026",
+      "status": "Cần duyệt theo tình huống"
+    },
+    {
+      "id": "N21.2",
+      "title": "N21 2 Thời điểm thanh toán tour",
+      "lines": [
+        "Mẫu trong thư viện Notion  |  Nguồn S4 mục 21.2",
+        "Tình huống gốc: Guest asks when to pay.",
+        "Thông tin cần có: Supplier-specific deposit and balance policy.",
+        "Trạng thái trong thư viện: Checking Supplier",
+        "Dear Mr./Ms. [Guest Name],\nPayment conditions vary by tour. Some operators allow payment upon pickup, while others require a deposit or full advance payment. We will confirm the exact amount, deadline, payment method and cancellation terms for your selected tour."
+      ],
+      "scope": "Luxe Paradise · nguồn lịch sử 04/10/2026",
+      "status": "Cần duyệt theo tình huống"
+    },
+    {
+      "id": "N21.3",
+      "title": "N21 3 Hóa đơn VAT khách sạn",
+      "lines": [
+        "Mẫu trong thư viện Notion  |  Nguồn S4 mục 21.3",
+        "Tình huống gốc: Guest asks for a hotel VAT invoice.",
+        "Thông tin cần có: Company name, address, tax code, invoice email and legal deadline.",
+        "Trạng thái trong thư viện: Need Review",
+        "Dear Mr./Ms. [Guest Name],\nWe can prepare a VAT invoice for eligible hotel charges. Please provide the company name, company address, tax code and invoice email. Our team will confirm the invoice details and applicable issuance requirements."
+      ],
+      "scope": "Luxe Paradise · nguồn lịch sử 04/10/2026",
+      "status": "Cần duyệt theo tình huống"
+    },
+    {
+      "id": "N21.4",
+      "title": "N21 4 Hóa đơn của nhà cung cấp tour",
+      "lines": [
+        "Mẫu trong thư viện Notion  |  Nguồn S4 mục 21.4",
+        "Tình huống gốc: Guest requests an invoice for a tour.",
+        "Thông tin cần có: Tour, operator, booking reference, invoice availability.",
+        "Trạng thái trong thư viện: Checking Supplier",
+        "Lưu ý khi dùng: Do not promise that the hotel can issue the operator’s invoice.",
+        "Dear Mr./Ms. [Guest Name],\nWe will ask the tour operator whether an invoice can be issued for your booking and what company information is required. We will update you after the operator confirms."
+      ],
+      "scope": "Luxe Paradise · nguồn lịch sử 04/10/2026",
+      "status": "Cần duyệt theo tình huống"
+    },
+    {
+      "id": "N22.1",
+      "title": "N22 1 Chăm sóc riêng trước khi đến",
+      "lines": [
+        "Mẫu trong thư viện Notion  |  Nguồn S4 mục 22.1",
+        "Tình huống gốc: VIP or high-value guest before arrival.",
+        "Thông tin cần có: Guest preferences already known, stay dates.",
+        "Trạng thái trong thư viện: New Inquiry",
+        "Lưu ý khi dùng: Do not promise every request can be fulfilled.",
+        "Dear Mr./Ms. [Guest Name],\nWe are honored to welcome you to Luxe Paradise Premium Hotel. If you have any preferences regarding transportation, room setup, dining or tours, please feel free to share them. Our team will review the arrangements and confirm what can be prepared for your stay."
+      ],
+      "scope": "Luxe Paradise · nguồn lịch sử 04/10/2026",
+      "status": "Cần duyệt theo tình huống"
+    },
+    {
+      "id": "N22.2",
+      "title": "N22 2 Hỏi thăm khách đang lưu trú",
+      "lines": [
+        "Mẫu trong thư viện Notion  |  Nguồn S4 mục 22.2",
+        "Tình huống gốc: Guest is staying at the hotel.",
+        "Thông tin cần có: Room, guest name, known plans.",
+        "Trạng thái trong thư viện: Approved",
+        "Dear Mr./Ms. [Guest Name],\nWe hope everything is comfortable during your stay. If there is anything we can assist with today or prepare for tomorrow, including transportation, dining or tour arrangements, please let us know. Luxe Paradise Premium Hotel | 75 Pham Hong Thai, Hanoi | Reception +84 896 867 575"
+      ],
+      "scope": "Luxe Paradise · nguồn lịch sử 04/10/2026",
+      "status": "Cần duyệt theo tình huống"
+    },
+    {
+      "id": "N5.1",
+      "title": "N5 1 Phiếu duyệt giá nội bộ",
+      "lines": [
+        "Mẫu trong thư viện Notion  |  Nguồn S4 mục 5.1",
+        "Tình huống gốc: Supplier price has been retrieved.",
+        "Thông tin cần có: Base price, unit, currency, source, verified date, proposed margin.",
+        "Trạng thái trong thư viện: Need Review",
+        "Lưu ý khi dùng: Never expose this internal margin note to guests.",
+        "INTERNAL REVIEW ONLY\nTour: [Tour Name]\nOperator: [Operator]\nBase price: [Base Price] [Currency] per [Unit]\nSuggested selling price +15%: [Price 15]\nSuggested selling price +20%: [Price 20]\nSource: [Source URL]\nVerified: [Verified Date]\nAvailability: [Status]\nReviewer decision: Approve / Edit / Reject"
+      ],
+      "scope": "Luxe Paradise · nguồn lịch sử 04/10/2026",
+      "status": "Cần duyệt theo tình huống"
+    }
+  ]
+}

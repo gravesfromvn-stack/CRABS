@@ -1,0 +1,19 @@
+{
+  "preparedOn": "2026-10-18",
+  "upstreamCommit": "450d7c96c467f3fb8464639110ae0a5d4fa22ca9",
+  "files": 205,
+  "textFiles": 200,
+  "baselineFilesHashVerified": 189,
+  "excluded": [
+    "Old .git history",
+    "tsconfig.tsbuildinfo",
+    "Untracked files",
+    "Local environments and runtime data",
+    "Live OTA database and email exports"
+  ],
+  "knownSecretValueScan": "passed for available local secret values",
+  "anonymizedProfileNaming": "151 checked",
+  "binaryAssets": "Existing tracked branding files plus the supplied handoff DOCX; DOCX package inventory inspected separately",
+  "limits": "Pattern and known-value checks are not a formal anonymization or comprehensive secret-audit guarantee.",
+  "problems": []
+}

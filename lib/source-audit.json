@@ -1,0 +1,896 @@
+{
+  "version": "luxe-audit-2026-10-14-v3",
+  "readAt": "14/10/2026",
+  "scope": "Bản trích xuất phục vụ demo cá nhân từ các nguồn tài khoản truy cập được. Không phải bản sao lưu toàn bộ hệ thống khách sạn.",
+  "summary": {
+    "primaryBooks": 8,
+    "tabsRead": 57,
+    "backupFiles": 18,
+    "guestMasterRecords": 151,
+    "otaEvents": 362,
+    "foVisibleBookings": 43,
+    "foNeedsReview": 22,
+    "foStoredRecords": 450,
+    "makeListed": 29,
+    "makeInspected": 9
+  },
+  "sourceBooks": [
+    {
+      "id": "1AmjAbj7iZ8wnaMPvhuODKGUTf16HcK3VqBaBxnGmxKs",
+      "title": "Data Luxe Paradise 75PHT",
+      "url": "https://docs.google.com/spreadsheets/d/1AmjAbj7iZ8wnaMPvhuODKGUTf16HcK3VqBaBxnGmxKs/edit",
+      "tabs": [
+        {
+          "title": "Daily Operations",
+          "gridRows": 5000,
+          "gridColumns": 85,
+          "returnedRows": 152,
+          "nonEmptyRows": 152,
+          "hidden": false,
+          "read": "Đã đọc giá trị toàn bộ phạm vi tab; không gồm ảnh, nhận xét hay Apps Script."
+        },
+        {
+          "title": "Guest information",
+          "gridRows": 1078,
+          "gridColumns": 38,
+          "returnedRows": 67,
+          "nonEmptyRows": 67,
+          "hidden": true,
+          "read": "Đã đọc giá trị toàn bộ phạm vi tab; không gồm ảnh, nhận xét hay Apps Script."
+        },
+        {
+          "title": "All information",
+          "gridRows": 1117,
+          "gridColumns": 11,
+          "returnedRows": 101,
+          "nonEmptyRows": 68,
+          "hidden": true,
+          "read": "Đã đọc giá trị toàn bộ phạm vi tab; không gồm ảnh, nhận xét hay Apps Script."
+        },
+        {
+          "title": "Airport Pickup",
+          "gridRows": 1000,
+          "gridColumns": 24,
+          "returnedRows": 69,
+          "nonEmptyRows": 55,
+          "hidden": false,
+          "read": "Đã đọc giá trị toàn bộ phạm vi tab; không gồm ảnh, nhận xét hay Apps Script."
+        },
+        {
+          "title": "OTA Event Log",
+          "gridRows": 2362,
+          "gridColumns": 19,
+          "returnedRows": 363,
+          "nonEmptyRows": 363,
+          "hidden": false,
+          "read": "Đã đọc giá trị toàn bộ phạm vi tab; không gồm ảnh, nhận xét hay Apps Script."
+        }
+      ]
+    },
+    {
+      "id": "1RlJNkWl7fj4X8FdWMrUiOmAkhBx4MD9q20XIOnyofbQ",
+      "title": "Guest information 75 PHT",
+      "url": "https://docs.google.com/spreadsheets/d/1RlJNkWl7fj4X8FdWMrUiOmAkhBx4MD9q20XIOnyofbQ/edit",
+      "tabs": [
+        {
+          "title": "Ca trực",
+          "gridRows": 1000,
+          "gridColumns": 26,
+          "returnedRows": 21,
+          "nonEmptyRows": 21,
+          "hidden": false,
+          "read": "Đã đọc giá trị toàn bộ phạm vi tab; không gồm ảnh, nhận xét hay Apps Script."
+        },
+        {
+          "title": "Hướng dẫn ca trực",
+          "gridRows": 1000,
+          "gridColumns": 26,
+          "returnedRows": 14,
+          "nonEmptyRows": 14,
+          "hidden": false,
+          "read": "Đã đọc giá trị toàn bộ phạm vi tab; không gồm ảnh, nhận xét hay Apps Script."
+        },
+        {
+          "title": "Guest Master",
+          "gridRows": 4994,
+          "gridColumns": 61,
+          "returnedRows": 152,
+          "nonEmptyRows": 152,
+          "hidden": false,
+          "read": "Đã đọc giá trị toàn bộ phạm vi tab; không gồm ảnh, nhận xét hay Apps Script."
+        },
+        {
+          "title": "09.2026",
+          "gridRows": 500,
+          "gridColumns": 40,
+          "returnedRows": 26,
+          "nonEmptyRows": 26,
+          "hidden": false,
+          "read": "Đã đọc giá trị toàn bộ phạm vi tab; không gồm ảnh, nhận xét hay Apps Script."
+        },
+        {
+          "title": "10.2026",
+          "gridRows": 501,
+          "gridColumns": 40,
+          "returnedRows": 113,
+          "nonEmptyRows": 112,
+          "hidden": false,
+          "read": "Đã đọc giá trị toàn bộ phạm vi tab; không gồm ảnh, nhận xét hay Apps Script."
+        },
+        {
+          "title": "11.2026",
+          "gridRows": 500,
+          "gridColumns": 40,
+          "returnedRows": 16,
+          "nonEmptyRows": 16,
+          "hidden": false,
+          "read": "Đã đọc giá trị toàn bộ phạm vi tab; không gồm ảnh, nhận xét hay Apps Script."
+        },
+        {
+          "title": "12.2026",
+          "gridRows": 500,
+          "gridColumns": 40,
+          "returnedRows": 4,
+          "nonEmptyRows": 4,
+          "hidden": false,
+          "read": "Đã đọc giá trị toàn bộ phạm vi tab; không gồm ảnh, nhận xét hay Apps Script."
+        },
+        {
+          "title": "01.2027",
+          "gridRows": 500,
+          "gridColumns": 40,
+          "returnedRows": 2,
+          "nonEmptyRows": 2,
+          "hidden": false,
+          "read": "Đã đọc giá trị toàn bộ phạm vi tab; không gồm ảnh, nhận xét hay Apps Script."
+        },
+        {
+          "title": "02.2027",
+          "gridRows": 500,
+          "gridColumns": 40,
+          "returnedRows": 1,
+          "nonEmptyRows": 1,
+          "hidden": false,
+          "read": "Đã đọc giá trị toàn bộ phạm vi tab; không gồm ảnh, nhận xét hay Apps Script."
+        },
+        {
+          "title": "03.2027",
+          "gridRows": 500,
+          "gridColumns": 40,
+          "returnedRows": 1,
+          "nonEmptyRows": 1,
+          "hidden": false,
+          "read": "Đã đọc giá trị toàn bộ phạm vi tab; không gồm ảnh, nhận xét hay Apps Script."
+        },
+        {
+          "title": "04.2027",
+          "gridRows": 500,
+          "gridColumns": 40,
+          "returnedRows": 1,
+          "nonEmptyRows": 1,
+          "hidden": false,
+          "read": "Đã đọc giá trị toàn bộ phạm vi tab; không gồm ảnh, nhận xét hay Apps Script."
+        },
+        {
+          "title": "05.2027",
+          "gridRows": 500,
+          "gridColumns": 40,
+          "returnedRows": 1,
+          "nonEmptyRows": 1,
+          "hidden": false,
+          "read": "Đã đọc giá trị toàn bộ phạm vi tab; không gồm ảnh, nhận xét hay Apps Script."
+        }
+      ]
+    },
+    {
+      "id": "1x79lIP4IknSngcuQJqid-QL1EdW0mXCjoQ59tgVc8u4",
+      "title": "Private DATA INBOUND TOUR",
+      "url": "https://docs.google.com/spreadsheets/d/1x79lIP4IknSngcuQJqid-QL1EdW0mXCjoQ59tgVc8u4/edit",
+      "tabs": [
+        {
+          "title": "Tour information",
+          "gridRows": 1078,
+          "gridColumns": 18,
+          "returnedRows": 67,
+          "nonEmptyRows": 67,
+          "hidden": false,
+          "read": "Đã đọc giá trị toàn bộ phạm vi tab; không gồm ảnh, nhận xét hay Apps Script."
+        },
+        {
+          "title": "Tour Catalog",
+          "gridRows": 200,
+          "gridColumns": 26,
+          "returnedRows": 29,
+          "nonEmptyRows": 29,
+          "hidden": false,
+          "read": "Đã đọc giá trị toàn bộ phạm vi tab; không gồm ảnh, nhận xét hay Apps Script."
+        },
+        {
+          "title": "Tour Durations",
+          "gridRows": 100,
+          "gridColumns": 10,
+          "returnedRows": 29,
+          "nonEmptyRows": 29,
+          "hidden": false,
+          "read": "Đã đọc giá trị toàn bộ phạm vi tab; không gồm ảnh, nhận xét hay Apps Script."
+        },
+        {
+          "title": "Tour Itinerary Days",
+          "gridRows": 200,
+          "gridColumns": 12,
+          "returnedRows": 64,
+          "nonEmptyRows": 64,
+          "hidden": false,
+          "read": "Đã đọc giá trị toàn bộ phạm vi tab; không gồm ảnh, nhận xét hay Apps Script."
+        },
+        {
+          "title": "Tour Sources",
+          "gridRows": 150,
+          "gridColumns": 8,
+          "returnedRows": 49,
+          "nonEmptyRows": 49,
+          "hidden": false,
+          "read": "Đã đọc giá trị toàn bộ phạm vi tab; không gồm ảnh, nhận xét hay Apps Script."
+        },
+        {
+          "title": "Tour AI Rules",
+          "gridRows": 100,
+          "gridColumns": 10,
+          "returnedRows": 23,
+          "nonEmptyRows": 23,
+          "hidden": false,
+          "read": "Đã đọc giá trị toàn bộ phạm vi tab; không gồm ảnh, nhận xét hay Apps Script."
+        },
+        {
+          "title": "Tour Change Log",
+          "gridRows": 100,
+          "gridColumns": 10,
+          "returnedRows": 4,
+          "nonEmptyRows": 4,
+          "hidden": false,
+          "read": "Đã đọc giá trị toàn bộ phạm vi tab; không gồm ảnh, nhận xét hay Apps Script."
+        },
+        {
+          "title": "Tour Program Details",
+          "gridRows": 100,
+          "gridColumns": 8,
+          "returnedRows": 29,
+          "nonEmptyRows": 29,
+          "hidden": false,
+          "read": "Đã đọc giá trị toàn bộ phạm vi tab; không gồm ảnh, nhận xét hay Apps Script."
+        },
+        {
+          "title": "TheSinhTour Products",
+          "gridRows": 220,
+          "gridColumns": 16,
+          "returnedRows": 162,
+          "nonEmptyRows": 162,
+          "hidden": false,
+          "read": "Đã đọc giá trị toàn bộ phạm vi tab; không gồm ảnh, nhận xét hay Apps Script."
+        }
+      ]
+    },
+    {
+      "id": "117tHGxGHZ04SsiCJZnSugGRmKMgG47OvOjRKsgdNYWc",
+      "title": "75PHT - XE SÂN BAY",
+      "url": "https://docs.google.com/spreadsheets/d/117tHGxGHZ04SsiCJZnSugGRmKMgG47OvOjRKsgdNYWc/edit",
+      "tabs": [
+        {
+          "title": "Tháng 8.2026",
+          "gridRows": 1008,
+          "gridColumns": 26,
+          "returnedRows": 36,
+          "nonEmptyRows": 28,
+          "hidden": false,
+          "read": "Đã đọc giá trị toàn bộ phạm vi tab; không gồm ảnh, nhận xét hay Apps Script."
+        },
+        {
+          "title": "Tháng 9.2026",
+          "gridRows": 1030,
+          "gridColumns": 27,
+          "returnedRows": 70,
+          "nonEmptyRows": 51,
+          "hidden": false,
+          "read": "Đã đọc giá trị toàn bộ phạm vi tab; không gồm ảnh, nhận xét hay Apps Script."
+        },
+        {
+          "title": "Tháng 10.2026",
+          "gridRows": 1040,
+          "gridColumns": 27,
+          "returnedRows": 76,
+          "nonEmptyRows": 42,
+          "hidden": false,
+          "read": "Đã đọc giá trị toàn bộ phạm vi tab; không gồm ảnh, nhận xét hay Apps Script."
+        },
+        {
+          "title": "11.2026",
+          "gridRows": 1015,
+          "gridColumns": 27,
+          "returnedRows": 10,
+          "nonEmptyRows": 3,
+          "hidden": false,
+          "read": "Đã đọc giá trị toàn bộ phạm vi tab; không gồm ảnh, nhận xét hay Apps Script."
+        }
+      ]
+    },
+    {
+      "id": "1Pqw-yYPbHpN2-DfuBwBXTmC491zAjE6rkAe33W_umv0",
+      "title": "75PHT - TOUR 2026",
+      "url": "https://docs.google.com/spreadsheets/d/1Pqw-yYPbHpN2-DfuBwBXTmC491zAjE6rkAe33W_umv0/edit",
+      "tabs": [
+        {
+          "title": "Tháng 7.2026",
+          "gridRows": 993,
+          "gridColumns": 27,
+          "returnedRows": 8,
+          "nonEmptyRows": 8,
+          "hidden": false,
+          "read": "Đã đọc giá trị toàn bộ phạm vi tab; không gồm ảnh, nhận xét hay Apps Script."
+        },
+        {
+          "title": "Tháng 8.2026",
+          "gridRows": 1006,
+          "gridColumns": 27,
+          "returnedRows": 32,
+          "nonEmptyRows": 32,
+          "hidden": false,
+          "read": "Đã đọc giá trị toàn bộ phạm vi tab; không gồm ảnh, nhận xét hay Apps Script."
+        },
+        {
+          "title": "Tháng 9.2026",
+          "gridRows": 986,
+          "gridColumns": 27,
+          "returnedRows": 208,
+          "nonEmptyRows": 45,
+          "hidden": false,
+          "read": "Đã đọc giá trị toàn bộ phạm vi tab; không gồm ảnh, nhận xét hay Apps Script."
+        },
+        {
+          "title": "Tháng 10.2026",
+          "gridRows": 998,
+          "gridColumns": 27,
+          "returnedRows": 73,
+          "nonEmptyRows": 19,
+          "hidden": false,
+          "read": "Đã đọc giá trị toàn bộ phạm vi tab; không gồm ảnh, nhận xét hay Apps Script."
+        }
+      ]
+    },
+    {
+      "id": "1TinlARlDjspWSylKMGnvaGp_Z6yCC3DXDRtkPk5RyWo",
+      "title": "75PHT-GIẶT LÀ",
+      "url": "https://docs.google.com/spreadsheets/d/1TinlARlDjspWSylKMGnvaGp_Z6yCC3DXDRtkPk5RyWo/edit",
+      "tabs": [
+        {
+          "title": "Tháng 8.2026",
+          "gridRows": 1000,
+          "gridColumns": 26,
+          "returnedRows": 87,
+          "nonEmptyRows": 87,
+          "hidden": false,
+          "read": "Đã đọc giá trị toàn bộ phạm vi tab; không gồm ảnh, nhận xét hay Apps Script."
+        },
+        {
+          "title": "Tháng 9.2026",
+          "gridRows": 1000,
+          "gridColumns": 26,
+          "returnedRows": 94,
+          "nonEmptyRows": 94,
+          "hidden": false,
+          "read": "Đã đọc giá trị toàn bộ phạm vi tab; không gồm ảnh, nhận xét hay Apps Script."
+        },
+        {
+          "title": "Tháng 10.2026",
+          "gridRows": 1000,
+          "gridColumns": 26,
+          "returnedRows": 70,
+          "nonEmptyRows": 58,
+          "hidden": false,
+          "read": "Đã đọc giá trị toàn bộ phạm vi tab; không gồm ảnh, nhận xét hay Apps Script."
+        }
+      ]
+    },
+    {
+      "id": "1C5nJMr0VSrfSplUU1-HjxWxruumIlNDD2JabXWPD7T4",
+      "title": "75PHT - SPA 2026",
+      "url": "https://docs.google.com/spreadsheets/d/1C5nJMr0VSrfSplUU1-HjxWxruumIlNDD2JabXWPD7T4/edit",
+      "tabs": [
+        {
+          "title": "Tháng 8.2026",
+          "gridRows": 1015,
+          "gridColumns": 27,
+          "returnedRows": 46,
+          "nonEmptyRows": 38,
+          "hidden": false,
+          "read": "Đã đọc giá trị toàn bộ phạm vi tab; không gồm ảnh, nhận xét hay Apps Script."
+        },
+        {
+          "title": "Tháng 9.2026",
+          "gridRows": 978,
+          "gridColumns": 27,
+          "returnedRows": 70,
+          "nonEmptyRows": 45,
+          "hidden": false,
+          "read": "Đã đọc giá trị toàn bộ phạm vi tab; không gồm ảnh, nhận xét hay Apps Script."
+        },
+        {
+          "title": "Tháng 10.2026",
+          "gridRows": 976,
+          "gridColumns": 27,
+          "returnedRows": 70,
+          "nonEmptyRows": 21,
+          "hidden": false,
+          "read": "Đã đọc giá trị toàn bộ phạm vi tab; không gồm ảnh, nhận xét hay Apps Script."
+        }
+      ]
+    },
+    {
+      "id": "1E1Pb0Rwz3yEMUoemP-UMWG8DTFB5mVb9DY9voOHphVs",
+      "title": "FO 75PHT",
+      "url": "https://docs.google.com/spreadsheets/d/1E1Pb0Rwz3yEMUoemP-UMWG8DTFB5mVb9DY9voOHphVs/edit",
+      "tabs": [
+        {
+          "title": "Ca trực",
+          "gridRows": 1000,
+          "gridColumns": 26,
+          "returnedRows": 47,
+          "nonEmptyRows": 37,
+          "hidden": false,
+          "read": "Đã đọc giá trị toàn bộ phạm vi tab; không gồm ảnh, nhận xét hay Apps Script."
+        },
+        {
+          "title": "Khách & xe",
+          "gridRows": 300,
+          "gridColumns": 26,
+          "returnedRows": 105,
+          "nonEmptyRows": 105,
+          "hidden": false,
+          "read": "Đã đọc giá trị toàn bộ phạm vi tab; không gồm ảnh, nhận xét hay Apps Script."
+        },
+        {
+          "title": "Công việc",
+          "gridRows": 300,
+          "gridColumns": 26,
+          "returnedRows": 105,
+          "nonEmptyRows": 105,
+          "hidden": false,
+          "read": "Đã đọc giá trị toàn bộ phạm vi tab; không gồm ảnh, nhận xét hay Apps Script."
+        },
+        {
+          "title": "SOP",
+          "gridRows": 300,
+          "gridColumns": 26,
+          "returnedRows": 105,
+          "nonEmptyRows": 105,
+          "hidden": false,
+          "read": "Đã đọc giá trị toàn bộ phạm vi tab; không gồm ảnh, nhận xét hay Apps Script."
+        },
+        {
+          "title": "Xác nhận SOP",
+          "gridRows": 300,
+          "gridColumns": 26,
+          "returnedRows": 105,
+          "nonEmptyRows": 105,
+          "hidden": false,
+          "read": "Đã đọc giá trị toàn bộ phạm vi tab; không gồm ảnh, nhận xét hay Apps Script."
+        },
+        {
+          "title": "Cảnh báo",
+          "gridRows": 300,
+          "gridColumns": 26,
+          "returnedRows": 20,
+          "nonEmptyRows": 20,
+          "hidden": false,
+          "read": "Đã đọc giá trị toàn bộ phạm vi tab; không gồm ảnh, nhận xét hay Apps Script."
+        },
+        {
+          "title": "Cấu hình",
+          "gridRows": 300,
+          "gridColumns": 26,
+          "returnedRows": 15,
+          "nonEmptyRows": 15,
+          "hidden": false,
+          "read": "Đã đọc giá trị toàn bộ phạm vi tab; không gồm ảnh, nhận xét hay Apps Script."
+        },
+        {
+          "title": "Kiểm thử",
+          "gridRows": 300,
+          "gridColumns": 26,
+          "returnedRows": 24,
+          "nonEmptyRows": 24,
+          "hidden": false,
+          "read": "Đã đọc giá trị toàn bộ phạm vi tab; không gồm ảnh, nhận xét hay Apps Script."
+        },
+        {
+          "title": "Hướng dẫn",
+          "gridRows": 300,
+          "gridColumns": 26,
+          "returnedRows": 20,
+          "nonEmptyRows": 20,
+          "hidden": false,
+          "read": "Đã đọc giá trị toàn bộ phạm vi tab; không gồm ảnh, nhận xét hay Apps Script."
+        },
+        {
+          "title": "Nhật ký",
+          "gridRows": 300,
+          "gridColumns": 26,
+          "returnedRows": 14,
+          "nonEmptyRows": 14,
+          "hidden": false,
+          "read": "Đã đọc giá trị toàn bộ phạm vi tab; không gồm ảnh, nhận xét hay Apps Script."
+        },
+        {
+          "title": "_Nguồn cảnh báo",
+          "gridRows": 700,
+          "gridColumns": 26,
+          "returnedRows": 502,
+          "nonEmptyRows": 502,
+          "hidden": true,
+          "read": "Đã đọc giá trị toàn bộ phạm vi tab; không gồm ảnh, nhận xét hay Apps Script."
+        },
+        {
+          "title": "All information Archive",
+          "gridRows": 300,
+          "gridColumns": 11,
+          "returnedRows": 101,
+          "nonEmptyRows": 68,
+          "hidden": false,
+          "read": "Đã đọc giá trị toàn bộ phạm vi tab; không gồm ảnh, nhận xét hay Apps Script."
+        },
+        {
+          "title": "Booking Merge Archive 02.10",
+          "gridRows": 100,
+          "gridColumns": 49,
+          "returnedRows": 12,
+          "nonEmptyRows": 10,
+          "hidden": true,
+          "read": "Đã đọc giá trị toàn bộ phạm vi tab; không gồm ảnh, nhận xét hay Apps Script."
+        },
+        {
+          "title": "Tất cả booking",
+          "gridRows": 10000,
+          "gridColumns": 23,
+          "returnedRows": 44,
+          "nonEmptyRows": 44,
+          "hidden": false,
+          "read": "Đã đọc giá trị toàn bộ phạm vi tab; không gồm ảnh, nhận xét hay Apps Script."
+        },
+        {
+          "title": "Booking cần kiểm tra",
+          "gridRows": 10000,
+          "gridColumns": 8,
+          "returnedRows": 23,
+          "nonEmptyRows": 23,
+          "hidden": false,
+          "read": "Đã đọc giá trị toàn bộ phạm vi tab; không gồm ảnh, nhận xét hay Apps Script."
+        },
+        {
+          "title": "_BookingData",
+          "gridRows": 50000,
+          "gridColumns": 2,
+          "returnedRows": 451,
+          "nonEmptyRows": 451,
+          "hidden": true,
+          "read": "Đã đọc giá trị toàn bộ phạm vi tab; không gồm ảnh, nhận xét hay Apps Script."
+        },
+        {
+          "title": "Tiến độ nhập Gmail",
+          "gridRows": 100,
+          "gridColumns": 13,
+          "returnedRows": 2,
+          "nonEmptyRows": 2,
+          "hidden": false,
+          "read": "Đã đọc giá trị toàn bộ phạm vi tab; không gồm ảnh, nhận xét hay Apps Script."
+        }
+      ]
+    }
+  ],
+  "backupFiles": [
+    {
+      "title": "Backup Guest information 75 PHT - trước chuẩn hóa Booking ID 05.10.2026",
+      "url": "https://docs.google.com/spreadsheets/d/1oFQFEtkuieG_YQTN8OXbdijDbD07CdlGFY5bdqYveeA/edit",
+      "read": "Đã tìm thấy; chưa đọc nội dung và chưa nhập vào demo."
+    },
+    {
+      "title": "75PHT - kiểm thử cột Welcome image 04.10.2026",
+      "url": "https://docs.google.com/spreadsheets/d/1DYbBQCEd2mqDHGzNDNZGTD87FkbQItUbq67EnQqf5GU/edit",
+      "read": "Đã tìm thấy; chưa đọc nội dung và chưa nhập vào demo."
+    },
+    {
+      "title": "Guest information 75 PHT - backup trước Welcome Image 04.10.2026",
+      "url": "https://docs.google.com/spreadsheets/d/1tOceQKrTAYqD5WJj_kVVGt4FFaPvy4AK5F1k45FyxTY/edit",
+      "read": "Đã tìm thấy; chưa đọc nội dung và chưa nhập vào demo."
+    },
+    {
+      "title": "Guest information 75 PHT - backup trước sắp xếp 04.10.2026",
+      "url": "https://docs.google.com/spreadsheets/d/1UrIfi1xdz8phxab5JmL4NKep3E1SJ5FFWtlgW9DIO1Y/edit",
+      "read": "Đã tìm thấy; chưa đọc nội dung và chưa nhập vào demo."
+    },
+    {
+      "title": "BACKUP trước chuyển FO 75PHT - Guest information - 03.10.2026",
+      "url": "https://docs.google.com/spreadsheets/d/1O1HjJs7yApH66KYO-Q0lOgbQpvqPvP2vdTg4ugPxAow/edit",
+      "read": "Đã tìm thấy; chưa đọc nội dung và chưa nhập vào demo."
+    },
+    {
+      "title": "Backup FO 75PHT - trước chuẩn hóa Booking ID 05.10.2026",
+      "url": "https://docs.google.com/spreadsheets/d/1DwveXX14T-VCjn08nArgJm0ez823lnqLVvO605I9IME/edit",
+      "read": "Đã tìm thấy; chưa đọc nội dung và chưa nhập vào demo."
+    },
+    {
+      "title": "Backup 75PHT Xe sân bay - trước chuẩn hóa Booking ID 05.10.2026",
+      "url": "https://docs.google.com/spreadsheets/d/1epwnkoInMZqlWZ-DkdW4e1hdHOLnueEKW73L_vWTSB4/edit",
+      "read": "Đã tìm thấy; chưa đọc nội dung và chưa nhập vào demo."
+    },
+    {
+      "title": "BACKUP trước nhận dữ liệu - FO 75PHT - 03.10.2026",
+      "url": "https://docs.google.com/spreadsheets/d/1rlbbpa_cyeTVvPOw8dL2lioi27z2ypL9I3pxBTYMj4c/edit",
+      "read": "Đã tìm thấy; chưa đọc nội dung và chưa nhập vào demo."
+    },
+    {
+      "title": "QA 03.10.2026 - kiem thu nang cap - airport",
+      "url": "https://docs.google.com/spreadsheets/d/14VJs8qgVsOHD_zVT3xT_C3w4b-zb8rqTWXqltiXRP_w/edit",
+      "read": "Đã tìm thấy; chưa đọc nội dung và chưa nhập vào demo."
+    },
+    {
+      "title": "BACKUP 03.10.2026 truoc nang cap - tour",
+      "url": "https://docs.google.com/spreadsheets/d/1BeFJApwwaOoV1csAgwkP09a3eKAB9rd7uQqeY0RRlZk/edit",
+      "read": "Đã tìm thấy; chưa đọc nội dung và chưa nhập vào demo."
+    },
+    {
+      "title": "QA 03.10.2026 - kiem thu nang cap - master",
+      "url": "https://docs.google.com/spreadsheets/d/1bM5fptN_k2-XI0HtYy8JkioEolu0zDxBow4tNDzJzsU/edit",
+      "read": "Đã tìm thấy; chưa đọc nội dung và chưa nhập vào demo."
+    },
+    {
+      "title": "BACKUP 03.10.2026 truoc nang cap - airport",
+      "url": "https://docs.google.com/spreadsheets/d/1fGj6xk9QjbKq5HEVJGEghUCTdpRnkMx4MNFuNxCoHNQ/edit",
+      "read": "Đã tìm thấy; chưa đọc nội dung và chưa nhập vào demo."
+    },
+    {
+      "title": "BACKUP 03.10.2026 truoc nang cap - laundry",
+      "url": "https://docs.google.com/spreadsheets/d/10gKVjpvjkNoQSVaNzFmhnRigzBhME4YJcVUOiEbSzds/edit",
+      "read": "Đã tìm thấy; chưa đọc nội dung và chưa nhập vào demo."
+    },
+    {
+      "title": "BACKUP 03.10.2026 truoc nang cap - master",
+      "url": "https://docs.google.com/spreadsheets/d/1FjVC8Gsvtbk9WRVcXCfHP5Vch2XvFKBaG2lQF51_7wg/edit",
+      "read": "Đã tìm thấy; chưa đọc nội dung và chưa nhập vào demo."
+    },
+    {
+      "title": "BACKUP 03.10.2026 truoc nang cap - spa",
+      "url": "https://docs.google.com/spreadsheets/d/1hf-YbkyuLjmejw25u-2OQyuXhX9Zjiw1YHdBB-IByHk/edit",
+      "read": "Đã tìm thấy; chưa đọc nội dung và chưa nhập vào demo."
+    },
+    {
+      "title": "Backup Data Luxe Paradise - trước chuẩn hóa Booking ID 05.10.2026",
+      "url": "https://docs.google.com/spreadsheets/d/1biu0acGuPSiOphwZFG1ArT0AeVweKZsOFem7UDgWgm8/edit",
+      "read": "Đã tìm thấy; chưa đọc nội dung và chưa nhập vào demo."
+    },
+    {
+      "title": "BACKUP 03.10.2026 truoc nang cap - daily",
+      "url": "https://docs.google.com/spreadsheets/d/1YXagPsCQXKhs1oltipY2KWmHBXsnEc7c9vmseh1qXK4/edit",
+      "read": "Đã tìm thấy; chưa đọc nội dung và chưa nhập vào demo."
+    },
+    {
+      "title": "QA 03.10.2026 - kiem thu nang cap - daily",
+      "url": "https://docs.google.com/spreadsheets/d/1lUmriUo6FiaAYmIqBAF2bM1p_I9PFdwRt2QE_Ko3O7w/edit",
+      "read": "Đã tìm thấy; chưa đọc nội dung và chưa nhập vào demo."
+    }
+  ],
+  "findings": [
+    {
+      "title": "151 booking là phạm vi Guest Master",
+      "detail": "141 Confirmed, 10 Cancelled. Không cộng 362 sự kiện OTA vào số khách; một booking có thể nhận nhiều sự kiện. Chưa đối chiếu tất cả mã OTA thay thế."
+    },
+    {
+      "title": "FO chứa hai nhóm dữ liệu",
+      "detail": "Các tab ca trực, công việc, SOP và cảnh báo có nhãn bản thử/dữ liệu mẫu. Các tab booking nhập Gmail là dữ liệu thật; giao diện Tất cả booking hiện có 43 dòng từ hai cơ sở, tab cần kiểm tra có 22 dòng."
+    },
+    {
+      "title": "Kho 450 bản ghi không tương đương 450 khách của 75PHT",
+      "detail": "_BookingData chứa dữ liệu từ nhiều cơ sở và cả yêu cầu chưa có mã booking. Chưa gộp kho này vào 151 hồ sơ để tránh trùng khách và sai cơ sở."
+    },
+    {
+      "title": "Sổ dịch vụ chưa đủ cơ sở tính doanh thu chuẩn",
+      "detail": "Có ô ngày/tên dùng chung nhiều dòng, dòng chỉ có một phần thông tin và lỗi #VALUE! ở sổ tour tháng 7. Bản demo giữ cấu trúc nghiệp vụ; không mang số tiền, lợi nhuận hoặc danh tính khách thật sang."
+    },
+    {
+      "title": "Mẫu tour có điểm cần làm rõ",
+      "detail": "Brochure làng nghề có khung giờ nửa ngày không thống nhất; chính sách trẻ em không nói rõ tuổi 10. Cần nhà cung cấp xác nhận trước khi báo giá."
+    },
+    {
+      "title": "Cấu hình Make không chứng minh luồng đang chạy tốt",
+      "detail": "Đã xem danh sách 29 scenario ở hai team, đọc cấu trúc 9 luồng liên quan. Chưa kiểm tra lịch sử chạy và chưa chạy lại scenario. Luồng WhatsApp Reply Assistant đã đọc không có module nhận/gửi WhatsApp Cloud API."
+    }
+  ],
+  "limits": [
+    "18 tệp backup/QA mới kiểm kê tên và liên kết; không nhập chồng lên nguồn chính.",
+    "Chưa trích xuất ảnh/chứng từ gắn trong bảng, lịch sử phiên bản, bình luận, Apps Script hoặc toàn bộ email/hội thoại gốc.",
+    "Đã đọc văn bản 2 brochure PDF; chưa kiểm tra bố cục/hình ảnh PDF. Các PNG cũ trong chat Tạo ảnh chưa khôi phục được.",
+    "Giá, lịch mở cửa, chính sách, nhà cung cấp và chỗ trống trong nguồn lịch sử chưa được xác minh lại để bán.",
+    "Dữ liệu demo là ảnh chụp nội dung ngày 14/10/2026; TourFlow chưa kết nối đồng bộ trực tiếp với Make/Sheets/WhatsApp."
+  ],
+  "make": [
+    {
+      "id": 6610749,
+      "title": "Luxe CRM - read-only data bridge",
+      "status": "active",
+      "trigger": "webhook",
+      "moduleCount": 6,
+      "url": "https://us2.make.com/2880792/scenarios/6610749/edit",
+      "note": "Chỉ đọc cấu trúc, không kiểm thử thực thi."
+    },
+    {
+      "id": 6168432,
+      "title": "Luxe Paradise 75PHT - Gmail Forward to Guest information",
+      "status": "active",
+      "trigger": "webhook",
+      "moduleCount": 28,
+      "url": "https://us2.make.com/2880792/scenarios/6168432/edit",
+      "note": "Chỉ đọc cấu trúc, không kiểm thử thực thi."
+    },
+    {
+      "id": 6426051,
+      "title": "Luxe Paradise - WhatsApp Reply Assistant",
+      "status": "active",
+      "trigger": "webhook",
+      "moduleCount": 14,
+      "url": "https://us2.make.com/2880792/scenarios/6426051/edit",
+      "note": "Chỉ đọc cấu trúc, không kiểm thử thực thi."
+    },
+    {
+      "id": 6492514,
+      "title": "Hotel Gmail - Luxe Paradise Suites & LP Pham Hong Thai",
+      "status": "inactive",
+      "trigger": "scheduled",
+      "moduleCount": 12,
+      "url": "https://us2.make.com/2880792/scenarios/6492514/edit",
+      "note": "Chỉ đọc cấu trúc, không kiểm thử thực thi."
+    },
+    {
+      "id": 6478832,
+      "title": "75PHT - Confirmed Airport Transfer to Service Ledger",
+      "status": "inactive",
+      "trigger": "on-demand",
+      "moduleCount": 12,
+      "url": "https://us2.make.com/2880792/scenarios/6478832/edit",
+      "note": "Chỉ đọc cấu trúc, không kiểm thử thực thi."
+    },
+    {
+      "id": 6504913,
+      "title": "75PHT - Welcome image theo mã booking (chạy khi yêu cầu)",
+      "status": "active",
+      "trigger": "on-demand",
+      "moduleCount": 8,
+      "url": "https://us2.make.com/2880792/scenarios/6504913/edit",
+      "note": "Chỉ đọc cấu trúc, không kiểm thử thực thi."
+    },
+    {
+      "id": 6303923,
+      "title": "Luxe Paradise 75PHT - New Booking to Guest information",
+      "status": "inactive",
+      "trigger": "webhook",
+      "moduleCount": 6,
+      "url": "https://us2.make.com/2880792/scenarios/6303923/edit",
+      "note": "Chỉ đọc cấu trúc, không kiểm thử thực thi."
+    },
+    {
+      "id": 6428854,
+      "title": "Cun 75PHT - Gmail Forward to Guest information clone",
+      "status": "inactive",
+      "trigger": "webhook",
+      "moduleCount": 16,
+      "url": "https://us2.make.com/2880791/scenarios/6428854/edit",
+      "note": "Chỉ đọc cấu trúc, không kiểm thử thực thi."
+    },
+    {
+      "id": 6472310,
+      "title": "ONE-TIME - Transfer Tour Sheets to Private DATA INBOUND TOUR",
+      "status": "inactive",
+      "trigger": "on-demand",
+      "moduleCount": 11,
+      "url": "https://us2.make.com/2880791/scenarios/6472310/edit",
+      "note": "Chỉ đọc cấu trúc, không kiểm thử thực thi."
+    }
+  ],
+  "ledgerTabs": [
+    {
+      "book": "75PHT - XE SÂN BAY",
+      "tab": "Tháng 8.2026",
+      "rowsWithContent": 28,
+      "formulaErrors": 0,
+      "note": "Dòng có nội dung gồm tiêu đề/tổng/công thức; không phải số đơn bán."
+    },
+    {
+      "book": "75PHT - XE SÂN BAY",
+      "tab": "Tháng 9.2026",
+      "rowsWithContent": 51,
+      "formulaErrors": 0,
+      "note": "Dòng có nội dung gồm tiêu đề/tổng/công thức; không phải số đơn bán."
+    },
+    {
+      "book": "75PHT - XE SÂN BAY",
+      "tab": "Tháng 10.2026",
+      "rowsWithContent": 42,
+      "formulaErrors": 0,
+      "note": "Dòng có nội dung gồm tiêu đề/tổng/công thức; không phải số đơn bán."
+    },
+    {
+      "book": "75PHT - XE SÂN BAY",
+      "tab": "11.2026",
+      "rowsWithContent": 3,
+      "formulaErrors": 0,
+      "note": "Dòng có nội dung gồm tiêu đề/tổng/công thức; không phải số đơn bán."
+    },
+    {
+      "book": "75PHT - TOUR 2026",
+      "tab": "Tháng 7.2026",
+      "rowsWithContent": 8,
+      "formulaErrors": 10,
+      "note": "Dòng có nội dung gồm tiêu đề/tổng/công thức; không phải số đơn bán."
+    },
+    {
+      "book": "75PHT - TOUR 2026",
+      "tab": "Tháng 8.2026",
+      "rowsWithContent": 32,
+      "formulaErrors": 0,
+      "note": "Dòng có nội dung gồm tiêu đề/tổng/công thức; không phải số đơn bán."
+    },
+    {
+      "book": "75PHT - TOUR 2026",
+      "tab": "Tháng 9.2026",
+      "rowsWithContent": 45,
+      "formulaErrors": 0,
+      "note": "Dòng có nội dung gồm tiêu đề/tổng/công thức; không phải số đơn bán."
+    },
+    {
+      "book": "75PHT - TOUR 2026",
+      "tab": "Tháng 10.2026",
+      "rowsWithContent": 19,
+      "formulaErrors": 0,
+      "note": "Dòng có nội dung gồm tiêu đề/tổng/công thức; không phải số đơn bán."
+    },
+    {
+      "book": "75PHT-GIẶT LÀ",
+      "tab": "Tháng 8.2026",
+      "rowsWithContent": 87,
+      "formulaErrors": 0,
+      "note": "Dòng có nội dung gồm tiêu đề/tổng/công thức; không phải số đơn bán."
+    },
+    {
+      "book": "75PHT-GIẶT LÀ",
+      "tab": "Tháng 9.2026",
+      "rowsWithContent": 94,
+      "formulaErrors": 0,
+      "note": "Dòng có nội dung gồm tiêu đề/tổng/công thức; không phải số đơn bán."
+    },
+    {
+      "book": "75PHT-GIẶT LÀ",
+      "tab": "Tháng 10.2026",
+      "rowsWithContent": 58,
+      "formulaErrors": 0,
+      "note": "Dòng có nội dung gồm tiêu đề/tổng/công thức; không phải số đơn bán."
+    },
+    {
+      "book": "75PHT - SPA 2026",
+      "tab": "Tháng 8.2026",
+      "rowsWithContent": 38,
+      "formulaErrors": 0,
+      "note": "Dòng có nội dung gồm tiêu đề/tổng/công thức; không phải số đơn bán."
+    },
+    {
+      "book": "75PHT - SPA 2026",
+      "tab": "Tháng 9.2026",
+      "rowsWithContent": 45,
+      "formulaErrors": 0,
+      "note": "Dòng có nội dung gồm tiêu đề/tổng/công thức; không phải số đơn bán."
+    },
+    {
+      "book": "75PHT - SPA 2026",
+      "tab": "Tháng 10.2026",
+      "rowsWithContent": 21,
+      "formulaErrors": 0,
+      "note": "Dòng có nội dung gồm tiêu đề/tổng/công thức; không phải số đơn bán."
+    }
+  ]
+}

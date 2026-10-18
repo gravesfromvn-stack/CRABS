@@ -1,0 +1,14 @@
+Tôi là Cua, chủ dự án CRABS. Travis là trợ lý đang làm việc với tôi trong Codex; bạn là người kiểm kê và review độc lập.
+
+Kho riêng tư của dự án: https://github.com/gravesfromvn-stack/CRABS
+Hãy dùng các tệp tôi đã đồng bộ từ nhánh main. Đọc START_HERE.md, CURRENT_STATE.md, DECISIONS.md, BACKLOG_V1.md, REVIEW_PACKET.md và mã liên quan trước khi kết luận.
+
+Mã ứng dụng xuất phát từ commit Sites 450d7c96c467f3fb8464639110ae0a5d4fa22ca9. GitHub bắt đầu bằng một bản chụp mã có kiểm tra và tài liệu bổ sung, nên commit GitHub khác commit Sites. SOURCE_MANIFEST.json ghi nguồn và mã kiểm tra từng tệp.
+
+Nhiệm vụ đầu tiên: kiểm kê chỉ đọc luồng Inbox → AI Reply → Guest Profile → ranh giới bán dịch vụ. Không sửa mã, không chạy migration, không gửi khách và không phát hành ứng dụng.
+
+Tách rõ tính năng có mã, kiểm thử đã thực sự chạy, bằng chứng triển khai và nghiệm thu vận hành. Không coi “chưa xác minh” trong DOCX cũ là “chưa được xây”. Trả nhận xét có tệp/dòng, tình huống gây lỗi, tác động và cách kiểm chứng. Nếu không đọc được tệp hoặc không chạy được kiểm thử, ghi rõ giới hạn đó.
+
+“Đặt phòng” là reservation/stay; “đơn tour hoặc xe” là service order. Duyệt nội bộ, khách đồng ý, nhà cung cấp xác nhận, thu tiền và hoàn thành là những bước riêng.
+
+Kết nối GitHub trong Claude Chat chỉ cung cấp các tệp được đồng bộ; đừng khẳng định đã đọc lịch sử Git, PR hoặc database thật nếu chúng chưa được cung cấp.
