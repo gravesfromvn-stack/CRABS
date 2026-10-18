@@ -17,7 +17,7 @@ Pilot proposal: one 75PHT property/team, current OTA email intake, airport trans
 | V1-09 | Full backup/restore, connection/error alerts and operating runbook | Starts after V1-01; accepted before pilot | Restore into isolated environment verified; OTA data included; designated incident owner and AI/manual fallback |
 | V1-10 | End-to-end pilot/UAT | V1-00 through V1-09 | No unresolved critical failures; business owner accepts evidence, access checks and recovery drill |
 
-V1-00 progress (18 October 2026, branch claude/local-setup): local build, D1 migration, dev UI and the nine isolated suites reproduced on Windows ARM with Node x64 (docs/LOCAL_SETUP.md). Still open: update tests/local-flow.mjs expectations/port, add an aggregate test script, and fix the two defects listed in REVIEW_PACKET.md "Local setup packet".
+V1-00 progress (18 October 2026, branch claude/local-setup): local build, D1 migration, dev UI and the nine isolated suites reproduced on Windows ARM with Node x64 (docs/LOCAL_SETUP.md). Still open: update tests/local-flow.mjs expectations/port and add an aggregate test script. The two defects from REVIEW_PACKET.md "Local setup packet" are fixed on this branch (62cd06f; see "Fix packet").
 
 ## Required UAT
 

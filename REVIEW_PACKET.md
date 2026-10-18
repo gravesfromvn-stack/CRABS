@@ -59,6 +59,34 @@ Not run: tests/local-flow.mjs (fixed port 5174, resets demo DB, stale 20-contact
 
 UI flows checked with synthetic/demo data: OTA inbox counters; booking matching (same booking ID at a different property -> separate thread; same guest name, different booking -> separate thread; DMARC fail -> needs_match outside threads; replay -> duplicate); conversation header shows guest name and check-in/out; profile shows room request as "chưa xác nhận đáp ứng" and transfer refusal as "Khách từ chối"; draft does not re-offer the refused transfer and promises no room/price; edit -> save (v3 pending) -> approve -> copy -> confirmed manual-sent record (v3 sent, one ota_sent row; approval alone did not record a send). Reception, service sales and quotes screens load the 20 sample + 151 anonymized profiles without console errors.
 
-Observed defects (not fixed in this session):
+Observed defects (fixed later on this branch, see "Fix packet" below):
 1. Low/medium - lib/ota-profile.ts:24: rule-based arrival extraction skips any sentence that also mentions a flight or landing, so "We land at 13:30 on flight VN 123 and expect to reach the hotel around 15:00" leaves "Dự kiến đến: Chưa có giờ đến". Hotel impact: without an AI key, reception may ask a guest for an arrival time already given. Test: add this sentence to tests/ota-profile.mjs and expect an arrival fact (or an explicit "flight time only" fact) without conflating landing with hotel arrival.
 2. Low - app/api/ota/route.ts:91: a manual save stores "Cua đã sửa nội dung; cần duyệt phiên bản này." in the draft notes, and the UI keeps showing it after that revision is approved and recorded as sent. Hotel impact: staff may think a sent reply still needs approval (status badge and history are correct). Test: after approve/sent, the draft panel note reflects the current status.
+
+## Fix packet: arrival with flight time, approval prompt, seed exit code (18 October 2026)
+
+- Branch claude/local-setup. Base 57b17ab (local setup). Commits: 62cd06f (two defects + tests), eadd2b3 (seed exit code), followed by this documentation commit. Not pushed, merged or deployed.
+- Environment and data: as in the local setup packet; local D1 and synthetic data only, no AI key.
+
+Changes:
+1. lib/ota-profile.ts: a sentence that mentions a flight/landing is no longer dropped entirely. It is split into clauses (",", ";", and/then/but/so, và/rồi/nhưng/sau đó); a clause with a clock time that names the hotel (arrive/reach/get to … hotel, check-in, đến khách sạn, nhận phòng) and no flight word becomes the arrival fact, summarised as "Đến khách sạn khoảng 15:00 · giờ chuyến bay 13:30 (không phải giờ đến khách sạn)". The source quote is the full guest sentence. Flight-only sentences ("Our flight will arrive at 14:00", "We land at 13:30 and will take a taxi") still record no arrival. A sentence without a hotel clause ("land at 13:30 and arrive around 15:00") is still not recorded — conservative by design.
+2. lib/ota-profile-store.ts: when the cached profile for the current context is rule-based, its facts are re-derived from the current rules on read (no DB write, no AI call). Without this, threads cached before change 1 would keep "Chưa có giờ đến" until the next guest message. AI-generated profiles keep their cache; the v4- cache key was not bumped to avoid re-running AI for every thread.
+3. lib/ota-draft-notice.ts + app/ota-workspace.tsx: the draft panel note is computed from draft status. Pending: unchanged composition note. Approved: "Phiên bản N đã duyệt; chưa ghi nhận gửi…". Approved but stale (new guest message): "Có tin khách mới sau khi duyệt phiên bản N; duyệt lại trước khi copy gửi." Sent: "Phiên bản N đã được ghi nhận gửi thủ công trên OTA." For approved/sent the phrases "cần duyệt phiên bản này" and "chưa được duyệt" are removed from the displayed composition note only. Stored ota_drafts.notes, bodies and revision history are unchanged.
+4. scripts/local-seed-ota.mjs: each email is marked OK/FAIL; HTTP errors, non-JSON responses and ignored emails set exit code 1.
+
+Reproduction first, then fix (actual runs):
+- tests/ota-profile.mjs new check "Hotel arrival after a flight landing…" failed before change 1 (AssertionError: hotel arrival must be recorded); "Rule profile cached by older rules is re-derived…" failed before change 2 (TypeError reading summary of missing arrival). Both pass after.
+- tests/ota-draft-notice.mjs (new, Miniflare D1, synthetic Booking.com mail) failed before change 3 at "Approved draft no longer shows the approval prompt" (displayed '…cần duyệt phiên bản này.'). After: 5/5 pass, covering pending rule draft, manual edit pending, approved, approval invalidated by a new guest message (old contextKey approve -> 409, panel asks to re-approve) and recorded manual send, with stored notes/bodies of earlier revisions unchanged.
+- Seed: with a wrong token the script printed five 401s and exited 0 before change 4; after, exit 1 with "5 of 5 synthetic emails were not ingested." With the valid local token: five OK (duplicates), exit 0.
+
+Full run after all changes (Windows ARM64, Node 22.23.3 x64): tsc --noEmit passed; npm run build passed; ota 38, ota-profile 19, ota-stay 1, ota-draft-notice 5, quotes 14, reception 6, replies 14, source-data 12, review-queue 8, analysis 8 — all passed (125 checks). tests/local-flow.mjs not run (same reasons as above).
+
+Local UI check (npm run dev, synthetic thread #5900000001 at 75PHT, already recorded as sent before the fix): profile shows "Đến khách sạn khoảng 15:00 · giờ chuyến bay 13:30 (không phải giờ đến khách sạn)"; the draft panel shows "Phiên bản 3 đã được ghi nhận gửi thủ công trên OTA." and no "cần duyệt phiên bản này".
+
+Data/migration impact: none (no schema or stored-data change). Rollback: revert 62cd06f and eadd2b3.
+
+For review / still open:
+- The AI profile path is unchanged; whether the model separates flight and hotel times is untested (needs the AI evaluation set, not mocks).
+- Departure extraction (lib/ota-profile.ts, departure regex) can still take a flight departure time ("flight leaves at 10:00") as hotel departure — same class of issue, not changed here.
+- AI composition notes ("Rà nội dung trước khi duyệt") are not rewritten for approved/sent drafts; only the two pending-approval phrases are.
+- Not done in this turn by instruction: OTA thread -> reception/request bridge.
