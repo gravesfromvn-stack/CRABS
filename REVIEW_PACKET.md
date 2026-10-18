@@ -248,3 +248,15 @@ UI/API checks on a throwaway worktree + copy of the 5173 DB on port 5199 (remove
 - Quotes: source item R75-TOUR-OCT-5 saved to draft with null price; approval blocked at server, also after filling numbers and ticking the demo checkbox; v1 snapshot (D5:K5, 1.350.000 ₫ "not current rate") preserved; catalog 223 = 17/10/28/161/7, 30 null amounts and no zeros, USD kept, limousine rows 7/9 gaps kept.
 
 Open decisions and limits: docs/INTEGRATED_LOCAL.md. Rollback: `git switch claude/local-setup`; DB restore from the two backups above.
+
+## Rate catalog + advice packet (18 October 2026)
+
+Review first:
+- scripts/import-rate-sheet.mjs (header-label mapping, classification, re-import review);
+- lib/rate-catalog.ts (priceStatus, transport cautions);
+- lib/guest-intent.ts;
+- lib/tour-advice.ts (catalog options, approved-price allowlist, asWritten);
+- lib/ota-store.ts (lastOutgoing/latestText/stayStart wiring);
+- app/ota-advice-panel.tsx.
+
+The tests are tests/rate-catalog.mjs and tests/tour-advice.mjs. Open questions for Cua are listed in docs/RATE_CATALOG.md.

@@ -1,5 +1,33 @@
 # CRABS current state
 
+## Rate catalog and tour advice — 18 October 2026 (local only)
+
+All 6 tabs of Cua's rate workbook were imported from the XLSX export into lib/rate-catalog.json. Rows read: Duyet gia 81, Dieu kien 81, Kho tour 40, Nguon 99, Tuyen 12Go 12 and Xe tu Ha Noi 19. They merge into 102 items with no duplicates; a re-import of the same file is a no-op.
+
+Status of the 102 items:
+- 0 are quotable;
+- 46 can be advised on content;
+- 54 are reference only;
+- 2 are unusable (HT06 and HT13, which mix content from another tour).
+
+HN01 has the "Cua duyệt" tick, but its approval record is incomplete, so it stays a reference price.
+
+What the drafts and the CRM now do:
+- Drafts read intent, keep the latest date and party size, and never re-ask them.
+- They separate package variants and keep bus schedules and their cautions internal.
+- They skip a separate bus when the tour already includes transport.
+- They block any amount that is not an approved, date-valid price.
+- The OTA conversation view has a new internal "Tư vấn nội bộ" panel.
+
+Checks run:
+- tsc and build passed;
+- rate-catalog 8 and tour-advice 16 passed;
+- the other 16 suites passed;
+- local-flow was not run (it needs port 5174 and resets demo data);
+- the UI was checked on 5173.
+
+Nothing was pushed, merged or deployed. Details and the inputs Cua must supply are in the [rate catalog guide](docs/RATE_CATALOG.md).
+
 ## Integrated local build — 18 October 2026
 
 Port 5173 (CRABS-Claude, branch integration/claude-travis) now runs Claude's OTA template drafting and Travis's Daily Operation and quote-source work together. Migration 0010 applied locally after a consistent backup; data counts unchanged. 187 checks across 14 suites passed on 6db0ac0; tsc and build pass. Port 5188 remains Travis's separate database. Business decisions still needed, manual steps and rollback: [integrated local guide](docs/INTEGRATED_LOCAL.md). No push, merge to main or deployment.

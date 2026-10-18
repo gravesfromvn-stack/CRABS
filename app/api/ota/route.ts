@@ -6,6 +6,7 @@ import {OTA_MAILBOX,channels,properties,hash} from '../../../lib/ota';
 import {threadState,prepareDraft,refreshDrafts,type OtaEvent} from '../../../lib/ota-store';
 import {activeTemplates,templateVersion} from '../../../lib/ota-template-store';
 import {planReply,nextStep,draftSource,sourceLabels,situationLabels} from '../../../lib/ota-templates';
+import {guestDraftProblems,constraintsOf,tourKnowledgeForAI,tourEvidenceNote,type DraftProblem} from '../../../lib/tour-advice';
 import {threadStay} from '../../../lib/ota-stay';
 import {rewriteReply} from '../../../lib/ota-rewrite';
 import {hotelKnowledge} from '../../../lib/luxe-knowledge';
@@ -22,12 +23,19 @@ const mutations=z.discriminatedUnion('action',[
  z.object({action:z.literal('sent'),id:z.string().min(1).max(100),revision:z.number().int().positive(),contextKey:z.string().length(64),body:z.string().trim().min(1).max(6000),operationId:z.string().uuid(),confirmed:z.literal(true)})
 ]);
 type State=NonNullable<Awaited<ReturnType<typeof threadState>>>;
+// Same checks as automatic drafts, for any guest-facing text in this conversation.
+function draftChecks(s:State,body:string):DraftProblem[]{const c=constraintsOf(s.events.filter(e=>e.kind==='guest').map(e=>e.guest_text).join('\n'));return guestDraftProblems(body,{facts:s.profile.facts,advice:s.tour,known:{date:!!c.date,party:!!c.party}});}
+const attentionOf=(p:DraftProblem[])=>p.map(x=>'Kiểm tra nháp: '+x.text).join('\n');
+// Room/stay requests: status comes only from staff-recorded operations tasks, never from inference.
+const roomStatus:Record<string,string>={unchecked:'Khách yêu cầu · chưa kiểm tra',waiting:'Đang kiểm tra',confirmed:'Khách sạn xác nhận đáp ứng',unavailable:'Không đáp ứng được'};
+async function roomTasks(db:D1Database,owner:string,id:string){try{const rows=await db.prepare("SELECT payload FROM ops_tasks WHERE owner=? AND source_kind='ota' AND source_id=?").bind(owner,id).all<{payload:string}>();return rows.results.map(r=>JSON.parse(r.payload) as {kind:string;title:string;supplierStatus:string;supplierEvidence:string}).filter(t=>t.kind==='room'||t.kind==='stay').map(t=>({title:t.title,status:roomStatus[t.supplierStatus]||t.supplierStatus,evidence:t.supplierEvidence}));}catch{return [];}}
 // What the guest needs, what the system prepared and from which source, and what Cua must do next.
 async function guidance(db:D1Database,owner:string,s:State){
  const plan=planReply(s,await activeTemplates(db,owner)),latest=s.drafts[0];
  const used=latest?.template_id?await templateVersion(db,owner,latest.template_id,latest.template_version):null;
  const guest=s.events.filter(e=>e.kind==='guest'&&e.guest_text).at(-1),answered=Boolean(guest&&s.sent.some(x=>x.created>=guest.received));
- return {plan:{situations:plan.situations.map(x=>({code:x,label:situationLabels[x]})),reasons:plan.reasons,template:plan.template?{id:plan.template.id,version:plan.template.version,title:plan.template.title}:null},prepared:latest?{revision:latest.revision,source:draftSource(latest),label:sourceLabels[draftSource(latest)],template:used?{id:used.id,version:used.version,title:used.title,approvedAt:used.approved_at,retired:Boolean(used.retired_at)}:null}:null,next:nextStep(latest,plan,answered)};
+ const checks=latest?.body?draftChecks(s,latest.body):[];
+ return {tour:s.tour,checks,roomTasks:await roomTasks(db,owner,s.thread.id),history:s.profile.history||[],plan:{situations:plan.situations.map(x=>({code:x,label:situationLabels[x]})),reasons:plan.reasons,template:plan.template?{id:plan.template.id,version:plan.template.version,title:plan.template.title}:null},prepared:latest?{revision:latest.revision,source:draftSource(latest),label:sourceLabels[draftSource(latest)],template:used?{id:used.id,version:used.version,title:used.title,approvedAt:used.approved_at,retired:Boolean(used.retired_at)}:null}:null,next:nextStep(latest,plan,answered)};
 }
 export async function GET(request:Request){
  const u=await getChatGPTUser();if(!u)return res({error:'Vui lòng đăng nhập.'},401);
@@ -86,8 +94,8 @@ export async function POST(request:Request){
  const args=[owner,v.id,s.events.length,owner,v.id,s.sent.length,owner,v.id,v.revision];
  if(v.action==='suggest'){
   const proposal=s.profile.proposedReply;if(!proposal)return res({error:'Chưa có đề xuất AI cho dữ kiện hiện tại. Cua có thể dùng Sửa hoặc tải lại.'},409);
-  const notes='AI · Nháp theo hồ sơ nhu cầu. '+proposal.review.join(' · ')+'\nNguồn và lưu ý trước đó:\n'+sourceNotes.slice(0,8000);
-  const saved=await db.prepare("INSERT OR IGNORE INTO ota_drafts (owner,thread_id,revision,operation_id,context_key,body,notes,status,created,source) SELECT ?,?,?,?,?,?,?,'pending',?,'ai' WHERE "+guard+' RETURNING revision').bind(owner,v.id,v.revision+1,v.operationId,s.contextKey,proposal.body,notes,now,...args).first();
+  const evidence=tourEvidenceNote(s.tour),notes='AI · Nháp theo hồ sơ nhu cầu. '+proposal.review.join(' · ')+(evidence?'\n'+evidence:'')+'\nNguồn và lưu ý trước đó:\n'+sourceNotes.slice(0,8000);
+  const saved=await db.prepare("INSERT OR IGNORE INTO ota_drafts (owner,thread_id,revision,operation_id,context_key,body,notes,status,created,source,attention) SELECT ?,?,?,?,?,?,?,'pending',?,'ai',? WHERE "+guard+' RETURNING revision').bind(owner,v.id,v.revision+1,v.operationId,s.contextKey,proposal.body,notes,now,attentionOf(draftChecks(s,proposal.body)),...args).first();
   return saved?res({ok:true}):res({error:'Có thay đổi đồng thời. Tải lại trước khi tạo nháp.'},409);
  }
 
@@ -96,18 +104,20 @@ export async function POST(request:Request){
   const recent=await db.prepare("SELECT COUNT(*) AS n FROM ota_drafts WHERE owner=? AND notes LIKE 'AI · %' AND created>?").bind(owner,new Date(Date.now()-60000).toISOString()).first<{n:number}>();
   if((recent?.n||0)>=5)return res({error:'Đã tạo 5 bản AI trong phút này. Cua đợi một chút rồi thử tiếp nhé.'},429);
   const key=(env as unknown as Record<string,string>).OPENAI_API_KEY;
-  const result=await rewriteReply(key,{property:properties.find(p=>p.id===s.thread.property_id)?.name,bookingId:s.thread.booking_id,stay:s.stay,guestProfile:s.profile,conversation:s.events.map(e=>({guest:e.guest_name,text:e.guest_text,received:e.received})),sent:s.sent.map(x=>({body:x.body,created:x.created})),sourceNotes,knowledge:s.thread.property_id==='luxe-75pht'?hotelKnowledge.filter(x=>x.title!=='Cơ sở & nguồn'):[]},v.intent,v.body);
+  const result=await rewriteReply(key,{property:properties.find(p=>p.id===s.thread.property_id)?.name,bookingId:s.thread.booking_id,stay:s.stay,guestProfile:s.profile,conversation:s.events.map(e=>({guest:e.guest_name,text:e.guest_text,received:e.received})),sent:s.sent.map(x=>({body:x.body,created:x.created})),sourceNotes,knowledge:s.thread.property_id==='luxe-75pht'?hotelKnowledge.filter(x=>x.title!=='Cơ sở & nguồn'):[],tourKnowledge:tourKnowledgeForAI(s.tour)},v.intent,v.body);
   const fresh=await threadState(db,owner,v.id);
   if(!fresh||fresh.contextKey!==s.contextKey||(fresh.drafts[0]?.revision||0)!==v.revision)return res({error:'Có tin mới hoặc bản nháp khác vừa được lưu. Đề xuất AI chưa được lưu; hãy tải lại và thử trên dữ kiện mới.'},409);
-  const notes='AI · Ý Cua: '+v.intent+'\nCần kiểm tra: '+(result.review.join(' · ')||'Rà nội dung trước khi duyệt.')+'\nNguồn và lưu ý trước đó:\n'+(sourceNotes||'Chỉ dùng hội thoại này.').slice(0,8000);
-  const saved=await db.prepare("INSERT OR IGNORE INTO ota_drafts (owner,thread_id,revision,operation_id,context_key,body,notes,status,created,source) SELECT ?,?,?,?,?,?,?,'pending',?,'ai_cua' WHERE "+guard+' RETURNING revision').bind(owner,v.id,v.revision+1,v.operationId,s.contextKey,result.body,notes,new Date().toISOString(),...args).first();
+  const evidence=tourEvidenceNote(s.tour),notes='AI · Ý Cua: '+v.intent+'\nCần kiểm tra: '+(result.review.join(' · ')||'Rà nội dung trước khi duyệt.')+(evidence?'\n'+evidence:'')+'\nNguồn và lưu ý trước đó:\n'+(sourceNotes||'Chỉ dùng hội thoại này.').slice(0,8000);
+  const saved=await db.prepare("INSERT OR IGNORE INTO ota_drafts (owner,thread_id,revision,operation_id,context_key,body,notes,status,created,source,attention) SELECT ?,?,?,?,?,?,?,'pending',?,'ai_cua',? WHERE "+guard+' RETURNING revision').bind(owner,v.id,v.revision+1,v.operationId,s.contextKey,result.body,notes,new Date().toISOString(),attentionOf(draftChecks(s,result.body)),...args).first();
   return saved?res({ok:true}):res({error:'Có thay đổi đồng thời. Bản nháp cũ được giữ nguyên.'},409);
  }
  if(v.action==='save'){
-  const saved=await db.prepare('INSERT OR IGNORE INTO ota_drafts (owner,thread_id,revision,operation_id,context_key,body,notes,status,created,source) SELECT ?,?,?,?,?,?,?,\'pending\',?,\'cua\' WHERE '+guard+' RETURNING revision').bind(owner,v.id,v.revision+1,v.operationId,s.contextKey,v.body,'Cua đã sửa nội dung; cần duyệt phiên bản này.\nNguồn và lưu ý trước đó:\n'+sourceNotes.slice(0,8000),now,...args).first();return saved?res({ok:true}):res({error:'Có thay đổi đồng thời. Nội dung chưa được lưu.'},409);
+  const saved=await db.prepare('INSERT OR IGNORE INTO ota_drafts (owner,thread_id,revision,operation_id,context_key,body,notes,status,created,source,attention) SELECT ?,?,?,?,?,?,?,\'pending\',?,\'cua\',? WHERE '+guard+' RETURNING revision').bind(owner,v.id,v.revision+1,v.operationId,s.contextKey,v.body,'Cua đã sửa nội dung; cần duyệt phiên bản này.\nNguồn và lưu ý trước đó:\n'+sourceNotes.slice(0,8000),now,attentionOf(draftChecks(s,v.body)),...args).first();return saved?res({ok:true}):res({error:'Có thay đổi đồng thời. Nội dung chưa được lưu.'},409);
  }
  if(!latest?.body.trim()||latest.stale||latest.status==='sent')return res({error:'Bản nháp cần cập nhật nội dung trước khi duyệt hoặc gửi.'},409);
  if(v.action==='approve'){
+  // The inbox must not become a way around price approval: amounts and internal data block approval.
+  const hard=draftChecks(s,latest.body).filter(p=>p.hard);if(hard.length)return res({error:hard.map(p=>p.text).join(' '),problems:hard},409);
   const saved=await db.prepare('UPDATE ota_drafts SET status=\'approved\',approved_at=? WHERE owner=? AND thread_id=? AND revision=? AND '+guard+' RETURNING revision').bind(now,owner,v.id,v.revision,...args).first();return saved?res({ok:true}):res({error:'Có tin mới trong lúc duyệt. Tải lại.'},409);
  }
  if(latest.status!=='approved')return res({error:'Cần duyệt nội dung trước khi ghi nhận gửi.'},409);

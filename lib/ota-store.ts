@@ -18,7 +18,9 @@ export async function threadState(db:D1Database,owner:string,id:string,profileKe
  const contextKey=await hash(JSON.stringify({thread,events:events.results.map(e=>[e.id,e.guest_text,e.received,e.kind,e.resolved_by]),sent:sent.results.map(s=>[s.id,s.body,s.created])}));
  // Tour knowledge is selected per conversation from rule facts, so the AI only sees the relevant options.
  const guestEvents=events.results.filter(e=>e.kind==='guest'&&e.guest_text),rules=ruleProfileWithHistory(guestEvents);
- const tour=tourAdvice({propertyId:thread.property_id,facts:rules.facts,text:guestEvents.map(e=>e.guest_text).join('\n')});
+ // What the hotel last said (sent, else the latest approved draft) tells what a short "Yes" confirms.
+ const lastOutgoing=sent.results.at(-1)?.body||drafts.results.find(d=>d.status==='approved'||d.status==='sent')?.body||'';
+ const tour=tourAdvice({propertyId:thread.property_id,facts:rules.facts,text:guestEvents.map(e=>e.guest_text).join('\n'),latestText:guestEvents.at(-1)?.guest_text||'',lastOutgoing,stayStart:threadStay(events.results).checkIn});
  const profile=await guestProfile(db,owner,id,contextKey,events.results,profileKey,fetch,{guestName:events.results.at(-1)?.guest_name,property:properties.find(p=>p.id===thread.property_id)?.name,stay:threadStay(events.results),sent:sent.results,sourceNotes:(drafts.results[0]?.notes||'').split('\nNguồn và lưu ý trước đó:\n').at(-1),knowledge:thread.property_id==='luxe-75pht'?hotelKnowledge.filter(x=>x.title!=='Cơ sở & nguồn'):[],tourKnowledge:tourKnowledgeForAI(tour)});
  // A draft built on tour sources that have since changed needs review like a draft with a new guest message.
  return {thread,stay:threadStay(events.results),profile:{...profile,history:rules.history},tour,events:events.results.map(({owner:_,...e})=>e),drafts:drafts.results.map(d=>({...d,stale:(d.context_key!==contextKey||usesStaleTourData(d.notes))&&d.status!=='sent'})),sent:sent.results,contextKey};
@@ -56,8 +58,10 @@ export async function prepareDraft(db:D1Database,owner:string,id:string,profileK
  if(!draft.body)reasons.push('Chưa soạn được nội dung tự động: Cua soạn câu trả lời.');
  // Tour sources: keep evidence with this version; unapproved prices/conditions stay Cua's decision.
  const evidence=tourEvidenceNote(s.tour);if(evidence)draft.notes+='\n'+evidence;
- if(draft.source!=='template'&&s.tour.options.length)reasons.push('Tour: giá và điều kiện chỉ là tham khảo, chưa duyệt. Cua chốt gói, hạng xe, điểm đón và giá trước khi báo giá.',...s.tour.internal);
+ if(draft.source!=='template'&&s.tour.options.length&&!s.tour.options.every(o=>o.approvedPrice))reasons.push('Tour: giá và điều kiện chỉ là tham khảo, chưa duyệt. Cua chốt gói, hạng xe, điểm đón và giá trước khi báo giá.',...s.tour.internal);
  else if(draft.source!=='template')reasons.push(...s.tour.internal);
+ // Intent notes ("Yes" confirms only the asked sentence, "book" is not a booking) apply to template drafts too.
+ else reasons.push(...(s.tour.intent?.notes||[]));
  // Check the guest-facing text before saving: repeated questions, prices, promises, merged packages.
  const c=constraintsOf(s.events.filter(e=>e.kind==='guest').map(e=>e.guest_text).join('\n'));
  for(const p of guestDraftProblems(draft.body,{facts:s.profile.facts,advice:s.tour,known:{date:!!c.date,party:!!c.party}}))reasons.push('Kiểm tra nháp: '+p.text);
