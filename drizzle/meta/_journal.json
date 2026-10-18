@@ -57,6 +57,13 @@
       "when": 1792233000000,
       "tag": "0007_ota_guest_profiles",
       "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "6",
+      "when": 1792310400000,
+      "tag": "0008_ota_templates",
+      "breakpoints": true
     }
   ]
 }

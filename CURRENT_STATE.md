@@ -66,3 +66,5 @@ Local run on 18 October 2026 (Claude, branch claude/local-setup, Windows ARM64 w
 ## Local anonymized OTA corpus (Travis, 18 October 2026)
 
 The local OTA dataset now contains a static anonymized snapshot of 803 emails, 215 threads, 383 draft revisions and 89 reviews. Local UI verified 803/205/4/0. Production is unchanged; non-OTA local tables are unchanged. Derived profile caches rebuild locally, with no AI key. See REVIEW_PACKET and the ignored private-data/crabs-803-2026-10-18/README-CHO-CLAUDE.md for evidence, limits and backup.
+
+Automatic drafts from approved templates (Claude, 18 October 2026, local only): per-booking approvals are separate from reusable templates (ota_templates, migration 0008); unapproved, unsupported or changed cases go to "Cần Cua xử lý" with reasons; 152 checks passed. No template exists yet; Cua creates them. See docs/AUTO_DRAFTS.md and REVIEW_PACKET.md "Feature packet".

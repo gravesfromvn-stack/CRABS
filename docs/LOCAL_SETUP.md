@@ -25,6 +25,8 @@ npm run db:local:migrate    # áp dụng drizzle/*.sql vào D1 local trong .wran
 
 `db:local:migrate` dùng `wrangler.local-db.jsonc`, chạy với `--local --persist-to .wrangler/state`. Binding `DB`, tên `site-creator-d1` và ID giả `00000000-0000-4000-8000-000000000000` khớp với `vite.config.ts` và `dist/server/wrangler.json`, nên dev server đọc đúng tệp SQLite này. Lệnh này không cần `wrangler login` và không chạm database thật. Chạy lại nhiều lần vẫn an toàn (lần sau báo "No migrations to apply").
 
+Sau mỗi lần lấy mã mới có migration (ví dụ `0008_ota_templates.sql` cho mẫu dùng lại), dừng `npm run dev` rồi chạy lại `npm run db:local:migrate`. Nên sao lưu D1 local trước khi migrate.
+
 ## Khởi động hằng ngày
 
 1. Mở VS Code tại thư mục repo, mở Terminal (`` Ctrl+` ``).

@@ -19,6 +19,8 @@ Pilot proposal: one 75PHT property/team, current OTA email intake, airport trans
 
 V1-00 progress (18 October 2026, branch claude/local-setup): local build, D1 migration, dev UI and the nine isolated suites reproduced on Windows ARM with Node x64 (docs/LOCAL_SETUP.md). Still open: update tests/local-flow.mjs expectations/port and add an aggregate test script. The two defects from REVIEW_PACKET.md "Local setup packet" are fixed on this branch (62cd06f; see "Fix packet").
 
+V1-07 progress (18 October 2026, local only): reusable templates separate from per-booking approval, automatic template suggestions that still need Cua's approval, "Cần Cua xử lý" with reasons, no stacking over Cua's edits, idempotent reruns (docs/AUTO_DRAFTS.md). Still open: formal reject-with-reason, multi-template composition, AI QA set, production migration 0008.
+
 ## Required UAT
 
 Inquiry -> correct guest/property -> needs -> quote -> guest acceptance -> supplier confirmation -> payment -> pickup/task execution -> reconcile/close.

@@ -27,6 +27,7 @@ node tests/ota.mjs
 node tests/ota-profile.mjs
 node tests/ota-stay.mjs
 node tests/ota-draft-notice.mjs
+node tests/ota-templates.mjs
 node tests/quotes.mjs
 node tests/reception.mjs
 node tests/replies.mjs

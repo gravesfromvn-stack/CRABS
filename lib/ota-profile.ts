@@ -10,20 +10,23 @@ export type GuestFact=z.infer<typeof factSchema>;
 export type GuestProfile={facts:GuestFact[];method:'ai'|'rules';updated:string;sourceKey:string;warning:string;proposedReply?:{body:string;review:string[]}};
 export type ProfileEvent={id:string;guest_text:string;received:string;kind:string};
 export const normalize=(s:string)=>s.normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/đ/g,'d').toLowerCase().replace(/\s+/g,' ').trim();
-const clockTime=/\b\d{1,2}(?::\d{2}|\s*(?:am|pm|a\.m|p\.m|h\b))/;
-const flightWords=/flight|land|may bay|ha canh/;
+// "14.00" counts as a time; "10.11.2026" (a date) does not.
+const clockTime=/\b\d{1,2}(?::\d{2}|\.[0-5]\d(?!\d|\.\d)|\s*(?:am|pm|a\.m|p\.m|h\b))/;
+const flightWords=/flight|land|\bplane\b|aircraft|may bay|ha canh/;
 const hotelArrivalWords=/(?:arriv\w*|reach\w*|get(?:ting)? to|check.?in)\b.{0,20}\bhotel|check.?in|den khach san|nhan phong/;
 const checkInWords=/check.?in|nhan phong/;
-const isQuestion=(c:string)=>/\?\s*$/.test(c)||/^(?:can|could|may|would it be|is it (?:possible|ok|okay)|will it be possible|co the|lieu)\b/.test(normalize(c));
+// Guests often skip the "?" and open with a greeting: "Hello can we please check in at 12.30pm".
+const isQuestion=(c:string)=>/\?\s*$/.test(c)||/^(?:(?:hi|hello|hey|dear|ok|okay)\b[\s,!.]*)*(?:can|could|may|would it be|is it (?:possible|ok|okay)|will it be possible|co the|lieu)\b|\b(?:can|could|may) (?:we|i) (?:please )?(?:check.?in|arrive early|get (?:the|our) room)\b/.test(normalize(c));
 // The guest quoting hotel rules is not the guest's own plan.
 const isPolicy=(n:string)=>/hotel (?:says|said|states)|check.?in (?:time )?(?:is|starts|begins|opens)\b|check.?in from|policy|quy dinh|gio nhan phong (?:la|tu|bat dau)|nhan phong tu/.test(n);
 const isCorrection=(n:string)=>/instead|actually|correction|rather|change[sd]? to|thay vao do|doi (?:thanh|lai|sang)|chinh lai/.test(n);
 // Clock times as 24-hour HH:MM; bare numbers (2 adults, 26 October, VN 123) are not times.
-function clockTimes(text:string){
+export function clockTimes(text:string){
  const out:string[]=[];
- for(const m of text.matchAll(/(?<![\d:])(\d{1,2})(?!\d)(?:\s*(?::|h)\s*(\d{2})(?!\d))?\s*(a\.?\s?m\b\.?|p\.?\s?m\b\.?|h\b|giờ|gio\b)?/gi)){
-  if(m[2]===undefined&&!m[3])continue;
-  let h=+m[1];const min=+(m[2]||0),mer=(m[3]||'').replace(/[\s.]/g,'').toLowerCase();
+ for(const m of text.matchAll(/(?<![\d:.])(\d{1,2})(?!\d)(?:\s*(?::|h)\s*(\d{2})(?!\d)|\.([0-5]\d)(?!\d|\.\d))?\s*(a\.?\s?m\b\.?|p\.?\s?m\b\.?|h\b|giờ|gio\b)?/gi)){
+  const minutes=m[2]??m[3],suffix=m[4];
+  if(minutes===undefined&&!suffix)continue;
+  let h=+m[1];const min=+(minutes||0),mer=(suffix||'').replace(/[\s.]/g,'').toLowerCase();
   if(mer==='am'||mer==='pm'){if(h<1||h>12)continue;h=h%12+(mer==='pm'?12:0);}else if(h>23)continue;
   if(min>59)continue;
   out.push(String(h).padStart(2,'0')+':'+String(min).padStart(2,'0'));
@@ -60,6 +63,9 @@ function flightSentence(quote:string):{category:'arrival'|'stay';summary:string}
  if(!hotel.length)return null;
  const last=hotel[hotel.length-1],when=arrivalWhen(last.c);
  if(!when)return null;
+ // "Flight at 5:30 pm … hotel at 7:30": a hotel time without am/pm that would fall before landing is ambiguous.
+ const landing=flightTime?clockTimes(flightTime)[0]:'',hotelTime=clockTimes(last.c)[0]||'';
+ if(landing&&hotelTime&&hotelTime<landing&&!/\b(?:a\.?\s?m|p\.?\s?m)\b|giờ|\bh\b/i.test(last.c))return null;
  let note='';
  if(hotel.length>1){
   const earlier=hotel.slice(0,-1).map(p=>arrivalWhen(p.c)).filter(w=>w&&w!==when);
@@ -85,8 +91,8 @@ export function ruleProfile(events:ProfileEvent[]):GuestFact[]{
    else if(time&&/arriv|check.?in|den (?:khach san|luc)|nhan phong/.test(n)&&!isPolicy(n))set('arrival','provided',quote,e.id);
    if(time&&/depart|leav|check.?out|roi (?:di|khach san)|gio ve|tra phong/.test(n))set('departure','provided',quote,e.id);
    if(/connecting|adjoining|twin|single beds|large bed|king bed|double bed|quiet room|high(?:er)? floor|non.smoking|giuong|phong thong|yen tinh|tang cao/.test(n))set('room','requested',quote,e.id,true);
-   if(/late check.?out|early check.?in|luggage stor|cot\b|crib\b|wheelchair|allerg|anniversary|birthday|honeymoon|extra (?:towel|pillow)|giu hanh ly|di ung|sinh nhat|xe lan|khan|goi them/.test(n))set('stay','requested',quote,e.id,true);
-   const pickup=/pick.?up|airport to|from (?:the )?airport|xe don/.test(n),dropoff=/drop.?off|to (?:the )?airport|xe tien/.test(n);
+   if(/late check.?out|early check.?in|luggage stor|(?:leave|store|keep|drop off) (?:our |my |the )?(?:luggage|bags|suitcases)|cot\b|crib\b|wheelchair|allerg|anniversary|birthday|honeymoon|extra (?:towel|pillow)|giu hanh ly|di ung|sinh nhat|xe lan|khan|goi them/.test(n))set('stay','requested',quote,e.id,true);
+   const pickup=/pick.?up|airport to|from (?:the )?airport|shuttle|xe don/.test(n),dropoff=/drop.?off|to (?:the )?airport|xe tien/.test(n);
    const transport=pickup||dropoff||/airport transfer|san bay|own (?:transport|way)|(?:come|arrive|get there) (?:on our own|by ourselves)|taxi|grab\b/.test(n);
    if(transport){let status:GuestFact['status']='interested';
     if(/(?:no|not|don't|do not|won't).{0,30}(?:need|require|want)|not (?:needed|required)|khong (?:can|muon)|tu choi/.test(n))status='declined';

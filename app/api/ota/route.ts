@@ -3,7 +3,9 @@ import {z} from 'zod';
 import {getChatGPTUser} from '../../chatgpt-auth';
 import {sameOrigin} from '../../../lib/validation';
 import {OTA_MAILBOX,channels,properties,hash} from '../../../lib/ota';
-import {threadState,prepareDraft,type OtaEvent} from '../../../lib/ota-store';
+import {threadState,prepareDraft,refreshDrafts,type OtaEvent} from '../../../lib/ota-store';
+import {activeTemplates,templateVersion} from '../../../lib/ota-template-store';
+import {planReply,nextStep,draftSource,sourceLabels,situationLabels} from '../../../lib/ota-templates';
 import {threadStay} from '../../../lib/ota-stay';
 import {rewriteReply} from '../../../lib/ota-rewrite';
 import {hotelKnowledge} from '../../../lib/luxe-knowledge';
@@ -16,13 +18,22 @@ const mutations=z.discriminatedUnion('action',[
  z.object({action:z.literal('rewrite'),id:z.string().min(1).max(100),revision:z.number().int().nonnegative(),contextKey:z.string().length(64),body:z.string().trim().max(6000),intent:z.string().trim().min(3).max(2000),operationId:z.string().uuid()}),
  z.object({action:z.literal('suggest'),id:z.string().min(1).max(100),revision:z.number().int().nonnegative(),contextKey:z.string().length(64),operationId:z.string().uuid()}),
  z.object({action:z.literal('approve'),id:z.string().min(1).max(100),revision:z.number().int().positive(),contextKey:z.string().length(64)}),
+ z.object({action:z.literal('autodraft'),id:z.string().min(1).max(100).optional()}),
  z.object({action:z.literal('sent'),id:z.string().min(1).max(100),revision:z.number().int().positive(),contextKey:z.string().length(64),body:z.string().trim().min(1).max(6000),operationId:z.string().uuid(),confirmed:z.literal(true)})
 ]);
+type State=NonNullable<Awaited<ReturnType<typeof threadState>>>;
+// What the guest needs, what the system prepared and from which source, and what Cua must do next.
+async function guidance(db:D1Database,owner:string,s:State){
+ const plan=planReply(s,await activeTemplates(db,owner)),latest=s.drafts[0];
+ const used=latest?.template_id?await templateVersion(db,owner,latest.template_id,latest.template_version):null;
+ const guest=s.events.filter(e=>e.kind==='guest'&&e.guest_text).at(-1),answered=Boolean(guest&&s.sent.some(x=>x.created>=guest.received));
+ return {plan:{situations:plan.situations.map(x=>({code:x,label:situationLabels[x]})),reasons:plan.reasons,template:plan.template?{id:plan.template.id,version:plan.template.version,title:plan.template.title}:null},prepared:latest?{revision:latest.revision,source:draftSource(latest),label:sourceLabels[draftSource(latest)],template:used?{id:used.id,version:used.version,title:used.title,approvedAt:used.approved_at,retired:Boolean(used.retired_at)}:null}:null,next:nextStep(latest,plan,answered)};
+}
 export async function GET(request:Request){
  const u=await getChatGPTUser();if(!u)return res({error:'Vui lòng đăng nhập.'},401);
  try{
  const db=env.DB!,q=new URL(request.url).searchParams,id=q.get('id');
- if(id){if(id.startsWith('event:')){const e=await db.prepare('SELECT * FROM ota_events WHERE owner=? AND id=?').bind(u.userId,id.slice(6)).first<OtaEvent>();if(!e)return res({error:'Không tìm thấy email.'},404);const {owner:_,...event}=e;return res({event});}const s=await threadState(db,u.userId,id,(env as unknown as Record<string,string>).OPENAI_API_KEY);return s?res(s):res({error:'Không tìm thấy hội thoại.'},404);}
+ if(id){if(id.startsWith('event:')){const e=await db.prepare('SELECT * FROM ota_events WHERE owner=? AND id=?').bind(u.userId,id.slice(6)).first<OtaEvent>();if(!e)return res({error:'Không tìm thấy email.'},404);const {owner:_,...event}=e;return res({event});}const s=await threadState(db,u.userId,id,(env as unknown as Record<string,string>).OPENAI_API_KEY);if(!s)return res({error:'Không tìm thấy hội thoại.'},404);return res({...s,...await guidance(db,u.userId,s)});}
  const account=await db.prepare('SELECT mailbox,created,last_received FROM ota_mailbox WHERE owner=?').bind(u.userId).first();
  const counts=await db.prepare('SELECT status,COUNT(*) AS count FROM ota_events WHERE owner=? GROUP BY status').bind(u.userId).all();
  const queue=q.get('queue')||'review',offset=Math.max(0,Math.min(100000,Number(q.get('offset'))||0)),search=(q.get('search')||'').slice(0,100),property=q.get('property')||'',channel=q.get('channel')||'';
@@ -32,12 +43,13 @@ export async function GET(request:Request){
   items.results=items.results.map(x=>({...x,id:'event:'+x.id}));
  }else{
   const status=queue==='sent'?'sent':queue==='approved'?'approved':'';
-  items=await db.prepare('SELECT t.id,t.channel,t.booking_id,t.property_id,MAX(e.received) AS received,MAX(e.guest_name) AS guest_name,COUNT(e.id) AS message_count,d.status,d.revision,d.body AS preview FROM ota_threads t JOIN ota_events e ON e.owner=t.owner AND e.thread_id=t.id LEFT JOIN ota_drafts d ON d.owner=t.owner AND d.thread_id=t.id AND d.revision=(SELECT MAX(x.revision) FROM ota_drafts x WHERE x.owner=t.owner AND x.thread_id=t.id) WHERE t.owner=? AND (?=\'\' OR t.property_id=?) AND (?=\'\' OR t.channel=?) AND (?=\'\' OR d.status=?) AND (?!=\'review\' OR d.status IS NULL OR d.status IN (\'pending\',\'needs_writing\')) AND (t.booking_id LIKE ? OR e.guest_name LIKE ?) GROUP BY t.id ORDER BY received DESC,t.id LIMIT 101 OFFSET ?').bind(u.userId,property,property,channel,channel,status,status,queue,'%'+search+'%','%'+search+'%',offset).all();
+  items=await db.prepare('SELECT t.id,t.channel,t.booking_id,t.property_id,MAX(e.received) AS received,MAX(e.guest_name) AS guest_name,COUNT(e.id) AS message_count,d.status,d.revision,d.source,d.attention,d.body AS preview FROM ota_threads t JOIN ota_events e ON e.owner=t.owner AND e.thread_id=t.id LEFT JOIN ota_drafts d ON d.owner=t.owner AND d.thread_id=t.id AND d.revision=(SELECT MAX(x.revision) FROM ota_drafts x WHERE x.owner=t.owner AND x.thread_id=t.id) WHERE t.owner=? AND (?=\'\' OR t.property_id=?) AND (?=\'\' OR t.channel=?) AND (?=\'\' OR d.status=?) AND (?!=\'review\' OR d.status IS NULL OR d.status=\'needs_writing\' OR (d.status=\'pending\' AND NOT (d.source=\'template\' AND d.attention=\'\'))) AND (?!=\'template\' OR (d.status=\'pending\' AND d.source=\'template\' AND d.attention=\'\')) AND (t.booking_id LIKE ? OR e.guest_name LIKE ?) GROUP BY t.id ORDER BY received DESC,t.id LIMIT 101 OFFSET ?').bind(u.userId,property,property,channel,channel,status,status,queue,queue,'%'+search+'%','%'+search+'%',offset).all();
  }
  // Bounded pages share one source read; do not persist guessed stay dates.
  const ids=items.results.slice(0,100).map(x=>String(x.id)),eventQueue=ids[0]?.startsWith('event:');
  if(ids.length){const records:OtaEvent[]=[];for(let start=0;start<ids.length;start+=90){const batch=ids.slice(start,start+90);const rows=await db.prepare(`SELECT id,thread_id,full_text,guest_text,channel,authenticated,booking_id,received FROM ota_events WHERE owner=? AND ${eventQueue?'id':'thread_id'} IN (${batch.map(()=>'?').join(',')}) ORDER BY received,id`).bind(u.userId,...batch.map(x=>eventQueue?x.slice(6):x)).all<OtaEvent>();records.push(...rows.results);}items.results=items.results.map(x=>({...x,stay:threadStay(records.filter(e=>eventQueue?'event:'+e.id===x.id:e.thread_id===x.id))}));}
- const draftCounts=await db.prepare('SELECT d.status,COUNT(*) AS count FROM ota_drafts d WHERE d.owner=? AND d.revision=(SELECT MAX(x.revision) FROM ota_drafts x WHERE x.owner=d.owner AND x.thread_id=d.thread_id) GROUP BY d.status').bind(u.userId).all();
+ // 'template' = clean suggestion from an approved template; everything else unapproved needs Cua.
+ const draftCounts=await db.prepare("SELECT CASE WHEN d.status='pending' AND d.source='template' AND d.attention='' THEN 'template' WHEN d.status IN ('pending','needs_writing') THEN 'review' ELSE d.status END AS status,COUNT(*) AS count FROM ota_drafts d WHERE d.owner=? AND d.revision=(SELECT MAX(x.revision) FROM ota_drafts x WHERE x.owner=d.owner AND x.thread_id=d.thread_id) GROUP BY 1").bind(u.userId).all();
  return res({livePollingConfigured:(env as unknown as Record<string,string>).CRABS_POLLING_ENABLED==='true',account,mailbox:OTA_MAILBOX,properties,counts:counts.results,draftCounts:draftCounts.results,items:items.results.slice(0,100),hasMore:items.results.length>100,offset,configured:Boolean((env as unknown as Record<string,string>).CRABS_INGEST_TOKEN)});
  }catch{console.error('OTA read failed');return res({error:'Chưa đọc được hộp thư OTA.'},500);}
 }
@@ -49,6 +61,10 @@ export async function POST(request:Request){
  if(v.action==='connect'){
   const existing=await db.prepare('SELECT owner FROM ota_mailbox WHERE mailbox=?').bind(OTA_MAILBOX).first<{owner:string}>();if(existing&&existing.owner!==owner)return res({error:'Hộp thư đã thuộc không gian khác.'},409);
   await db.prepare('INSERT OR IGNORE INTO ota_mailbox (mailbox,owner,created,last_received) VALUES (?,?,?,?)').bind(OTA_MAILBOX,owner,now,'').run();return res({ok:true});
+ }
+ if(v.action==='autodraft'){
+  // Explicit re-run: only automatic drafts for the current context can be replaced; reruns are no-ops.
+  const summary=await refreshDrafts(db,owner,v.id?[v.id]:undefined);return res({ok:true,summary});
  }
  if(v.action==='resolve'){
   const e=await db.prepare('SELECT * FROM ota_events WHERE owner=? AND id=?').bind(owner,v.eventId).first<OtaEvent>();if(!e)return res({error:'Không tìm thấy email.'},404);if(e.thread_id)return res({error:'Thư đã được ghép. Tải lại để tránh ghép hai lần.'},409);
@@ -71,7 +87,7 @@ export async function POST(request:Request){
  if(v.action==='suggest'){
   const proposal=s.profile.proposedReply;if(!proposal)return res({error:'Chưa có đề xuất AI cho dữ kiện hiện tại. Cua có thể dùng Sửa hoặc tải lại.'},409);
   const notes='AI · Nháp theo hồ sơ nhu cầu. '+proposal.review.join(' · ')+'\nNguồn và lưu ý trước đó:\n'+sourceNotes.slice(0,8000);
-  const saved=await db.prepare("INSERT OR IGNORE INTO ota_drafts (owner,thread_id,revision,operation_id,context_key,body,notes,status,created) SELECT ?,?,?,?,?,?,?,'pending',? WHERE "+guard+' RETURNING revision').bind(owner,v.id,v.revision+1,v.operationId,s.contextKey,proposal.body,notes,now,...args).first();
+  const saved=await db.prepare("INSERT OR IGNORE INTO ota_drafts (owner,thread_id,revision,operation_id,context_key,body,notes,status,created,source) SELECT ?,?,?,?,?,?,?,'pending',?,'ai' WHERE "+guard+' RETURNING revision').bind(owner,v.id,v.revision+1,v.operationId,s.contextKey,proposal.body,notes,now,...args).first();
   return saved?res({ok:true}):res({error:'Có thay đổi đồng thời. Tải lại trước khi tạo nháp.'},409);
  }
 
@@ -84,11 +100,11 @@ export async function POST(request:Request){
   const fresh=await threadState(db,owner,v.id);
   if(!fresh||fresh.contextKey!==s.contextKey||(fresh.drafts[0]?.revision||0)!==v.revision)return res({error:'Có tin mới hoặc bản nháp khác vừa được lưu. Đề xuất AI chưa được lưu; hãy tải lại và thử trên dữ kiện mới.'},409);
   const notes='AI · Ý Cua: '+v.intent+'\nCần kiểm tra: '+(result.review.join(' · ')||'Rà nội dung trước khi duyệt.')+'\nNguồn và lưu ý trước đó:\n'+(sourceNotes||'Chỉ dùng hội thoại này.').slice(0,8000);
-  const saved=await db.prepare("INSERT OR IGNORE INTO ota_drafts (owner,thread_id,revision,operation_id,context_key,body,notes,status,created) SELECT ?,?,?,?,?,?,?,'pending',? WHERE "+guard+' RETURNING revision').bind(owner,v.id,v.revision+1,v.operationId,s.contextKey,result.body,notes,new Date().toISOString(),...args).first();
+  const saved=await db.prepare("INSERT OR IGNORE INTO ota_drafts (owner,thread_id,revision,operation_id,context_key,body,notes,status,created,source) SELECT ?,?,?,?,?,?,?,'pending',?,'ai_cua' WHERE "+guard+' RETURNING revision').bind(owner,v.id,v.revision+1,v.operationId,s.contextKey,result.body,notes,new Date().toISOString(),...args).first();
   return saved?res({ok:true}):res({error:'Có thay đổi đồng thời. Bản nháp cũ được giữ nguyên.'},409);
  }
  if(v.action==='save'){
-  const saved=await db.prepare('INSERT OR IGNORE INTO ota_drafts (owner,thread_id,revision,operation_id,context_key,body,notes,status,created) SELECT ?,?,?,?,?,?,?,\'pending\',? WHERE '+guard+' RETURNING revision').bind(owner,v.id,v.revision+1,v.operationId,s.contextKey,v.body,'Cua đã sửa nội dung; cần duyệt phiên bản này.\nNguồn và lưu ý trước đó:\n'+sourceNotes.slice(0,8000),now,...args).first();return saved?res({ok:true}):res({error:'Có thay đổi đồng thời. Nội dung chưa được lưu.'},409);
+  const saved=await db.prepare('INSERT OR IGNORE INTO ota_drafts (owner,thread_id,revision,operation_id,context_key,body,notes,status,created,source) SELECT ?,?,?,?,?,?,?,\'pending\',?,\'cua\' WHERE '+guard+' RETURNING revision').bind(owner,v.id,v.revision+1,v.operationId,s.contextKey,v.body,'Cua đã sửa nội dung; cần duyệt phiên bản này.\nNguồn và lưu ý trước đó:\n'+sourceNotes.slice(0,8000),now,...args).first();return saved?res({ok:true}):res({error:'Có thay đổi đồng thời. Nội dung chưa được lưu.'},409);
  }
  if(!latest?.body.trim()||latest.stale||latest.status==='sent')return res({error:'Bản nháp cần cập nhật nội dung trước khi duyệt hoặc gửi.'},409);
  if(v.action==='approve'){

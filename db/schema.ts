@@ -47,7 +47,12 @@ export const otaThreads=sqliteTable('ota_threads',{
 },t=>[primaryKey({columns:[t.owner,t.id]}),uniqueIndex('ota_thread_identity').on(t.owner,t.propertyId,t.channel,t.bookingId)]);
 export const otaDrafts=sqliteTable('ota_drafts',{
  owner:text('owner').notNull(),threadId:text('thread_id').notNull(),revision:integer('revision').notNull(),operationId:text('operation_id').notNull(),contextKey:text('context_key').notNull(),body:text('body').notNull(),notes:text('notes').notNull(),status:text('status').notNull(),created:text('created').notNull(),approvedAt:text('approved_at'),sentAt:text('sent_at'),
+ source:text('source').notNull().default(''),templateId:text('template_id').notNull().default(''),templateVersion:integer('template_version').notNull().default(0),attention:text('attention').notNull().default(''),
 },t=>[primaryKey({columns:[t.owner,t.threadId,t.revision]}),uniqueIndex('ota_draft_operation').on(t.owner,t.operationId)]);
+// Reply templates Cua explicitly allowed for reuse; versions are immutable.
+export const otaTemplates=sqliteTable('ota_templates',{
+ owner:text('owner').notNull(),id:text('id').notNull(),version:integer('version').notNull(),title:text('title').notNull(),body:text('body').notNull(),situations:text('situations').notNull(),properties:text('properties').notNull(),channels:text('channels').notNull(),language:text('language').notNull(),sourceThread:text('source_thread').notNull().default(''),sourceRevision:integer('source_revision').notNull().default(0),operationId:text('operation_id').notNull(),approvedBy:text('approved_by').notNull(),approvedAt:text('approved_at').notNull(),retiredAt:text('retired_at'),
+},t=>[primaryKey({columns:[t.owner,t.id,t.version]}),uniqueIndex('ota_template_operation').on(t.owner,t.operationId)]);
 export const otaSent=sqliteTable('ota_sent',{
  owner:text('owner').notNull(),id:text('id').notNull(),threadId:text('thread_id').notNull(),revision:integer('revision').notNull(),body:text('body').notNull(),created:text('created').notNull(),
 },t=>[primaryKey({columns:[t.owner,t.id]})]);
