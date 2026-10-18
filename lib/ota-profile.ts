@@ -7,7 +7,9 @@ export const profileStatuses={provided:'Khách đã cung cấp',requested:'Yêu 
 const factSchema=z.object({category:z.enum(profileCategories),summary:z.string().trim().min(1).max(650),status:z.enum(['provided','requested','interested','declined','own_transport','deferred','arranged_by_guest']),sources:z.array(z.object({eventId:z.string().min(1).max(100),quote:z.string().trim().min(3).max(2000)})).min(1).max(8)});
 export const profileSchema=z.object({facts:z.array(factSchema).max(20)});
 export type GuestFact=z.infer<typeof factSchema>;
-export type GuestProfile={facts:GuestFact[];method:'ai'|'rules';updated:string;sourceKey:string;warning:string;proposedReply?:{body:string;review:string[]}};
+// history: facts replaced by a later guest message (e.g. a corrected arrival time), kept with their source quote.
+export type FactChange={category:ProfileCategory;summary:string;quote:string;eventId:string;replacedBy:string};
+export type GuestProfile={facts:GuestFact[];method:'ai'|'rules';updated:string;sourceKey:string;warning:string;proposedReply?:{body:string;review:string[]};history?:FactChange[]};
 export type ProfileEvent={id:string;guest_text:string;received:string;kind:string};
 export const normalize=(s:string)=>s.normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/đ/g,'d').toLowerCase().replace(/\s+/g,' ').trim();
 // "14.00" counts as a time; "10.11.2026" (a date) does not.
@@ -77,10 +79,11 @@ function flightSentence(quote:string):{category:'arrival'|'stay';summary:string}
  }
  return {category:'arrival',summary:'Đến khách sạn '+when+note+flightNote};
 }
-export function ruleProfile(events:ProfileEvent[]):GuestFact[]{
- const facts:GuestFact[]=[];
+export function ruleProfile(events:ProfileEvent[]):GuestFact[]{return ruleProfileWithHistory(events).facts;}
+export function ruleProfileWithHistory(events:ProfileEvent[]):{facts:GuestFact[];history:FactChange[]}{
+ const facts:GuestFact[]=[],history:FactChange[]=[];
  const set=(category:ProfileCategory,status:GuestFact['status'],quote:string,eventId:string,append=false,summary=quote)=>{
-  if(!append){for(let i=facts.length-1;i>=0;i--)if(facts[i].category===category)facts.splice(i,1);}
+  if(!append){for(let i=facts.length-1;i>=0;i--)if(facts[i].category===category){const old=facts[i];if(normalize(old.summary)!==normalize(summary))history.push({category,summary:old.summary,quote:old.sources[0].quote,eventId:old.sources[0].eventId,replacedBy:eventId});facts.splice(i,1);}}
   if(facts.some(f=>f.category===category&&f.sources.some(s=>normalize(s.quote)===normalize(quote))))return;
   facts.push({category,status,summary:summary.slice(0,650),sources:[{eventId,quote:quote.slice(0,2000)}]});
  };
@@ -112,7 +115,7 @@ export function ruleProfile(events:ProfileEvent[]):GuestFact[]{
    }
   }
  }
- return facts.slice(-20);
+ return {facts:facts.slice(-20),history:history.slice(-20)};
 }
 export function validateProfile(value:unknown,events:ProfileEvent[]){
  const p=profileSchema.parse(value);
@@ -148,9 +151,9 @@ export function followupDraft(base:{body:string;notes:string;kind:string},profil
  }
  const itinerary=f.filter(x=>x.category==='itinerary');
  if(itinerary.some(x=>x.status==='deferred')){
-  if(!/when you arrive|upon.{0,10}arrival|khi.{0,10}den/.test(normalize(body)))add.push(vi?'Mình đã ghi nhận bạn muốn trao đổi lịch trình khi đến Hà Nội. Mình là người bản địa và sẵn lòng chia sẻ gợi ý hữu ích khi bạn sẵn sàng.':'We can discuss sightseeing when you arrive, as you prefer. I am a local and would be happy to share useful tips when you are ready.');
+  if(!/when you arrive|upon.{0,10}arrival|khi.{0,10}den/.test(normalize(body)))add.push(vi?'Mình đã ghi nhận bạn muốn trao đổi lịch trình khi đến Hà Nội. Đội lễ tân sẵn lòng chia sẻ gợi ý hữu ích khi bạn sẵn sàng.':'We can discuss sightseeing when you arrive, as you prefer. Our reception team will be happy to share useful local tips when you are ready.');
  }else if(!itinerary.length&&!/places.{0,30}visit|plans.{0,30}hanoi|lich trinh|du dinh/.test(asked)&&!/[?？]/.test(text.slice(-1))&&(categories.has('arrival')||categories.has('room')||categories.has('departure'))){
-  add.push(vi?'Bạn có lịch trình đi đâu hoặc dự kiến làm gì khi ở Hà Nội không? Mình là người bản địa ở đây nên có thể chia sẻ thông tin hữu ích cho bạn.':"Do you have any places you would like to visit or plans for your time in Hanoi? I am a local and would be happy to share useful tips.");
+  add.push(vi?'Bạn có muốn đi đâu hoặc dự kiến làm gì khi ở Hà Nội không? Đội lễ tân sẵn lòng chia sẻ thông tin hữu ích cho bạn.':"Do you have any places you would like to visit or plans for your time in Hanoi? Our reception team is happy to share useful local tips.");
  }
  return {...base,body:[body,...add].join('\n\n'),notes:base.notes+' Đã đối chiếu nhu cầu trong toàn bộ hội thoại; yêu cầu phòng/dịch vụ chưa đồng nghĩa đã xác nhận.'};
 }

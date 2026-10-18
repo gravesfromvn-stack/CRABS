@@ -1,7 +1,8 @@
 import {OTA_MAILBOX,properties,hash,parseMail,suggestedDraft,type GmailMail} from './ota';
 import {threadStay} from './ota-stay';
 import {guestProfile} from './ota-profile-store';
-import {followupDraft} from './ota-profile';
+import {followupDraft,ruleProfileWithHistory} from './ota-profile';
+import {tourAdvice,tourKnowledgeForAI,usesStaleTourData,applyTourAdvice,tourEvidenceNote,tourParagraph,guestDraftProblems,constraintsOf} from './tour-advice';
 import {hotelKnowledge} from './luxe-knowledge';
 import {planReply,isAutoDraft,draftSource} from './ota-templates';
 import {activeTemplates} from './ota-template-store';
@@ -15,8 +16,12 @@ export async function threadState(db:D1Database,owner:string,id:string,profileKe
   db.prepare('SELECT id,body,created,revision FROM ota_sent WHERE owner=? AND thread_id=? ORDER BY created,id').bind(owner,id).all<{id:string;body:string;created:string;revision:number}>()
  ]);
  const contextKey=await hash(JSON.stringify({thread,events:events.results.map(e=>[e.id,e.guest_text,e.received,e.kind,e.resolved_by]),sent:sent.results.map(s=>[s.id,s.body,s.created])}));
- const profile=await guestProfile(db,owner,id,contextKey,events.results,profileKey,fetch,{guestName:events.results.at(-1)?.guest_name,property:properties.find(p=>p.id===thread.property_id)?.name,stay:threadStay(events.results),sent:sent.results,sourceNotes:(drafts.results[0]?.notes||'').split('\nNguồn và lưu ý trước đó:\n').at(-1),knowledge:thread.property_id==='luxe-75pht'?hotelKnowledge.filter(x=>x.title!=='Cơ sở & nguồn'):[]});
- return {thread,stay:threadStay(events.results),profile,events:events.results.map(({owner:_,...e})=>e),drafts:drafts.results.map(d=>({...d,stale:d.context_key!==contextKey&&d.status!=='sent'})),sent:sent.results,contextKey};
+ // Tour knowledge is selected per conversation from rule facts, so the AI only sees the relevant options.
+ const guestEvents=events.results.filter(e=>e.kind==='guest'&&e.guest_text),rules=ruleProfileWithHistory(guestEvents);
+ const tour=tourAdvice({propertyId:thread.property_id,facts:rules.facts,text:guestEvents.map(e=>e.guest_text).join('\n')});
+ const profile=await guestProfile(db,owner,id,contextKey,events.results,profileKey,fetch,{guestName:events.results.at(-1)?.guest_name,property:properties.find(p=>p.id===thread.property_id)?.name,stay:threadStay(events.results),sent:sent.results,sourceNotes:(drafts.results[0]?.notes||'').split('\nNguồn và lưu ý trước đó:\n').at(-1),knowledge:thread.property_id==='luxe-75pht'?hotelKnowledge.filter(x=>x.title!=='Cơ sở & nguồn'):[],tourKnowledge:tourKnowledgeForAI(tour)});
+ // A draft built on tour sources that have since changed needs review like a draft with a new guest message.
+ return {thread,stay:threadStay(events.results),profile:{...profile,history:rules.history},tour,events:events.results.map(({owner:_,...e})=>e),drafts:drafts.results.map(d=>({...d,stale:(d.context_key!==contextKey||usesStaleTourData(d.notes))&&d.status!=='sent'})),sent:sent.results,contextKey};
 }
 export type PrepareResult={result:'missing'|'no_guest_text'|'answered'|'kept'|'kept_cua_edit'|'flagged'|'created'|'duplicate';source?:string;template?:string};
 // Prepares the next draft for a conversation. With refresh, an automatic draft for the
@@ -31,7 +36,8 @@ export async function prepareDraft(db:D1Database,owner:string,id:string,profileK
  if(latest&&!latest.stale&&!replaceable)return {result:'kept'};
  // Cua is working on an unapproved version: never bury it under an automatic one.
  if(latest&&latest.stale&&latest.status==='pending'&&!isAutoDraft(latest))return {result:'kept_cua_edit'};
- const plan=planReply(s,await activeTemplates(db,owner));
+ const vi=/[ăâđêôơư]|\b(toi|minh|ban|khach san|san bay)\b/i.test(guest.guest_text);
+ const plan=planReply({...s,tourParagraph:tourParagraph(s.tour,vi)},await activeTemplates(db,owner));
  // No template fits: keep the automatic draft's text but refresh why it needs Cua (e.g. a template now
  // exists but does not cover this case). A template suggestion that no longer fits goes back to Cua.
  if(replaceable&&!plan.template){
@@ -46,8 +52,15 @@ export async function prepareDraft(db:D1Database,owner:string,id:string,profileK
  let draft:{body:string;notes:string;source:string;templateId:string;templateVersion:number};
  if(plan.template&&plan.body)draft={body:plan.body,notes:`Đề xuất từ mẫu đã duyệt "${plan.template.title}" (v${plan.template.version}, Cua cho phép dùng lại ${plan.template.approved_at.slice(0,10)}). Chưa phải phản hồi Cua đã duyệt cho booking này.`,source:'template',templateId:plan.template.id,templateVersion:plan.template.version};
  else if(s.profile.proposedReply)draft={body:s.profile.proposedReply.body,notes:'AI · Nháp từ toàn bộ hội thoại và hồ sơ nhu cầu. '+s.profile.proposedReply.review.join(' · '),source:'ai',templateId:'',templateVersion:0};
- else{const r=followupDraft(suggestedDraft(guest.guest_text),s.profile,guest.guest_text,s.sent);draft={body:r.body,notes:r.notes,source:'rules',templateId:'',templateVersion:0};}
+ else{const r=followupDraft(suggestedDraft(guest.guest_text),s.profile,guest.guest_text,s.sent);draft={body:applyTourAdvice(r.body,s.tour,vi),notes:r.notes,source:'rules',templateId:'',templateVersion:0};}
  if(!draft.body)reasons.push('Chưa soạn được nội dung tự động: Cua soạn câu trả lời.');
+ // Tour sources: keep evidence with this version; unapproved prices/conditions stay Cua's decision.
+ const evidence=tourEvidenceNote(s.tour);if(evidence)draft.notes+='\n'+evidence;
+ if(draft.source!=='template'&&s.tour.options.length)reasons.push('Tour: giá và điều kiện chỉ là tham khảo, chưa duyệt. Cua chốt gói, hạng xe, điểm đón và giá trước khi báo giá.',...s.tour.internal);
+ else if(draft.source!=='template')reasons.push(...s.tour.internal);
+ // Check the guest-facing text before saving: repeated questions, prices, promises, merged packages.
+ const c=constraintsOf(s.events.filter(e=>e.kind==='guest').map(e=>e.guest_text).join('\n'));
+ for(const p of guestDraftProblems(draft.body,{facts:s.profile.facts,advice:s.tour,known:{date:!!c.date,party:!!c.party}}))reasons.push('Kiểm tra nháp: '+p.text);
  // One operation id per context and source makes reprocessing the same facts a no-op.
  const operation=draft.source==='template'?`tpl-${id}-${s.contextKey}-${draft.templateId}-v${draft.templateVersion}`:'auto-'+id+'-'+s.contextKey;
  const r=await db.prepare('INSERT OR IGNORE INTO ota_drafts (owner,thread_id,revision,operation_id,context_key,body,notes,status,created,source,template_id,template_version,attention) SELECT ?,?,COALESCE((SELECT MAX(revision) FROM ota_drafts WHERE owner=? AND thread_id=?),0)+1,?,?,?,?,?,?,?,?,?,?').bind(owner,id,owner,id,operation,s.contextKey,draft.body,draft.notes,draft.body?'pending':'needs_writing',now,draft.source,draft.templateId,draft.templateVersion,reasons.join('\n')).run();

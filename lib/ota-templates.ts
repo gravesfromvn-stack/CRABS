@@ -13,7 +13,8 @@ export const parseTemplate=(r:TemplateRow):Template=>({...r,situations:JSON.pars
 
 type Ev={id:string;guest_text:string;received:string;kind:string;guest_name?:string;full_text?:string};
 type Sent={created:string};
-export type ThreadFacts={thread:{id:string;property_id:string;channel:string;booking_id:string};events:Ev[];sent:Sent[];stay?:Stay;profile?:GuestProfile};
+// tourParagraph: sourced, price-free tour content prepared for this conversation (lib/tour-advice.ts).
+export type ThreadFacts={thread:{id:string;property_id:string;channel:string;booking_id:string};events:Ev[];sent:Sent[];stay?:Stay;profile?:GuestProfile;tourParagraph?:string};
 
 // Letters only Vietnamese uses; â/ê/ô also occur in French ("hôtel").
 export const isVietnamese=(s:string)=>/[ăđơưạảấầẩẫậắằẳẵặẹẻẽếềểễệỉĩịọỏốồổỗộớờởỡợụủũứừửữựỳỵỷỹ]/i.test(s);
@@ -72,9 +73,9 @@ export function classifyOpenMessages(f:Pick<ThreadFacts,'events'|'sent'>):Classi
  return {situations:[...situations],blockers:found,unclassified,open};
 }
 
-const placeholders=['guest_name','booking','property','check_in','check_out','arrival_time'] as const;
+const placeholders=['guest_name','booking','property','check_in','check_out','arrival_time','tour_options'] as const;
 type Placeholder=typeof placeholders[number];
-const placeholderLabels:Record<Placeholder,string>={guest_name:'tên khách',booking:'mã booking',property:'tên cơ sở',check_in:'ngày nhận phòng',check_out:'ngày trả phòng',arrival_time:'giờ đến khách sạn (một mốc giờ)'};
+const placeholderLabels:Record<Placeholder,string>={guest_name:'tên khách',booking:'mã booking',property:'tên cơ sở',check_in:'ngày nhận phòng',check_out:'ngày trả phòng',arrival_time:'giờ đến khách sạn (một mốc giờ)',tour_options:'phương án tour có nguồn cho đúng cơ sở'};
 const blockNames=/\[\[(ask|offer|if):([a-z_]+)\]\]([\s\S]*?)\[\[\/\1\]\]/g;
 const commitment=/\b(?:confirmed|guarantee[sd]?|we have arranged|has been arranged|is arranged|have reserved|has been reserved|we will upgrade|upgrade(?:d)? (?:you|your)|free of charge|complimentary|discount|\d+\s?% off)\b|đã (?:xác nhận|bố trí|sắp xếp|đặt được|giữ)|đảm bảo|miễn phí|giảm giá|nâng hạng|ưu đãi/i;
 const allowedNegations=/\b(?:not (?:yet )?(?:confirmed|guaranteed)|cannot (?:be )?(?:confirmed|guaranteed)|unconfirmed|until (?:it is |we have )?confirmed|before (?:it is )?confirmed)\b|chưa (?:được )?(?:xác nhận|bố trí|đảm bảo)|chưa thể (?:xác nhận|đảm bảo)/gi;
@@ -132,7 +133,7 @@ export function renderTemplate(t:Template,f:ThreadFacts):Rendered{
   const keep=kind==='ask'?!known(name as GuestFact['category']):kind==='offer'?offerOpen(name as 'pickup'|'dropoff'|'tour'):situations.includes(name as Situation);
   return keep?inner:'';
  });
- const values:Record<Placeholder,string>={guest_name:f.events.filter(e=>e.guest_name).at(-1)?.guest_name||'',booking:f.thread.booking_id,property:properties.find(p=>p.id===f.thread.property_id)?.name||'',check_in:f.stay&&!f.stay.conflict?dmy(f.stay.checkIn):'',check_out:f.stay&&!f.stay.conflict?dmy(f.stay.checkOut):'',arrival_time:arrivalTime(facts)};
+ const values:Record<Placeholder,string>={guest_name:f.events.filter(e=>e.guest_name).at(-1)?.guest_name||'',booking:f.thread.booking_id,property:properties.find(p=>p.id===f.thread.property_id)?.name||'',check_in:f.stay&&!f.stay.conflict?dmy(f.stay.checkIn):'',check_out:f.stay&&!f.stay.conflict?dmy(f.stay.checkOut):'',arrival_time:arrivalTime(facts),tour_options:f.tourParagraph||''};
  body=body.replace(/\{\{\s*([a-z_]+)\s*\}\}/g,(all,name:string)=>{const v=values[name as Placeholder];if(!v){const label=placeholderLabels[name as Placeholder]||name;if(!missing.includes(label))missing.push(label);return all;}return v;});
  body=body.replace(/[ \t]+\n/g,'\n').replace(/\n{3,}/g,'\n\n').trim();
  // Safety net on the rendered text: never ask again for what the guest gave, never re-offer what they refused.
