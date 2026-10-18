@@ -1,9 +1,10 @@
 'use client';
 import {useState} from 'react';
+import TourResearchNote from './tour-research-note';
 import {sourceCatalog,sourceReadAt,sourceCoverage,sourceExceptions,sourceRules,referenceAmount,type SourceItem,type QuoteSourceSnapshot} from '../lib/quote-sources';
 
 export function SourceEvidence({item}:{item:QuoteSourceSnapshot|SourceItem}){
- return <div className="q-source-evidence"><strong>Chờ xác nhận · nguồn đọc ngày {'readAt' in item?item.readAt:sourceReadAt}</strong><p>{item.priceMeaning}</p><p>Giá ở nguồn: <b>{item.priceText}</b>{item.sourceCost!==null&&<> · Giá HĐ/khách ở nguồn: <b>{referenceAmount(item.sourceCost)}</b></>}</p><p>Ngày đọc/ghi sổ không phải ngày hiệu lực. Các con số ở đây chưa được dùng làm giá bán hoặc giá vốn đã duyệt.</p><ul>{item.gaps.map((s,i)=><li key={i}>{s}</li>)}</ul><div className="q-source-links">{item.sources.slice(0,4).map((s,i)=><a key={i} href={s.url} target="_blank" rel="noreferrer">{s.title} · {s.sheet} · {s.range} ↗</a>)}{item.sources.length>4&&<small>Cùng mức tiền còn ghi ở {item.sources.length-4} dòng khác trong vùng đã đọc.</small>}</div></div>;
+ return <div className="q-source-evidence"><strong>Chờ xác nhận · nguồn đọc ngày {'readAt' in item?item.readAt:sourceReadAt}</strong><p>{item.priceMeaning}</p><p>Giá ở nguồn: <b>{item.priceText}</b>{item.sourceCost!==null&&<> · Giá HĐ/khách ở nguồn: <b>{referenceAmount(item.sourceCost)}</b></>}</p><p>Ngày đọc/ghi sổ không phải ngày hiệu lực. Các con số ở đây chưa được dùng làm giá bán hoặc giá vốn đã duyệt.</p><TourResearchNote review={item.websiteReview}/><ul>{item.gaps.map((s,i)=><li key={i}>{s}</li>)}</ul><div className="q-source-links">{item.sources.slice(0,4).map((s,i)=><a key={i} href={s.url} target="_blank" rel="noreferrer">{s.title} · {s.sheet} · {s.range} ↗</a>)}{item.sources.length>4&&<small>Cùng mức tiền còn ghi ở {item.sources.length-4} dòng khác trong vùng đã đọc.</small>}</div></div>;
 }
 export default function QuoteSourceLibrary({onAdd}:{onAdd:(id:string)=>void}){
  const [query,setQuery]=useState(''),[category,setCategory]=useState('Giao dịch tour 75PHT'),[limit,setLimit]=useState(8);

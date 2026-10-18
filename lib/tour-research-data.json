@@ -1,0 +1,285 @@
+{
+  "version": "2026-10-18.tour-research.v1",
+  "readAt": "2026-10-18",
+  "sheetUrl": "https://docs.google.com/spreadsheets/d/1x79lIP4IknSngcuQJqid-QL1EdW0mXCjoQ59tgVc8u4/edit",
+  "scope": "Đối chiếu 28 lịch đầy đủ và 161 sản phẩm trong Sheets. Kiểm tra thêm 5 trang sản phẩm; 156 sản phẩm còn lại chưa kiểm tra lại website. Không xác nhận giá hợp đồng hoặc chỗ trống.",
+  "coverage": [
+    {
+      "sheet": "Tour Catalog",
+      "gid": 1219823608,
+      "range": "A1:Z60",
+      "records": 28,
+      "url": "https://docs.google.com/spreadsheets/d/1x79lIP4IknSngcuQJqid-QL1EdW0mXCjoQ59tgVc8u4/edit#gid=1219823608&range=A1%3AZ60"
+    },
+    {
+      "sheet": "Tour Program Details",
+      "gid": 2081623401,
+      "range": "A1:H60",
+      "records": 28,
+      "url": "https://docs.google.com/spreadsheets/d/1x79lIP4IknSngcuQJqid-QL1EdW0mXCjoQ59tgVc8u4/edit#gid=2081623401&range=A1%3AH60"
+    },
+    {
+      "sheet": "TheSinhTour Products",
+      "gid": 1746459520,
+      "range": "A1:P180",
+      "records": 161,
+      "url": "https://docs.google.com/spreadsheets/d/1x79lIP4IknSngcuQJqid-QL1EdW0mXCjoQ59tgVc8u4/edit#gid=1746459520&range=A1%3AP180"
+    },
+    {
+      "sheet": "Tour Durations",
+      "gid": 129640707,
+      "range": "A1:J40",
+      "records": 28,
+      "url": "https://docs.google.com/spreadsheets/d/1x79lIP4IknSngcuQJqid-QL1EdW0mXCjoQ59tgVc8u4/edit#gid=129640707&range=A1%3AJ40"
+    },
+    {
+      "sheet": "Tour Itinerary Days",
+      "gid": 1240283454,
+      "range": "A1:L180",
+      "records": 63,
+      "url": "https://docs.google.com/spreadsheets/d/1x79lIP4IknSngcuQJqid-QL1EdW0mXCjoQ59tgVc8u4/edit#gid=1240283454&range=A1%3AL180"
+    },
+    {
+      "sheet": "Tour Sources",
+      "gid": 344282333,
+      "range": "A1:H100",
+      "records": 48,
+      "url": "https://docs.google.com/spreadsheets/d/1x79lIP4IknSngcuQJqid-QL1EdW0mXCjoQ59tgVc8u4/edit#gid=344282333&range=A1%3AH100"
+    },
+    {
+      "sheet": "Tour AI Rules",
+      "gid": 631119451,
+      "range": "A1:J40",
+      "records": 22,
+      "url": "https://docs.google.com/spreadsheets/d/1x79lIP4IknSngcuQJqid-QL1EdW0mXCjoQ59tgVc8u4/edit#gid=631119451&range=A1%3AJ40"
+    },
+    {
+      "sheet": "Tour Change Log",
+      "gid": 2058743127,
+      "range": "A1:J35",
+      "records": 3,
+      "url": "https://docs.google.com/spreadsheets/d/1x79lIP4IknSngcuQJqid-QL1EdW0mXCjoQ59tgVc8u4/edit#gid=2058743127&range=A1%3AJ35"
+    }
+  ],
+  "observations": [
+    {
+      "id": "R75-TST-003",
+      "title": "Hà Nội 1 ngày",
+      "sheetPrice": 750000,
+      "url": "https://thesinhtour.com/tour-du-lich-ha-noi-1-ngay/",
+      "outcome": "Có nhiều hạng xe",
+      "variants": [
+        {
+          "label": "Cả ngày · xe thường",
+          "amount": 750000,
+          "scope": "khách"
+        },
+        {
+          "label": "Cả ngày · limousine 19/22 chỗ",
+          "amount": 850000,
+          "scope": "khách"
+        },
+        {
+          "label": "Cả ngày · limousine 9 chỗ",
+          "amount": 1200000,
+          "scope": "khách"
+        }
+      ],
+      "route": "07:30–08:30 đón Phố Cổ/Nhà hát lớn; Trấn Quốc, khu Hồ Chí Minh, bảo tàng, Văn Miếu, Hỏa Lò; khoảng 16:45 về.",
+      "includes": "Xe, hướng dẫn Việt/Anh, vé theo lịch, bữa trưa, nước.",
+      "excludes": "VAT, đồ uống bữa trưa, tip và chi phí riêng.",
+      "children": "1–4 tuổi miễn phí một trẻ/2 người lớn; trẻ thứ hai tùy hạng. 5–8 tuổi 75%; từ 9 tuổi giá người lớn.",
+      "notes": [
+        "Bảo tàng Dân tộc học nghỉ thứ Hai, chuyển Bảo tàng Phụ nữ.",
+        "Thông báo Chính phủ: đóng tu bổ 04/09–02/11/2026, dự kiến đón khách lại 03/11/2026. Website tour ghi lệch một ngày. Ưu tiên thông báo chính thức; xác nhận lịch theo ngày đi, không hứa vào trong Lăng khi đóng."
+      ],
+      "gaps": [
+        "Chưa có giá hợp đồng, ngày hiệu lực và điều kiện đổi/hủy.",
+        "Xác nhận điểm đón 75PHT và hạng xe trước bán."
+      ],
+      "checkedAt": "2026-10-18",
+      "status": "reference_only",
+      "currency": "VND",
+      "effectiveFrom": null,
+      "effectiveUntil": null,
+      "approvedHotelPrice": null,
+      "contractCost": null,
+      "commission": null,
+      "advisoryUrl": "https://xaydungchinhsach.chinhphu.vn/tu-bo-dinh-ky-lang-chu-tich-ho-chi-minh-tu-4-9-den-2-11-2026-119260828075627647.htm"
+    },
+    {
+      "id": "R75-TST-021",
+      "title": "Hoa Lư – Tràng An – Hang Múa",
+      "sheetPrice": 950000,
+      "url": "https://vinabooker.com/tour-hoa-lu-trang-an-hang-mua-1-ngay/",
+      "outcome": "Có nhiều hạng dịch vụ",
+      "variants": [
+        {
+          "label": "Tiêu chuẩn · xe 29/35 ghế, buffet",
+          "amount": 950000,
+          "scope": "khách"
+        },
+        {
+          "label": "Superior · limousine 17/22 ghế, buffet",
+          "amount": 1050000,
+          "scope": "khách"
+        },
+        {
+          "label": "Deluxe · Dcar 9–11 ghế, set menu",
+          "amount": 1350000,
+          "scope": "khách"
+        },
+        {
+          "label": "Luxury · Dcar 7–9 ghế, set menu",
+          "amount": 1500000,
+          "scope": "khách"
+        }
+      ],
+      "route": "07:00–07:45 đón Phố Cổ; Hoa Lư, đạp xe, ăn trưa, thuyền Tràng An, Hang Múa; khoảng 19:30 về.",
+      "includes": "Xe, vé theo lịch, xe đạp, hướng dẫn, trưa, nước.",
+      "excludes": "VAT, đồ uống, tip.",
+      "children": "1–4 tuổi miễn phí theo điều kiện; 5–8 tuổi 75%; từ 9 tuổi giá người lớn.",
+      "notes": [
+        "Hang Múa có nhiều bậc; kiểm tra khả năng vận động đã biết.",
+        "Mục bao gồm ghi buffet chung nhưng bảng hạng cao ghi set menu; cần xác nhận."
+      ],
+      "gaps": [
+        "Chốt đúng hạng xe/bữa ăn; không dùng giá thấp nhất cho mọi gói.",
+        "Thiếu hợp đồng, hiệu lực, đổi/hủy và xác nhận đón 75PHT."
+      ],
+      "checkedAt": "2026-10-18",
+      "status": "reference_only",
+      "currency": "VND",
+      "effectiveFrom": null,
+      "effectiveUntil": null,
+      "approvedHotelPrice": null,
+      "contractCost": null,
+      "commission": null
+    },
+    {
+      "id": "R75-TST-046",
+      "title": "Dragon King · Hạ Long 1 ngày",
+      "sheetPrice": 900000,
+      "url": "https://thesinhtour.com/tour-ha-long-1-ngay-tu-ha-noi/",
+      "outcome": "Giá Sheets khác website; phải tách điểm đón",
+      "variants": [
+        {
+          "label": "Bắt đầu tại bến Hạ Long · không xe Hà Nội",
+          "amount": 850000,
+          "scope": "khách"
+        },
+        {
+          "label": "Từ Phố Cổ Hà Nội · xe 29/35 chỗ",
+          "amount": 1050000,
+          "scope": "khách"
+        }
+      ],
+      "route": "08:45–09:15 đón Hà Nội nếu mua xe; Sửng Sốt, Hang Luồn, Titop; về Hà Nội khoảng 20:30–21:00.",
+      "includes": "Tàu, trưa, vé, kayak/thuyền nan, trà chiều, hướng dẫn; xe chỉ trong gói có xe.",
+      "excludes": "VAT, đồ uống và chi tiêu riêng.",
+      "children": "1–3 tuổi miễn phí có giới hạn; 4–7 tuổi 75% có giới hạn; từ 8 tuổi giá người lớn. Cần kiểm tra thêm chiều cao và trẻ thứ hai.",
+      "notes": [
+        "Không dùng 850.000đ làm giá trọn gói từ khách sạn.",
+        "Website mô tả loại xe chưa thống nhất giữa bảng giá và phần bao gồm."
+      ],
+      "gaps": [
+        "Xác nhận xe thực tế, đón 75PHT, ngày đi và thời tiết.",
+        "Thiếu giá hợp đồng, hiệu lực và điều kiện đổi/hủy."
+      ],
+      "checkedAt": "2026-10-18",
+      "status": "reference_only",
+      "currency": "VND",
+      "effectiveFrom": null,
+      "effectiveUntil": null,
+      "approvedHotelPrice": null,
+      "contractCost": null,
+      "commission": null
+    },
+    {
+      "id": "R75-TST-028",
+      "title": "Thung Ui · Ninh Bình 1 ngày",
+      "sheetPrice": null,
+      "url": "https://vinabooker.com/tour-thung-ui-ninh-binh-1-ngay/",
+      "outcome": "Vẫn cần liên hệ lấy giá",
+      "variants": [],
+      "route": "07:00–07:30 đón Hà Nội; Phố cổ Hoa Lư, chọn Cố đô hoặc Am Tiên, ăn trưa, Thung Ui; khoảng 19:00–19:30 về.",
+      "includes": "Xe, vé theo lịch, trưa, hướng dẫn Việt/Anh, nước.",
+      "excludes": "VAT, đồ uống, tip; thuyền và bè tại Thung Ui tính riêng.",
+      "children": "Nguồn bỏ trống tuổi 4, chồng mốc 7 và 9; chưa tính giá trẻ tự động.",
+      "notes": [
+        "Hoa Lư và Am Tiên là lựa chọn, không hứa bao gồm cả hai.",
+        "Giá thuyền/bè chưa rõ tính theo người hay nhóm; chưa dùng để cộng tiền."
+      ],
+      "gaps": [
+        "Cần bảng giá người lớn, trẻ em rõ mốc tuổi, đơn vị phụ thu.",
+        "Xác nhận hiệu lực, đổi/hủy, gói và điểm đón."
+      ],
+      "checkedAt": "2026-10-18",
+      "status": "reference_only",
+      "currency": "VND",
+      "effectiveFrom": null,
+      "effectiveUntil": null,
+      "approvedHotelPrice": null,
+      "contractCost": null,
+      "commission": null
+    },
+    {
+      "id": "R75-TST-036",
+      "title": "Ninh Bình – Hạ Long 3N2Đ · 1 đêm du thuyền",
+      "sheetPrice": null,
+      "url": "https://thesinhtour.com/tour-ninh-binh-ha-long-3-ngay-2-dem-tu-ha-noi/",
+      "outcome": "Giá thành phần; chưa có tổng gói",
+      "variants": [
+        {
+          "label": "Phần Ninh Bình · hạng cơ bản",
+          "amount": 2000000,
+          "scope": "khách · CHƯA gồm giá du thuyền"
+        },
+        {
+          "label": "Phần Ninh Bình · mức cao nhất trong bảng",
+          "amount": 3000000,
+          "scope": "khách · CHƯA gồm giá du thuyền"
+        }
+      ],
+      "route": "Ngày 1 Ninh Bình, ngủ tại Ninh Bình; ngày 2 chuyển ra tàu; ngày 3 trở lại Hà Nội.",
+      "includes": "Quyền lợi theo hạng lưu trú, tàu và cabin được chọn.",
+      "excludes": "VAT, đồ uống, tip và dịch vụ ngoài gói.",
+      "children": "Cần đối chiếu chính sách của đúng tàu/cabin và các mốc tuổi.",
+      "notes": [
+        "Tổng giá = phần Ninh Bình + phần du thuyền được xác nhận.",
+        "Chặng Ninh Bình ra cảng không có hướng dẫn; phụ thu phòng đơn và cuối tuần tùy hạng."
+      ],
+      "gaps": [
+        "Chọn khách sạn, tàu, cabin, ngày đi, số người và phòng đơn.",
+        "Chưa có giá du thuyền, tổng gói, chỗ trống, hiệu lực và đổi/hủy."
+      ],
+      "checkedAt": "2026-10-18",
+      "status": "reference_only",
+      "currency": "VND",
+      "effectiveFrom": null,
+      "effectiveUntil": null,
+      "approvedHotelPrice": null,
+      "contractCost": null,
+      "commission": null
+    }
+  ],
+  "policy": {
+    "id": "AI09",
+    "title": "Lịch tu bổ Lăng · nguồn Chính phủ",
+    "text": "Thông báo Chính phủ: đóng tu bổ 04/09–02/11/2026, dự kiến đón khách lại 03/11/2026. Website tour ghi lệch một ngày. Ưu tiên thông báo chính thức; xác nhận lịch theo ngày đi, không hứa vào trong Lăng khi đóng.",
+    "url": "https://xaydungchinhsach.chinhphu.vn/tu-bo-dinh-ky-lang-chu-tich-ho-chi-minh-tu-4-9-den-2-11-2026-119260828075627647.htm",
+    "checkedAt": "2026-10-18",
+    "appliesTo": [
+      "R75-HN01",
+      "R75-TST-003"
+    ],
+    "effectiveFrom": "2026-09-04",
+    "effectiveUntil": "2026-11-02"
+  },
+  "confirmation": [
+    "Nhà cung cấp và cơ sở nào được phép bán từng gói; xác nhận điểm đón tại 75 Phạm Hồng Thái.",
+    "Giá bán, giá vốn, hoa hồng; đơn vị khách/xe/nhóm; ngày bắt đầu và kết thúc hiệu lực.",
+    "Hạng xe/tàu/cabin, người lớn và trẻ em; thuế/phí, lễ/cuối tuần, phòng đơn.",
+    "Quyền lợi, cọc, đổi/hủy/hoàn tiền và đầu mối xác nhận chỗ."
+  ]
+}

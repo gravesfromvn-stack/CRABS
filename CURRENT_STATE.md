@@ -4,6 +4,14 @@
 
 Port 5173 (CRABS-Claude, branch integration/claude-travis) now runs Claude's OTA template drafting and Travis's Daily Operation and quote-source work together. Migration 0010 applied locally after a consistent backup; data counts unchanged. 187 checks across 14 suites passed on 6db0ac0; tsc and build pass. Port 5188 remains Travis's separate database. Business decisions still needed, manual steps and rollback: [integrated local guide](docs/INTEGRATED_LOCAL.md). No push, merge to main or deployment.
 
+## Tour knowledge refresh — 18 October 2026 (local only)
+
+Branch travis/tour-knowledge, based on fd3c423. Tour & services now opens a source-backed knowledge view: 189 programs/listings, duration/day planning, advice and a commercial-confirmation list; seven synthetic products are collapsed separately. All 28 full itineraries and 161 listing names/prices/URLs were re-read and matched the prior snapshot. Fixed 28 invalid A0:H0 program evidence links to the correct rows; stored quote versions are not rewritten.
+
+Five provider pages were additionally researched and summarized with distinct rate variants, itinerary, inclusions/exclusions, child-policy ambiguity and provenance; the other 156 were not website-verified. Official government evidence resolves the AI09 mausoleum-date conflict. New quote source snapshots retain the optional websiteReview independently; all R75 prices remain pending, with sale/cost/commission null by default and approval/copy blocked. No migration or production changes; no automatic AI reply integration.
+
+Actual local checks: TypeScript and build passed; tour-research 5, quote-sources 8, quote API 17 passed. UI catalog search, rate variants, 14-day route and confirmation/advice tabs verified on 5188. Full scope, user inputs and Claude integration notes: [tour handoff](docs/TOUR_KNOWLEDGE_HANDOFF.md).
+
 ## Source-backed local quotes — 18 October 2026
 
 Port 5188 now has a searchable 75PHT source library: 17 October transaction rows, 10 distinct historical airport-rate/direction/vehicle combinations, 28 draft itineraries, 161 website listings stored in Sheets (159 priced, two unpriced), and seven USD-from templates. All 223 entries are pending confirmation, not approved hotel prices. Exact sheet ranges, source URLs, currency, original amounts, read date and business gaps persist in each new quote version. Raw guest identifiers are not part of the rate catalog.

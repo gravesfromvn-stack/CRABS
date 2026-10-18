@@ -1,5 +1,15 @@
 # Initial review packet
 
+## Tour knowledge supplement — 18 October 2026
+
+User requested a recheck of Private DATA INBOUND TOUR and updates to rates/itinerary knowledge while Claude integrates separately. Implemented on travis/tour-knowledge from fd3c423, keeping travis/daily-operation at its prior head and leaving the Claude checkout untouched.
+
+New source-first products view, five provider-page research summaries, official AI09 evidence, commercial gaps and 28 corrected program-row links. Optional websiteReview is frozen in newly saved quote evidence; no rewrite of old versions and no price promotion. The historical Sheet amounts remain unchanged. No API routes, OTA logic, migrations, dependencies, Make or production writes changed.
+
+Validation: TypeScript/build passed; 5 tour-research, 8 quote-sources and 17 isolated quote-API checks passed. The new test initially exposed two test-fixture mistakes (non-Sheet document heading tested as A1 range; omitted children field); both fixtures corrected before passing. UI verified search, variant evidence, 14-day timeline and advice/confirmation tabs. Build still warns on large chunks. Not a live-availability, supplier-contract or full V1 UAT test.
+
+Details and integration steps: docs/TOUR_KNOWLEDGE_HANDOFF.md. Rollback this supplement by reverting its commit; no DB migration/restore needed. Preserve later user/Claude changes when reverting shared files.
+
 ## Assignment
 
 Read-only audit of Inbox -> AI Reply -> Guest Profile -> service-sales boundary.
