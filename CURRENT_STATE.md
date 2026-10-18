@@ -59,3 +59,5 @@ The 75PHT analysis inventory covered 26 workbooks and 212 value tabs in earlier 
 ## Verification boundary
 
 Prior implementation work recorded TypeScript/build success and 38 OTA plus 17 profile checks passing for the latest feature work. This handoff preparation did not rerun those application tests. The 18 October audit checked source, hosted version identity, current UI and Make status/history; it performed no application mutations. Fresh-clone build/test results must be recorded when actually run.
+
+Local run on 18 October 2026 (Claude, branch claude/local-setup, Windows ARM64 with Node 22.23.3 x64, npm 10.9.9): tsc and npm run build passed; local D1 migrated (0000–0007); npm run dev served the UI with local mock sign-in; the nine isolated suites passed (ota 38, ota-profile 17, ota-stay 1, quotes 14, reception 6, replies 14, source-data 12, review-queue 8, analysis 8). tests/local-flow.mjs was not run. Synthetic OTA emails exercised matching, profile, draft edit/approve/manual-sent end to end without an AI key. Details and observed defects: REVIEW_PACKET.md "Local setup packet". This is local evidence only, not production or UAT acceptance.

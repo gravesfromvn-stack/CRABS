@@ -1,0 +1,16 @@
+// Local-only D1 config for `npm run db:local:*`. Not used by dev, build or hosting.
+// Binding, name and placeholder ID mirror vite.config.ts and dist/server/wrangler.json
+// so wrangler --local writes the same SQLite file the dev server reads from
+// .wrangler/state. Never put a production database_id here.
+{
+  "name": "crabs-local-db",
+  "compatibility_date": "2026-05-15",
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "site-creator-d1",
+      "database_id": "00000000-0000-4000-8000-000000000000",
+      "migrations_dir": "drizzle"
+    }
+  ]
+}

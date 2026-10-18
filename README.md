@@ -13,6 +13,7 @@ This repository packages the application source at upstream Sites commit `450d7c
 - [V1 backlog and acceptance criteria](BACKLOG_V1.md)
 - [Review packet](REVIEW_PACKET.md)
 - [Development and test instructions](docs/DEVELOPMENT.md)
+- [Local setup on Windows ARM / VS Code](docs/LOCAL_SETUP.md)
 - [Working with Claude Chat and Codex](docs/COLLABORATION.md)
 - [Product vision and handoff scope](docs/VISION.md)
 - [Original chronological README](docs/history/README-sites-450d7c9.md)

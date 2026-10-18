@@ -42,7 +42,7 @@ tests/local-flow.mjs is a separate browser-server integration script hard-coded 
 
 npm run dev uses port 5173 in the portable profile. The Vite config binds a local D1 placeholder; local migrations must be applied to the local database before exercising APIs. Do not paste the production database ID into a local reset workflow.
 
-After npm run build, npm run start starts local wrangler from dist/server/wrangler.json with state under .wrangler/state. Any local migration command must explicitly use local mode and the same state directory. Verify the generated configuration and database binding before applying it; no migration command was executed in this handoff.
+After npm run build, npm run start starts local wrangler from dist/server/wrangler.json with state under .wrangler/state. Any local migration command must explicitly use local mode and the same state directory. Verify the generated configuration and database binding before applying it. `npm run db:local:migrate` applies drizzle/ to that local database via wrangler.local-db.jsonc (placeholder ID, --local, .wrangler/state); see docs/LOCAL_SETUP.md for start/stop/reset steps and the synthetic OTA seed.
 
 ## Environment variables
 
