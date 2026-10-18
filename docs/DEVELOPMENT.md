@@ -34,6 +34,9 @@ node tests/replies.mjs
 node tests/source-data.mjs
 node tests/review-queue.mjs
 node tests/analysis.mjs
+node tests/quote-sources.mjs
+node tests/quote-presentation.mjs
+node tests/operations.mjs
 ```
 
 Run sequentially because generated paths may overlap. Read tests before running them. AI tests use mocked providers; they are not the 60-case business quality evaluation. Some fixture dates and catalog expiry are fixed in October 2026 and may become stale. No aggregate npm test script or CI certification is provided yet.

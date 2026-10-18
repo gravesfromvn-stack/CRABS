@@ -73,3 +73,52 @@ Mỗi hội thoại có ô **Tóm tắt xử lý**: *Khách cần gì* · *Hệ 
 - Tin chỉ "cảm ơn" sau khi đã duyệt vẫn làm bản duyệt lỗi thời (theo ngữ cảnh), cần Cua duyệt lại.
 - Giờ rời đi/giờ cất cánh chưa tách (như ghi trong REVIEW_PACKET).
 - Chưa nối OTA sang lễ tân/báo giá.
+
+## Mẫu chờ Cua duyệt: Khách báo giờ đến · Luxe Suites · tiếng Anh
+
+Chưa lưu trên 5173. Cua tạo mẫu trong **Mẫu được phép dùng lại** khi đã chọn xong các điểm dưới đây.
+
+**Nguồn đã xác minh theo định danh:** hội thoại `ota-085aa785ba79aae1dcfa4f7f003af49f`, phiên bản **v2**, đã duyệt 18/10/2026 03:13 UTC, Luxe Paradise Suites, Booking.com, booking 8800000093 (hiển thị "Guest 0303"). Lời khách gốc là *yêu cầu nhận phòng sớm 11:00–12:00 kèm "Is this ok?"*, không phải ca chỉ báo giờ đến. Vì vậy thẻ nguồn hiện tình huống "Khách hỏi nhận phòng sớm"; Cua chọn tình huống "Khách báo giờ đến" khi tạo mẫu.
+
+**Phạm vi đề xuất:** chỉ tình huống *Khách báo giờ đến* · chỉ *Luxe Paradise Suites Hotel & Spa* · mọi kênh · tiếng Anh. Không mở rộng sang cơ sở/ngôn ngữ khác.
+
+**Bản A — không mời xe** (an toàn khi chưa xác nhận Suites có xe):
+
+```text
+Dear {{guest_name}},
+
+Thank you for your message. We have noted your expected arrival time of {{arrival_time}} for your stay from {{check_in}} to {{check_out}}.
+
+If you arrive before the standard check-in time, we can check room availability on the day. Early check-in is not yet confirmed.[[offer:tour]]
+
+If there are places you would like to visit in Hanoi, our reception team is happy to share local tips.[[/offer]]
+
+We look forward to welcoming you.
+
+Best regards,
+Luxe Paradise Suites Hotel & Spa
+```
+
+**Bản B — có mời xe** (chỉ dùng khi Cua xác nhận Suites cung cấp xe): như bản A, thêm hai khối ngay sau câu nhận phòng sớm:
+
+```text
+[[offer:pickup]]
+
+If it helps, we can share private airport pick-up options for your arrival, with the vehicle details first, so you can decide.[[/offer]][[offer:dropoff]]
+
+If you would like, we can also share transfer options to the airport for the end of your stay.[[/offer]]
+```
+
+**So với bản nháp Cua gửi:**
+- Bỏ "Standard check-in is from 14:00": giờ này chưa được xác nhận cho Suites, và validator không bắt được chính sách chưa xác nhận.
+- Thay "I am a local" bằng giọng của cả lễ tân.
+- Lời mời xe chuyển sang dạng "chia sẻ phương án" và chỉ có ở bản B.
+- Không thêm giờ trả phòng, gửi hành lý, miễn phí hay ưu đãi.
+
+**Kết quả kiểm tra bằng mã hiện hành:**
+- Validator: bản gốc, A và B đều hợp lệ với nguồn v2 (và với nguồn 8800000024). Giờ khách gốc 11:00/12:00 không bị chép vào mẫu.
+- Xem trước trên 215 hội thoại thật (không ghi DB): 8 ca Luxe Suites khớp, giờ/ngày điền đúng booking; ca 75PHT không dùng mẫu.
+- Thử trên bản sao riêng (cổng 5199, đã xóa sau thử) với 18 tin giả lập:
+  - Dùng mẫu: giờ đơn rõ ràng; giờ bay kèm giờ đến khách sạn (lấy giờ khách sạn).
+  - Về Cua: khoảng giờ; "không trước"; đính chính; hỏi nhận phòng sớm; giờ đến + từ chối đón; tự đi Grab; bàn tour sau; nêu nơi muốn đi; yêu cầu phòng; hỏi giá; xe miễn phí; nút Accept OTA; sai cơ sở; thiếu ngày; tiếng Pháp; chỉ có giờ bay.
+- **Ghi nhận riêng:** tin vừa báo giờ đến vừa từ chối xe (hoặc tự đi / bàn tour sau) **không khớp** mẫu chỉ có "giờ đến", nên về Cua. Khối `[[offer]]` chỉ có tác dụng khi lời từ chối nằm ở tin trước đã được trả lời; khi đó chỉ chiều bị từ chối bị bỏ (test tự động `ota-templates`).

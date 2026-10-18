@@ -1,5 +1,9 @@
 # CRABS current state
 
+## Integrated local build — 18 October 2026
+
+Port 5173 (CRABS-Claude, branch integration/claude-travis) now runs Claude's OTA template drafting and Travis's Daily Operation and quote-source work together. Migration 0010 applied locally after a consistent backup; data counts unchanged. 187 checks across 14 suites passed on 6db0ac0; tsc and build pass. Port 5188 remains Travis's separate database. Business decisions still needed, manual steps and rollback: [integrated local guide](docs/INTEGRATED_LOCAL.md). No push, merge to main or deployment.
+
 ## Source-backed local quotes — 18 October 2026
 
 Port 5188 now has a searchable 75PHT source library: 17 October transaction rows, 10 distinct historical airport-rate/direction/vehicle combinations, 28 draft itineraries, 161 website listings stored in Sheets (159 priced, two unpriced), and seven USD-from templates. All 223 entries are pending confirmation, not approved hotel prices. Exact sheet ranges, source URLs, currency, original amounts, read date and business gaps persist in each new quote version. Raw guest identifiers are not part of the rate catalog.

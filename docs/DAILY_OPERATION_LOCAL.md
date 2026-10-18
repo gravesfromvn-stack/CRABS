@@ -1,5 +1,7 @@
 # Lễ tân & vận hành — bản local riêng
 
+> Bản tích hợp (18/10/2026): dùng http://localhost:5173 trong CRABS-Claude, nhánh integration/claude-travis. Địa chỉ cổng 5188 dưới đây là bản riêng của Travis với database riêng. Xem docs/INTEGRATED_LOCAL.md.
+
 Ngày bàn giao: 18/10/2026. Nhánh `travis/daily-operation`, nền mã `0ca901b`.
 
 Mở **http://127.0.0.1:5188/#reception**. Mặc định là Daily Operation → Hôm nay, ngày Việt Nam, cơ sở 75 Phạm Hồng Thái và nguồn email OTA.

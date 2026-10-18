@@ -1,5 +1,7 @@
 # Cua dùng trang Báo giá để làm gì?
 
+> Bản tích hợp (18/10/2026): dùng http://localhost:5173 trong CRABS-Claude, nhánh integration/claude-travis. Địa chỉ cổng 5188 dưới đây là bản riêng của Travis với database riêng. Xem docs/INTEGRATED_LOCAL.md.
+
 Bản local: http://127.0.0.1:5188/#quotes/demo-01
 
 Báo giá dùng khi khách đang cân nhắc mua tour hoặc xe: mình trình bày phương án, quyền lợi, giá và điều kiện; kiểm tra lãi dự kiến; giữ lại đúng nội dung từng lần đã đề xuất. Câu hỏi nhận phòng, yêu cầu phòng yên tĩnh hoặc giờ đến không cần lập báo giá dịch vụ.

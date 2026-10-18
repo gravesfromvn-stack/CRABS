@@ -1,5 +1,7 @@
 # Bảng nguồn giá và phần cần Cua xác nhận
 
+> Bản tích hợp (18/10/2026): dùng http://localhost:5173 trong CRABS-Claude, nhánh integration/claude-travis. Địa chỉ cổng 5188 dưới đây là bản riêng của Travis với database riêng. Xem docs/INTEGRATED_LOCAL.md.
+
 Đọc ngày 18/10/2026. Áp dụng cho bản local riêng tại http://127.0.0.1:5188/#quotes/demo-01. Đây là dữ liệu tham khảo từ hệ thống 75PHT; chưa có mức nào được chứng minh là bảng giá hiện hành đã duyệt. Ngày cập nhật file/ngày đọc không phải ngày hiệu lực.
 
 ## Cách dùng trong CRM
