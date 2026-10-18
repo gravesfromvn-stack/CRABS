@@ -1,7 +1,7 @@
 import { env } from 'cloudflare:workers';
 import { getChatGPTUser } from '../../chatgpt-auth';
 import { sameOrigin } from '../../../lib/validation';
-import { products } from '../../../lib/demo-data';
+import { quoteProducts as products, quoteSourceSnapshot } from '../../../lib/quote-sources';
 import { quoteCommand, approvalIssues, type QuotePayload } from '../../../lib/quotes';
 import { readReception } from '../../../lib/reception';
 export const dynamic='force-dynamic';
@@ -14,7 +14,7 @@ export async function POST(request:Request){const user=await getChatGPTUser();if
  if((head?.current_revision??0)!==input.expectedRevision||head&&head.contact_id!==input.contactId)return reply({error:'Báo giá đã thay đổi. Tải lại trước khi lưu.'},409);
  const contact=await db.prepare('SELECT name,version,service_date,children,reception FROM contacts WHERE owner=? AND id=?').bind(owner,input.contactId).first<{name:string;version:number;service_date:string;children:string;reception:string}>();if(!contact)return reply({error:'Không tìm thấy hồ sơ.'},404);if(contact.version!==input.contactVersion)return reply({error:'Hồ sơ đã đổi; tải lại trước khi lập báo giá.'},409);
  const revision=input.expectedRevision+1;
- const payload:QuotePayload={...input.quote,contactReception:readReception(contact.reception),contactVersion:contact.version,contactName:contact.name,contactDate:contact.service_date,children:contact.children,lines:input.quote.lines.map(l=>{const p=products.find(p=>p.id===l.productId)!;return {...l,title:p.title,unit:p.unit,supplier:p.supplier,kind:p.kind};})};
+ const payload:QuotePayload={...input.quote,contactReception:readReception(contact.reception),contactVersion:contact.version,contactName:contact.name,contactDate:contact.service_date,children:contact.children,lines:input.quote.lines.map(l=>{const p=products.find(p=>p.id===l.productId)!;return {...l,title:p.title,unit:p.unit,supplier:p.supplier,kind:p.kind,reference:quoteSourceSnapshot(l.productId)};})};
  const guard=input.expectedRevision===0?db.prepare('INSERT OR IGNORE INTO quotes (owner,id,contact_id,current_revision,operation_id) SELECT ?,?,?,?,? WHERE EXISTS(SELECT 1 FROM contacts WHERE owner=? AND id=? AND version=?)').bind(owner,input.id,input.contactId,revision,input.operationId,owner,input.contactId,contact.version):db.prepare('UPDATE quotes SET current_revision=?,operation_id=? WHERE owner=? AND id=? AND current_revision=? AND EXISTS(SELECT 1 FROM contacts WHERE owner=? AND id=? AND version=?)').bind(revision,input.operationId,owner,input.id,input.expectedRevision,owner,input.contactId,contact.version);
  const result=await db.batch([guard,db.prepare(`INSERT INTO quote_versions (owner,quote_id,revision,payload,status,created) SELECT ?,?,?,?,'draft',? WHERE EXISTS(SELECT 1 FROM quotes WHERE owner=? AND id=? AND operation_id=?)`).bind(owner,input.id,revision,JSON.stringify(payload),now,owner,input.id,input.operationId),db.prepare(`INSERT INTO activity (owner,id,contact_id,detail,created) SELECT ?,?,?,?,? WHERE EXISTS(SELECT 1 FROM quotes WHERE owner=? AND id=? AND operation_id=?)`).bind(owner,input.operationId,input.contactId,`Lưu báo giá ${input.id.slice(0,8)} · v${revision} · nháp mới; giữ nguyên phiên bản trước.`,now,owner,input.id,input.operationId)]);
  if(!result[0].meta.changes)return reply({error:'Hồ sơ hoặc báo giá vừa thay đổi. Tải lại.'},409);return reply({ok:true,id:input.id,revision});

@@ -51,7 +51,13 @@ Bảng giá/điều kiện cũ đã đọc từ Sheets cần kiểm tra hiệu l
 - Bản copy loại các trường vốn/hoa hồng/lãi/nhà cung cấp và toàn bộ hồ sơ khỏi phần tự ghép. Các ô nội dung và điều kiện do người dùng nhập vẫn được đưa nguyên vào bản trình bày: cần đọc lại để tránh đặt ghi chú nội bộ vào các ô này.
 - Ở localhost có một báo giá cho **Linh Nguyễn · mẫu**, nội dung ghi **KIỂM THỬ LOCAL**, để Cua xem cách lưu/duyệt/copy. Không có tin gửi ra OTA hoặc thay đổi bản online.
 
-## Ghi chú bàn giao triển khai — 18/10/2026
+## Cập nhật kho nguồn 75PHT — 18/10/2026
+
+Đã có mục “Kho giá & điều kiện 75PHT” trong Báo giá local. Có thể tìm, đọc nguồn và đưa nội dung vào nháp. Giá lịch sử/website, lịch trình Draft và mẫu USD được giữ riêng khỏi 7 dịch vụ giả lập. Mỗi dòng có nguồn và các mục chờ Cua xác nhận; giá bán/vốn/hoa hồng chưa biết để trống, không tính thành 0đ. Chỉ lưu nháp; chưa duyệt/copy nguồn tham khảo thành báo giá bán thật. Xem [bảng mức giá và phần cần xác nhận](QUOTE_SOURCE_REVIEW.md).
+
+Phần ghi chú dưới đây mô tả lượt cải tiến giao diện trước khi bổ sung kho nguồn; phạm vi mới mở rộng API và kiểu dữ liệu JSON của phiên bản báo giá, không đổi schema cơ sở dữ liệu.
+
+## Ghi chú bàn giao triển khai trước đó — 18/10/2026
 
 Thay đổi trên nhánh riêng `travis/daily-operation`, sau commit `1bce353`; không sửa cây làm việc Claude. Chỉ UI và helper trình bày/default, không sửa API/schema/calculation hiện có. Thời hạn báo giá mới mặc định hai ngày từ ngày hiện tại; đây là giá trị để người dùng sửa, không phải chính sách kinh doanh đã được phê duyệt. Giá mẫu vẫn có hạn hiệu lực riêng, không tự gia hạn.
 

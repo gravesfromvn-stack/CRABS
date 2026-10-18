@@ -200,3 +200,22 @@ Actual validation on Windows ARM64 / Node 22.23.3 x64:
 One labeled local test quote remains (3ccc9c78 prefix), with preserved approval record. No real guest quotation was approved. No full unrelated suite rerun. Current limits: seven demo products, Sheets/demo contacts only, no OTA-to-quote bridge, approved live catalog/price management, guest acceptance lifecycle, order/payment/dispatch automation or multilingual proposal generation. Task creation after acceptance remains manual on the correct source profile.
 
 Guide and business inputs for Cua: docs/QUOTES_GUIDE.md. Future integration must review app/quote-workspace.tsx separately from Claude's template changes; no migration is required for this quote usability change.
+
+## Local source-price packet — 18 October 2026
+
+Authorized scope: retrieve existing Sheets 75PHT tour/transfer prices and conditions into the isolated quote page; list unresolved validity and terms. Base commit 1c9b36b on travis/daily-operation. No edits to Claude's checkout/port 5173, online CRM, Sheets or Make; no OTA sends, push, merge or deploy.
+
+Changed: lib/quote-source-data.json (sanitized catalog), lib/quote-sources.ts (shared source definitions), app/quote-source-library.tsx, quote workspace/guide/styles, quote schema/presentation/API. Optional server-owned reference snapshots extend JSON payloads; no D1 schema change. Source IDs are checked on the server; forged client approval/reference metadata is ignored. Existing source snapshots remain immutable. Input amounts can be null for source drafts; legacy demo inputs require numeric values.
+
+Business findings: 223 pending entries; transaction vs website vs itinerary vs USD template separated. October tour rows 7/9 have inconsistent quantity × unit price versus total. Airport direction/type has multiple amounts; five ambiguous/free records are excluded as rate options. Do not infer property from workbook title, confirm explicitly. Two missing website prices; 28 draft programs have no approved price/supplier. No automatic USD conversion, +15/+20% markup or combo perks.
+
+Actual validation on Windows ARM with Node 22.23.3 x64:
+- node tests/quote-sources.mjs: 8/8 pass.
+- node tests/quote-presentation.mjs: 6/6 pass.
+- node tests/quotes.mjs: 17/17 pass in ephemeral Miniflare D1, including the 14 legacy cases and three source persistence/approval/revision cases. Auth stubbed.
+- node node_modules/typescript/bin/tsc --noEmit --incremental false: pass after source changes.
+- node scripts/run-framework.mjs build: pass; existing large-client-chunk warning remains (>500 kB).
+- Browser port 5188: accent-insensitive search “Hoa Lu” locates exact recorded tour; adding reuses 23/10 date and 2 adults from synthetic Linh. Blank price/cost/commission saves successfully to draft a843e6cc (v1), source D5:K5 visible after reload. Approve and copy both disabled. Existing approved synthetic quote 3ccc9c78 (v1, 2.5m/440k) still displayed unchanged.
+- No whole-app regression run, payment, supplier booking, live price approval or end-to-end OTA quote test.
+
+User review list, exact ranges/amounts and operational limits: docs/QUOTE_SOURCE_REVIEW.md. Source library is a bounded read batch (October recent rows, September first 70 rows, November first 25 plus tour library). No claim of exhaustive all-month audit. Do not promote pending rates merely because fields are filled or the quote checkbox is checked.

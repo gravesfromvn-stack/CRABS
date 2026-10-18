@@ -1,5 +1,14 @@
 # CRABS current state
 
+## Source-backed local quotes — 18 October 2026
+
+Port 5188 now has a searchable 75PHT source library: 17 October transaction rows, 10 distinct historical airport-rate/direction/vehicle combinations, 28 draft itineraries, 161 website listings stored in Sheets (159 priced, two unpriced), and seven USD-from templates. All 223 entries are pending confirmation, not approved hotel prices. Exact sheet ranges, source URLs, currency, original amounts, read date and business gaps persist in each new quote version. Raw guest identifiers are not part of the rate catalog.
+
+Source drafts reuse known contact dates/counts, keep unknown selling price/cost/commission as null and block approval/copy even if users fill amounts or remove free-text missing notes. Unknown financials do not become zero or profit. Seven synthetic products and earlier quote versions remain separate. No new migration, external write or deployment. Read batch scope and confirmation worksheet: [source review](docs/QUOTE_SOURCE_REVIEW.md).
+
+There is not yet a price-catalog approval workflow. Cua must confirm supplier/property, units, dates and commercial terms before a later authorized catalog update can enable reviewed rates. Partial historical sheets, not all months, were inspected; provider websites and live availability were not checked. No continuous Sheets sync or OTA-to-quote link.
+
+
 ## Local quote usability — 18 October 2026
 
 The isolated port-5188 branch adds a four-step purpose/use guide, service-name selection with saved benefit text, a guest-facing Vietnamese demo presentation and a separate internal-cost disclosure. Copy re-reads the quote and requires the current, approved, unexpired version with matching contact version and existing approval checks. Structured cost/commission/profit/supplier/profile fields are not copied; operator-entered service notes/terms still require review. Demo price disclosure remains in the copy.
