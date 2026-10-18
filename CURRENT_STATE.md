@@ -1,5 +1,11 @@
 # CRABS current state
 
+## Local quote usability — 18 October 2026
+
+The isolated port-5188 branch adds a four-step purpose/use guide, service-name selection with saved benefit text, a guest-facing Vietnamese demo presentation and a separate internal-cost disclosure. Copy re-reads the quote and requires the current, approved, unexpired version with matching contact version and existing approval checks. Structured cost/commission/profit/supplier/profile fields are not copied; operator-entered service notes/terms still require review. Demo price disclosure remains in the copy.
+
+New quotes use a relative two-day editable expiry; transfer defaults separate arrival from departure dates and label flight time as a reference, not pickup time. Selected profile is retained in the URL. Existing quote API/schema/calculations are unchanged. Still Sheets/demo contacts and seven demo products; no OTA quote bridge, service-order creation or live sending. See [quote guide](docs/QUOTES_GUIDE.md).
+
 ## Separate local Daily Operation — 18 October 2026
 
 User-authorized implementation on `travis/daily-operation`, based on committed `0ca901b`, in a separate checkout/database on port 5188. This section describes local work only; the production audit below remains historical evidence.

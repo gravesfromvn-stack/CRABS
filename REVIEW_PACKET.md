@@ -181,3 +181,22 @@ No full baseline rerun, `tests/local-flow.mjs`, real-AI testing, live intake, st
 Remaining boundaries: manual source-to-task creation, static copied data, refresh to see changes, OTA and Sheets kept separate, owner-only actor/assignee labels, no live supplier/PMS/payment/send, no automatic quote-to-order transition. Task history payloads are retained, but UI history is a change list rather than a full version diff/restore tool. Review data loading at larger volumes and confirm migration metadata before future integration.
 
 Rollback/continuation: keep the branch/checkout separate or revert its code commit; stop its port 5188 process. Do not reset either database. Import code through a reviewed merge/cherry-pick later, resolving only overlapping router/schema/migration changes. User guide: [DAILY_OPERATION_LOCAL.md](docs/DAILY_OPERATION_LOCAL.md).
+
+## Local quote usability packet — Travis, 18 October 2026
+
+Scope: explain the quote page in practical terms and optimize the isolated local UI after Daily Operation commit 1bce353. This stays on travis/daily-operation / port 5188; no Claude checkout edit, production mutation or deployment.
+
+Changed app/quote-workspace.tsx plus new app/quote-guide.tsx, app/quotes.css, lib/quote-presentation.ts and tests/quote-presentation.mjs. New four-step guide explains when to use quotes, input gaps and the manual handoff boundary. Product buttons show service names; new lines prefill the catalog introduction/benefits. The guest presentation uses saved fields with benefits/terms before price, excluding structured costs, commissions, profit, supplier and reception profile. Operator-entered details/terms are deliberately included and need review. Copy is Vietnamese, demo-marked and guarded by fresh GET data/current revision/approval/contact version/expiry/existing approval checks. UI internal cost details are separate. Backend API, schema, calculations and stored old versions are unchanged.
+
+Corrected defaults: expiry is editable today+2 days instead of hard-coded 2026-10-20; pickup uses arrival and dropoff uses departure, unknown dates remain blank, generic flight clock/route are labeled as references requiring directional review. Selected contact is reflected in the hash so reload keeps that contact. These do not establish new commercial policies or silently extend catalog price validity.
+
+Actual validation on Windows ARM64 / Node 22.23.3 x64:
+- node tests/quote-presentation.mjs: 6/6 pass, synthetic helper tests (date defaults, saved content ordering, finance/profile exclusion, unchanged payload, copy guards).
+- node tests/quotes.mjs: 14/14 pass in an ephemeral Miniflare D1 (arithmetic, API auth/origin, idempotency, snapshot history, stale/concurrent guards). No production writes.
+- node node_modules/typescript/bin/tsc --noEmit --incremental false: pass.
+- node scripts/run-framework.mjs build: pass; existing >500 kB chunk warning remains.
+- Browser: picked Linh Nguyen synthetic contact, added Ninh Binh for 2 adults, saved v1 (2,500,000 VND sale / 440,000 VND expected margin), confirmed copy disabled before approval, approved the explicit KIEM THU LOCAL sample, copied with success notice and reloaded/reopened persisted approved quote. No external send. Responsive guest-preview display inspected.
+
+One labeled local test quote remains (3ccc9c78 prefix), with preserved approval record. No real guest quotation was approved. No full unrelated suite rerun. Current limits: seven demo products, Sheets/demo contacts only, no OTA-to-quote bridge, approved live catalog/price management, guest acceptance lifecycle, order/payment/dispatch automation or multilingual proposal generation. Task creation after acceptance remains manual on the correct source profile.
+
+Guide and business inputs for Cua: docs/QUOTES_GUIDE.md. Future integration must review app/quote-workspace.tsx separately from Claude's template changes; no migration is required for this quote usability change.
