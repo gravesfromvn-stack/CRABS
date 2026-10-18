@@ -55,12 +55,22 @@ const emails = [
     { subject: "We received this message from Synthetic Guest Gamma", auth: false, at: hoursAgo(5) }),
 ];
 
+// Any HTTP error or skipped email means the seed did not land: exit non-zero.
+let failed = 0;
 for (const m of emails) {
   const r = await fetch(base + "/api/ota/ingest", {
     method: "POST",
     headers: { "X-Crabs-Ingest-Key": token, "Content-Type": "application/json" },
     body: JSON.stringify(m),
   });
-  const d = await r.json();
-  console.log(m.id, r.status, d.status ?? d.reason ?? d.error, d.duplicate ? "(duplicate)" : "", d.threadId ?? "");
+  const raw = await r.text();
+  let d;
+  try { d = JSON.parse(raw); } catch { d = { error: raw.slice(0, 200) || "non-JSON response" }; }
+  const ok = r.ok && d.ok === true && !d.ignored;
+  if (!ok) failed++;
+  console.log(ok ? "OK  " : "FAIL", m.id, r.status, d.status ?? d.reason ?? d.error, d.duplicate ? "(duplicate)" : "", d.threadId ?? "");
+}
+if (failed) {
+  console.error(`${failed} of ${emails.length} synthetic emails were not ingested.`);
+  process.exitCode = 1;
 }
