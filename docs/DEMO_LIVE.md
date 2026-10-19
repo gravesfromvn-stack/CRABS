@@ -51,9 +51,13 @@ Bản chạy local `http://localhost:5173`, nhánh `integration/claude-travis`.
   - 6 chiều xe sân bay 75PHT;
   - NB01–NB04, HL01–HL02, HN01, HN02, HN04 (Jeep), HT03 (Sa Pa, 255 USD);
   - 6 quy định phòng (nhận sớm, trả muộn, gia hạn).
-- **Còn thiếu:**
-  - Giá Spa: chưa nguồn nào có. 12 mục Spa đang "Chỉ tham khảo"; nhập giá rồi bấm Duyệt.
-  - Giá vốn và hoa hồng của các mục đã duyệt. Báo giá chỉ duyệt được khi mục có đủ giá bán, giá vốn, hoa hồng và tính bằng VND.
+- Giá mẫu cho demo 22/10 (`lib/demo-catalog-prices.json`; giá vốn và hoa hồng là số MẪU, chưa phải giá hợp đồng):
+  - Spa 60 phút ở cả hai cơ sở: Traditional 450.000/250.000đ, Aroma 500.000/280.000đ, Foot 350.000/180.000đ (giá bán/giá vốn), hoa hồng 0.
+  - Tour NB01–NB04, HL01–HL02, HN01, HN02: thêm giá vốn và hoa hồng mẫu, nên báo giá duyệt được.
+  - HT03 tính bằng USD nên chưa duyệt được trong báo giá (báo giá tính VND).
+  - DB đã nạp trước đó được cập nhật bằng `node scripts/apply-demo-catalog-prices.mjs` (qua API, có lịch sử; chạy lại không đổi gì).
+- **Còn thiếu:** giá Spa 90 phút; giá vốn và hoa hồng của xe sân bay và HN04.
+- Làm sạch tên thật còn sót: `node scripts/sanitize-remaining-pii.mjs --dry-run` để xem trước, rồi chạy lại không có `--dry-run` (tự sao lưu vào `private-data/backups` trước khi ghi).
 - Dữ liệu dùng chung:
   - Hộp thư OTA: bộ kiểm tra giá, giá xe/spa, giá tour theo hạng hiện trong bảng tư vấn. Tour vẫn qua WhatsApp, nháp OTA không ghi giá tour.
   - Báo giá: chọn dịch vụ từ kho; khi duyệt, kiểm tra giá bán đúng giá đã duyệt.

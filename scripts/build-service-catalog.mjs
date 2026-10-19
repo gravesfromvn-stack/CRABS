@@ -69,8 +69,13 @@ for(const r of r75.items){
   sellingPrice:r.sourcePrice,netCost:r.sourceCost,currency:r.currency==='USD'?'USD':'VND',status:'REFERENCE_ONLY',sourceNote:`${r.category}: ${r.priceMeaning}`,sourceUrl:r.sources?.[0]?.url||''});
 }
 
+// 4 · Sample prices for the 22/10 demo (lib/demo-catalog-prices.json): approved, cost and commission marked as samples.
+const demo=read('demo-catalog-prices.json');
+for(const p of demo.items){const e=entries.find(x=>x.id===p.id);if(!e)throw Error('Demo price for unknown id '+p.id);
+ Object.assign(e,{sellingPrice:p.sellingPrice,netCost:p.netCost,commission:p.commission,status:'APPROVED',approvedBy:demo.approvedBy,approvedAt:demo.approvedAt});
+ if(!e.sourceNote.includes(demo.version))e.sourceNote=`${e.sourceNote} [${demo.version}] ${demo.note}`.trim();}
 const ids=new Set();for(const e of entries){if(ids.has(e.id))throw Error('Duplicate id '+e.id);ids.add(e.id);}
 const count=(k)=>entries.reduce((m,e)=>(m[e[k]]=(m[e[k]]||0)+1,m),{});
-const seed={version:`seed-2026-10-19/${rate.version}/${r75.readAt}`,builtFrom:{rateCatalog:Object.keys(rate.items).length,r75:r75.items.length,research:research.observations.length,hotelProperties:Object.keys(hotel.properties).length},byCategory:count('category'),byStatus:count('status'),entries};
+const seed={version:`seed-2026-10-19/${rate.version}/${r75.readAt}/${demo.version}`,builtFrom:{rateCatalog:Object.keys(rate.items).length,r75:r75.items.length,research:research.observations.length,hotelProperties:Object.keys(hotel.properties).length},byCategory:count('category'),byStatus:count('status'),entries};
 writeFileSync(new URL('../lib/service-catalog-seed.json',import.meta.url),JSON.stringify(seed,null,1)+'\n');
 console.log(JSON.stringify({entries:entries.length,byCategory:seed.byCategory,byStatus:seed.byStatus,approved:entries.filter(e=>e.status==='APPROVED').map(e=>`${e.id}=${e.sellingPrice}${e.currency==='USD'?' USD':''}${e.netCost?'/net '+e.netCost:''}`)},null,1));

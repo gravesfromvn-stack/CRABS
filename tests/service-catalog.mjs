@@ -20,12 +20,16 @@ await check('Seed merges all three sources into one catalog without losing or du
  assert.equal(byId('NB01').crmCode,'R75-TST-021');
  for(const e of seed)assert.ok(lib.entryEdit.safeParse({...e}).success||e.status!=='APPROVED','approved seed entry valid: '+e.id);
 });
-await check('Core services approved, broken sources archived, spa waits for prices',()=>{
+await check('Core services approved, broken sources archived, demo prices make spa and tours quote-ready',()=>{
  for(const id of ['NB01','NB02','NB03','NB04','HL01','HL02','HT03','HN01','HN02','HN04','HS-luxe-75pht-car4-pickup','HS-luxe-75pht-van16-dropoff'])assert.equal(byId(id).status,'APPROVED',id);
  assert.deepEqual([byId('NB01').sellingPrice,byId('HL02').sellingPrice,byId('HT03').sellingPrice,byId('HT03').currency],[950000,1050000,255,'USD']);
  assert.equal(byId('HN04').netCost,1188000);
  for(const id of ['HT06','HT13','CH05'])assert.equal(byId(id).status,'ARCHIVED',id);
- for(const e of seed.filter(e=>e.category==='SPA'))assert.equal(e.status,'REFERENCE_ONLY');
+ const demo=JSON.parse(readFileSync('lib/demo-catalog-prices.json','utf8'));
+ for(const p of demo.items){const e=byId(p.id);assert.equal(e.status,'APPROVED',p.id);assert.deepEqual([e.sellingPrice,e.netCost,e.commission],[p.sellingPrice,p.netCost,p.commission],p.id);assert.match(e.sourceNote,/MẪU/,'sample cost is labelled');}
+ for(const id of ['NB01','NB02','NB03','NB04','HL01','HL02','HN01','HN02','HS-luxe-75pht-spa-trad-60','HS-luxe-75pht-spa-aroma-60','HS-luxe-75pht-spa-foot-60'])assert.ok(lib.quoteReady(byId(id)),id+' quote-ready');
+ assert.equal(lib.quoteReady(byId('HT03')),false,'USD price is not quote-ready (quotes are VND)');
+ assert.deepEqual([byId('HS-luxe-75pht-spa-trad-90').status,byId('HS-luxe-75pht-spa-trad-90').sellingPrice],['REFERENCE_ONLY',null],'90-minute spa still waits for a price');
  assert.equal(byId('HS-luxe-75pht-tour-nb-day').status,'ARCHIVED','config placeholder tours superseded');
  assert.equal(byId('NB01').channelFlow,'WHATSAPP_CONSULT');assert.equal(byId('HS-luxe-75pht-car4-pickup').channelFlow,'EXTRANET_DIRECT');
 });
@@ -66,7 +70,7 @@ try{
  const edit=e=>({title:e.title,variant:e.variant,unit:e.unit,duration:e.duration,summary:e.summary,inclusions:e.inclusions,exclusions:e.exclusions,supplierName:e.supplierName,category:e.category,channelFlow:e.channelFlow,propertyScope:e.propertyScope,sellingPrice:e.sellingPrice,netCost:e.netCost,commission:e.commission,currency:e.currency,validUntil:e.validUntil,status:e.status});
  await check('First read seeds the owner once; reseeding never overwrites edits',async()=>{
   const a=await list();assert.equal(a.length,seed.length);
-  const spa=a.find(e=>e.id==='HS-luxe-75pht-spa-trad-60');
+  const spa=a.find(e=>e.id==='HS-luxe-75pht-spa-trad-90');
   assert.equal((await api.POST(req('/api/catalog',{action:'save',operationId:crypto.randomUUID(),id:spa.id,version:spa.version,entry:{...edit(spa),sellingPrice:450000,status:'APPROVED'}}))).status,200);
   await db.prepare("UPDATE service_catalog_meta SET seed_version='old' WHERE owner='owner-catalog'").run();
   const b=await list();const s2=b.find(e=>e.id===spa.id);assert.equal(s2.sellingPrice,450000);assert.equal(s2.status,'APPROVED');assert.equal(s2.approvedBy,'owner-catalog');assert.equal(b.length,seed.length);
@@ -98,6 +102,8 @@ try{
   s=save([{...line,price:1600000,commission:50000}]);await qpost(s);a=await qpost(approve(s.id));assert.equal(a.status,400);assert.match(a.body.error,/khác giá đã duyệt/);
   s=save([{...line,productId:'R75-TOUR-OCT-4',commission:50000}]);assert.equal((await qpost(s)).status,200,'merged R75 id resolves');
   assert.equal((await qpost(save([{...line,productId:'NO-SUCH'}]))).status,400);
+  s=save([{...line,productId:'NB01',price:950000,cost:710000,commission:50000},{...line,productId:'HS-luxe-75pht-spa-trad-60',quantity:2,price:450000,cost:250000,commission:0}]);
+  assert.equal((await qpost(s)).status,200);a=await qpost(approve(s.id));assert.equal(a.status,200,'demo-priced tour + spa approve: '+JSON.stringify(a.body));
  });
 }finally{await mf.dispose();}
 console.log(JSON.stringify({passed,scope:'service catalog: merged seed, approvals, scope, OTA policy/advice, D1 store, catalog and quote routes'}));

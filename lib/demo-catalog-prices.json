@@ -1,0 +1,23 @@
+{
+ "version": "demo-prices-2026-10-20",
+ "note": "Giá mẫu cho demo 22/10/2026 theo yêu cầu PO. Giá vốn và hoa hồng là số MẪU, chưa phải giá hợp đồng nhà cung cấp.",
+ "approvedBy": "Captain Cua",
+ "approvedAt": "2026-10-20",
+ "items": [
+  {"id": "HS-luxe-75pht-spa-trad-60", "sellingPrice": 450000, "netCost": 250000, "commission": 0},
+  {"id": "HS-luxe-75pht-spa-aroma-60", "sellingPrice": 500000, "netCost": 280000, "commission": 0},
+  {"id": "HS-luxe-75pht-spa-foot-60", "sellingPrice": 350000, "netCost": 180000, "commission": 0},
+  {"id": "HS-luxe-suites-spa-trad-60", "sellingPrice": 450000, "netCost": 250000, "commission": 0},
+  {"id": "HS-luxe-suites-spa-aroma-60", "sellingPrice": 500000, "netCost": 280000, "commission": 0},
+  {"id": "HS-luxe-suites-spa-foot-60", "sellingPrice": 350000, "netCost": 180000, "commission": 0},
+  {"id": "NB01", "sellingPrice": 950000, "netCost": 710000, "commission": 50000},
+  {"id": "NB02", "sellingPrice": 1050000, "netCost": 790000, "commission": 50000},
+  {"id": "NB03", "sellingPrice": 1350000, "netCost": 1010000, "commission": 70000},
+  {"id": "NB04", "sellingPrice": 1500000, "netCost": 1120000, "commission": 80000},
+  {"id": "HL01", "sellingPrice": 850000, "netCost": 640000, "commission": 40000},
+  {"id": "HL02", "sellingPrice": 1050000, "netCost": 790000, "commission": 50000},
+  {"id": "HN01", "sellingPrice": 750000, "netCost": 560000, "commission": 40000},
+  {"id": "HN02", "sellingPrice": 850000, "netCost": 640000, "commission": 40000},
+  {"id": "HT03", "sellingPrice": 255, "netCost": 191, "commission": 13}
+ ]
+}
