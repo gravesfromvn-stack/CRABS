@@ -11,6 +11,7 @@ export type PropertyPolicy={displayName:string;demoName:string;checkIn:string;ch
  lateCheckOut:{approved:boolean;until:string;fee:Text;condition:Text};
  airportTransfer:{approved:boolean;approvedNote:string;validUntil:string;route:Text;vehicles:Vehicle[];includes:Text};
  spa:{approved:boolean;note:string;advanceBookingOffer:Text|null;items:SpaItem[]};
+ extensionDirect:{approved:boolean;discountPercent:number;note:string};
  tours:{whatsappAsk:boolean;note:string;products:TourProduct[]}};
 export const hotelPolicy=data as unknown as {version:string;presentation:{brandDemoName:string;maskPatterns:string[]};properties:Record<string,PropertyPolicy>};
 export const policyFor=(propertyId:string):PropertyPolicy|undefined=>hotelPolicy.properties[propertyId];

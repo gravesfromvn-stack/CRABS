@@ -123,4 +123,19 @@ check('Children and dates are not invented from English words ("be", "tomorrow")
  const c=ta.constraintsOf('Would you be able to prepare it tomorrow? We will be there at 3pm.');assert.equal(c.children,false);assert.equal(c.date,'');
  assert.equal(ta.constraintsOf('Chúng tôi đi cùng 2 bé.').children,true);
 });
+await build({entryPoints:['lib/extension-quote.ts'],outdir:'.quote-tests/services',bundle:true,platform:'node',format:'esm',outExtension:{'.js':'.mjs'},loader:{'.json':'json'}});
+const ext=await import('../.quote-tests/services/extension-quote.mjs');
+check('Direct extension: keep booked rate, or current OTA rate minus 10%, with exact amounts in the guest text',()=>{
+ const input={checkOut:'2026-10-17',nights:4,roomType:'Deluxe Double Room',bookedRate:1200000,currentRates:[1350000,1350000,1500000,1350000],discountPercent:10};
+ const r=ext.extensionQuote(input);
+ assert.deepEqual(r.dates,['2026-10-17','2026-10-18','2026-10-19','2026-10-20']);assert.equal(r.newCheckOut,'2026-10-21');
+ assert.equal(r.keepTotal,4800000);assert.equal(r.otaTotal,5550000);assert.equal(r.otaMinusTotal,4995000);assert.equal(r.saving,555000);
+ assert.equal(r.perNight[2].otaMinus,1350000);
+ const keep=ext.extensionMessage(input,r,'keep',false);assert.match(keep.text,/1,200,000 VND per night, 4,800,000 VND in total for 4 nights/);assert.match(keep.text,/check-out 21\/10/);
+ const minus=ext.extensionMessage(input,r,'ota_minus',false);assert.match(minus.text,/10% below the current online rate/);assert.match(minus.text,/19\/10: 1,350,000 VND/);assert.match(minus.text,/4,995,000 VND in total/);
+ for(const m of [keep,minus])assert.deepEqual(ta.guestDraftProblems(m.text,{facts:[],allowedAmounts:m.amounts}).filter(p=>p.hard),[],'Cua-computed amounts pass');
+ assert.ok(ta.guestDraftProblems(minus.text,{facts:[]}).some(p=>p.hard),'without the recorded amounts the price is blocked');
+ const vi=ext.extensionMessage({...input,currentRates:[1350000]},ext.extensionQuote({...input,currentRates:[1350000]}),'ota_minus',true);assert.match(vi.text,/1\.215\.000đ\/đêm, tổng 4\.860\.000đ cho 4 đêm/);
+ assert.equal(ext.extensionMessage({...input,bookedRate:null},r,'keep',false).text,'','no booked rate, no text');
+});
 console.log(JSON.stringify({passed,scope:'hotel services: extranet branch, tour WhatsApp branch, contact, presentation, quote products'}));

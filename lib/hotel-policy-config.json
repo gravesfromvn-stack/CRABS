@@ -3,7 +3,15 @@
   "version": "2026-10-19",
   "presentation": {
     "brandDemoName": "Demo Hotel Group",
-    "maskPatterns": ["Luxe Paradise[^\\n,<]*", "LP Hotel[^\\n,<]*", "75 ?Ph[aạ]m H[oồ]ng Th[aá]i", "Pham Hong Thai", "75PHT", "paradisesuitespht@gmail\\.com", "lpp75\\.luxeparadisehospitality\\.com"]
+    "maskPatterns": [
+      "Luxe Paradise[^\\n,<]*",
+      "LP Hotel[^\\n,<]*",
+      "75 ?Ph[aạ]m H[oồ]ng Th[aá]i",
+      "Pham Hong Thai",
+      "75PHT",
+      "paradisesuitespht@gmail\\.com",
+      "lpp75\\.luxeparadisehospitality\\.com"
+    ]
   },
   "properties": {
     "luxe-75pht": {
@@ -11,41 +19,222 @@
       "demoName": "Demo Riverside Hotel",
       "checkIn": "14:00",
       "checkOut": "12:00",
-      "earlyCheckIn": {"approved": true, "from": "09:00", "until": "14:00", "fee": {"vi": "50% giá phòng một đêm + thuế", "en": "50% of the nightly room rate plus tax"}, "condition": {"vi": "tùy tình trạng phòng trống trong ngày", "en": "subject to room availability on the day"}},
-      "lateCheckOut": {"approved": true, "until": "16:00", "fee": {"vi": "50% giá phòng một đêm + thuế", "en": "50% of the nightly room rate plus tax"}, "condition": {"vi": "tùy tình trạng phòng", "en": "subject to room availability"}},
+      "earlyCheckIn": {
+        "approved": true,
+        "from": "09:00",
+        "until": "14:00",
+        "fee": {
+          "vi": "50% giá phòng một đêm + thuế",
+          "en": "50% of the nightly room rate plus tax"
+        },
+        "condition": {
+          "vi": "tùy tình trạng phòng trống trong ngày",
+          "en": "subject to room availability on the day"
+        }
+      },
+      "lateCheckOut": {
+        "approved": true,
+        "until": "16:00",
+        "fee": {
+          "vi": "50% giá phòng một đêm + thuế",
+          "en": "50% of the nightly room rate plus tax"
+        },
+        "condition": {
+          "vi": "tùy tình trạng phòng",
+          "en": "subject to room availability"
+        }
+      },
       "airportTransfer": {
         "approved": true,
         "approvedNote": "Bảng giá 04/10/2026, Cua xác nhận dùng ngày 19/10/2026.",
         "validUntil": "2026-12-31",
-        "route": {"vi": "Sân bay Nội Bài ↔ khách sạn", "en": "Noi Bai Airport ↔ hotel"},
+        "route": {
+          "vi": "Sân bay Nội Bài ↔ khách sạn",
+          "en": "Noi Bai Airport ↔ hotel"
+        },
         "vehicles": [
-          {"id": "car4", "seats": 4, "maxGuests": 3, "maxLuggage": 3, "pickup": 400000, "dropoff": 300000, "cost": null, "commission": null},
-          {"id": "car7", "seats": 7, "maxGuests": 5, "maxLuggage": 5, "pickup": 500000, "dropoff": 400000, "cost": null, "commission": null},
-          {"id": "van16", "seats": 16, "maxGuests": 12, "maxLuggage": 12, "pickup": 800000, "dropoff": 650000, "cost": null, "commission": null}
+          {
+            "id": "car4",
+            "seats": 4,
+            "maxGuests": 3,
+            "maxLuggage": 3,
+            "pickup": 400000,
+            "dropoff": 300000,
+            "cost": null,
+            "commission": null
+          },
+          {
+            "id": "car7",
+            "seats": 7,
+            "maxGuests": 5,
+            "maxLuggage": 5,
+            "pickup": 500000,
+            "dropoff": 400000,
+            "cost": null,
+            "commission": null
+          },
+          {
+            "id": "van16",
+            "seats": 16,
+            "maxGuests": 12,
+            "maxLuggage": 12,
+            "pickup": 800000,
+            "dropoff": 650000,
+            "cost": null,
+            "commission": null
+          }
         ],
-        "includes": {"vi": "Xe riêng một chiều, tài xế đón tại sảnh đến với bảng tên.", "en": "Private one-way car; the driver meets you in the arrival hall with a name sign."}
+        "includes": {
+          "vi": "Xe riêng một chiều, tài xế đón tại sảnh đến với bảng tên.",
+          "en": "Private one-way car; the driver meets you in the arrival hall with a name sign."
+        }
       },
       "spa": {
         "approved": false,
         "note": "Chưa có bảng giá Spa. Nhập giá vào các ô price rồi đặt approved: true.",
         "advanceBookingOffer": null,
         "items": [
-          {"id": "spa-trad-60", "name": {"vi": "Massage truyền thống Việt Nam", "en": "Vietnamese Traditional Massage"}, "minutes": 60, "price": null, "cost": null, "commission": null},
-          {"id": "spa-trad-90", "name": {"vi": "Massage truyền thống Việt Nam", "en": "Vietnamese Traditional Massage"}, "minutes": 90, "price": null, "cost": null, "commission": null},
-          {"id": "spa-aroma-60", "name": {"vi": "Massage tinh dầu", "en": "Aroma Massage"}, "minutes": 60, "price": null, "cost": null, "commission": null},
-          {"id": "spa-aroma-90", "name": {"vi": "Massage tinh dầu", "en": "Aroma Massage"}, "minutes": 90, "price": null, "cost": null, "commission": null},
-          {"id": "spa-foot-60", "name": {"vi": "Massage chân", "en": "Foot Massage"}, "minutes": 60, "price": null, "cost": null, "commission": null},
-          {"id": "spa-foot-90", "name": {"vi": "Massage chân", "en": "Foot Massage"}, "minutes": 90, "price": null, "cost": null, "commission": null}
+          {
+            "id": "spa-trad-60",
+            "name": {
+              "vi": "Massage truyền thống Việt Nam",
+              "en": "Vietnamese Traditional Massage"
+            },
+            "minutes": 60,
+            "price": null,
+            "cost": null,
+            "commission": null
+          },
+          {
+            "id": "spa-trad-90",
+            "name": {
+              "vi": "Massage truyền thống Việt Nam",
+              "en": "Vietnamese Traditional Massage"
+            },
+            "minutes": 90,
+            "price": null,
+            "cost": null,
+            "commission": null
+          },
+          {
+            "id": "spa-aroma-60",
+            "name": {
+              "vi": "Massage tinh dầu",
+              "en": "Aroma Massage"
+            },
+            "minutes": 60,
+            "price": null,
+            "cost": null,
+            "commission": null
+          },
+          {
+            "id": "spa-aroma-90",
+            "name": {
+              "vi": "Massage tinh dầu",
+              "en": "Aroma Massage"
+            },
+            "minutes": 90,
+            "price": null,
+            "cost": null,
+            "commission": null
+          },
+          {
+            "id": "spa-foot-60",
+            "name": {
+              "vi": "Massage chân",
+              "en": "Foot Massage"
+            },
+            "minutes": 60,
+            "price": null,
+            "cost": null,
+            "commission": null
+          },
+          {
+            "id": "spa-foot-90",
+            "name": {
+              "vi": "Massage chân",
+              "en": "Foot Massage"
+            },
+            "minutes": 90,
+            "price": null,
+            "cost": null,
+            "commission": null
+          }
         ]
+      },
+      "extensionDirect": {
+        "approved": true,
+        "discountPercent": 10,
+        "note": "Gia hạn trực tiếp: không mất commission OTA. Phương án 1 giữ nguyên giá khách đã đặt; phương án 2 lấy giá hiện tại trên admin Booking cho các đêm thêm rồi trừ phần trăm này. Cua chọn phương án và gửi khách xác nhận."
       },
       "tours": {
         "whatsappAsk": true,
         "note": "Giá gợi ý lấy từ kho nguồn (bản 18/10). Chỉ đưa vào nháp/báo giá khi Cua đặt approved: true cho từng tuyến.",
         "products": [
-          {"id": "tour-nb-day", "place": "Ninh Bình", "title": {"vi": "Ninh Bình 1 ngày · Hoa Lư – Tràng An – Hang Múa", "en": "Ninh Binh day tour · Hoa Lu – Trang An – Mua Cave"}, "duration": "1 ngày", "unit": "khách", "fromPrice": 950000, "price": 950000, "cost": null, "commission": null, "approved": false, "source": "NB01–NB04: 950.000–1.500.000đ/khách theo hạng xe"},
-          {"id": "tour-hl-day", "place": "Hạ Long", "title": {"vi": "Hạ Long 1 ngày · du thuyền trong ngày", "en": "Ha Long Bay day cruise"}, "duration": "1 ngày", "unit": "khách", "fromPrice": 1050000, "price": 1890000, "cost": 1382000, "commission": null, "approved": false, "source": "HL02 có xe Hà Nội 1.050.000đ; HL07 1.890.000đ bán / 1.382.000đ HĐ"},
-          {"id": "tour-hl-2d1n", "place": "Hạ Long", "title": {"vi": "Hạ Long 2 ngày 1 đêm · ngủ trên du thuyền", "en": "Ha Long Bay 2-day / 1-night cruise"}, "duration": "2 ngày 1 đêm", "unit": "khách", "fromPrice": 4515000, "price": 4515000, "cost": 4150000, "commission": null, "approved": false, "source": "HL05 Venus 4.515.000đ bán / 4.150.000đ HĐ"},
-          {"id": "tour-sapa-4d3n", "place": "Sa Pa", "title": {"vi": "Sa Pa 4 ngày 3 đêm · Fansipan", "en": "Sapa 4-day / 3-night with Fansipan"}, "duration": "4 ngày 3 đêm", "unit": "khách", "fromPrice": null, "price": null, "cost": null, "commission": null, "approved": false, "source": "HT03 255 USD/khách (USD, chưa quy đổi)"}
+          {
+            "id": "tour-nb-day",
+            "place": "Ninh Bình",
+            "title": {
+              "vi": "Ninh Bình 1 ngày · Hoa Lư – Tràng An – Hang Múa",
+              "en": "Ninh Binh day tour · Hoa Lu – Trang An – Mua Cave"
+            },
+            "duration": "1 ngày",
+            "unit": "khách",
+            "fromPrice": 950000,
+            "price": 950000,
+            "cost": null,
+            "commission": null,
+            "approved": false,
+            "source": "NB01–NB04: 950.000–1.500.000đ/khách theo hạng xe"
+          },
+          {
+            "id": "tour-hl-day",
+            "place": "Hạ Long",
+            "title": {
+              "vi": "Hạ Long 1 ngày · du thuyền trong ngày",
+              "en": "Ha Long Bay day cruise"
+            },
+            "duration": "1 ngày",
+            "unit": "khách",
+            "fromPrice": 1050000,
+            "price": 1890000,
+            "cost": 1382000,
+            "commission": null,
+            "approved": false,
+            "source": "HL02 có xe Hà Nội 1.050.000đ; HL07 1.890.000đ bán / 1.382.000đ HĐ"
+          },
+          {
+            "id": "tour-hl-2d1n",
+            "place": "Hạ Long",
+            "title": {
+              "vi": "Hạ Long 2 ngày 1 đêm · ngủ trên du thuyền",
+              "en": "Ha Long Bay 2-day / 1-night cruise"
+            },
+            "duration": "2 ngày 1 đêm",
+            "unit": "khách",
+            "fromPrice": 4515000,
+            "price": 4515000,
+            "cost": 4150000,
+            "commission": null,
+            "approved": false,
+            "source": "HL05 Venus 4.515.000đ bán / 4.150.000đ HĐ"
+          },
+          {
+            "id": "tour-sapa-4d3n",
+            "place": "Sa Pa",
+            "title": {
+              "vi": "Sa Pa 4 ngày 3 đêm · Fansipan",
+              "en": "Sapa 4-day / 3-night with Fansipan"
+            },
+            "duration": "4 ngày 3 đêm",
+            "unit": "khách",
+            "fromPrice": null,
+            "price": null,
+            "cost": null,
+            "commission": null,
+            "approved": false,
+            "source": "HT03 255 USD/khách (USD, chưa quy đổi)"
+          }
         ]
       }
     },
@@ -54,34 +243,159 @@
       "demoName": "Demo Garden Suites",
       "checkIn": "14:00",
       "checkOut": "12:00",
-      "earlyCheckIn": {"approved": true, "from": "09:00", "until": "14:00", "fee": {"vi": "50% giá phòng một đêm + thuế", "en": "50% of the nightly room rate plus tax"}, "condition": {"vi": "tùy tình trạng phòng trống trong ngày", "en": "subject to room availability on the day"}},
-      "lateCheckOut": {"approved": true, "until": "16:00", "fee": {"vi": "50% giá phòng một đêm + thuế", "en": "50% of the nightly room rate plus tax"}, "condition": {"vi": "tùy tình trạng phòng", "en": "subject to room availability"}},
+      "earlyCheckIn": {
+        "approved": true,
+        "from": "09:00",
+        "until": "14:00",
+        "fee": {
+          "vi": "50% giá phòng một đêm + thuế",
+          "en": "50% of the nightly room rate plus tax"
+        },
+        "condition": {
+          "vi": "tùy tình trạng phòng trống trong ngày",
+          "en": "subject to room availability on the day"
+        }
+      },
+      "lateCheckOut": {
+        "approved": true,
+        "until": "16:00",
+        "fee": {
+          "vi": "50% giá phòng một đêm + thuế",
+          "en": "50% of the nightly room rate plus tax"
+        },
+        "condition": {
+          "vi": "tùy tình trạng phòng",
+          "en": "subject to room availability"
+        }
+      },
       "airportTransfer": {
         "approved": false,
         "approvedNote": "Chưa có bảng giá xe cho cơ sở này (một số khách nhắc 'free transfer'). Cua xác nhận chính sách rồi nhập giá.",
         "validUntil": "2026-12-31",
-        "route": {"vi": "Sân bay Nội Bài ↔ khách sạn", "en": "Noi Bai Airport ↔ hotel"},
+        "route": {
+          "vi": "Sân bay Nội Bài ↔ khách sạn",
+          "en": "Noi Bai Airport ↔ hotel"
+        },
         "vehicles": [
-          {"id": "car4", "seats": 4, "maxGuests": 3, "maxLuggage": 3, "pickup": null, "dropoff": null, "cost": null, "commission": null},
-          {"id": "car7", "seats": 7, "maxGuests": 5, "maxLuggage": 5, "pickup": null, "dropoff": null, "cost": null, "commission": null},
-          {"id": "van16", "seats": 16, "maxGuests": 12, "maxLuggage": 12, "pickup": null, "dropoff": null, "cost": null, "commission": null}
+          {
+            "id": "car4",
+            "seats": 4,
+            "maxGuests": 3,
+            "maxLuggage": 3,
+            "pickup": null,
+            "dropoff": null,
+            "cost": null,
+            "commission": null
+          },
+          {
+            "id": "car7",
+            "seats": 7,
+            "maxGuests": 5,
+            "maxLuggage": 5,
+            "pickup": null,
+            "dropoff": null,
+            "cost": null,
+            "commission": null
+          },
+          {
+            "id": "van16",
+            "seats": 16,
+            "maxGuests": 12,
+            "maxLuggage": 12,
+            "pickup": null,
+            "dropoff": null,
+            "cost": null,
+            "commission": null
+          }
         ],
-        "includes": {"vi": "Xe riêng một chiều.", "en": "Private one-way car."}
+        "includes": {
+          "vi": "Xe riêng một chiều.",
+          "en": "Private one-way car."
+        }
       },
       "spa": {
         "approved": false,
         "note": "Chưa có bảng giá Spa.",
         "advanceBookingOffer": null,
         "items": [
-          {"id": "spa-trad-60", "name": {"vi": "Massage truyền thống Việt Nam", "en": "Vietnamese Traditional Massage"}, "minutes": 60, "price": null, "cost": null, "commission": null},
-          {"id": "spa-trad-90", "name": {"vi": "Massage truyền thống Việt Nam", "en": "Vietnamese Traditional Massage"}, "minutes": 90, "price": null, "cost": null, "commission": null},
-          {"id": "spa-aroma-60", "name": {"vi": "Massage tinh dầu", "en": "Aroma Massage"}, "minutes": 60, "price": null, "cost": null, "commission": null},
-          {"id": "spa-aroma-90", "name": {"vi": "Massage tinh dầu", "en": "Aroma Massage"}, "minutes": 90, "price": null, "cost": null, "commission": null},
-          {"id": "spa-foot-60", "name": {"vi": "Massage chân", "en": "Foot Massage"}, "minutes": 60, "price": null, "cost": null, "commission": null},
-          {"id": "spa-foot-90", "name": {"vi": "Massage chân", "en": "Foot Massage"}, "minutes": 90, "price": null, "cost": null, "commission": null}
+          {
+            "id": "spa-trad-60",
+            "name": {
+              "vi": "Massage truyền thống Việt Nam",
+              "en": "Vietnamese Traditional Massage"
+            },
+            "minutes": 60,
+            "price": null,
+            "cost": null,
+            "commission": null
+          },
+          {
+            "id": "spa-trad-90",
+            "name": {
+              "vi": "Massage truyền thống Việt Nam",
+              "en": "Vietnamese Traditional Massage"
+            },
+            "minutes": 90,
+            "price": null,
+            "cost": null,
+            "commission": null
+          },
+          {
+            "id": "spa-aroma-60",
+            "name": {
+              "vi": "Massage tinh dầu",
+              "en": "Aroma Massage"
+            },
+            "minutes": 60,
+            "price": null,
+            "cost": null,
+            "commission": null
+          },
+          {
+            "id": "spa-aroma-90",
+            "name": {
+              "vi": "Massage tinh dầu",
+              "en": "Aroma Massage"
+            },
+            "minutes": 90,
+            "price": null,
+            "cost": null,
+            "commission": null
+          },
+          {
+            "id": "spa-foot-60",
+            "name": {
+              "vi": "Massage chân",
+              "en": "Foot Massage"
+            },
+            "minutes": 60,
+            "price": null,
+            "cost": null,
+            "commission": null
+          },
+          {
+            "id": "spa-foot-90",
+            "name": {
+              "vi": "Massage chân",
+              "en": "Foot Massage"
+            },
+            "minutes": 90,
+            "price": null,
+            "cost": null,
+            "commission": null
+          }
         ]
       },
-      "tours": {"whatsappAsk": true, "note": "Chưa xác nhận cơ sở này bán tour; chỉ xin WhatsApp để tư vấn.", "products": []}
+      "extensionDirect": {
+        "approved": true,
+        "discountPercent": 10,
+        "note": "Gia hạn trực tiếp: không mất commission OTA. Phương án 1 giữ nguyên giá khách đã đặt; phương án 2 lấy giá hiện tại trên admin Booking cho các đêm thêm rồi trừ phần trăm này. Cua chọn phương án và gửi khách xác nhận."
+      },
+      "tours": {
+        "whatsappAsk": true,
+        "note": "Chưa xác nhận cơ sở này bán tour; chỉ xin WhatsApp để tư vấn.",
+        "products": []
+      }
     }
   }
 }

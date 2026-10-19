@@ -19,7 +19,7 @@ const res=(d:unknown,status=200)=>Response.json(d,{status,headers:{'Cache-Contro
 const mutations=z.discriminatedUnion('action',[
  z.object({action:z.literal('connect')}),
  z.object({action:z.literal('resolve'),eventId:z.string().min(1).max(100),propertyId:z.string().refine(v=>properties.some(p=>p.id===v)),channel:z.enum(channels),bookingId:z.string().trim().regex(/^[A-Za-z0-9-]{5,40}$/),guestText:z.string().trim().min(2).max(12000),confirmed:z.literal(true)}),
- z.object({action:z.literal('save'),id:z.string().min(1).max(100),revision:z.number().int().nonnegative(),contextKey:z.string().length(64),body:z.string().trim().min(1).max(6000),operationId:z.string().uuid()}),
+ z.object({action:z.literal('save'),id:z.string().min(1).max(100),revision:z.number().int().nonnegative(),contextKey:z.string().length(64),body:z.string().trim().min(1).max(6000),operationId:z.string().uuid(),cuaAmounts:z.array(z.number().int().min(1).max(1000000000)).max(40).optional()}),
  z.object({action:z.literal('rewrite'),id:z.string().min(1).max(100),revision:z.number().int().nonnegative(),contextKey:z.string().length(64),body:z.string().trim().max(6000),intent:z.string().trim().min(3).max(2000),operationId:z.string().uuid()}),
  z.object({action:z.literal('suggest'),id:z.string().min(1).max(100),revision:z.number().int().nonnegative(),contextKey:z.string().length(64),operationId:z.string().uuid()}),
  z.object({action:z.literal('approve'),id:z.string().min(1).max(100),revision:z.number().int().positive(),contextKey:z.string().length(64)}),
@@ -28,7 +28,10 @@ const mutations=z.discriminatedUnion('action',[
 ]);
 type State=NonNullable<Awaited<ReturnType<typeof threadState>>>;
 // Same checks as automatic drafts, for any guest-facing text in this conversation.
-function draftChecks(s:State,body:string):DraftProblem[]{const c=constraintsOf(s.events.filter(e=>e.kind==='guest').map(e=>e.guest_text).join('\n'));return guestDraftProblems(body,{facts:s.profile.facts,advice:s.tour,known:{date:!!c.date,party:!!c.party},allowedAmounts:approvedAmounts(s.thread.property_id)});}
+// Amounts Cua computed in the CRM (e.g. a direct extension rate) are recorded in the draft notes and allowed.
+const cuaAmountsMark=(a:number[])=>a.length?`[Giá Cua tính: ${a.join(',')}]\n`:'';
+const cuaAmountsIn=(notes='')=>(notes.match(/\[Giá Cua tính: ([\d,]+)\]/)?.[1]||'').split(',').filter(Boolean).map(Number);
+function draftChecks(s:State,body:string,notes=''):DraftProblem[]{const c=constraintsOf(s.events.filter(e=>e.kind==='guest').map(e=>e.guest_text).join('\n'));return guestDraftProblems(body,{facts:s.profile.facts,advice:s.tour,known:{date:!!c.date,party:!!c.party},allowedAmounts:[...approvedAmounts(s.thread.property_id),...cuaAmountsIn(notes)]});}
 const attentionOf=(p:DraftProblem[])=>p.map(x=>'Kiểm tra nháp: '+x.text).join('\n');
 // Room/stay requests: status comes only from staff-recorded operations tasks, never from inference.
 const roomStatus:Record<string,string>={unchecked:'Khách yêu cầu · chưa kiểm tra',waiting:'Đang kiểm tra',confirmed:'Khách sạn xác nhận đáp ứng',unavailable:'Không đáp ứng được'};
@@ -38,13 +41,20 @@ async function guidance(db:D1Database,owner:string,s:State){
  const plan=planReply(s,await activeTemplates(db,owner)),latest=s.drafts[0];
  const used=latest?.template_id?await templateVersion(db,owner,latest.template_id,latest.template_version):null;
  const guest=s.events.filter(e=>e.kind==='guest'&&e.guest_text).at(-1),answered=Boolean(guest&&s.sent.some(x=>x.created>=guest.received));
- const checks=latest?.body?draftChecks(s,latest.body):[];
+ const checks=latest?.body?draftChecks(s,latest.body,latest.notes):[];
+ // Stay extension asked in unanswered messages: nights, current check-out and party for the calculator.
+ const lastSentAt=s.sent.map(x=>x.created).sort().at(-1)||'';
+ const extText=s.events.filter(e=>e.kind==='guest'&&e.guest_text&&e.received>lastSentAt).map(e=>e.guest_text).join(' ').toLowerCase();
+ const words:Record<string,number>={one:1,two:2,three:3,four:4,five:5,six:6,seven:7};
+ const extMatch=extText.match(/(?:extend(?:ed|ing)?[^.?!]{0,40}?|another|more|extra|thêm)\s*(\d+|one|two|three|four|five|six|seven)\s*(?:more |extra )?(?:days?|nights?|đêm|ngày)/);
+ const fullText=s.events.at(-1)?.full_text||'';
+ const extension=/extend|another \d+ (?:days?|nights?)|extra nights?|stay longer|gia hạn|ở thêm/.test(extText)&&s.stay.checkOut?{nights:extMatch?(words[extMatch[1]]??Number(extMatch[1])):1,checkOut:s.stay.checkOut,guests:Number(fullText.match(/Total guests:\s*(\d+)/)?.[1]||0),rooms:Number(fullText.match(/Total rooms:\s*(\d+)/)?.[1]||0)}:null;
  // Guest's own WhatsApp/phone (if written in their messages) and the configured hotel terms for the panel.
  const contact=guestContact(s.events.filter(e=>e.kind==='guest').map(e=>e.guest_text||''));
  // Ready-to-send WhatsApp text for tour follow-up: programme and classes first, no price.
  const lastGuest=s.events.filter(e=>e.kind==='guest'&&e.guest_text).at(-1);
  const whatsappMessage=s.tour.status==='interested'||contact?whatsappTourMessage(s.tour,lastGuest?.guest_name||'',/[ăâđêôơư]/i.test(lastGuest?.guest_text||'')):'';
- return {contact,whatsappMessage,policy:policyFor(s.thread.property_id)||null,tour:s.tour,checks,roomTasks:await roomTasks(db,owner,s.thread.id),history:s.profile.history||[],plan:{situations:plan.situations.map(x=>({code:x,label:situationLabels[x]})),reasons:plan.reasons,template:plan.template?{id:plan.template.id,version:plan.template.version,title:plan.template.title}:null},prepared:latest?{revision:latest.revision,source:draftSource(latest),label:sourceLabels[draftSource(latest)],template:used?{id:used.id,version:used.version,title:used.title,approvedAt:used.approved_at,retired:Boolean(used.retired_at)}:null}:null,next:nextStep(latest,plan,answered)};
+ return {contact,whatsappMessage,extension,policy:policyFor(s.thread.property_id)||null,tour:s.tour,checks,roomTasks:await roomTasks(db,owner,s.thread.id),history:s.profile.history||[],plan:{situations:plan.situations.map(x=>({code:x,label:situationLabels[x]})),reasons:plan.reasons,template:plan.template?{id:plan.template.id,version:plan.template.version,title:plan.template.title}:null},prepared:latest?{revision:latest.revision,source:draftSource(latest),label:sourceLabels[draftSource(latest)],template:used?{id:used.id,version:used.version,title:used.title,approvedAt:used.approved_at,retired:Boolean(used.retired_at)}:null}:null,next:nextStep(latest,plan,answered)};
 }
 export async function GET(request:Request){
  const u=await getChatGPTUser();if(!u)return res({error:'Vui lòng đăng nhập.'},401);
@@ -121,12 +131,12 @@ export async function POST(request:Request){
   return saved?res({ok:true}):res({error:'Có thay đổi đồng thời. Bản nháp cũ được giữ nguyên.'},409);
  }
  if(v.action==='save'){
-  const saved=await db.prepare('INSERT OR IGNORE INTO ota_drafts (owner,thread_id,revision,operation_id,context_key,body,notes,status,created,source,attention) SELECT ?,?,?,?,?,?,?,\'pending\',?,\'cua\',? WHERE '+guard+' RETURNING revision').bind(owner,v.id,v.revision+1,v.operationId,s.contextKey,v.body,'Cua đã sửa nội dung; cần duyệt phiên bản này.\nNguồn và lưu ý trước đó:\n'+sourceNotes.slice(0,8000),now,attentionOf(draftChecks(s,v.body)),...args).first();return saved?res({ok:true}):res({error:'Có thay đổi đồng thời. Nội dung chưa được lưu.'},409);
+  const saved=await db.prepare('INSERT OR IGNORE INTO ota_drafts (owner,thread_id,revision,operation_id,context_key,body,notes,status,created,source,attention) SELECT ?,?,?,?,?,?,?,\'pending\',?,\'cua\',? WHERE '+guard+' RETURNING revision').bind(owner,v.id,v.revision+1,v.operationId,s.contextKey,v.body,cuaAmountsMark(v.cuaAmounts||[])+'Cua đã sửa nội dung; cần duyệt phiên bản này.\nNguồn và lưu ý trước đó:\n'+sourceNotes.slice(0,8000),now,attentionOf(draftChecks(s,v.body,cuaAmountsMark(v.cuaAmounts||[]))),...args).first();return saved?res({ok:true}):res({error:'Có thay đổi đồng thời. Nội dung chưa được lưu.'},409);
  }
  if(!latest?.body.trim()||latest.stale||latest.status==='sent')return res({error:'Bản nháp cần cập nhật nội dung trước khi duyệt hoặc gửi.'},409);
  if(v.action==='approve'){
   // The inbox must not become a way around price approval: amounts and internal data block approval.
-  const hard=draftChecks(s,latest.body).filter(p=>p.hard);if(hard.length)return res({error:hard.map(p=>p.text).join(' '),problems:hard},409);
+  const hard=draftChecks(s,latest.body,latest.notes).filter(p=>p.hard);if(hard.length)return res({error:hard.map(p=>p.text).join(' '),problems:hard},409);
   const saved=await db.prepare('UPDATE ota_drafts SET status=\'approved\',approved_at=? WHERE owner=? AND thread_id=? AND revision=? AND '+guard+' RETURNING revision').bind(now,owner,v.id,v.revision,...args).first();return saved?res({ok:true}):res({error:'Có tin mới trong lúc duyệt. Tải lại.'},409);
  }
  if(latest.status!=='approved')return res({error:'Cần duyệt nội dung trước khi ghi nhận gửi.'},409);

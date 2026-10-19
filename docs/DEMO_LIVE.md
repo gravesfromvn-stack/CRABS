@@ -33,6 +33,19 @@ Bản chạy local `http://localhost:5173`, nhánh `integration/claude-travis`.
 - Dữ liệu lưu và ô nhập liệu không đổi. Bật/tắt sẽ tải lại trang.
 - Khi trình diễn, nên mở **6 hội thoại tổng hợp** (khách "Demo Guest …", booking `59919001xx`) thay cho email thật.
 
+## Khách xin gia hạn trực tiếp
+
+- Khi tin chưa trả lời có ý gia hạn ("extend", "4 more nights", "ở thêm"…), khung nháp hiện "Báo giá gia hạn trực tiếp".
+  - Hệ thống tự điền số đêm thêm, ngày trả phòng hiện tại, số khách và số phòng.
+- Cua mở admin Booking, xem loại phòng, giá khách đã đặt và giá đang bán cho các đêm thêm, rồi nhập vào khung này.
+- Hai phương án (đặt trực tiếp nên không mất commission OTA):
+  - **Phương án 1:** giữ nguyên giá khách đã đặt.
+  - **Phương án 2:** giá Booking hiện tại −10%, làm tròn đến 1.000đ. Mức % nằm ở `extensionDirect.discountPercent`.
+- Cách dùng: chọn phương án, bấm "Chèn vào nháp", đọc lại, bấm Lưu nháp rồi Duyệt.
+  - Số tiền được ghi vào ghi chú nháp dưới dạng `[Giá Cua tính: …]`, nên bước kiểm tra giá cho duyệt.
+  - Giá không có ghi chú này vẫn bị chặn.
+- Câu gửi khách có viết "còn phòng". Cua cần kiểm tra phòng trống trước khi chèn. Duyệt không có nghĩa là đã gửi hay đã giữ phòng.
+
 ## Dữ liệu mẫu (đã nạp)
 
 - Lệnh: `node scripts/seed-demo-live.mjs`
