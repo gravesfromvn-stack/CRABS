@@ -10,6 +10,8 @@ import {guestDraftProblems,constraintsOf,tourKnowledgeForAI,tourEvidenceNote,typ
 import {threadStay} from '../../../lib/ota-stay';
 import {rewriteReply} from '../../../lib/ota-rewrite';
 import {hotelKnowledge} from '../../../lib/luxe-knowledge';
+import {approvedAmounts,policyFor} from '../../../lib/hotel-policy-config';
+import {guestContact} from '../../../lib/guest-contact';
 export const dynamic='force-dynamic';
 const res=(d:unknown,status=200)=>Response.json(d,{status,headers:{'Cache-Control':'no-store'}});
 const mutations=z.discriminatedUnion('action',[
@@ -24,7 +26,7 @@ const mutations=z.discriminatedUnion('action',[
 ]);
 type State=NonNullable<Awaited<ReturnType<typeof threadState>>>;
 // Same checks as automatic drafts, for any guest-facing text in this conversation.
-function draftChecks(s:State,body:string):DraftProblem[]{const c=constraintsOf(s.events.filter(e=>e.kind==='guest').map(e=>e.guest_text).join('\n'));return guestDraftProblems(body,{facts:s.profile.facts,advice:s.tour,known:{date:!!c.date,party:!!c.party}});}
+function draftChecks(s:State,body:string):DraftProblem[]{const c=constraintsOf(s.events.filter(e=>e.kind==='guest').map(e=>e.guest_text).join('\n'));return guestDraftProblems(body,{facts:s.profile.facts,advice:s.tour,known:{date:!!c.date,party:!!c.party},allowedAmounts:approvedAmounts(s.thread.property_id)});}
 const attentionOf=(p:DraftProblem[])=>p.map(x=>'Kiểm tra nháp: '+x.text).join('\n');
 // Room/stay requests: status comes only from staff-recorded operations tasks, never from inference.
 const roomStatus:Record<string,string>={unchecked:'Khách yêu cầu · chưa kiểm tra',waiting:'Đang kiểm tra',confirmed:'Khách sạn xác nhận đáp ứng',unavailable:'Không đáp ứng được'};
@@ -35,7 +37,9 @@ async function guidance(db:D1Database,owner:string,s:State){
  const used=latest?.template_id?await templateVersion(db,owner,latest.template_id,latest.template_version):null;
  const guest=s.events.filter(e=>e.kind==='guest'&&e.guest_text).at(-1),answered=Boolean(guest&&s.sent.some(x=>x.created>=guest.received));
  const checks=latest?.body?draftChecks(s,latest.body):[];
- return {tour:s.tour,checks,roomTasks:await roomTasks(db,owner,s.thread.id),history:s.profile.history||[],plan:{situations:plan.situations.map(x=>({code:x,label:situationLabels[x]})),reasons:plan.reasons,template:plan.template?{id:plan.template.id,version:plan.template.version,title:plan.template.title}:null},prepared:latest?{revision:latest.revision,source:draftSource(latest),label:sourceLabels[draftSource(latest)],template:used?{id:used.id,version:used.version,title:used.title,approvedAt:used.approved_at,retired:Boolean(used.retired_at)}:null}:null,next:nextStep(latest,plan,answered)};
+ // Guest's own WhatsApp/phone (if written in their messages) and the configured hotel terms for the panel.
+ const contact=guestContact(s.events.filter(e=>e.kind==='guest').map(e=>e.guest_text||''));
+ return {contact,policy:policyFor(s.thread.property_id)||null,tour:s.tour,checks,roomTasks:await roomTasks(db,owner,s.thread.id),history:s.profile.history||[],plan:{situations:plan.situations.map(x=>({code:x,label:situationLabels[x]})),reasons:plan.reasons,template:plan.template?{id:plan.template.id,version:plan.template.version,title:plan.template.title}:null},prepared:latest?{revision:latest.revision,source:draftSource(latest),label:sourceLabels[draftSource(latest)],template:used?{id:used.id,version:used.version,title:used.title,approvedAt:used.approved_at,retired:Boolean(used.retired_at)}:null}:null,next:nextStep(latest,plan,answered)};
 }
 export async function GET(request:Request){
  const u=await getChatGPTUser();if(!u)return res({error:'Vui lòng đăng nhập.'},401);

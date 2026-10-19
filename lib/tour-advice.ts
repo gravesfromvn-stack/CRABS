@@ -193,10 +193,11 @@ export function tourParagraph(a:TourAdvice,vi:boolean):string{
 // Pre-save checks on any guest-facing draft (rules, template or AI). hard=true blocks approval.
 export type DraftProblem={hard:boolean;text:string};
 const negated=/\b(?:not (?:yet )?(?:confirmed|guaranteed|booked|reserved)|cannot (?:be )?(?:confirmed|guaranteed)|unconfirmed|before (?:it is )?confirmed|until (?:it is )?confirmed)\b|chưa (?:được )?(?:xác nhận|đặt|bố trí|đảm bảo)/gi;
-export function guestDraftProblems(body:string,ctx:{facts:GuestFact[];advice?:TourAdvice;known?:{date?:boolean;party?:boolean}}):DraftProblem[]{
+export function guestDraftProblems(body:string,ctx:{facts:GuestFact[];advice?:TourAdvice;known?:{date?:boolean;party?:boolean};allowedAmounts?:number[]}):DraftProblem[]{
  const out:DraftProblem[]=[],n=normalize(body);
- // Amounts are allowed only when they equal a fully approved, date-valid price of an option in this advice.
- const allowed=new Set((ctx.advice?.options||[]).filter(o=>o.approvedPrice).map(o=>String(o.approvedPrice!.price)));
+ // Amounts are allowed only when they equal a fully approved, date-valid price of an option in this advice,
+ // or an approved hotel service price from the property configuration (airport car, spa, tour "from" price).
+ const allowed=new Set([...(ctx.advice?.options||[]).filter(o=>o.approvedPrice).map(o=>String(o.approvedPrice!.price)),...(ctx.allowedAmounts||[]).map(String)]);
  const money=[...body.matchAll(/(?:\$|€|£|usd|vnd|vnđ)\s?\d[\d.,]*|\d[\d.,]*\s?(?:usd|vnd|vnđ|đồng|dong|₫|k\b|nghìn|triệu)|\d{1,3}(?:[.,]\d{3}){1,3}(?:\s?(?:đ|d)\b)?/gi)].map(m=>m[0]).find(m=>!allowed.has(m.replace(/\D/g,''))&&!(/^\d{1,3}(?:[.,]\d{3})+/.test(m)&&allowed.has(m.match(/^[\d.,]+/)![0].replace(/\D/g,''))));
  if(money)out.push({hard:true,text:`Nội dung gửi khách có số tiền ("${money}") không khớp giá nào đã được Cua duyệt đủ hồ sơ cho ngày này. Xóa giá hoặc dùng báo giá đã duyệt.`});
  const leak=body.match(/R75-[A-Z0-9-]+|TST-\d+|docs\.google|spreadsheets|giá vốn|hoa hồng|commission|contract (?:cost|price)|markup|\+\s?1[05]%|\+\s?20%|nguồn nội bộ|reference only|tham khảo nội bộ/i);

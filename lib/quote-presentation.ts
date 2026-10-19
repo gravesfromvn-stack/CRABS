@@ -1,4 +1,5 @@
 import {quoteProducts as products,findQuoteSource,isSourceProduct} from './quote-sources';
+import {findServiceProduct} from './hotel-policy-config';
 import {approvalIssues, totals, type QuoteInput, type QuoteLine, type QuotePayload, type QuoteVersion} from './quotes';
 import type {Contact} from './validation';
 export const quoteMoney=(n:number|null)=>n===null?'Chưa đủ dữ liệu':new Intl.NumberFormat('vi-VN',{style:'currency',currency:'VND',maximumFractionDigits:0}).format(n);
@@ -14,7 +15,7 @@ export function initialQuoteLine(contact:Contact,productId:string):QuoteLine {
  const knownChildren=childAges.every(x=>/^\d{1,2}$/.test(x))?childAges.length:0;
  // A departure transfer is not an arrival; a flight clock is not a pickup clock.
  const ref=findQuoteSource(productId);
- const serviceDate=p.kind==='tour'?contact.service_date||'':ref?(ref.direction==='dropoff'?r?.departure||'':ref.direction==='pickup'?r?.arrival||'':''):productId==='X02'?r?.departure||'':r?.arrival||'';
+ const serviceDate=p.kind==='tour'?contact.service_date||'':ref?(ref.direction==='dropoff'?r?.departure||'':ref.direction==='pickup'?r?.arrival||'':''):(productId==='X02'||findServiceProduct(productId)?.direction==='dropoff')?r?.departure||'':r?.arrival||'';
  const introduction=p.description.split(/(?<=[.!?])\s+/)[0];
  const detail=ref?[`Nội dung nguồn tham khảo: ${ref.summary.slice(0,600)}`,`Chương trình, quyền lợi bao gồm/chưa gồm đang chờ xác nhận; không phải cam kết dịch vụ.`]:[introduction,`Bao gồm (mẫu): ${p.includes}.`,`Chưa gồm (mẫu): ${p.excludes}.`];
  if(p.kind==='transfer'){

@@ -6,6 +6,9 @@ import {tourAdvice,tourKnowledgeForAI,usesStaleTourData,applyTourAdvice,tourEvid
 import {hotelKnowledge} from './luxe-knowledge';
 import {planReply,isAutoDraft,draftSource} from './ota-templates';
 import {activeTemplates} from './ota-template-store';
+import {serviceReply,applyServiceReply} from './service-replies';
+import {approvedAmounts} from './hotel-policy-config';
+import {guestContact} from './guest-contact';
 export type OtaEvent={owner:string;id:string;mailbox:string;gmail_thread:string;internet_id:string;subject:string;sender:string;received:string;imported:string;full_text:string;guest_text:string;channel:string;booking_id:string;property_id:string;property_label:string;guest_name:string;kind:string;reason:string;authenticated:number;status:string;thread_id:string;resolved_by:string};
 export type OtaDraft={thread_id:string;revision:number;operation_id:string;context_key:string;body:string;notes:string;status:string;created:string;approved_at:string|null;sent_at:string|null;source:string;template_id:string;template_version:number;attention:string};
 export async function threadState(db:D1Database,owner:string,id:string,profileKey=''){
@@ -39,7 +42,12 @@ export async function prepareDraft(db:D1Database,owner:string,id:string,profileK
  // Cua is working on an unapproved version: never bury it under an automatic one.
  if(latest&&latest.stale&&latest.status==='pending'&&!isAutoDraft(latest))return {result:'kept_cua_edit'};
  const vi=/[ăâđêôơư]|\b(toi|minh|ban|khach san|san bay)\b/i.test(guest.guest_text);
- const plan=planReply({...s,tourParagraph:tourParagraph(s.tour,vi)},await activeTemplates(db,owner));
+ // Branch 1 (services closed on the extranet with configured terms) and branch 2 (tours: ask for WhatsApp).
+ const lastSent=s.sent.map(x=>x.created).sort().at(-1)||'';
+ const openText=s.events.filter(e=>e.kind==='guest'&&e.guest_text&&e.received>lastSent).map(e=>e.guest_text).join('\n');
+ const contact=guestContact(s.events.filter(e=>e.kind==='guest').map(e=>e.guest_text||''));
+ const service=serviceReply({propertyId:s.thread.property_id,text:openText,facts:s.profile.facts,vi,tourInterested:s.tour.status==='interested',hasContact:Boolean(contact),tourPlaces:s.tour.destinations.map(d=>d.label.vi)});
+ const plan=planReply({...s,tourParagraph:tourParagraph(s.tour,vi),serviceInfo:service.paragraphs.join('\n\n')},await activeTemplates(db,owner));
  // No template fits: keep the automatic draft's text but refresh why it needs Cua (e.g. a template now
  // exists but does not cover this case). A template suggestion that no longer fits goes back to Cua.
  if(replaceable&&!plan.template){
@@ -53,8 +61,10 @@ export async function prepareDraft(db:D1Database,owner:string,id:string,profileK
  if(latest?.stale&&latest.status==='approved')reasons.unshift(`Có tin mới sau phiên bản v${latest.revision} đã duyệt: Cua kiểm tra nội dung đã duyệt còn đúng không.`);
  let draft:{body:string;notes:string;source:string;templateId:string;templateVersion:number};
  if(plan.template&&plan.body)draft={body:plan.body,notes:`Đề xuất từ mẫu đã duyệt "${plan.template.title}" (v${plan.template.version}, Cua cho phép dùng lại ${plan.template.approved_at.slice(0,10)}). Chưa phải phản hồi Cua đã duyệt cho booking này.`,source:'template',templateId:plan.template.id,templateVersion:plan.template.version};
- else if(s.profile.proposedReply)draft={body:s.profile.proposedReply.body,notes:'AI · Nháp từ toàn bộ hội thoại và hồ sơ nhu cầu. '+s.profile.proposedReply.review.join(' · '),source:'ai',templateId:'',templateVersion:0};
- else{const r=followupDraft(suggestedDraft(guest.guest_text),s.profile,guest.guest_text,s.sent);draft={body:applyTourAdvice(r.body,s.tour,vi),notes:r.notes,source:'rules',templateId:'',templateVersion:0};}
+ else if(s.profile.proposedReply)draft={body:applyServiceReply(s.profile.proposedReply.body,service),notes:'AI · Nháp từ toàn bộ hội thoại và hồ sơ nhu cầu. '+s.profile.proposedReply.review.join(' · '),source:'ai',templateId:'',templateVersion:0};
+ else{const r=followupDraft(suggestedDraft(guest.guest_text),s.profile,guest.guest_text,s.sent);draft={body:applyServiceReply(applyTourAdvice(r.body,s.tour,vi),service),notes:r.notes,source:'rules',templateId:'',templateVersion:0};}
+ if(service.needs.length)draft.notes+=`\nDịch vụ theo cấu hình khách sạn (${service.needs.join(', ')}): giá chỉ hiện khi đã duyệt trong lib/hotel-policy-config.json.`;
+ if(draft.source!=='template')reasons.push(...service.internal);
  if(!draft.body)reasons.push('Chưa soạn được nội dung tự động: Cua soạn câu trả lời.');
  // Tour sources: keep evidence with this version; unapproved prices/conditions stay Cua's decision.
  const evidence=tourEvidenceNote(s.tour);if(evidence)draft.notes+='\n'+evidence;
@@ -64,7 +74,7 @@ export async function prepareDraft(db:D1Database,owner:string,id:string,profileK
  else reasons.push(...(s.tour.intent?.notes||[]));
  // Check the guest-facing text before saving: repeated questions, prices, promises, merged packages.
  const c=constraintsOf(s.events.filter(e=>e.kind==='guest').map(e=>e.guest_text).join('\n'));
- for(const p of guestDraftProblems(draft.body,{facts:s.profile.facts,advice:s.tour,known:{date:!!c.date,party:!!c.party}}))reasons.push('Kiểm tra nháp: '+p.text);
+ for(const p of guestDraftProblems(draft.body,{facts:s.profile.facts,advice:s.tour,known:{date:!!c.date,party:!!c.party},allowedAmounts:approvedAmounts(s.thread.property_id)}))reasons.push('Kiểm tra nháp: '+p.text);
  // One operation id per context and source makes reprocessing the same facts a no-op.
  const operation=draft.source==='template'?`tpl-${id}-${s.contextKey}-${draft.templateId}-v${draft.templateVersion}`:'auto-'+id+'-'+s.contextKey;
  const r=await db.prepare('INSERT OR IGNORE INTO ota_drafts (owner,thread_id,revision,operation_id,context_key,body,notes,status,created,source,template_id,template_version,attention) SELECT ?,?,COALESCE((SELECT MAX(revision) FROM ota_drafts WHERE owner=? AND thread_id=?),0)+1,?,?,?,?,?,?,?,?,?,?').bind(owner,id,owner,id,operation,s.contextKey,draft.body,draft.notes,draft.body?'pending':'needs_writing',now,draft.source,draft.templateId,draft.templateVersion,reasons.join('\n')).run();
