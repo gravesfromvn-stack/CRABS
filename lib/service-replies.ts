@@ -71,6 +71,28 @@ export function serviceReply(input:{propertyId:string;text:string;facts:GuestFac
  return out;
 }
 
+// WhatsApp follow-up for a tour enquiry: the sourced programme first, the classes to choose from,
+// what the guest already gave (never asked again), no price, and one question.
+const variantEn:[RegExp,string][]=[[/Tiêu chuẩn/g,'Standard'],[/Bắt đầu tại bến Hạ Long/g,'starts at the Ha Long pier'],[/không xe Hà Nội/g,'no transfer from Hanoi'],[/Từ Phố Cổ Hà Nội/g,'from the Hanoi Old Quarter'],[/limousine (\d+[/–-]\d+) (?:ghế|chỗ)/g,'$1-seat limousine'],[/Dcar (\d+[/–-]\d+) (?:ghế|chỗ)/gi,'$1-seat DCar van'],[/xe (\d+[/–-]\d+) (?:ghế|chỗ)/g,'$1-seat coach'],[/set menu/g,'set-menu lunch'],[/\bbuffet\b/g,'buffet lunch'],[/ · /g,' – ']];
+function variantLabel(title:string,vi:boolean){const part=title.includes(' / ')?title.split(' / ').slice(1).join(' / '):title;if(vi)return part;let s=part;for(const [re,v] of variantEn)s=s.replace(re,v);return /[ăâđêôơưàáạảãèéẹẻẽìíịỉĩòóọỏõùúụủũỳýỵỷỹ]/i.test(s)?'':s;}
+type TourLike={constraints:{date:string;party:string;children:boolean;childAges:number[]};options:{guestName:{en:string;vi:string}|null;guestFacts:{en:string;vi:string}[];considerations:{en:string;vi:string}[];variants?:{title:string}[]}[]};
+export function whatsappTourMessage(a:TourLike,guestName:string,vi:boolean):string{
+ const k=vi?'vi':'en',c=a.constraints,name=guestName.trim();
+ const known=[c.date&&(vi?`ngày ${c.date}`:c.date),c.party].filter(Boolean).join(vi?', ':', ');
+ const lines:string[]=[vi?`Chào ${name||'bạn'}, mình là lễ tân khách sạn. Cảm ơn bạn đã để lại số WhatsApp.`:`Hello ${name||'there'}, this is the hotel reception team. Thank you for sharing your WhatsApp number.`];
+ const opts=a.options.filter(o=>o.guestName);
+ if(!opts.length){lines.push(vi?'Mình sẽ gửi bạn lịch trình chi tiết ngay khi chuẩn bị xong.':'We will send you the detailed itinerary as soon as it is ready.');return lines.join('\n\n');}
+ const choices:string[]=[];
+ for(const o of opts){
+  lines.push((vi?`Thông tin ${o.guestName!.vi}`:`Here are the details of the ${o.guestName!.en}`)+(known?` (${known})`:'')+':\n'+[...o.guestFacts,...o.considerations].map(f=>'• '+f[k]).join('\n'));
+  for(const v of o.variants||[]){const l=variantLabel(v.title,vi);if(l&&!choices.includes(l))choices.push(l);}
+ }
+ if(choices.length>1)lines.push((vi?'Bạn có thể chọn hạng dịch vụ:':'You can choose the level of comfort:')+'\n'+choices.map((x,i)=>`${i+1}. ${x}`).join('\n'));
+ const partyText=c.party?(vi?` cho ${c.party}`:` for ${c.party}`):'';
+ lines.push(choices.length>1?(vi?`Bạn muốn chọn phương án nào? Mình sẽ kiểm tra chỗ và gửi giá${partyText} ngay sau đó.`:`Which option would you like? We will then check availability and send you the price${partyText}.`):(vi?`Lịch trình này có phù hợp với bạn không? Mình sẽ kiểm tra chỗ và gửi giá${partyText} ngay sau đó.`:`Does this programme suit you? We will then check availability and send you the price${partyText}.`));
+ return lines.join('\n\n');
+}
+
 // Puts the service paragraphs into a draft: the priced transfer paragraph replaces the generic one.
 export function applyServiceReply(body:string,s:ServiceReply):string{
  if(!s.paragraphs.length)return body;

@@ -9,7 +9,7 @@ import {intentLabels,type Intent} from '../lib/guest-intent';
 
 // Internal advice view for Cua: what the guest gave, what is still open, sourced options with
 // price status, transport cautions and draft checks. Nothing here is copied into the guest draft.
-export type AdviceView={tour?:TourAdvice;checks?:DraftProblem[];roomTasks?:{title:string;status:string;evidence:string}[];history?:FactChange[];contact?:GuestContact;policy?:PropertyPolicy|null;guestName?:string};
+export type AdviceView={tour?:TourAdvice;checks?:DraftProblem[];roomTasks?:{title:string;status:string;evidence:string}[];history?:FactChange[];contact?:GuestContact;policy?:PropertyPolicy|null;guestName?:string;whatsappMessage?:string};
 const vnd=(n:number|null)=>n===null?'—':formatMoney(n,true);
 const margin=(price:number|null,cost:number|null,commission:number|null)=>price===null||cost===null?'—':formatMoney(price-cost-(commission||0),true)+(commission===null?' (chưa trừ hoa hồng)':'');
 const statusLabel:Record<TourAdvice['status'],string>={none:'Chưa nhắc tour',interested:'Đang quan tâm',deferred:'Để sau',declined:'Không cần'};
@@ -37,7 +37,7 @@ export function OtaAdvicePanel({view}:{view:AdviceView}){
    {rooms.length>0&&<div><h4>Yêu cầu phòng</h4><ul>{rooms.map((r,i)=><li key={i}><strong>{r.title}</strong> · {r.status}{r.evidence?' · '+r.evidence:''}</li>)}</ul></div>}
    {checks.length>0&&<div><h4>Kiểm tra nháp hiện tại</h4><ul>{checks.map((p,i)=><li key={i} className={p.hard?'block':'warn'}>{p.hard?'Chặn duyệt: ':'Lưu ý: '}{p.text}</li>)}</ul></div>}
   </div>
-  {(tourTalk||contact)&&<div className="ota-advice-whatsapp"><h4><MessageCircle size={14}/> Tư vấn tour qua WhatsApp</h4>{contact?<p>Số khách để lại: <strong>{contact.display}</strong> <a className="button secondary" href={whatsappLink(contact,greeting)} target="_blank" rel="noopener noreferrer">Mở WhatsApp Web</a><small>Lời chào điền sẵn; Cua gửi thủ công.</small></p>:<p className="muted">Khách chưa để số WhatsApp. Nháp trên Extranet đã xin số để gửi lịch trình chi tiết.</p>}</div>}
+  {(tourTalk||contact)&&<div className="ota-advice-whatsapp"><h4><MessageCircle size={14}/> Tư vấn tour qua WhatsApp</h4>{contact?<><p>Số khách để lại: <strong>{contact.display}</strong> <a className="button secondary" href={whatsappLink(contact,view.whatsappMessage||greeting)} target="_blank" rel="noopener noreferrer">Mở WhatsApp Web</a><small>Tin nhắn điền sẵn: thông tin tour trước, chưa có giá; Cua đọc lại và gửi thủ công.</small></p>{view.whatsappMessage&&<details><summary>Xem tin nhắn WhatsApp sẽ điền sẵn</summary><pre className="ota-source">{view.whatsappMessage}</pre></details>}</>:<p className="muted">Khách chưa để số WhatsApp. Nháp trên Extranet đã xin số để gửi lịch trình chi tiết.</p>}</div>}
   {policy&&<div className="ota-advice-options"><h4>Dịch vụ chốt trên Extranet · {present?policy.demoName:policy.displayName}</h4>
    <p>Nhận phòng {policy.checkIn} · trả phòng {policy.checkOut}. Nhận sớm {policy.earlyCheckIn.from}–{policy.earlyCheckIn.until}: {policy.earlyCheckIn.fee.vi}. Trả muộn đến {policy.lateCheckOut.until}: {policy.lateCheckOut.fee.vi}.</p>
    <table><thead><tr><th>Xe sân bay</th><th>Đón</th><th>Tiễn</th><th>Lãi/chiều (đón)</th></tr></thead><tbody>{policy.airportTransfer.vehicles.map(v=><tr key={v.id}><td>{v.seats} chỗ · tối đa {v.maxGuests} khách</td><td>{vnd(v.pickup)}</td><td>{vnd(v.dropoff)}</td><td>{margin(v.pickup,v.cost,v.commission)}</td></tr>)}</tbody></table>

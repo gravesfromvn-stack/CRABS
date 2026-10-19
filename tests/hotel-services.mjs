@@ -80,4 +80,15 @@ check('Quote catalog: hotel services listed; incomplete ones stay reference-only
  assert.match(q.approvalIssues(payload,'2026-10-19').join(' '),/chưa đủ cấu hình/);
  assert.equal(q.totals(payload.lines).profit,80000);
 });
+check('WhatsApp tour message: programme and classes first, no price, no re-asked date, one question',()=>{
+ const text='We are interested in a Ninh Binh day trip on 24 October for 2 adults. Please message me on WhatsApp: +1 202 555 0143.';
+ const a=ta.tourAdvice({propertyId:P,facts:[],text,latestText:text,stayStart:'2026-10-23'});
+ const m=sr.whatsappTourMessage(a,'Synthetic Guest',false);
+ assert.match(m,/Hoa Lu/);assert.match(m,/24 October, 2 adults/);
+ assert.match(m,/1\. Standard – 29\/35-seat coach, buffet lunch/);assert.match(m,/4\. Luxury/);
+ assert.doesNotMatch(m,/\d{1,3}[.,]\d{3}|VND|đ\b|USD/);assert.doesNotMatch(m,/which date|what date|how many/i);
+ assert.equal((m.match(/\?/g)||[]).length,1);
+ assert.deepEqual(ta.guestDraftProblems(m,{facts:[],advice:a}).filter(p=>p.hard),[]);
+ const vi=sr.whatsappTourMessage(a,'Khách',true);assert.match(vi,/Tiêu chuẩn · xe 29\/35 ghế/);assert.match(vi,/phương án nào\?/);
+});
 console.log(JSON.stringify({passed,scope:'hotel services: extranet branch, tour WhatsApp branch, contact, presentation, quote products'}));

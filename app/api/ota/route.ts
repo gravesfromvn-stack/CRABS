@@ -12,6 +12,7 @@ import {rewriteReply} from '../../../lib/ota-rewrite';
 import {hotelKnowledge} from '../../../lib/luxe-knowledge';
 import {approvedAmounts,policyFor} from '../../../lib/hotel-policy-config';
 import {guestContact} from '../../../lib/guest-contact';
+import {whatsappTourMessage} from '../../../lib/service-replies';
 export const dynamic='force-dynamic';
 const res=(d:unknown,status=200)=>Response.json(d,{status,headers:{'Cache-Control':'no-store'}});
 const mutations=z.discriminatedUnion('action',[
@@ -39,7 +40,10 @@ async function guidance(db:D1Database,owner:string,s:State){
  const checks=latest?.body?draftChecks(s,latest.body):[];
  // Guest's own WhatsApp/phone (if written in their messages) and the configured hotel terms for the panel.
  const contact=guestContact(s.events.filter(e=>e.kind==='guest').map(e=>e.guest_text||''));
- return {contact,policy:policyFor(s.thread.property_id)||null,tour:s.tour,checks,roomTasks:await roomTasks(db,owner,s.thread.id),history:s.profile.history||[],plan:{situations:plan.situations.map(x=>({code:x,label:situationLabels[x]})),reasons:plan.reasons,template:plan.template?{id:plan.template.id,version:plan.template.version,title:plan.template.title}:null},prepared:latest?{revision:latest.revision,source:draftSource(latest),label:sourceLabels[draftSource(latest)],template:used?{id:used.id,version:used.version,title:used.title,approvedAt:used.approved_at,retired:Boolean(used.retired_at)}:null}:null,next:nextStep(latest,plan,answered)};
+ // Ready-to-send WhatsApp text for tour follow-up: programme and classes first, no price.
+ const lastGuest=s.events.filter(e=>e.kind==='guest'&&e.guest_text).at(-1);
+ const whatsappMessage=s.tour.status==='interested'||contact?whatsappTourMessage(s.tour,lastGuest?.guest_name||'',/[ăâđêôơư]/i.test(lastGuest?.guest_text||'')):'';
+ return {contact,whatsappMessage,policy:policyFor(s.thread.property_id)||null,tour:s.tour,checks,roomTasks:await roomTasks(db,owner,s.thread.id),history:s.profile.history||[],plan:{situations:plan.situations.map(x=>({code:x,label:situationLabels[x]})),reasons:plan.reasons,template:plan.template?{id:plan.template.id,version:plan.template.version,title:plan.template.title}:null},prepared:latest?{revision:latest.revision,source:draftSource(latest),label:sourceLabels[draftSource(latest)],template:used?{id:used.id,version:used.version,title:used.title,approvedAt:used.approved_at,retired:Boolean(used.retired_at)}:null}:null,next:nextStep(latest,plan,answered)};
 }
 export async function GET(request:Request){
  const u=await getChatGPTUser();if(!u)return res({error:'Vui lòng đăng nhập.'},401);
