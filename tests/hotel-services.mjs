@@ -91,4 +91,36 @@ check('WhatsApp tour message: programme and classes first, no price, no re-asked
  assert.deepEqual(ta.guestDraftProblems(m,{facts:[],advice:a}).filter(p=>p.hard),[]);
  const vi=sr.whatsappTourMessage(a,'Khách',true);assert.match(vi,/Tiêu chuẩn · xe 29\/35 ghế/);assert.match(vi,/phương án nào\?/);
 });
+await build({entryPoints:['lib/conversation-sim.ts','lib/guest-keypoints.ts','lib/ota-profile.ts'],outdir:'.quote-tests/services',bundle:true,platform:'node',format:'esm',outExtension:{'.js':'.mjs'},loader:{'.json':'json'}});
+const sim=await import('../.quote-tests/services/conversation-sim.mjs');
+const kp=await import('../.quote-tests/services/guest-keypoints.mjs');
+const prof=await import('../.quote-tests/services/ota-profile.mjs');
+// Synthetic in-stay conversation (anniversary surprise, bathtub, pay at hotel, extension, thanks).
+const at=(d,h,m)=>`2026-10-${d}T${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:00.000Z`;
+const conv=[['m1',at(10,2,0),'Hi, do you arrange anniversary surprises? Also is there a room with a bathtub?'],['m2',at(11,3,0),'We will arrive at the hotel around 4pm. Our anniversary is on the 21st. Could you put flowers and a small cake in the room on the 21st morning while we are out? How much would it be? I can pay when I get there.'],['m3',at(11,3,4),'Please keep it a secret, my partner reads WhatsApp.'],['m4',at(11,9,0),'On Saturday after 10am please.'],['m5',at(20,8,0),'Thank you for our room, the flowers are beautiful. Can I confirm it will be the cake tomorrow?'],['m6',at(21,4,0),'We are out now, thank you'],['m7',at(21,9,0),'Could we extend our stay for another 2 nights?']].map(([id,received,guest_text])=>({id,received,guest_text,kind:'guest',guest_name:'Synthetic Guest'}));
+const thread={id:'t',property_id:P,channel:'booking',booking_id:'5990000999'};
+check('Simulation answers each turn in context and groups messages sent minutes apart',()=>{
+ const turns=sim.simulateConversation({thread,events:conv,stay:{checkIn:'2026-10-20',checkOut:'2026-10-23',sourceId:'',conflict:false},templates:[]});
+ const replies=turns.filter(t=>t.role==='hotel');assert.equal(turns.filter(t=>t.role==='guest').length,7);assert.equal(replies.length,6,'m2 and m3 answered together');
+ const [r1,r2,r3,r4,r5,r6]=replies.map(r=>r.text);
+ assert.match(r1,/Happy early anniversary/);assert.match(r1,/bathtub depend on availability/);
+ assert.match(r2,/arrival around 16:00\. Check-in is from 14:00/);assert.match(r2,/a small cake and flowers/);assert.match(r2,/the 21st morning/);assert.match(r2,/pay at the hotel/);assert.match(r2,/surprise is still safe/);assert.match(r2,/share the number/);
+ assert.doesNotMatch(r2,/Happy early/,'congratulated once, in the first turn');
+ assert.match(r3,/place the surprise in your room on Saturday, after 10am/);
+ assert.match(r4,/delighted you like the room/);assert.match(r4,/Noted: a small cake for the surprise/);assert.doesNotMatch(r4,/flowers/);
+ assert.equal(r5,'Thank you for letting us know. Have a wonderful day!');
+ assert.match(r6,/check availability for 2 more nights/);
+ for(const r of replies){assert.doesNotMatch(r.text,/\d{1,3}[.,]\d{3}|VND|đ\b/);assert.doesNotMatch(r.text,/look forward to welcoming/);}
+});
+check('Key points summarise arrival, occasion, room, money, booking change and stay status',()=>{
+ const facts=prof.ruleProfileWithHistory(conv).facts;
+ const points=kp.guestKeyPoints(conv,facts),text=points.map(p=>`${p.topic}: ${p.text} ${p.day}`).join('\n');
+ assert.match(text,/Giờ đến: Khoảng 16:00/);assert.match(text,/Dịp đặc biệt: Kỷ niệm: bánh nhỏ, hoa · đặt vào phòng ngày 21, thứ Bảy, sau 10am/);
+ assert.match(text,/Yêu cầu phòng: Muốn phòng có bồn tắm/);assert.match(text,/Thanh toán: Muốn thanh toán tại khách sạn/);
+ assert.match(text,/Đổi booking: Hỏi gia hạn thêm 2 ngày/);assert.match(text,/Liên hệ: Nhắc WhatsApp nhưng chưa để số/);assert.match(text,/Tình trạng: Khách đã nhận phòng 20\/10/);
+});
+check('Children and dates are not invented from English words ("be", "tomorrow")',()=>{
+ const c=ta.constraintsOf('Would you be able to prepare it tomorrow? We will be there at 3pm.');assert.equal(c.children,false);assert.equal(c.date,'');
+ assert.equal(ta.constraintsOf('Chúng tôi đi cùng 2 bé.').children,true);
+});
 console.log(JSON.stringify({passed,scope:'hotel services: extranet branch, tour WhatsApp branch, contact, presentation, quote products'}));

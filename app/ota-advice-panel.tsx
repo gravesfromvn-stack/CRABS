@@ -22,8 +22,8 @@ export function OtaAdvicePanel({view}:{view:AdviceView}){
  const c=a?.constraints;
  const given=c?([['Ngày',c.date],['Số người',c.party],['Trẻ em',c.children?(c.childAges.length?c.childAges.join(', ')+' tuổi':'Có · chưa rõ tuổi'):''],['Đi lại',c.mobility],['Thời gian rảnh',c.halfDay],['Ngân sách',c.budget],['Ưu tiên',c.preference],['Hành lý',c.luggage],['Đi nhiều ngày',c.multiDay?'Có':'']] as [string,string][]).filter(([,v])=>v):[];
  const decisions=(a?.internal||[]).filter(x=>/Cua|Cần|không|KHÔNG|chưa/.test(x));
- return <section className="ota-advice" aria-label="Tư vấn nội bộ">
-  <div className="ota-advice-head"><ShieldCheck size={15}/><strong>Tư vấn nội bộ</strong><span>Chỉ Cua xem · không gửi khách · {a?.catalogVersion||''}</span></div>
+ return <details className="ota-advice" aria-label="Tư vấn nội bộ" open={Boolean(tourTalk||contact)}>
+  <summary className="ota-advice-head"><ShieldCheck size={15}/><strong>Tư vấn nội bộ · dịch vụ & tour</strong><span>Chỉ Cua xem · không gửi khách · bấm để mở/thu gọn</span></summary>
   <div className="ota-advice-grid">
    {a&&<div><h4>Khách đã cho</h4>{given.length?<dl>{given.map(([k,v])=><div key={k}><dt>{k}</dt><dd>{v}</dd></div>)}</dl>:<p className="muted">Chưa có ngày, số người hay ràng buộc.</p>}
     {a.destinations.length>0&&<p>Điểm đến: {a.destinations.map(d=>d.label.vi).join(', ')} · {statusLabel[a.status]}</p>}
@@ -54,5 +54,5 @@ export function OtaAdvicePanel({view}:{view:AdviceView}){
    {o.internal.sourceUrl&&<a href={o.internal.sourceUrl} target="_blank" rel="noopener noreferrer">Nguồn</a>}
   </article>)}</div>}
   {a?.transport?.some(t=>t.rows.length)&&<div className="ota-advice-options"><h4>Xe tham khảo (lịch mẫu, chưa phải chỗ trống)</h4>{a.transport.filter(t=>t.rows.length).map(t=><details key={t.place}><summary>{t.place} · {t.rows.length} dòng</summary><table><thead><tr><th>Nhà xe / hạng</th><th>Giờ chạy (mẫu)</th><th>Thời lượng · đón</th><th>Mức nguồn</th></tr></thead><tbody>{t.rows.map(r=><tr key={r.id}><td>{r.id} · {r.supplier} · {r.vehicleClass}</td><td>{r.departures}</td><td>{r.duration}{r.pickup?' · '+r.pickup:''}</td><td>{r.price||'—'}</td></tr>)}</tbody></table><ul>{[...new Set(t.rows.flatMap(r=>r.cautions))].map(x=><li key={x}>{x}</li>)}</ul></details>)}</div>}
- </section>;
+ </details>;
 }

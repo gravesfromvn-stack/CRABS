@@ -13,6 +13,7 @@ import {hotelKnowledge} from '../../../lib/luxe-knowledge';
 import {approvedAmounts,policyFor} from '../../../lib/hotel-policy-config';
 import {guestContact} from '../../../lib/guest-contact';
 import {whatsappTourMessage} from '../../../lib/service-replies';
+import {simulateConversation} from '../../../lib/conversation-sim';
 export const dynamic='force-dynamic';
 const res=(d:unknown,status=200)=>Response.json(d,{status,headers:{'Cache-Control':'no-store'}});
 const mutations=z.discriminatedUnion('action',[
@@ -49,7 +50,7 @@ export async function GET(request:Request){
  const u=await getChatGPTUser();if(!u)return res({error:'Vui lòng đăng nhập.'},401);
  try{
  const db=env.DB!,q=new URL(request.url).searchParams,id=q.get('id');
- if(id){if(id.startsWith('event:')){const e=await db.prepare('SELECT * FROM ota_events WHERE owner=? AND id=?').bind(u.userId,id.slice(6)).first<OtaEvent>();if(!e)return res({error:'Không tìm thấy email.'},404);const {owner:_,...event}=e;return res({event});}const s=await threadState(db,u.userId,id,(env as unknown as Record<string,string>).OPENAI_API_KEY);if(!s)return res({error:'Không tìm thấy hội thoại.'},404);return res({...s,...await guidance(db,u.userId,s)});}
+ if(id){if(id.startsWith('event:')){const e=await db.prepare('SELECT * FROM ota_events WHERE owner=? AND id=?').bind(u.userId,id.slice(6)).first<OtaEvent>();if(!e)return res({error:'Không tìm thấy email.'},404);const {owner:_,...event}=e;return res({event});}const s=await threadState(db,u.userId,id,(env as unknown as Record<string,string>).OPENAI_API_KEY);if(!s)return res({error:'Không tìm thấy hội thoại.'},404);if(q.get('simulate')==='1')return res({simulation:simulateConversation({thread:s.thread,events:s.events,stay:s.stay,templates:await activeTemplates(db,u.userId)})});return res({...s,...await guidance(db,u.userId,s)});}
  const account=await db.prepare('SELECT mailbox,created,last_received FROM ota_mailbox WHERE owner=?').bind(u.userId).first();
  const counts=await db.prepare('SELECT status,COUNT(*) AS count FROM ota_events WHERE owner=? GROUP BY status').bind(u.userId).all();
  const queue=q.get('queue')||'review',offset=Math.max(0,Math.min(100000,Number(q.get('offset'))||0)),search=(q.get('search')||'').slice(0,100),property=q.get('property')||'',channel=q.get('channel')||'';

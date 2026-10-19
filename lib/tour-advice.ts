@@ -53,11 +53,13 @@ function asWritten(text:string,match:string){
 }
 export function constraintsOf(text:string):Constraints{
  const n=normalize(text);
- const children=/\b(?:child(?:ren)?|kids?|son|daughter|baby|toddler|infant|tre em|be\b|con (?:trai|gai|nho))/.test(n);
+ // "bé" loses its accent in normalized text; only count it in Vietnamese phrasing ("2 bé", "bé trai"),
+ // never the English verb "be".
+ const children=/\b(?:child(?:ren)?|kids?|son|daughter|baby|toddler|infant|tre em|con (?:trai|gai|nho))\b|\b(?:\d+|hai|ba|cac|mot) be\b|\bbe (?:trai|gai|nho|\d)/.test(n);
  const childAges=[...n.matchAll(/(?:aged?|ages?)\s*(\d{1,2})(?:\s*(?:and|,|&)\s*(\d{1,2}))?|(\d{1,2})\s*(?:-|\s)?(?:years?[ -]old|yo\b|y\/o|tuoi)/g)].flatMap(m=>[m[1],m[2],m[3]].filter(Boolean).map(Number)).filter(a=>a<18);
  const mobility=(n.match(/(?:knee|hip|back) (?:problem|issue|injur\w*|pain)|bad knees?|wheelchair|walking stick|limited mobility|can(?:'|no)t (?:walk|climb)|cannot (?:walk|climb)|not (?:able|fit) to (?:walk|climb)|difficult(?:y)? (?:walking|climbing)|elderly|old parents|pregnan\w*|dau (?:goi|lung)|nguoi gia|khong leo|xe lan|mang thai/)||[''])[0];
  // The latest mention wins, so "change to 28 October" replaces an earlier date.
- const date=([...n.matchAll(new RegExp(`\\b(?:on |for )?(\\d{1,2})(?:st|nd|rd|th)?\\s+(?:of\\s+)?(?:${monthRe})\\b|\\b(?:${monthRe})\\s+\\d{1,2}(?:st|nd|rd|th)?\\b|\\b\\d{1,2}[/.]\\d{1,2}(?![.\\d])|\\b(?:tomorrow|ngay mai)\\b`,'g'))].at(-1)||[''])[0].trim().replace(/^(?:on|for)\s+/,'');
+ const date=([...n.matchAll(new RegExp(`\\b(?:on |for )?(\\d{1,2})(?:st|nd|rd|th)?\\s+(?:of\\s+)?(?:${monthRe})\\b|\\b(?:${monthRe})\\s+\\d{1,2}(?:st|nd|rd|th)?\\b|\\b\\d{1,2}[/.]\\d{1,2}(?![.\\d])`,'g'))].at(-1)||[''])[0].trim().replace(/^(?:on|for)\s+/,'');
  const party=([...n.matchAll(/\b(\d{1,2}|two|three|four|five|six)\s+(?:adults?|people|persons|pax|guests|travell?ers|of us|nguoi(?: lon)?)\b/g)].at(-1)||[''])[0];
  const multiDay=/\b(?:2|3|two|three)\s*(?:days?|d)\b|overnight|2d1n|3d2n|night on (?:the|a) (?:boat|cruise)|ngu dem|2 ngay|3 ngay/.test(n);
  // Time window the guest has; a full-day programme does not fit "only the afternoon".

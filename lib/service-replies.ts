@@ -1,4 +1,4 @@
-import {normalize,type GuestFact} from './ota-profile';
+import {normalize,clockTimes,type GuestFact} from './ota-profile';
 import {policyFor,formatMoney,chooseVehicle} from './hotel-policy-config';
 
 // Two reply branches for OTA messages:
@@ -6,20 +6,29 @@ import {policyFor,formatMoney,chooseVehicle} from './hotel-policy-config';
 //     check-out, hotel times): the draft states the configured, approved terms so Cua can copy it.
 //  2. Tours: suggest the route (tour-advice) and ask for WhatsApp to send the detailed itinerary.
 // Amounts appear only when the configuration marks them approved.
-export type ServiceNeed='early_checkin'|'late_checkout'|'hotel_times'|'transfer'|'spa'|'tour_whatsapp';
-export type ServiceReply={needs:ServiceNeed[];paragraphs:string[];internal:string[];transferParagraph?:string};
+export type ServiceNeed='early_checkin'|'late_checkout'|'hotel_times'|'transfer'|'spa'|'tour_whatsapp'|'occasion'|'room_feature'|'payment'|'extension'|'thanks'|'arrival'|'contact';
+export type ServiceReply={needs:ServiceNeed[];paragraphs:string[];internal:string[];transferParagraph?:string;vi?:boolean};
 
 const partySize=(text:string)=>{const m=text.match(/\b(\d{1,2})\s*(?:adults?|people|persons|pax|guests|nguoi(?: lon)?|khach)\b/)||text.match(/\b(two|three|four|five|six)\s+(?:adults?|people|persons|of us)\b/);if(!m)return 0;const map:Record<string,number>={two:2,three:3,four:4,five:5,six:6};return map[m[1]]??Number(m[1]);};
 const luggageCount=(text:string)=>{const m=text.match(/\b(\d{1,2}|two|three|four|five|six)\s+(?:suitcases?|bags?|luggage|pieces of luggage|vali|kien hanh ly)\b/);if(!m)return 0;const map:Record<string,number>={two:2,three:3,four:4,five:5,six:6};return map[m[1]]??Number(m[1]);};
 
-export function serviceReply(input:{propertyId:string;text:string;facts:GuestFact[];vi:boolean;tourInterested:boolean;hasContact:boolean;tourPlaces?:string[]}):ServiceReply{
- const p=policyFor(input.propertyId),out:ServiceReply={needs:[],paragraphs:[],internal:[]};
+// history: earlier guest messages of the conversation, to read short follow-ups in context
+// (e.g. "On Friday after 9am please" after a surprise request).
+export function serviceReply(input:{propertyId:string;text:string;facts:GuestFact[];vi:boolean;tourInterested:boolean;hasContact:boolean;tourPlaces?:string[];history?:string}):ServiceReply{
+ const p=policyFor(input.propertyId),out:ServiceReply={needs:[],paragraphs:[],internal:[],vi:input.vi};
  if(!p)return out;
- const n=normalize(input.text),vi=input.vi,k=vi?'vi':'en';
+ const n=normalize(input.text),vi=input.vi,k=vi?'vi':'en',h=normalize(input.history||'');
  // Complaints and cancellations get no service offers.
  if(/complain|refund|cancel|khieu nai|hoan tien|huy phong|not happy|disappoint/.test(n))return out;
  const blocked=(c:'pickup'|'dropoff')=>input.facts.some(f=>f.category===c&&['declined','own_transport','deferred','arranged_by_guest'].includes(f.status));
- const stayCheckIn=input.facts.some(f=>f.category==='stay'&&f.status==='requested'&&/check.?in|nhan phong/.test(normalize(f.summary+' '+f.sources[0].quote)));
+ // Facts said in this message (not earlier ones), so answers are not repeated every turn.
+ const saidNow=(f:GuestFact)=>f.sources.some(s=>n.includes(normalize(s.quote).slice(0,40)));
+ const stayCheckIn=input.facts.some(f=>f.category==='stay'&&f.status==='requested'&&saidNow(f)&&/check.?in|nhan phong/.test(normalize(f.summary+' '+f.sources[0].quote)));
+ // Arrival time given in this message: acknowledge it against the hotel's check-in time.
+ const arrival=input.facts.filter(f=>f.category==='arrival'&&saidNow(f)).at(-1);
+ const arrivalAt=arrival?(clockTimes(arrival.summary)[0]||clockTimes(arrival.sources[0].quote)[0]||''):'';
+ if(arrivalAt){out.needs.push('arrival');const early=arrivalAt<p.checkIn&&!stayCheckIn;
+  out.paragraphs.push(vi?`Mình đã ghi nhận bạn đến khoảng ${arrivalAt}. Giờ nhận phòng từ ${p.checkIn}${early?`; nếu muốn vào phòng sớm hơn, khách sạn sẽ kiểm tra phòng trống trong ngày (nhận phòng sớm có phụ thu ${p.earlyCheckIn.fee.vi})`:''}.`:`We have noted your arrival around ${arrivalAt}. Check-in is from ${p.checkIn}${early?`; if you would like the room earlier, we will check availability on the day (early check-in is ${p.earlyCheckIn.fee.en})`:''}.`);}
  const early=stayCheckIn||/early check.?in|check.?in (?:early|earlier)|arrive early|nhan phong som/.test(n);
  const late=/late check.?out|check.?out (?:late|later)|tra phong muon|stay (?:until|till) \d|keep (?:the|our) room/.test(n);
  const times=/what time (?:is|can we|do we) check.?(?:in|out)|check.?(?:in|out) time|gio (?:nhan|tra) phong|nhan phong (?:luc|tu) may gio/.test(n);
@@ -62,6 +71,58 @@ export function serviceReply(input:{propertyId:string;text:string;facts:GuestFac
   }
  }
 
+ // In-stay requests: answered warmly, nothing promised or priced until the team has checked.
+ const itemDefs:[string,string,string][]=[['balloon|bong bay','balloons','bóng bay'],['cake|banh (?:sinh nhat|kem)','a small cake','bánh nhỏ'],['bath bomb|bath cosmetic','bath cosmetics','đồ tắm thư giãn'],['flower|hoa tuoi|bo hoa','flowers','hoa']];
+ const itemsIn=(t:string)=>itemDefs.filter(([re])=>new RegExp(re).test(t)).map(([,en,v])=>vi?v:en);
+ const joinList=(a:string[])=>a.join(vi?', ':', ').replace(/, ([^,]*)$/,vi?' và $1':' and $1');
+ // A confirmation question names exactly what the guest wants confirmed; other items in the
+ // message may be praise for what was already done ("the balloons are fab").
+ const sentences=n.split(/(?<=[.!?])\s+/);
+ const confirmSentence=sentences.find(s=>/(?:can i|could you|please) confirm|to confirm|is it still/.test(s)&&itemsIn(s).length);
+ const items=confirmSentence?itemsIn(confirmSentence):itemsIn(n);
+ // "He deleted the message so it didn't spoil the surprise" is about secrecy, not a new request.
+ const secrecy=/spoil|secret|surprise (?:is )?safe|didnt read|deleted the message|bi mat/.test(n);
+ const occasionNow=!secrecy&&/birthday|anniversary|honeymoon|sinh nhat|ky niem|trang mat|surprise|bat ngo/.test(n)||items.length>0;
+ const occasionBefore=/birthday|anniversary|honeymoon|sinh nhat|ky niem|surprise|bat ngo|balloon|cake/.test(h);
+ const whenRe=/\b(?:on|for) the \d{1,2}(?:st|nd|rd|th)?(?: morning| afternoon| evening)?\b|\b(?:on )?(?:monday|tuesday|wednesday|thursday|friday|saturday|sunday)(?: morning| afternoon| evening)?\b|after \d{1,2}(?:[:.]\d{2})?\s?(?:am|pm)\b|\bthe \d{1,2}(?:st|nd|rd|th) morning\b|\bngay \d{1,2}\b/g;
+ const found=[...new Set((n.match(whenRe)||[]).map(x=>x.replace(/^(?:on|for) /,'')))];
+ const day=(s:string)=>s.replace(/\b(monday|tuesday|wednesday|thursday|friday|saturday|sunday)\b/,w=>w[0].toUpperCase()+w.slice(1));
+ // Keep the most specific mention ("the 16th morning" over "the 16th").
+ const when=found.filter(x=>!found.some(y=>y!==x&&y.includes(x))).map(day).join(', ');
+ // Praise for what the hotel already did, not a polite "that's lovely" to an offer.
+ const praise=/(?:room|balloon|decoration|cake|surprise)[^.!?]{0,30}\b(?:lovely|fab|perfect|beautiful|amazing|wonderful)|(?:lovely|fab|perfect|beautiful|amazing|wonderful)[^.!?]{0,20}\b(?:room|balloon|decoration)|thank you for (?:our|the) room/.test(n);
+ if(occasionNow||(occasionBefore&&when)){out.needs.push('occasion');
+  const kind=/anniversary|ky niem/.test(n)?(vi?'kỷ niệm':'anniversary'):/honeymoon|trang mat/.test(n)?(vi?'tuần trăng mật':'honeymoon'):/birthday|sinh nhat/.test(n)?(vi?'sinh nhật':'birthday'):'';
+  const firstTime=!occasionBefore;
+  const thanksFor=praise?(vi?'Rất vui vì bạn thích phòng và phần trang trí! ':'We are delighted you like the room and the decorations! '):'';
+  const at=when?(vi?` (${when})`:` (${when})`):'';
+  if(confirmSentence&&items.length)out.paragraphs.push(thanksFor+(vi?`Mình đã ghi nhận ${joinList(items)} cho bất ngờ${at}; lễ tân sẽ xác nhận lại với bộ phận chuẩn bị và báo bạn.`:`Noted: ${joinList(items)} for the surprise${at}. Our team will double-check the arrangement and confirm with you.`));
+  else if(!firstTime&&items.length)out.paragraphs.push(thanksFor+(vi?`Mình đã ghi nhận ${joinList(items)} cho bất ngờ${at}. Lễ tân sẽ báo bạn chi phí sớm nhất.`:`Of course: we have noted ${joinList(items)} for the surprise${at}. We will confirm the cost with you shortly.`));
+  else if(!firstTime&&when)out.paragraphs.push(thanksFor+(vi?`Mình đã ghi nhận thời gian đặt bất ngờ vào phòng: ${when}, khi bạn ra ngoài.`:`Noted: we will place the surprise in your room on ${when}, while you are out.`));
+  else if(!firstTime)out.paragraphs.push(thanksFor+(vi?'Mình đã ghi nhận yêu cầu cho bất ngờ của bạn.':'Noted for the surprise.'));
+  else out.paragraphs.push(thanksFor+(vi?`${kind?`Chúc mừng ${kind} sớm! `:''}Khách sạn rất vui được chuẩn bị bất ngờ nhỏ trong phòng${items.length?` gồm ${joinList(items)}`:' (ví dụ bóng bay, bánh nhỏ, đồ tắm thư giãn)'}${at}. Mình sẽ xác nhận lại món chuẩn bị và chi phí trước khi thực hiện.`:`${kind?`Happy early ${kind}! `:''}We would be glad to prepare a small surprise in your room${items.length?` with ${joinList(items)}`:', for example balloons, a small cake and bath cosmetics'}${at}. We will confirm the items and the cost with you before arranging it.`));
+  out.internal.push('Dịp đặc biệt: chưa có gói/giá trang trí trong cấu hình; Cua chốt món, giờ đặt vào phòng và chi phí.');
+ }
+ // The guest mentions WhatsApp without a number, or asks to keep a surprise secret.
+ if(/whats ?app/.test(n)&&!input.hasContact){out.needs.push('contact');
+  out.paragraphs.push(vi?'Cảm ơn bạn đã báo. Mình sẽ tiếp tục trao đổi tại đây trên tin nhắn đặt phòng; nếu bạn muốn dùng WhatsApp, bạn cho mình xin đúng số cần liên hệ nhé.':'Thank you for letting us know. We will keep replying here on the booking messages; if you prefer WhatsApp, please share the number you would like us to use.');}
+ if(secrecy){out.needs.push('occasion');
+  out.paragraphs.push(vi?'Thật tốt là bất ngờ vẫn được giữ kín! Mình sẽ chỉ trao đổi chi tiết với bạn tại đây.':'Glad the surprise is still safe! We will keep all the details between us here.');}
+ if(/bath ?tub|bon tam/.test(n)){out.needs.push('room_feature');
+  out.paragraphs.push(vi?'Phòng có bồn tắm tùy tình trạng phòng trong ngày bạn ở; khách sạn sẽ kiểm tra và báo lại phòng có thể bố trí.':'Rooms with a bathtub depend on availability for your dates; we will check and let you know which room we can offer.');}
+ if(/pay (?:when|once) (?:i|we) (?:get|arrive)|pay (?:on|upon) arrival|pay at (?:the )?(?:hotel|reception|check.?in)|can i pay (?:when|there|at)|thanh toan (?:khi|tai) (?:den|khach san|le tan)/.test(n)){out.needs.push('payment');
+  out.paragraphs.push(vi?'Mình đã ghi nhận bạn muốn thanh toán tại khách sạn; lễ tân sẽ xác nhận cùng với chi phí dịch vụ.':'We have noted that you would like to pay at the hotel; our reception will confirm this together with the cost of the extras.');}
+ const ext=n.match(/extend(?:ed|ing)? (?:our|my|the) stay(?: for)?(?: another| an extra)? (\d+|one|two|three|four|five) (?:more )?(?:days?|nights?)|another (\d+|one|two|three|four|five) (?:days?|nights?)|(\d+|one|two|three|four|five) (?:more|extra) (?:days?|nights?)|gia han|o them (\d+) (?:dem|ngay)/);
+ if(ext||/extend(?:ed|ing)? (?:our|my|the) stay|stay longer/.test(n)){out.needs.push('extension');const count=ext?.slice(1).find(Boolean)||'';
+  out.paragraphs.push(vi?`Mình sẽ kiểm tra phòng trống${count?` cho ${count} đêm thêm`:' cho các đêm thêm'} và gửi bạn giá phòng; khi bạn đồng ý, mình hướng dẫn cách gia hạn trên đặt phòng hiện tại.`:`We will check availability${count?` for ${count} more nights`:' for the extra nights'} and send you the room rate; once you are happy with it, we will guide you on extending your current reservation.`);
+  out.internal.push('Gia hạn lưu trú: kiểm tra phòng trống và giá trên OTA/PMS; không báo giá trong nháp khi chưa có giá.');
+ }
+ // Thanks or a simple update with nothing else to answer: a short, warm acknowledgement.
+ if(!out.needs.length&&!input.tourInterested){
+  const thanks=/thank|perfect|lovely|wonderful|great|cam on|tuyet voi/.test(n),update=/we are (?:out|leaving|back|on our way)|out now|just landed|we have arrived|da den|dang ra ngoai/.test(n);
+  if(thanks||update){out.needs.push('thanks');
+   out.paragraphs.push(vi?(update?'Cảm ơn bạn đã báo. Chúc bạn một ngày thật vui!':'Rất vui vì bạn hài lòng. Chúc bạn có kỳ nghỉ thật đáng nhớ!'):(update?'Thank you for letting us know. Have a wonderful day!':'You are very welcome; we are so glad you are enjoying your stay. Have a lovely time!'));}
+ }
  if(input.tourInterested&&p.tours.whatsappAsk){out.needs.push('tour_whatsapp');
   const ranges=p.tours.products.filter(t=>t.approved&&t.fromPrice!==null&&(input.tourPlaces||[]).some(pl=>normalize(pl).includes(normalize(t.place))||normalize(t.place).includes(normalize(pl))));
   const priceLine=ranges.map(t=>vi?`${t.title.vi}: từ ${formatMoney(t.fromPrice!,vi)}/${t.unit}.`:`${t.title.en}: from ${formatMoney(t.fromPrice!,vi)} per person.`).join(' ');
@@ -100,6 +161,10 @@ export function applyServiceReply(body:string,s:ServiceReply):string{
  if(s.transferParagraph){const generic=/(?:For your airport transfer,|Về xe sân bay,)[\s\S]*?(?=\n\n|$)/;if(generic.test(out)){out=out.replace(generic,s.transferParagraph);extra=extra.filter(x=>x!==s.transferParagraph);}}
  // Keep the reply on what the guest asked: drop the generic "would you like a pick-up?" question
  // whenever a service or tour paragraph answers the guest (at most the date/WhatsApp questions remain).
- if(s.needs.length)out=out.split('\n\n').filter(x=>!/^(?:Would you like us to arrange an airport|Bạn có cần mình hỗ trợ xe)/.test(x)).join('\n\n');
+ // The specific arrival acknowledgement replaces the generic one; a "plans in Hanoi?" question is
+ // left out while the guest is asking about something else.
+ if(s.needs.length)out=out.split('\n\n').filter(x=>!/^(?:Would you like us to arrange an airport|Bạn có cần mình hỗ trợ xe|Do you have any places you would like to visit|Bạn có muốn đi đâu)/.test(x)&&!(s.needs.includes('arrival')&&/^(?:I have noted the arrival details you provided|Mình đã ghi nhận thông tin về việc đến khách sạn)/.test(x))).join('\n\n');
+ // A reply made only of service paragraphs still opens with a greeting, except a short thank-you.
+ if(!out.trim()&&!(s.needs.length===1&&s.needs[0]==='thanks'))out=s.vi?'Chào bạn, cảm ơn bạn đã nhắn tin.':'Hello, thank you for your message.';
  return [out,...extra].filter(Boolean).join('\n\n');
 }

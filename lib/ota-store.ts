@@ -46,7 +46,7 @@ export async function prepareDraft(db:D1Database,owner:string,id:string,profileK
  const lastSent=s.sent.map(x=>x.created).sort().at(-1)||'';
  const openText=s.events.filter(e=>e.kind==='guest'&&e.guest_text&&e.received>lastSent).map(e=>e.guest_text).join('\n');
  const contact=guestContact(s.events.filter(e=>e.kind==='guest').map(e=>e.guest_text||''));
- const service=serviceReply({propertyId:s.thread.property_id,text:openText,facts:s.profile.facts,vi,tourInterested:s.tour.status==='interested',hasContact:Boolean(contact),tourPlaces:s.tour.destinations.map(d=>d.label.vi)});
+ const service=serviceReply({propertyId:s.thread.property_id,text:openText,facts:s.profile.facts,vi,tourInterested:s.tour.status==='interested',hasContact:Boolean(contact),tourPlaces:s.tour.destinations.map(d=>d.label.vi),history:s.events.filter(e=>e.kind==='guest'&&e.guest_text&&e.received<=lastSent).map(e=>e.guest_text).join('\n')});
  const plan=planReply({...s,tourParagraph:tourParagraph(s.tour,vi),serviceInfo:service.paragraphs.join('\n\n')},await activeTemplates(db,owner));
  // No template fits: keep the automatic draft's text but refresh why it needs Cua (e.g. a template now
  // exists but does not cover this case). A template suggestion that no longer fits goes back to Cua.

@@ -151,6 +151,9 @@ export function renderTemplate(t:Template,f:ThreadFacts):Rendered{
   const offers={pickup:pick||generic&&!drop,dropoff:drop||generic&&!pick};
   if(offers.pickup&&!offerOpen('pickup')||offers.dropoff&&!offerOpen('dropoff')){problems.push('Mẫu vẫn mời xe dù khách đã từ chối, tự di chuyển hoặc muốn để sau.');break;}
  }
+ // A pre-arrival welcome must not go to a guest who has already checked in.
+ const lastAt=classifyOpenMessages(f).open.at(-1)?.received||'';
+ if(f.stay?.checkIn&&!f.stay.conflict&&lastAt.slice(0,10)>f.stay.checkIn&&/look forward to (?:welcoming|having|seeing) you|mong (?:duoc )?(?:don|gap)/.test(n))problems.push('Khách đã nhận phòng: không dùng lời chào trước khi đến.');
  if(!offerOpen('tour')&&new RegExp('(?:'+offering+'|interested in|recommend|goi y).{0,80}(?:tour|sightseeing|trip|tham quan)').test(n))problems.push('Mẫu vẫn mời tour dù khách muốn bàn sau hoặc từ chối.');
  // Approved configured service terms may carry prices; everything else in the template may not.
  const checked=(f.serviceInfo?body.split(f.serviceInfo).join(' '):body);
