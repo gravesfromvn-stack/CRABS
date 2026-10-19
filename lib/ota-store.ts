@@ -7,7 +7,8 @@ import {hotelKnowledge} from './luxe-knowledge';
 import {planReply,isAutoDraft,draftSource} from './ota-templates';
 import {activeTemplates} from './ota-template-store';
 import {serviceReply,applyServiceReply} from './service-replies';
-import {approvedAmounts} from './hotel-policy-config';
+import {loadCatalog} from './service-catalog-store';
+import {catalogApprovedAmounts} from './service-catalog';
 import {guestContact} from './guest-contact';
 export type OtaEvent={owner:string;id:string;mailbox:string;gmail_thread:string;internet_id:string;subject:string;sender:string;received:string;imported:string;full_text:string;guest_text:string;channel:string;booking_id:string;property_id:string;property_label:string;guest_name:string;kind:string;reason:string;authenticated:number;status:string;thread_id:string;resolved_by:string};
 export type OtaDraft={thread_id:string;revision:number;operation_id:string;context_key:string;body:string;notes:string;status:string;created:string;approved_at:string|null;sent_at:string|null;source:string;template_id:string;template_version:number;attention:string};
@@ -23,10 +24,12 @@ export async function threadState(db:D1Database,owner:string,id:string,profileKe
  const guestEvents=events.results.filter(e=>e.kind==='guest'&&e.guest_text),rules=ruleProfileWithHistory(guestEvents);
  // What the hotel last said (sent, else the latest approved draft) tells what a short "Yes" confirms.
  const lastOutgoing=sent.results.at(-1)?.body||drafts.results.find(d=>d.status==='approved'||d.status==='sent')?.body||'';
- const tour=tourAdvice({propertyId:thread.property_id,facts:rules.facts,text:guestEvents.map(e=>e.guest_text).join('\n'),latestText:guestEvents.at(-1)?.guest_text||'',lastOutgoing,stayStart:threadStay(events.results).checkIn});
+ // Prices and approvals come from the service catalog (one source for OTA, quotes and tour library).
+ const catalog=await loadCatalog(db,owner);
+ const tour=tourAdvice({catalog,propertyId:thread.property_id,facts:rules.facts,text:guestEvents.map(e=>e.guest_text).join('\n'),latestText:guestEvents.at(-1)?.guest_text||'',lastOutgoing,stayStart:threadStay(events.results).checkIn});
  const profile=await guestProfile(db,owner,id,contextKey,events.results,profileKey,fetch,{guestName:events.results.at(-1)?.guest_name,property:properties.find(p=>p.id===thread.property_id)?.name,stay:threadStay(events.results),sent:sent.results,sourceNotes:(drafts.results[0]?.notes||'').split('\nNguồn và lưu ý trước đó:\n').at(-1),knowledge:thread.property_id==='luxe-75pht'?hotelKnowledge.filter(x=>x.title!=='Cơ sở & nguồn'):[],tourKnowledge:tourKnowledgeForAI(tour)});
  // A draft built on tour sources that have since changed needs review like a draft with a new guest message.
- return {thread,stay:threadStay(events.results),profile:{...profile,history:rules.history},tour,events:events.results.map(({owner:_,...e})=>e),drafts:drafts.results.map(d=>({...d,stale:(d.context_key!==contextKey||usesStaleTourData(d.notes))&&d.status!=='sent'})),sent:sent.results,contextKey};
+ return {catalog,thread,stay:threadStay(events.results),profile:{...profile,history:rules.history},tour,events:events.results.map(({owner:_,...e})=>e),drafts:drafts.results.map(d=>({...d,stale:(d.context_key!==contextKey||usesStaleTourData(d.notes))&&d.status!=='sent'})),sent:sent.results,contextKey};
 }
 export type PrepareResult={result:'missing'|'no_guest_text'|'answered'|'kept'|'kept_cua_edit'|'flagged'|'created'|'duplicate';source?:string;template?:string};
 // Prepares the next draft for a conversation. With refresh, an automatic draft for the
@@ -46,7 +49,7 @@ export async function prepareDraft(db:D1Database,owner:string,id:string,profileK
  const lastSent=s.sent.map(x=>x.created).sort().at(-1)||'';
  const openText=s.events.filter(e=>e.kind==='guest'&&e.guest_text&&e.received>lastSent).map(e=>e.guest_text).join('\n');
  const contact=guestContact(s.events.filter(e=>e.kind==='guest').map(e=>e.guest_text||''));
- const service=serviceReply({propertyId:s.thread.property_id,text:openText,facts:s.profile.facts,vi,tourInterested:s.tour.status==='interested',hasContact:Boolean(contact),tourPlaces:s.tour.destinations.map(d=>d.label.vi),history:s.events.filter(e=>e.kind==='guest'&&e.guest_text&&e.received<=lastSent).map(e=>e.guest_text).join('\n')});
+ const service=serviceReply({catalog:s.catalog,propertyId:s.thread.property_id,text:openText,facts:s.profile.facts,vi,tourInterested:s.tour.status==='interested',hasContact:Boolean(contact),tourPlaces:s.tour.destinations.map(d=>d.label.vi),history:s.events.filter(e=>e.kind==='guest'&&e.guest_text&&e.received<=lastSent).map(e=>e.guest_text).join('\n')});
  const plan=planReply({...s,tourParagraph:tourParagraph(s.tour,vi),serviceInfo:service.paragraphs.join('\n\n')},await activeTemplates(db,owner));
  // No template fits: keep the automatic draft's text but refresh why it needs Cua (e.g. a template now
  // exists but does not cover this case). A template suggestion that no longer fits goes back to Cua.
@@ -74,7 +77,7 @@ export async function prepareDraft(db:D1Database,owner:string,id:string,profileK
  else reasons.push(...(s.tour.intent?.notes||[]));
  // Check the guest-facing text before saving: repeated questions, prices, promises, merged packages.
  const c=constraintsOf(s.events.filter(e=>e.kind==='guest').map(e=>e.guest_text).join('\n'));
- for(const p of guestDraftProblems(draft.body,{facts:s.profile.facts,advice:s.tour,known:{date:!!c.date,party:!!c.party},allowedAmounts:approvedAmounts(s.thread.property_id)}))reasons.push('Kiểm tra nháp: '+p.text);
+ for(const p of guestDraftProblems(draft.body,{facts:s.profile.facts,advice:s.tour,known:{date:!!c.date,party:!!c.party},allowedAmounts:catalogApprovedAmounts(s.catalog,s.thread.property_id)}))reasons.push('Kiểm tra nháp: '+p.text);
  // One operation id per context and source makes reprocessing the same facts a no-op.
  const operation=draft.source==='template'?`tpl-${id}-${s.contextKey}-${draft.templateId}-v${draft.templateVersion}`:'auto-'+id+'-'+s.contextKey;
  const r=await db.prepare('INSERT OR IGNORE INTO ota_drafts (owner,thread_id,revision,operation_id,context_key,body,notes,status,created,source,template_id,template_version,attention) SELECT ?,?,COALESCE((SELECT MAX(revision) FROM ota_drafts WHERE owner=? AND thread_id=?),0)+1,?,?,?,?,?,?,?,?,?,?').bind(owner,id,owner,id,operation,s.contextKey,draft.body,draft.notes,draft.body?'pending':'needs_writing',now,draft.source,draft.templateId,draft.templateVersion,reasons.join('\n')).run();

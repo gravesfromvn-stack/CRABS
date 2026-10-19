@@ -1,10 +1,11 @@
 import type { Reception } from './reception';
 import { z } from 'zod';
-import { quoteProducts as products, isSourceProduct, type QuoteSourceSnapshot } from './quote-sources';
+import { isSourceProduct, isDemoProduct, findQuoteProduct, type QuoteSourceSnapshot } from './quote-sources';
+import { quoteReady, findEntry, type CatalogEntry } from './service-catalog';
 import { findServiceProduct } from './hotel-policy-config';
 const day=z.string().refine(v=>/^\d{4}-\d{2}-\d{2}$/.test(v)&&!isNaN(Date.parse(v))&&new Date(v).toISOString().slice(0,10)===v,'Ngày không hợp lệ');
 const amount=z.number().int().min(0).max(1000000000);
-export const lineSchema=z.object({productId:z.string().refine(v=>products.some(p=>p.id===v)),date:day,quantity:z.number().int().min(1).max(100),passengers:z.number().int().min(1).max(100),price:amount.nullable(),cost:amount.nullable(),commission:amount.nullable(),extraCost:amount,discount:amount,details:z.string().trim().max(1000)}).superRefine((l,c)=>{if(l.price!==null&&l.discount>l.price*l.quantity)c.addIssue({code:'custom',message:'Giảm giá vượt giá bán'});if(!isSourceProduct(l.productId)&&[l.price,l.cost,l.commission].includes(null))c.addIssue({code:'custom',message:'Giá mẫu cần đủ số liệu'});});
+export const lineSchema=z.object({productId:z.string().min(1).max(120),date:day,quantity:z.number().int().min(1).max(100),passengers:z.number().int().min(1).max(100),price:amount.nullable(),cost:amount.nullable(),commission:amount.nullable(),extraCost:amount,discount:amount,details:z.string().trim().max(1000)}).superRefine((l,c)=>{if(l.price!==null&&l.discount>l.price*l.quantity)c.addIssue({code:'custom',message:'Giảm giá vượt giá bán'});if(isDemoProduct(l.productId)&&[l.price,l.cost,l.commission].includes(null))c.addIssue({code:'custom',message:'Giá mẫu cần đủ số liệu'});});
 export const quoteInput=z.object({lines:z.array(lineSchema).min(1).max(20),validUntil:day,conditions:z.string().trim().min(10).max(3000),missing:z.string().trim().max(2000),childrenPolicy:z.string().trim().max(1000),demoPriceConfirmed:z.boolean()});
 export type QuoteInput=z.infer<typeof quoteInput>;
 export type QuoteLine=z.infer<typeof lineSchema>;
@@ -16,16 +17,23 @@ export function totals(lines:QuoteLine[]){
  const sale=sum('price'),cost=sum('cost'),commission=sum('commission'),extra=lines.reduce((a,l)=>a+l.extraCost,0),discount=lines.reduce((a,l)=>a+l.discount,0);
  return {sale,cost,commission,extra,discount,profit:sale===null||cost===null||commission===null?null:sale-cost-commission-extra};
 }
-export function approvalIssues(p:QuotePayload,today:string){const issues:string[]=[];if(!p.demoPriceConfirmed)issues.push('Xác nhận đã kiểm tra giá mẫu cho demo.');if(p.missing)issues.push('Giải quyết thông tin còn thiếu trước khi duyệt.');if(p.validUntil<today)issues.push('Báo giá đã hết hiệu lực.');if(p.children&&!p.childrenPolicy)issues.push('Ghi chính sách và cách tính trẻ em; không tự áp giá người lớn.');for(const l of p.lines){
- const product=products.find(v=>v.id===l.productId);
- if(l.productId.startsWith('HS-')&&isSourceProduct(l.productId)){issues.push(`${l.title}: dịch vụ khách sạn chưa đủ cấu hình (duyệt, giá bán, giá vốn, hoa hồng) trong lib/hotel-policy-config.json. Chỉ lưu nháp; chưa duyệt/copy.`);}
+const catalogGaps=(e:CatalogEntry)=>[e.status!=='APPROVED'&&'duyệt giá',e.sellingPrice===null&&'giá bán',e.netCost===null&&'giá vốn',e.commission===null&&'hoa hồng',e.currency!=='VND'&&'giá VND'].filter(Boolean).join(', ');
+// catalog: the service catalog at approval time; its entries decide readiness, price and validity.
+export function approvalIssues(p:QuotePayload,today:string,catalog?:CatalogEntry[]){const issues:string[]=[];if(!p.demoPriceConfirmed)issues.push('Xác nhận đã kiểm tra giá mẫu cho demo.');if(p.missing)issues.push('Giải quyết thông tin còn thiếu trước khi duyệt.');if(p.validUntil<today)issues.push('Báo giá đã hết hiệu lực.');if(p.children&&!p.childrenPolicy)issues.push('Ghi chính sách và cách tính trẻ em; không tự áp giá người lớn.');for(const l of p.lines){
+ const product=findQuoteProduct(l.productId,catalog),entry=findEntry(catalog,l.productId);
+ if(entry){
+  if(!quoteReady(entry))issues.push(`${l.title}: kho dịch vụ còn thiếu ${catalogGaps(entry)}. Chỉ lưu nháp; chưa duyệt/copy.`);
+  else{if(entry.validUntil&&l.date>entry.validUntil)issues.push(`${l.title}: ngày nằm ngoài hiệu lực giá (đến ${entry.validUntil}).`);if(l.price!==entry.sellingPrice)issues.push(`${l.title}: giá bán khác giá đã duyệt trong kho (${entry.sellingPrice!.toLocaleString('vi-VN')}đ).`);}
+ }
+ else if(catalog&&!isDemoProduct(l.productId))issues.push(`${l.title}: không còn trong kho dịch vụ.`);
+ else if(l.productId.startsWith('HS-')&&isSourceProduct(l.productId)){issues.push(`${l.title}: dịch vụ khách sạn chưa đủ cấu hình (duyệt, giá bán, giá vốn, hoa hồng) trong lib/hotel-policy-config.json. Chỉ lưu nháp; chưa duyệt/copy.`);}
  else if(isSourceProduct(l.productId)||l.reference){issues.push(`${l.title}: nguồn tham khảo 75PHT đang chờ Cua xác nhận giá, đơn vị, cơ sở, hiệu lực và điều kiện. Chỉ lưu nháp; chưa duyệt/copy.`);}
  else if(!product||l.date<today||l.date>product.validUntil)issues.push(`${l.title}: ngày nằm ngoài hiệu lực giá mẫu.`);
  if(l.date<today)issues.push(`${l.title}: ngày dịch vụ đã qua.`);
  if(p.validUntil>l.date)issues.push('Hiệu lực báo giá không được sau ngày dịch vụ.');
  if(l.price===null||l.cost===null||l.price===0||l.cost===0)issues.push(`${l.title}: thiếu giá bán hoặc giá vốn.`);
  if(l.commission===null)issues.push(`${l.title}: hoa hồng chưa được xác nhận; chưa tính lãi.`);
- if(l.kind==='transfer'){if(!l.details)issues.push(`${l.title}: cần chuyến bay/giờ đón, điểm đón/trả và hành lý.`);if(!isSourceProduct(l.productId)){const capacity=findServiceProduct(l.productId)?.capacity??(l.productId==='X01'?3:5);if(l.passengers>capacity*l.quantity)issues.push(`${l.title}: số khách vượt sức chứa xe mẫu.`);}}
+ if(l.kind==='transfer'){if(!l.details)issues.push(`${l.title}: cần chuyến bay/giờ đón, điểm đón/trả và hành lý.`);if(!isSourceProduct(l.productId,catalog)){const capacity=entry?.capacity??findServiceProduct(l.productId)?.capacity??(l.productId==='X01'?3:5);if(l.passengers>capacity*l.quantity)issues.push(`${l.title}: số khách vượt sức chứa xe mẫu.`);}}
  }const profit=totals(p.lines).profit;if(profit!==null&&profit<0)issues.push('Lãi dự kiến âm; điều chỉnh báo giá trước khi duyệt.');return [...new Set(issues)];}
 export const quoteCommand=z.discriminatedUnion('action',[
  z.object({action:z.literal('save'),operationId:z.string().uuid(),id:z.string().uuid(),contactId:z.string().min(1).max(100),expectedRevision:z.number().int().min(0),contactVersion:z.number().int().positive(),quote:quoteInput}),

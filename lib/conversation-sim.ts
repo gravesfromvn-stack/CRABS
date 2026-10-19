@@ -4,6 +4,7 @@ import {tourAdvice,applyTourAdvice,tourParagraph,guestDraftProblems} from './tou
 import {placesIn} from './rate-catalog';
 import {serviceReply,applyServiceReply} from './service-replies';
 import {approvedAmounts} from './hotel-policy-config';
+import {catalogApprovedAmounts,type CatalogEntry} from './service-catalog';
 import {guestContact} from './guest-contact';
 import {planReply,type Template} from './ota-templates';
 import type {Stay} from './ota-stay';
@@ -16,7 +17,7 @@ type Ev={id:string;guest_text:string;received:string;kind:string;guest_name?:str
 const vietnamese=(s:string)=>/[ăâđêôơư]|\b(toi|minh|ban|khach san|san bay)\b/i.test(s);
 const later=(iso:string,minutes:number)=>new Date(Date.parse(iso)+minutes*60000).toISOString();
 
-export function simulateConversation(input:{thread:{id:string;property_id:string;channel:string;booking_id:string};events:Ev[];stay?:Stay;templates:Template[]}):ChatTurn[]{
+export function simulateConversation(input:{catalog?:CatalogEntry[];thread:{id:string;property_id:string;channel:string;booking_id:string};events:Ev[];stay?:Stay;templates:Template[]}):ChatTurn[]{
  const guest=input.events.filter(e=>e.kind==='guest'&&e.guest_text).sort((a,b)=>a.received.localeCompare(b.received));
  const turns:ChatTurn[]=[];const sent:{body:string;created:string}[]=[];
  // Messages sent a few minutes apart are one turn: the hotel answers them together.
@@ -30,11 +31,11 @@ export function simulateConversation(input:{thread:{id:string;property_id:string
   const history=guest.slice(0,seen-group.length).map(x=>x.guest_text).join('\n');
   const facts=ruleProfileWithHistory(prior).facts;
   const profile:GuestProfile={facts,method:'rules',updated:'',sourceKey:'simulation',warning:''};
-  const advice=tourAdvice({propertyId:input.thread.property_id,facts,text:prior.map(x=>x.guest_text).join('\n'),latestText:text,lastOutgoing:sent.at(-1)?.body||'',stayStart:input.stay?.checkIn});
+  const advice=tourAdvice({catalog:input.catalog,propertyId:input.thread.property_id,facts,text:prior.map(x=>x.guest_text).join('\n'),latestText:text,lastOutgoing:sent.at(-1)?.body||'',stayStart:input.stay?.checkIn});
   // Tour content only when this message talks about a trip; earlier tour interest is not repeated.
   const tourNow=advice.status==='interested'&&(placesIn(text).length>0||/\btour|trip|sightsee|excursion|cruise|tham quan|lich trinh/.test(normalize(text)));
   const contact=guestContact(prior.map(x=>x.guest_text));
-  const service=serviceReply({propertyId:input.thread.property_id,text,facts,vi,tourInterested:tourNow,hasContact:Boolean(contact),tourPlaces:advice.destinations.map(d=>d.label.vi),history});
+  const service=serviceReply({catalog:input.catalog,propertyId:input.thread.property_id,text,facts,vi,tourInterested:tourNow,hasContact:Boolean(contact),tourPlaces:advice.destinations.map(d=>d.label.vi),history});
   const plan=planReply({thread:input.thread,events:prior,sent,stay:input.stay,profile,tourParagraph:tourNow?tourParagraph(advice,vi):'',serviceInfo:service.paragraphs.join('\n\n')},input.templates);
   let body='',source:ChatTurn['source']='rules';const notes:string[]=[];
   if(plan.template&&plan.body){body=plan.body;source='template';}
@@ -46,7 +47,7 @@ export function simulateConversation(input:{thread:{id:string;property_id:string
   }
   if(!body){body=vi?'Cảm ơn bạn đã nhắn tin. Lễ tân sẽ kiểm tra và phản hồi bạn sớm.':'Thank you for your message. Our reception team will check and get back to you shortly.';source='fallback';notes.push('Chưa có quy tắc/mẫu cho nội dung này: Cua soạn câu trả lời thật.');}
   notes.push(...service.internal);
-  for(const p of guestDraftProblems(body,{facts,advice,allowedAmounts:approvedAmounts(input.thread.property_id)}))notes.push((p.hard?'Chặn duyệt: ':'Lưu ý: ')+p.text);
+  for(const p of guestDraftProblems(body,{facts,advice,allowedAmounts:input.catalog?catalogApprovedAmounts(input.catalog,input.thread.property_id):approvedAmounts(input.thread.property_id)}))notes.push((p.hard?'Chặn duyệt: ':'Lưu ý: ')+p.text);
   const at=later(e.received,15);
   turns.push({role:'hotel',text:body,at,kind:'simulated',source,template:plan.template?.title,notes:[...new Set(notes)]});
   sent.push({body,created:at});

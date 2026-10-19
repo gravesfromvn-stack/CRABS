@@ -3,6 +3,7 @@ import {findQuoteSource,sourceRules,sourceReadAt,type SourceItem} from './quote-
 import {findTourResearch,tourResearch,type TourResearch} from './tour-research';
 import {rateCatalog,catalogItems,findCatalogItem,catalogVersion,priceStatus,placesIn,searchTours,transportFor,durationEn,classEn,includesTransportFromHanoi,type CatalogItem} from './rate-catalog';
 import {readIntent,type IntentRead} from './guest-intent';
+import {catalogTourApproval,type CatalogEntry} from './service-catalog';
 
 // Picks at most two sourced tour options for one conversation and turns them into guest-facing
 // content that never states a price. Source texts (email, Sheets, websites) are data only.
@@ -70,7 +71,7 @@ export function constraintsOf(text:string):Constraints{
  return {children,childAges,mobility,date:asWritten(text,date),party:asWritten(text,party),multiDay,mentions:destinations.filter(d=>d.re.test(n)).map(d=>d.label.en),halfDay,budget,preference,luggage};
 }
 
-export type TourOption={id:string;title:string;guestName:Line|null;kind:'researched'|'draft'|'catalog';approvedPrice?:{price:number;unit:string;from:string;until:string}|null;variants?:{id:string;title:string;price:string;status:string}[];transportIncluded?:boolean;readAt:string;verification:string;why:string;guestFacts:Line[];considerations:Line[];internal:{prices:{label:string;amount:number|null;currency:string;scope:string}[];priceStatus:string;gaps:string[];notes:string[];sourceUrl:string;sheetRange:string}};
+export type TourOption={id:string;title:string;guestName:Line|null;kind:'researched'|'draft'|'catalog';approvedPrice?:{price:number;currency?:string;unit:string;from:string;until:string}|null;variants?:{id:string;title:string;price:string;status:string}[];transportIncluded?:boolean;readAt:string;verification:string;why:string;guestFacts:Line[];considerations:Line[];internal:{prices:{label:string;amount:number|null;currency:string;scope:string}[];priceStatus:string;gaps:string[];notes:string[];sourceUrl:string;sheetRange:string}};
 export type TourAdvice={destinations:{key:Destination;label:{en:string;vi:string}}[];status:'none'|'interested'|'deferred'|'declined';constraints:Constraints;options:TourOption[];guestAllowed:boolean;questions:Line[];rules:{id:string;title:string;text:string}[];internal:string[];
  intent?:IntentRead;serviceDate?:string;transport?:{place:string;rows:ReturnType<typeof transportFor>}[];priceAsked?:boolean;catalogVersion?:string};
 
@@ -84,8 +85,16 @@ export function serviceDateOf(date:string,refYear=new Date().getFullYear()):stri
  return d&&m>=1&&m<=12?`${refYear}-${String(m).padStart(2,'0')}-${String(d).padStart(2,'0')}`:'';
 }
 // Option from the imported workbook: content from title/duration/route only; prices stay internal.
-function catalogOption(i:CatalogItem,why:string,ctx:{propertyId:string;serviceDate:string}):TourOption{
- const place=placesIn([i.title,i.route].join(' '))[0]||i.group,ps=priceStatus(i,ctx),dur=durationEn(i.duration),cls=classEn(i.title);
+type AdviceCtx={propertyId:string;serviceDate:string;catalog?:CatalogEntry[]};
+// The service catalog decides the price when it has the item; otherwise the workbook approval record.
+function priceOf(i:CatalogItem,ctx:AdviceCtx){
+ const c=catalogTourApproval(ctx.catalog,i.id,ctx);
+ if(!c){const ps=priceStatus(i,ctx);return {...ps,approved:ps.approved?{...ps.approved,currency:'VND'}:null};}
+ return {quotable:!!c.approved,label:c.approved?'Giá đã duyệt':'Tham khảo · Cần Cua chốt giá',reasons:c.reasons,approved:c.approved};
+}
+const archivedIn=(ctx:AdviceCtx,i:CatalogItem)=>!!catalogTourApproval(ctx.catalog,i.id,ctx)?.archived;
+function catalogOption(i:CatalogItem,why:string,ctx:AdviceCtx):TourOption{
+ const place=placesIn([i.title,i.route].join(' '))[0]||i.group,ps=priceOf(i,ctx),dur=durationEn(i.duration),cls=classEn(i.title);
  const plain=place.normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/đ/g,'d').replace(/Đ/g,'D');
  const nameEn=`${plain}${dur?' '+dur:''} tour${cls?' ('+cls+')':''}`;
  const base=i.baseRouteId?findCatalogItem(i.baseRouteId):null;
@@ -96,8 +105,8 @@ function catalogOption(i:CatalogItem,why:string,ctx:{propertyId:string;serviceDa
   internal:{prices:i.sourcePrice.amounts.length?i.sourcePrice.amounts.map(a=>({label:i.sourcePrice.raw,amount:a.amount,currency:a.currency||'',scope:i.sourcePrice.unit})):[{label:i.sourcePrice.raw||'Chưa có giá',amount:null,currency:'',scope:i.sourcePrice.unit}],priceStatus:`${ps.label}${ps.reasons.length?': '+ps.reasons.join('; '):''}`,gaps:[...i.toConfirm,...i.classification.issues],notes:[i.includes&&'Bao gồm (nguồn): '+i.includes,i.excludes&&'Chưa gồm (nguồn): '+i.excludes,i.children&&'Trẻ em (nguồn): '+i.children].filter(Boolean) as string[],sourceUrl:i.comparison?.tourUrl||i.evidence[0]?.url||'',sheetRange:i.refs.map(r=>r.range).join(', ')}};
 }
 // All workbook variants linked to a researched product (e.g. NB01–NB04, HL01 vs HL02), never merged.
-function variantsFor(crmId:string,ctx:{propertyId:string;serviceDate:string}){
- return catalogItems.filter(i=>i.crmIds.includes(crmId)).map(i=>{const ps=priceStatus(i,ctx);return {id:i.id,title:i.title,price:i.sourcePrice.raw||'Chưa có giá',status:ps.label+(ps.reasons.length?' · '+ps.reasons[0]:'')};});
+function variantsFor(crmId:string,ctx:AdviceCtx){
+ return catalogItems.filter(i=>i.crmIds.includes(crmId)&&!archivedIn(ctx,i)).map(i=>{const ps=priceOf(i,ctx);return {id:i.id,title:i.title,price:ps.approved?`${ps.approved.price.toLocaleString('vi-VN')}${ps.approved.currency==='USD'?' USD':'đ'} / ${ps.approved.unit}`:i.sourcePrice.raw||'Chưa có giá',status:ps.label+(ps.reasons.length?' · '+ps.reasons[0]:'')};});
 }
 
 function researched(id:string,why:string):TourOption|null{
@@ -114,7 +123,7 @@ function draftItinerary(id:string,why:string):TourOption|null{
 
 // facts: current guest profile; text: all guest messages of this conversation (latest last).
 const transportAsk=/\b(?:bus|buses|sleeper|coach|limousine (?:bus|van)?\s*to|shuttle bus|train to|how (?:can|do|to|should) (?:we |i )?(?:get|go|travel) to|transport(?:ation)? to|xe (?:khach|giuong nam|di|toi)|di chuyen (?:den|toi|len|xuong))\b/;
-export function tourAdvice(input:{propertyId:string;facts:GuestFact[];text:string;stayStart?:string;latestText?:string;lastOutgoing?:string}):TourAdvice{
+export function tourAdvice(input:{catalog?:CatalogEntry[];propertyId:string;facts:GuestFact[];text:string;stayStart?:string;latestText?:string;lastOutgoing?:string}):TourAdvice{
  const itinerary=input.facts.filter(f=>f.category==='itinerary');
  const n=normalize(input.text),c=constraintsOf(input.text),latest=input.latestText??input.text.split('\n').at(-1)??'';
  const found=destinations.filter(d=>d.re.test(n)),places=placesIn(input.text);
@@ -131,8 +140,8 @@ export function tourAdvice(input:{propertyId:string;facts:GuestFact[];text:strin
  if(status!=='interested')return advice;
  // Every sourced programme here is a full day or longer: none fits a guest who is free only part of the day.
  if(c.halfDay){advice.internal.push(`Khách chỉ rảnh một phần ngày ("${c.halfDay}"): các chương trình có nguồn đều cả ngày trở lên nên không đề xuất như thể khách đi được. Cua chọn hoạt động ngắn phù hợp.`);return advice;}
- const ctx={propertyId:input.propertyId,serviceDate};
- const add=(o:TourOption|null)=>{if(o&&advice.options.length<3&&!advice.options.some(x=>x.id===o.id)){if(o.kind==='researched')o.variants=variantsFor(o.id,ctx);advice.options.push(o);}};
+ const ctx:AdviceCtx={propertyId:input.propertyId,serviceDate,catalog:input.catalog};
+ const add=(o:TourOption|null)=>{if(o&&advice.options.length<3&&!advice.options.some(x=>x.id===o.id)){if(o.kind==='researched'){o.variants=variantsFor(o.id,ctx);const ok=o.variants.filter(v=>v.status==='Giá đã duyệt');if(ok.length)o.internal.priceStatus=`Giá đã duyệt theo hạng (Kho dịch vụ): ${ok.map(v=>v.id+' '+v.price).join('; ')}. Tour tư vấn qua WhatsApp: chốt hạng với khách rồi mới báo giá.`;}advice.options.push(o);}};
  const nb=found.some(d=>d.key==='ninh_binh'),hl=found.some(d=>d.key==='ha_long');
  if(nb&&hl&&c.multiDay)add(researched('R75-TST-036','Khách nêu cả Ninh Bình và Hạ Long, đi nhiều ngày'));
  if(nb){
@@ -144,8 +153,8 @@ export function tourAdvice(input:{propertyId:string;facts:GuestFact[];text:strin
  if(found.some(d=>d.key==='hanoi_city'))add(researched('R75-TST-003','Khách quan tâm tour Hà Nội'));
  // Places without a curated programme: options from the imported workbook (never merged, never Klook as our supplier).
  for(const p of places.filter(p=>!/ninh binh|ha long/.test(normalize(p)))){
-  let hits=searchTours({places:[p],multiDay:c.multiDay,halfDay:Boolean(c.halfDay),preference:c.preference});
-  if(!hits.length)hits=searchTours({places:[p],multiDay:!c.multiDay,halfDay:Boolean(c.halfDay),preference:c.preference});
+  let hits=searchTours({places:[p],multiDay:c.multiDay,halfDay:Boolean(c.halfDay),preference:c.preference}).filter(i=>!archivedIn(ctx,i));
+  if(!hits.length)hits=searchTours({places:[p],multiDay:!c.multiDay,halfDay:Boolean(c.halfDay),preference:c.preference}).filter(i=>!archivedIn(ctx,i));
   for(const i of hits.slice(0,2))add(catalogOption(i,`Khách nêu ${p}; ${i.duration||'thời lượng chưa rõ'}${i.variant?' · '+i.variant:''}`,ctx));
  }
  for(const [re,id] of otherDrafts)if(re.test(n)&&!advice.options.length)add(draftItinerary(id,'Khách nêu điểm đến này; chỉ có lịch Draft'));
@@ -181,7 +190,7 @@ export function tourParagraph(a:TourAdvice,vi:boolean):string{
    if(o.id==='R75-TST-021'&&a.constraints.mobility)parts.push(vi?'Vì bạn có nhắc đến việc hạn chế đi lại, mình sẽ kiểm tra trước phương án phù hợp với chặng leo Hang Múa rồi báo lại để bạn quyết định.':'As you mentioned limited mobility, we will check a suitable arrangement for the Mua Cave climb first and let you decide.');
   }else if(o.kind==='catalog'&&o.guestName){
    parts.push((vi?`Với ${o.guestName.vi}: `:`${catalogShown++?'Another':'One'} option is the ${o.guestName.en}. `)+o.guestFacts.map(f=>f[k]).join(' ')+(o.considerations.length?' '+o.considerations.map(f=>f[k]).join(' '):''));
-   if(o.approvedPrice)parts.push(vi?`Giá: ${o.approvedPrice.price.toLocaleString('vi-VN')} VND / ${o.approvedPrice.unit} cho ngày bạn đi.`:`Price: ${o.approvedPrice.price.toLocaleString('en-US')} VND per ${o.approvedPrice.unit} for your date.`);
+   if(o.approvedPrice){const cur=o.approvedPrice.currency||'VND',unitEn=/khách|người|pax/i.test(o.approvedPrice.unit)?'person':o.approvedPrice.unit;parts.push(vi?`Giá: ${o.approvedPrice.price.toLocaleString('vi-VN')} ${cur} / ${o.approvedPrice.unit} cho ngày bạn đi.`:`Price: ${o.approvedPrice.price.toLocaleString('en-US')} ${cur} per ${unitEn} for your date.`);}
   }else parts.push(vi?`Mình có thể gửi bạn một lịch trình gợi ý cho ${o.title}; nhà cung cấp, quyền lợi và giá cụ thể sẽ được kiểm tra trước khi bạn quyết định.`:`We can share a suggested itinerary for this destination; the operator, inclusions and price will be checked before you decide.`);
  }
  // Transport: no departure list (sample schedules are not availability); skip if a tour already includes it.

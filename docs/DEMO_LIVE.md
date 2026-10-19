@@ -33,6 +33,33 @@ Bản chạy local `http://localhost:5173`, nhánh `integration/claude-travis`.
 - Dữ liệu lưu và ô nhập liệu không đổi. Bật/tắt sẽ tải lại trang.
 - Khi trình diễn, nên mở **6 hội thoại tổng hợp** (khách "Demo Guest …", booking `59919001xx`) thay cho email thật.
 
+## Kho dịch vụ & bảng giá (một nguồn giá)
+
+- Menu "Kho dịch vụ & giá" có 322 mục, gộp từ ba nguồn:
+  - workbook 6 tab (`lib/rate-catalog.json`);
+  - các dòng R75 (`lib/quote-source-data.json`) và 5 sản phẩm đã đối chiếu website;
+  - cấu hình khách sạn (`lib/hotel-policy-config.json`).
+- Seed được tạo lại bằng lệnh `node scripts/build-service-catalog.mjs`, ghi ra `lib/service-catalog-seed.json`.
+  - Seed nạp vào D1 (bảng `service_catalog`, migration 0011) trong lần đọc đầu tiên.
+  - Seed mới chỉ thêm mã chưa có, không ghi đè giá Cua đã sửa.
+- Mã R75, XE… đã gộp vẫn tra được và trỏ về mục mới. Ví dụ: XE01 → `HS-luxe-75pht-car4-pickup`, R75-TOUR-OCT-5 → NB05.
+- Trạng thái:
+  - **Đã duyệt giá:** được điền số tiền vào nháp OTA và báo giá.
+  - **Chỉ tham khảo:** tư vấn nội dung, không báo giá.
+  - **Lưu trữ:** ẩn khỏi tư vấn. HT06, HT13, CH05 và các tour mẫu cũ trong cấu hình nằm ở đây.
+- Đã duyệt ngày 19/10:
+  - 6 chiều xe sân bay 75PHT;
+  - NB01–NB04, HL01–HL02, HN01, HN02, HN04 (Jeep), HT03 (Sa Pa, 255 USD);
+  - 6 quy định phòng (nhận sớm, trả muộn, gia hạn).
+- **Còn thiếu:**
+  - Giá Spa: chưa nguồn nào có. 12 mục Spa đang "Chỉ tham khảo"; nhập giá rồi bấm Duyệt.
+  - Giá vốn và hoa hồng của các mục đã duyệt. Báo giá chỉ duyệt được khi mục có đủ giá bán, giá vốn, hoa hồng và tính bằng VND.
+- Dữ liệu dùng chung:
+  - Hộp thư OTA: bộ kiểm tra giá, giá xe/spa, giá tour theo hạng hiện trong bảng tư vấn. Tour vẫn qua WhatsApp, nháp OTA không ghi giá tour.
+  - Báo giá: chọn dịch vụ từ kho; khi duyệt, kiểm tra giá bán đúng giá đã duyệt.
+  - Tour & dịch vụ: trạng thái và giá lấy từ kho.
+- Báo giá đã duyệt có nút "Tạo việc lễ tân" cho từng dịch vụ. Việc mới mở ở trạng thái khách đang tìm hiểu, nhà cung cấp chưa kiểm tra.
+
 ## Khách xin gia hạn trực tiếp
 
 - Khi tin chưa trả lời có ý gia hạn ("extend", "4 more nights", "ở thêm"…), khung nháp hiện "Báo giá gia hạn trực tiếp".
@@ -44,7 +71,7 @@ Bản chạy local `http://localhost:5173`, nhánh `integration/claude-travis`.
 - Cách dùng: chọn phương án, bấm "Chèn vào nháp", đọc lại, bấm Lưu nháp rồi Duyệt.
   - Số tiền được ghi vào ghi chú nháp dưới dạng `[Giá Cua tính: …]`, nên bước kiểm tra giá cho duyệt.
   - Giá không có ghi chú này vẫn bị chặn.
-- Câu gửi khách có viết "còn phòng". Cua cần kiểm tra phòng trống trước khi chèn. Duyệt không có nghĩa là đã gửi hay đã giữ phòng.
+- Câu gửi khách viết "tùy tình trạng phòng trống" và hứa kiểm tra rồi xác nhận lại, không khẳng định còn phòng. Duyệt không có nghĩa là đã gửi hay đã giữ phòng.
 
 ## Dữ liệu mẫu (đã nạp)
 

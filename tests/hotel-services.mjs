@@ -133,6 +133,7 @@ check('Direct extension: keep booked rate, or current OTA rate minus 10%, with e
  assert.equal(r.perNight[2].otaMinus,1350000);
  const keep=ext.extensionMessage(input,r,'keep',false);assert.match(keep.text,/1,200,000 VND per night, 4,800,000 VND in total for 4 nights/);assert.match(keep.text,/check-out 21\/10/);
  const minus=ext.extensionMessage(input,r,'ota_minus',false);assert.match(minus.text,/10% below the current online rate/);assert.match(minus.text,/19\/10: 1,350,000 VND/);assert.match(minus.text,/4,995,000 VND in total/);
+ for(const m of [keep,minus]){assert.match(m.text,/^Subject to availability/);assert.match(m.text,/check availability and confirm with you before holding the room/);assert.doesNotMatch(m.text,/We have availability/);}
  for(const m of [keep,minus])assert.deepEqual(ta.guestDraftProblems(m.text,{facts:[],allowedAmounts:m.amounts}).filter(p=>p.hard),[],'Cua-computed amounts pass');
  assert.ok(ta.guestDraftProblems(minus.text,{facts:[]}).some(p=>p.hard),'without the recorded amounts the price is blocked');
  const vi=ext.extensionMessage({...input,currentRates:[1350000]},ext.extensionQuote({...input,currentRates:[1350000]}),'ota_minus',true);assert.match(vi.text,/1\.215\.000đ\/đêm, tổng 4\.860\.000đ cho 4 đêm/);

@@ -1,5 +1,6 @@
 import {normalize,clockTimes,type GuestFact} from './ota-profile';
 import {policyFor,formatMoney,chooseVehicle} from './hotel-policy-config';
+import {catalogPolicy,type CatalogEntry} from './service-catalog';
 
 // Two reply branches for OTA messages:
 //  1. Services closed directly on the OTA extranet (airport car, spa, early check-in / late
@@ -14,8 +15,8 @@ const luggageCount=(text:string)=>{const m=text.match(/\b(\d{1,2}|two|three|four
 
 // history: earlier guest messages of the conversation, to read short follow-ups in context
 // (e.g. "On Friday after 9am please" after a surprise request).
-export function serviceReply(input:{propertyId:string;text:string;facts:GuestFact[];vi:boolean;tourInterested:boolean;hasContact:boolean;tourPlaces?:string[];history?:string}):ServiceReply{
- const p=policyFor(input.propertyId),out:ServiceReply={needs:[],paragraphs:[],internal:[],vi:input.vi};
+export function serviceReply(input:{catalog?:CatalogEntry[];propertyId:string;text:string;facts:GuestFact[];vi:boolean;tourInterested:boolean;hasContact:boolean;tourPlaces?:string[];history?:string}):ServiceReply{
+ const p=catalogPolicy(policyFor(input.propertyId),input.catalog,input.propertyId),out:ServiceReply={needs:[],paragraphs:[],internal:[],vi:input.vi};
  if(!p)return out;
  const n=normalize(input.text),vi=input.vi,k=vi?'vi':'en',h=normalize(input.history||'');
  // Complaints and cancellations get no service offers.

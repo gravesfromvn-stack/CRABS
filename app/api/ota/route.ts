@@ -10,7 +10,8 @@ import {guestDraftProblems,constraintsOf,tourKnowledgeForAI,tourEvidenceNote,typ
 import {threadStay} from '../../../lib/ota-stay';
 import {rewriteReply} from '../../../lib/ota-rewrite';
 import {hotelKnowledge} from '../../../lib/luxe-knowledge';
-import {approvedAmounts,policyFor} from '../../../lib/hotel-policy-config';
+import {policyFor} from '../../../lib/hotel-policy-config';
+import {catalogApprovedAmounts,catalogPolicy} from '../../../lib/service-catalog';
 import {guestContact} from '../../../lib/guest-contact';
 import {whatsappTourMessage} from '../../../lib/service-replies';
 import {simulateConversation} from '../../../lib/conversation-sim';
@@ -31,7 +32,7 @@ type State=NonNullable<Awaited<ReturnType<typeof threadState>>>;
 // Amounts Cua computed in the CRM (e.g. a direct extension rate) are recorded in the draft notes and allowed.
 const cuaAmountsMark=(a:number[])=>a.length?`[Giá Cua tính: ${a.join(',')}]\n`:'';
 const cuaAmountsIn=(notes='')=>(notes.match(/\[Giá Cua tính: ([\d,]+)\]/)?.[1]||'').split(',').filter(Boolean).map(Number);
-function draftChecks(s:State,body:string,notes=''):DraftProblem[]{const c=constraintsOf(s.events.filter(e=>e.kind==='guest').map(e=>e.guest_text).join('\n'));return guestDraftProblems(body,{facts:s.profile.facts,advice:s.tour,known:{date:!!c.date,party:!!c.party},allowedAmounts:[...approvedAmounts(s.thread.property_id),...cuaAmountsIn(notes)]});}
+function draftChecks(s:State,body:string,notes=''):DraftProblem[]{const c=constraintsOf(s.events.filter(e=>e.kind==='guest').map(e=>e.guest_text).join('\n'));return guestDraftProblems(body,{facts:s.profile.facts,advice:s.tour,known:{date:!!c.date,party:!!c.party},allowedAmounts:[...catalogApprovedAmounts(s.catalog,s.thread.property_id),...cuaAmountsIn(notes)]});}
 const attentionOf=(p:DraftProblem[])=>p.map(x=>'Kiểm tra nháp: '+x.text).join('\n');
 // Room/stay requests: status comes only from staff-recorded operations tasks, never from inference.
 const roomStatus:Record<string,string>={unchecked:'Khách yêu cầu · chưa kiểm tra',waiting:'Đang kiểm tra',confirmed:'Khách sạn xác nhận đáp ứng',unavailable:'Không đáp ứng được'};
@@ -54,13 +55,13 @@ async function guidance(db:D1Database,owner:string,s:State){
  // Ready-to-send WhatsApp text for tour follow-up: programme and classes first, no price.
  const lastGuest=s.events.filter(e=>e.kind==='guest'&&e.guest_text).at(-1);
  const whatsappMessage=s.tour.status==='interested'||contact?whatsappTourMessage(s.tour,lastGuest?.guest_name||'',/[ăâđêôơư]/i.test(lastGuest?.guest_text||'')):'';
- return {contact,whatsappMessage,extension,policy:policyFor(s.thread.property_id)||null,tour:s.tour,checks,roomTasks:await roomTasks(db,owner,s.thread.id),history:s.profile.history||[],plan:{situations:plan.situations.map(x=>({code:x,label:situationLabels[x]})),reasons:plan.reasons,template:plan.template?{id:plan.template.id,version:plan.template.version,title:plan.template.title}:null},prepared:latest?{revision:latest.revision,source:draftSource(latest),label:sourceLabels[draftSource(latest)],template:used?{id:used.id,version:used.version,title:used.title,approvedAt:used.approved_at,retired:Boolean(used.retired_at)}:null}:null,next:nextStep(latest,plan,answered)};
+ return {contact,whatsappMessage,extension,policy:catalogPolicy(policyFor(s.thread.property_id),s.catalog,s.thread.property_id)||null,tour:s.tour,checks,roomTasks:await roomTasks(db,owner,s.thread.id),history:s.profile.history||[],plan:{situations:plan.situations.map(x=>({code:x,label:situationLabels[x]})),reasons:plan.reasons,template:plan.template?{id:plan.template.id,version:plan.template.version,title:plan.template.title}:null},prepared:latest?{revision:latest.revision,source:draftSource(latest),label:sourceLabels[draftSource(latest)],template:used?{id:used.id,version:used.version,title:used.title,approvedAt:used.approved_at,retired:Boolean(used.retired_at)}:null}:null,next:nextStep(latest,plan,answered)};
 }
 export async function GET(request:Request){
  const u=await getChatGPTUser();if(!u)return res({error:'Vui lòng đăng nhập.'},401);
  try{
  const db=env.DB!,q=new URL(request.url).searchParams,id=q.get('id');
- if(id){if(id.startsWith('event:')){const e=await db.prepare('SELECT * FROM ota_events WHERE owner=? AND id=?').bind(u.userId,id.slice(6)).first<OtaEvent>();if(!e)return res({error:'Không tìm thấy email.'},404);const {owner:_,...event}=e;return res({event});}const s=await threadState(db,u.userId,id,(env as unknown as Record<string,string>).OPENAI_API_KEY);if(!s)return res({error:'Không tìm thấy hội thoại.'},404);if(q.get('simulate')==='1')return res({simulation:simulateConversation({thread:s.thread,events:s.events,stay:s.stay,templates:await activeTemplates(db,u.userId)})});return res({...s,...await guidance(db,u.userId,s)});}
+ if(id){if(id.startsWith('event:')){const e=await db.prepare('SELECT * FROM ota_events WHERE owner=? AND id=?').bind(u.userId,id.slice(6)).first<OtaEvent>();if(!e)return res({error:'Không tìm thấy email.'},404);const {owner:_,...event}=e;return res({event});}const s=await threadState(db,u.userId,id,(env as unknown as Record<string,string>).OPENAI_API_KEY);if(!s)return res({error:'Không tìm thấy hội thoại.'},404);if(q.get('simulate')==='1')return res({simulation:simulateConversation({catalog:s.catalog,thread:s.thread,events:s.events,stay:s.stay,templates:await activeTemplates(db,u.userId)})});const {catalog:_c,...state}=s;return res({...state,...await guidance(db,u.userId,s)});}
  const account=await db.prepare('SELECT mailbox,created,last_received FROM ota_mailbox WHERE owner=?').bind(u.userId).first();
  const counts=await db.prepare('SELECT status,COUNT(*) AS count FROM ota_events WHERE owner=? GROUP BY status').bind(u.userId).all();
  const queue=q.get('queue')||'review',offset=Math.max(0,Math.min(100000,Number(q.get('offset'))||0)),search=(q.get('search')||'').slice(0,100),property=q.get('property')||'',channel=q.get('channel')||'';
