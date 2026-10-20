@@ -5,10 +5,10 @@ import {readFileSync,readdirSync,mkdirSync} from 'node:fs';
 mkdirSync('.quote-tests/fdops',{recursive:true});
 // Synthetic messages only; ephemeral D1; no live database, no sends.
 const boundary={name:'ops-boundary',setup(b){b.onResolve({filter:/^cloudflare:workers$/},()=>({path:'env',namespace:'mock'}));b.onResolve({filter:/chatgpt-auth$/},()=>({path:'auth',namespace:'mock'}));b.onLoad({filter:/.*/,namespace:'mock'},a=>({contents:a.path==='env'?'export const env=globalThis.opsEnv;':'export async function getChatGPTUser(){return globalThis.opsUser;}',loader:'js'}));}};
-await build({entryPoints:{fd:'lib/front-desk.ts',tags:'lib/smart-tags.ts',replies:'lib/service-replies.ts',model:'lib/operations.ts',profile:'lib/ota-profile.ts',cat:'lib/service-catalog.ts',advice:'lib/tour-advice.ts',letters:'lib/apology-letters.ts',policy:'lib/hotel-policy-config.ts',api:'app/api/operations/route.ts',ota:'lib/ota-store.ts'},outdir:'.quote-tests/fdops',bundle:true,platform:'node',format:'esm',outExtension:{'.js':'.mjs'},plugins:[boundary]});
+await build({entryPoints:{chips:'app/ops-front-desk.tsx',fd:'lib/front-desk.ts',tags:'lib/smart-tags.ts',replies:'lib/service-replies.ts',model:'lib/operations.ts',profile:'lib/ota-profile.ts',cat:'lib/service-catalog.ts',advice:'lib/tour-advice.ts',letters:'lib/apology-letters.ts',policy:'lib/hotel-policy-config.ts',api:'app/api/operations/route.ts',ota:'lib/ota-store.ts'},outdir:'.quote-tests/fdops',bundle:true,platform:'node',format:'esm',outExtension:{'.js':'.mjs'},plugins:[boundary]});
 globalThis.opsEnv={};globalThis.opsUser={userId:'fd-owner'};// read by the bundled route at import time
 const m=n=>import(`../.quote-tests/fdops/${n}.mjs`);
-const [fd,tags,replies,model,profile,cat,advice,letters,policy,api,ota]=await Promise.all(['fd','tags','replies','model','profile','cat','advice','letters','policy','api','ota'].map(m));
+const [chips,fd,tags,replies,model,profile,cat,advice,letters,policy,api,ota]=await Promise.all(['chips','fd','tags','replies','model','profile','cat','advice','letters','policy','api','ota'].map(m));
 let passed=0;const check=async(name,fn)=>{await fn();console.log('PASS '+name);passed++;};
 const msg=(text,at='2026-10-19T01:00:00Z')=>({text,at});
 const hard=t=>advice.guestDraftProblems(t,{facts:[],allowedAmounts:cat.catalogApprovedAmounts(cat.seedEntries,'luxe-75pht')}).filter(p=>p.hard);
@@ -73,6 +73,11 @@ await check('Shifts and checklists by time and account view; cost visibility',()
  assert.deepEqual(['RECEPTIONIST','SALE','MANAGER','ADMIN'].map(fd.canSeeCost),[false,false,true,true]);
 });
 
+await check('Shift-log quick chips: five one-tap notes with matching categories; one hotline everywhere',()=>{
+ assert.deepEqual(chips.handoffChips.map(c=>c.label),['[+ Khách xin thêm gối/chăn]','[+ Dặn giờ dọn phòng]','[+ Đặt xe tiễn sân bay mai]','[+ Khách hỏi Tour -> Chuyển Saler]','[🚨 Phàn nàn điều hòa/nước yếu/ồn]']);
+ assert.deepEqual(chips.handoffChips.map(c=>c.category),['ROOM_REQUEST','ROOM_REQUEST','TRANSFER_SPA','TOUR_LEAD','COMPLAIN']);
+ for(const id of ['luxe-75pht','luxe-suites']){const p=policy.policyFor(id);assert.equal(p.frontDesk.hotline.whatsapp,'+84 896 867 575');assert.equal(p.frontDesk.letters.hotline,'+84 896 867 575');}
+});
 const mf=new Miniflare({modules:true,script:'export default {fetch(){return new Response("test")}}',compatibilityDate:'2026-05-15',d1Databases:['DB']});
 try{
  const db=await mf.getD1Database('DB');globalThis.opsEnv.DB=db;

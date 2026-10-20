@@ -63,3 +63,15 @@ export function HandoffMeta({h}:{h:Handoff}){
 export function TourSalesSwitch({on,busy,onFlag}:{on:boolean;busy:boolean;onFlag:Flag}){
  return <label className="ops-switch" title="Bật cho khách sạn nhỏ không có Saler OTA riêng"><input type="checkbox" role="switch" checked={on} disabled={busy} onChange={e=>onFlag('setting:allowReceptionistTourSales',e.target.checked?'true':'false',e.target.checked?'Đã BẬT: lễ tân tự tư vấn tour. Nháp mới dùng báo giá nhanh 3 tour.':'Đã TẮT: câu hỏi tour chuyển cho Saler.')}/><span><ShieldCheck size={14}/>Lễ tân tự bán tour: <strong>{on?'BẬT':'TẮT'}</strong></span></label>;
 }
+
+// One-tap notes for the shift log: fills the detail text and the matching category.
+export const handoffChips:{label:string;text:string;category:HandoffCategory}[]=[
+ {label:'[+ Khách xin thêm gối/chăn]',text:'Khách xin thêm gối/chăn: báo Buồng phòng mang lên phòng.',category:'ROOM_REQUEST'},
+ {label:'[+ Dặn giờ dọn phòng]',text:'Khách dặn giờ dọn phòng: … (ghi giờ khách muốn).',category:'ROOM_REQUEST'},
+ {label:'[+ Đặt xe tiễn sân bay mai]',text:'Khách đặt xe tiễn sân bay ngày mai: giờ đón … , số khách … , số vali … ; xác nhận với nhà xe.',category:'TRANSFER_SPA'},
+ {label:'[+ Khách hỏi Tour -> Chuyển Saler]',text:'Khách hỏi tour: đã chuyển Saler gửi lịch trình và báo giá.',category:'TOUR_LEAD'},
+ {label:'[🚨 Phàn nàn điều hòa/nước yếu/ồn]',text:'Khách phàn nàn (điều hòa / nước yếu / tiếng ồn): đã báo kỹ thuật xử lý trong 15 phút; Quản lý Lễ tân gọi lại khách.',category:'COMPLAIN'},
+];
+export function HandoffChips({onPick}:{onPick:(text:string,category:HandoffCategory)=>void}){
+ return <div className="ops-chips" aria-label="Gợi ý ghi nhanh">{handoffChips.map(c=><button type="button" key={c.label} className={'ops-chip'+(c.category==='COMPLAIN'?' red':'')} onClick={()=>onPick(c.text,c.category)}>{c.label}</button>)}</div>;
+}

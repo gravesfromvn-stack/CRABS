@@ -49,7 +49,7 @@ check('No tour suggestion when a service is asked, the guest is worried, or it w
  assert.ok(!reply('We arrive at 14:00.',{tourInterested:true}).needs.includes('tour_upsell'));
  const worried=reply('It is our first time in Vietnam and we are a bit nervous. We land at 22:00.');
  assert.ok(worried.needs.includes('anxious'));assert.ok(!worried.needs.includes('tour_upsell'));
- assert.match(worried.text,/Please don't worry.*24\/7 on WhatsApp \+84 90 224 8388.*private airport pick-up/s);
+ assert.match(worried.text,/Please don't worry.*24\/7 on WhatsApp \+84 896 867 575.*private airport pick-up/s);
 });
 check('Excited guests: shared joy, Hanoi experiences, then a tour suggestion',()=>{
  const r=reply('We are so excited for our honeymoon! We arrive at 16:00.');
@@ -62,12 +62,12 @@ check('Vietnamese: same flows in Vietnamese',()=>{
  const t=reply('Chúng tôi sẽ đến khoảng 14:00, cho mình giường đôi nhé.',{vi:true});assert.match(t.paragraphs.at(-1),/^Nhân tiện, bạn có muốn tham quan vịnh Hạ Long, Ninh Bình, Sa Pa hoặc Hà Giang/);
 });
 check('Guest language: care, spa and tour blocks are written in the guest’s language',()=>{
- const meta={sleepy:true,origin:'Cat Ba',places:['ninhbinh','sapa','hagiang'],overland:true,whatsapp:'+84 90 224 8388'};
+ const meta={sleepy:true,origin:'Cat Ba',places:['ninhbinh','sapa','hagiang'],overland:true,whatsapp:'+84 896 867 575'};
  const fr=lang.localizedFromNeeds('fr',['care','spa_recovery'],{time:'',checkIn:'14:00',night:false,meta});
  assert.match(fr,/^Bonjour/);assert.match(fr,/trajet depuis Cat Ba ait été aussi fatigant et sans sommeil/);assert.match(fr,/soins du spa/);assert.doesNotMatch(fr,/\bthe\b|\byou\b/);
  const zh=lang.localizedFromNeeds('zh',['arrival','tour_upsell'],{time:'15:00',checkIn:'14:00',night:false,meta:{...meta,sleepy:false}});
  assert.match(zh,/宁平、沙坝或河江/);assert.match(zh,/机场送机/);
- const he=lang.localizedFromNeeds('he',['anxious'],{time:'',checkIn:'14:00',night:false,meta:{...meta,overland:false}});assert.match(he,/\+84 90 224 8388/);assert.match(he,/הסעה פרטית/);
+ const he=lang.localizedFromNeeds('he',['anxious'],{time:'',checkIn:'14:00',night:false,meta:{...meta,overland:false}});assert.match(he,/\+84 896 867 575/);assert.match(he,/הסעה פרטית/);
  for(const l of ['he','ru','fr','es','de','zh','ja','ko'])assert.ok(lang.localizedFromNeeds(l,['excited','tour_upsell'],{time:'',checkIn:'14:00',night:false,meta}),l);
  assert.equal(lang.localizedFromNeeds('fr',['care','transfer'],{time:'',checkIn:'14:00',night:false,meta}),null,'unsupported needs stay in English');
 });

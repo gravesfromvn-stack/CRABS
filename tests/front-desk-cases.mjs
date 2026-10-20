@@ -80,7 +80,7 @@ check('#210 · tired guest from Cat Ba asking for a quiet non-smoking room: VIP 
 check('Car confirmation has no blanks: meeting pillar by terminal and the hotline; quoted 400k kept with the difference noted',()=>{
  const t='I would like to book the 4-seater airport pick-up for 400,000 VND tomorrow, Friday 2 October.\nFlight: Vietnam Airlines VN166\nRoute: Da Nang → Hanoi\nArrival time: 1:00 pm at Noi Bai International Airport';
  const r=reply(t,{sentAt:'2026-10-01T10:21:31Z',stay:{checkIn:'2026-10-02',checkOut:'2026-10-09'},guestName:'Guest 0161'});
- assert.doesNotMatch(r.text,/Cua điền/);assert.match(r.text,/Terminal 1 \(domestic\), pillar no\. 9/);assert.match(r.text,/WhatsApp \+84 90 224 8388/);
+ assert.doesNotMatch(r.text,/Cua điền/);assert.match(r.text,/Terminal 1 \(domestic\), pillar no\. 9/);assert.match(r.text,/WhatsApp \+84 896 867 575/);
  assert.match(r.internal.join(' '),/Giữ giá 400\.000đ đã báo.*chênh lệch 50\.000đ/);
  const intl=reply(t.replace('Da Nang → Hanoi','Singapore → Hanoi'),{sentAt:'2026-10-01T10:21:31Z',stay:{checkIn:'2026-10-02'}});assert.match(intl.text,/Terminal 2 \(international\), pillar no\. 10 or 11/);
  assert.deepEqual(advice.guestDraftProblems(r.text,{facts:[],allowedAmounts:cat.catalogApprovedAmounts(cat.seedEntries,'luxe-75pht')}).filter(p=>p.hard),[]);
