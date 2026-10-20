@@ -1,28 +1,34 @@
 'use client';
-import {useState} from 'react';
-import {Copy,Check,Clock3,ShieldCheck} from 'lucide-react';
+import {useEffect,useState} from 'react';
+import {Copy,Check,Clock3} from 'lucide-react';
 import {managerAlerts,type OperationsData,type OperationSource,type Handoff} from '../lib/operations';
-import {etaLabels,readinessLabels,defaultReadiness,checklistFor,shifts,shiftAt,vietnamClock,roleViewLabels,stageLabels,handoffCategories,type RoomReadiness,type ShiftKey,type CheckMetric,type StayStage,type HandoffCategory} from '../lib/front-desk';
+import {etaLabels,readinessLabels,defaultReadiness,etaPriority,sortForDesk,checklistFor,shifts,shiftAt,vietnamClock,roleViewLabels,stageLabels,handoffCategories,type RoomReadiness,type ShiftKey,type CheckMetric,type StayStage,type HandoffCategory} from '../lib/front-desk';
 import {useRoleView,RoleSwitch} from './role-view';
 
 type Flag=(key:string,value:string,message:string)=>Promise<boolean>;
 const flagValue=(data:OperationsData,key:string)=>data.flags.find(f=>f.key===key)?.value||'';
 export const readinessOf=(data:OperationsData,s:OperationSource):RoomReadiness=>(flagValue(data,'room:'+s.key) as RoomReadiness)||(s.eta?defaultReadiness(s.eta):'WAITING_ETA');
 
-// Check-in day board: arrival time status, room readiness at the desk, one-tap ETA question.
+// Check-in day board: most urgent first, 12 rows by default, quick search, one row per guest.
+const PAGE=12;
+const etaShort=(s:OperationSource)=>{const e=s.eta;if(!e||e.status==='MISSING_ETA')return 'Chưa báo giờ';return (e.status==='EARLY_ARRIVAL'?'Sớm ':'')+(e.time||e.flight||'Đã đặt xe')+(e.basis==='landing'?' ✈':'');};
 export function EtaBoard({data,arrivals,busy,onFlag}:{data:OperationsData;arrivals:OperationSource[];busy:boolean;onFlag:Flag}){
- const [copied,setCopied]=useState('');
- const order={MISSING_ETA:0,EARLY_ARRIVAL:1,CONFIRMED_ETA:2};
- const list=[...arrivals].sort((a,b)=>order[a.eta?.status||'MISSING_ETA']-order[b.eta?.status||'MISSING_ETA']||(a.eta?.time||'99').localeCompare(b.eta?.time||'99'));
- const missing=list.filter(s=>s.eta?.status==='MISSING_ETA').length;
+ const [copied,setCopied]=useState(''),[q,setQ]=useState(''),[limit,setLimit]=useState(PAGE);
+ const sorted=sortForDesk(arrivals,s=>s.eta,s=>readinessOf(data,s));
+ const query=q.trim().toLocaleLowerCase('vi'),list=query?sorted.filter(s=>[s.name,s.bookingId,s.id].join(' ').toLocaleLowerCase('vi').includes(query)):sorted;
+ const count=(p:number)=>sorted.filter(s=>etaPriority(s.eta,readinessOf(data,s))===p).length;
  async function copy(s:OperationSource){try{await navigator.clipboard.writeText(s.etaPrompt||'');setCopied(s.key);setTimeout(()=>setCopied(''),2500);}catch{alert('Trình duyệt chặn sao chép.');}}
- return <section className="ops-section"><div className="ops-section-head"><h2>Giờ khách về (ETA) · check-in hôm nay</h2>{missing>0&&<span className="ops-pill warning">{missing} khách chưa có giờ về</span>}</div>
-  <p className="ops-help">Giờ về đọc từ tin khách (giờ đến khách sạn; giờ hạ cánh cộng ~60 phút đường từ Nội Bài). Đến trước giờ nhận phòng = ưu tiên dọn phòng #1. Trạng thái phòng do lễ tân bấm cập nhật.</p>
-  {list.length?list.map(s=>{const st=s.eta?.status||'MISSING_ETA',ready=readinessOf(data,s);return <article key={s.key} className={'ops-eta '+st.toLowerCase()}>
-   <div className="ops-eta-main"><strong>{s.name}</strong><small>{s.bookingId||s.id} · {s.channel}</small><span className={'eta-pill '+st.toLowerCase()}>{etaLabels[st]}{s.eta?.time?` · ${s.eta.time}`:''}{s.eta?.flight?` · ${s.eta.flight}`:''}{s.eta?.basis==='landing'?' (từ giờ hạ cánh)':s.eta?.basis==='pickup'?' (đã đặt xe đón)':''}</span>{s.eta?.quote&&<small className="ops-eta-quote">“{s.eta.quote}”</small>}</div>
-   <div className="ops-eta-actions"><label>Phòng<select disabled={busy} value={ready} onChange={e=>onFlag('room:'+s.key,e.target.value,`Đã cập nhật phòng của ${s.name}: ${readinessLabels[e.target.value as RoomReadiness]}.`)}>{(Object.keys(readinessLabels) as RoomReadiness[]).map(k=><option key={k} value={k}>{readinessLabels[k]}</option>)}</select></label>
-    {st==='MISSING_ETA'&&s.etaPrompt&&<button type="button" className="button primary" onClick={()=>copy(s)}>{copied===s.key?<Check size={15}/>:<Copy size={15}/>}{copied===s.key?'Đã copy':'Copy Prompt Hỏi Giờ Về (ETA)'}</button>}</div>
-  </article>;}):<p className="ops-empty">Không có khách check-in ngày này trong phạm vi đã chọn.</p>}
+ return <section className="ops-section"><div className="ops-section-head"><h2>Giờ khách về (ETA) · check-in ngày này <span className="ops-count">{arrivals.length}</span></h2><span className="ops-eta-summary"><span className="eta-pill early_arrival">{count(0)} sớm, phòng chưa sẵn sàng</span><span className="eta-pill missing_eta">{count(1)} chưa báo giờ</span></span></div>
+  {arrivals.length>PAGE&&<input className="ops-eta-search" type="search" value={q} onChange={e=>{setQ(e.target.value);setLimit(PAGE);}} placeholder="Tìm tên khách / mã booking" aria-label="Tìm khách check-in"/>}
+  {list.length?<div className="ops-eta-list" role="list">{list.slice(0,limit).map(s=>{const st=s.eta?.status||'MISSING_ETA',ready=readinessOf(data,s);
+   return <div role="listitem" key={s.key} className={'ops-eta-row '+st.toLowerCase()} title={s.eta?.quote?'“'+s.eta.quote+'”':etaLabels[st]}>
+    <span className="ops-eta-who"><strong>{s.name}</strong><small>{s.bookingId||s.id}</small></span>
+    <span className={'eta-pill '+st.toLowerCase()}>{etaShort(s)}</span>
+    <span className="ops-ready" role="group" aria-label={'Phòng của '+s.name}>{(Object.keys(readinessLabels) as RoomReadiness[]).map(k=><button type="button" key={k} disabled={busy} aria-pressed={ready===k} className={ready===k?'on '+k.toLowerCase():''} onClick={()=>ready!==k&&onFlag('room:'+s.key,k,`Phòng của ${s.name}: ${readinessLabels[k]}.`)}>{readinessLabels[k]}</button>)}</span>
+    <span className="ops-eta-copy">{st==='MISSING_ETA'&&s.etaPrompt&&<button type="button" className="button primary" onClick={()=>copy(s)}>{copied===s.key?<Check size={14}/>:<Copy size={14}/>}{copied===s.key?'Đã copy':'Copy hỏi giờ về'}</button>}</span>
+   </div>;})}</div>:<p className="ops-empty">{query?'Không tìm thấy khách khớp.':'Không có khách check-in ngày này trong phạm vi đã chọn.'}</p>}
+  {list.length>limit&&<div className="ops-eta-more"><button type="button" className="button secondary" onClick={()=>setLimit(n=>n+PAGE)}>Xem thêm {Math.min(PAGE,list.length-limit)}</button><button type="button" className="text-button" onClick={()=>setLimit(list.length)}>Hiển thị tất cả {list.length}</button></div>}
+  <p className="ops-help">Thứ tự: đến sớm mà phòng chưa sẵn sàng → chưa báo giờ → đã có giờ / phòng sẵn sàng. ✈ = giờ hạ cánh + ~60 phút từ Nội Bài. Rê chuột lên dòng để xem câu khách viết.</p>
  </section>;
 }
 
@@ -59,10 +65,6 @@ export function HandoffMeta({h}:{h:Handoff}){
  return <div className="ops-handoff-meta">{cat&&<span className={'smart-tag '+(cat==='COMPLAIN'?'red':cat==='TOUR_LEAD'?'purple':'blue')}>{cat==='COMPLAIN'?'[COMPLAIN]':handoffCategories[cat]}</span>}{h.room&&<span>{h.room}</span>}{h.booking_ref&&<span>{h.booking_ref}</span>}{h.stage&&<span>{stageLabels[h.stage as StayStage]}</span>}{h.author&&<span>Ghi bởi {h.author}</span>}</div>;
 }
 
-// Reception tour-sales switch (default off: tour questions go to the sales team).
-export function TourSalesSwitch({on,busy,onFlag}:{on:boolean;busy:boolean;onFlag:Flag}){
- return <label className="ops-switch" title="Bật cho khách sạn nhỏ không có Saler OTA riêng"><input type="checkbox" role="switch" checked={on} disabled={busy} onChange={e=>onFlag('setting:allowReceptionistTourSales',e.target.checked?'true':'false',e.target.checked?'Đã BẬT: lễ tân tự tư vấn tour. Nháp mới dùng báo giá nhanh 3 tour.':'Đã TẮT: câu hỏi tour chuyển cho Saler.')}/><span><ShieldCheck size={14}/>Lễ tân tự bán tour: <strong>{on?'BẬT':'TẮT'}</strong></span></label>;
-}
 
 // One-tap notes for the shift log: fills the detail text and the matching category.
 export const handoffChips:{label:string;text:string;category:HandoffCategory}[]=[
@@ -74,4 +76,13 @@ export const handoffChips:{label:string;text:string;category:HandoffCategory}[]=
 ];
 export function HandoffChips({onPick}:{onPick:(text:string,category:HandoffCategory)=>void}){
  return <div className="ops-chips" aria-label="Gợi ý ghi nhanh">{handoffChips.map(c=><button type="button" key={c.label} className={'ops-chip'+(c.category==='COMPLAIN'?' red':'')} onClick={()=>onPick(c.text,c.category)}>{c.label}</button>)}</div>;
+}
+
+// Top-bar version of the tour-sales switch: reads and writes the same flag from any screen.
+export function TourSalesTopToggle(){
+ const [on,setOn]=useState<boolean|null>(null),[busy,setBusy]=useState(false);
+ useEffect(()=>{let live=true;const load=()=>fetch('/api/operations?view=settings').then(r=>r.ok?r.json() as Promise<{settings?:{allowReceptionistTourSales:boolean}}>:null).then(d=>{if(live&&d?.settings)setOn(d.settings.allowReceptionistTourSales);}).catch(()=>{});load();window.addEventListener('crabs-ops-changed',load);return()=>{live=false;window.removeEventListener('crabs-ops-changed',load);};},[]);
+ if(on===null)return null;
+ async function toggle(next:boolean){setBusy(true);try{const r=await fetch('/api/operations',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'flag',operationId:crypto.randomUUID(),key:'setting:allowReceptionistTourSales',value:next?'true':'false'})});if(r.ok){setOn(next);window.dispatchEvent(new Event('crabs-ops-changed'));}}finally{setBusy(false);}}
+ return <label className="top-switch" title={on?'BẬT: lễ tân tự tư vấn và báo giá nhanh 3 tour đã duyệt':'TẮT: câu hỏi tour chuyển cho Saler'}><input type="checkbox" role="switch" checked={on} disabled={busy} onChange={e=>toggle(e.target.checked)}/><span>Lễ tân bán tour</span><strong>{on?'BẬT':'TẮT'}</strong></label>;
 }

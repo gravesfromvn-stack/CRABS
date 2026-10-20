@@ -38,6 +38,12 @@ export function etaFrom(messages:{text:string;at:string}[],opts:{checkInTime?:st
  return {status:'MISSING_ETA',time:'',flight:'',basis:'',quote:''};
 }
 export const defaultReadiness=(e:Eta):RoomReadiness=>e.status==='EARLY_ARRIVAL'?'CLEANING_PRIORITY':'WAITING_ETA';
+// Desk order: early guests whose room is not ready, then guests without an arrival time, then the rest;
+// earlier times first inside each group.
+export const etaPriority=(e:Eta|undefined,ready:RoomReadiness)=>e?.status==='EARLY_ARRIVAL'&&ready!=='READY_FOR_GUEST'?0:!e||e.status==='MISSING_ETA'?1:2;
+export function sortForDesk<T>(list:T[],eta:(x:T)=>Eta|undefined,ready:(x:T)=>RoomReadiness):T[]{
+ return [...list].sort((a,b)=>etaPriority(eta(a),ready(a))-etaPriority(eta(b),ready(b))||(eta(a)?.time||'99').localeCompare(eta(b)?.time||'99'));
+}
 
 // One-tap message asking the arrival time, with the airport pick-up offer at the approved prices.
 export function etaPrompt(p:PropertyPolicy,guestName:string,vi=false):string{
@@ -147,3 +153,14 @@ export type HandoffCategory=keyof typeof handoffCategories;
 
 // ── Who sees supplier costs ─────────────────────────────────────────────────
 export const canSeeCost=(role:RoleView)=>role==='MANAGER'||role==='ADMIN';
+
+// ── Compact tags for list rows ─────────────────────────────────────────────
+// At most two tags on a list row: [COMPLAIN] first, then who answers (reception / Saler), then the
+// arrival-time status for an upcoming stay; "+N" counts the rest, shown in full when the guest is opened.
+export type ListTag={code:string;label:string;tone:string;reason:string};
+const etaTag:Record<EtaStatus,ListTag>={MISSING_ETA:{code:'ETA_MISSING',label:'Chưa báo giờ',tone:'amber',reason:'Khách chưa báo giờ về'},EARLY_ARRIVAL:{code:'ETA_EARLY',label:'Đến sớm',tone:'purple',reason:'Đến trước giờ nhận phòng: ưu tiên dọn phòng'},CONFIRMED_ETA:{code:'ETA_OK',label:'Có giờ về',tone:'green',reason:'Đã có giờ về'}};
+export function compactTags(tags:ListTag[],eta?:Eta|null,max=2):{shown:ListTag[];more:number;all:ListTag[]}{
+ const rank=(t:ListTag)=>t.code==='TAG_COMPLAINT'?0:t.code==='TAG_RECEPTION_CONFIRM'||t.code==='TAG_SALE_TOUR'?1:t.code.startsWith('ETA_')?2:3;
+ const all=[...tags,...(eta?[etaTag[eta.status]]:[])].map((t,i)=>({t,i})).sort((a,b)=>rank(a.t)-rank(b.t)||a.i-b.i).map(x=>x.t);
+ return {shown:all.slice(0,max),more:Math.max(0,all.length-max),all};
+}

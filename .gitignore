@@ -67,3 +67,8 @@ next-env.d.ts
 *.bak
 # For private guest data use an ignored local directory, never fixtures.
 /private-data/
+
+# Internal Word handouts (kept on this machine, not in Git) and Office lock files
+docs/CRABS_Huong_dan_su_dung_va_Demo.docx
+docs/CRABS_Workflow_va_Lo_trinh.docx
+docs/~$*

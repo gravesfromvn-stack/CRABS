@@ -14,6 +14,8 @@ import {policyFor} from '../../../lib/hotel-policy-config';
 import {catalogApprovedAmounts,catalogPolicy,preferredFor} from '../../../lib/service-catalog';
 import {transferConfirmation} from '../../../lib/transfer-confirm';
 import {smartTags} from '../../../lib/smart-tags';
+import {compactTags,etaFrom} from '../../../lib/front-desk';
+import {readFlags,tourSalesAllowed} from '../../../lib/operations-store';
 import {guestContact} from '../../../lib/guest-contact';
 import {whatsappTourMessage} from '../../../lib/service-replies';
 import {simulateConversation} from '../../../lib/conversation-sim';
@@ -61,7 +63,7 @@ async function guidance(db:D1Database,owner:string,s:State){
  // Guest confirmed an airport car in this conversation: offer to create the service request.
  const confirmedCar=s.events.filter(e=>e.kind==='guest'&&e.guest_text).map(e=>transferConfirmation(e.guest_text)).filter(Boolean).at(-1);
  const serviceRequest=confirmedCar?`${confirmedCar.direction==='pickup'?'xe đón':'xe tiễn'} sân bay${confirmedCar.flight?' (chuyến '+confirmedCar.flight+')':''}`:'';
- const tags=smartTags(s.events.filter(e=>e.kind==='guest'&&e.guest_text).map(e=>({text:e.guest_text,at:e.received})),s.stay);
+ const tags=smartTags(s.events.filter(e=>e.kind==='guest'&&e.guest_text).map(e=>({text:e.guest_text,at:e.received})),s.stay,{allowReceptionistTourSales:tourSalesAllowed(await readFlags(db,owner))});
  const aiReady=Boolean((env as unknown as Record<string,string|undefined>).OPENAI_API_KEY);
  return {tags,serviceRequest,aiReady,contact,whatsappMessage,extension,preferred,policy:catalogPolicy(policyFor(s.thread.property_id),s.catalog,s.thread.property_id)||null,tour:s.tour,checks,roomTasks:await roomTasks(db,owner,s.thread.id),history:s.profile.history||[],plan:{situations:plan.situations.map(x=>({code:x,label:situationLabels[x]})),reasons:plan.reasons,template:plan.template?{id:plan.template.id,version:plan.template.version,title:plan.template.title}:null},prepared:latest?{revision:latest.revision,source:draftSource(latest),label:sourceLabels[draftSource(latest)],template:used?{id:used.id,version:used.version,title:used.title,approvedAt:used.approved_at,retired:Boolean(used.retired_at)}:null}:null,next:nextStep(latest,plan,answered)};
 }
@@ -83,7 +85,11 @@ export async function GET(request:Request){
  }
  // Bounded pages share one source read; do not persist guessed stay dates.
  const ids=items.results.slice(0,100).map(x=>String(x.id)),eventQueue=ids[0]?.startsWith('event:');
- if(ids.length){const records:OtaEvent[]=[];for(let start=0;start<ids.length;start+=90){const batch=ids.slice(start,start+90);const rows=await db.prepare(`SELECT id,thread_id,full_text,guest_text,channel,authenticated,booking_id,received FROM ota_events WHERE owner=? AND ${eventQueue?'id':'thread_id'} IN (${batch.map(()=>'?').join(',')}) ORDER BY received,id`).bind(u.userId,...batch.map(x=>eventQueue?x.slice(6):x)).all<OtaEvent>();records.push(...rows.results);}items.results=items.results.map(x=>({...x,stay:threadStay(records.filter(e=>eventQueue?'event:'+e.id===x.id:e.thread_id===x.id))}));}
+ if(ids.length){const records:OtaEvent[]=[];for(let start=0;start<ids.length;start+=90){const batch=ids.slice(start,start+90);const rows=await db.prepare(`SELECT id,thread_id,full_text,guest_text,channel,authenticated,booking_id,received FROM ota_events WHERE owner=? AND ${eventQueue?'id':'thread_id'} IN (${batch.map(()=>'?').join(',')}) ORDER BY received,id`).bind(u.userId,...batch.map(x=>eventQueue?x.slice(6):x)).all<OtaEvent>();records.push(...rows.results);}const allowTours=tourSalesAllowed(await readFlags(db,u.userId)),today=new Date(Date.now()+7*3600000).toISOString().slice(0,10);
+ items.results=items.results.map(x=>{const rs=records.filter(e=>eventQueue?'event:'+e.id===x.id:e.thread_id===x.id),stay=threadStay(rs),msgs=rs.filter(e=>e.guest_text).map(e=>({text:e.guest_text,at:e.received}));
+  // List rows carry at most two priority tags (+N); the full set is shown when the conversation is opened.
+  const tg=compactTags(smartTags(msgs,stay,{allowReceptionistTourSales:allowTours}).tags,stay.checkIn&&stay.checkIn>=today?etaFrom(msgs,{checkInTime:policyFor(String(x.property_id||''))?.checkIn}):null);
+  return {...x,stay,tags:tg.shown,moreTags:tg.more};});}
  // 'template' = clean suggestion from an approved template; everything else unapproved needs Cua.
  const draftCounts=await db.prepare("SELECT CASE WHEN d.status='pending' AND d.source='template' AND d.attention='' THEN 'template' WHEN d.status IN ('pending','needs_writing') THEN 'review' ELSE d.status END AS status,COUNT(*) AS count FROM ota_drafts d WHERE d.owner=? AND d.revision=(SELECT MAX(x.revision) FROM ota_drafts x WHERE x.owner=d.owner AND x.thread_id=d.thread_id) GROUP BY 1").bind(u.userId).all();
  return res({livePollingConfigured:(env as unknown as Record<string,string>).CRABS_POLLING_ENABLED==='true',account,mailbox:OTA_MAILBOX,properties,counts:counts.results,draftCounts:draftCounts.results,items:items.results.slice(0,100),hasMore:items.results.length>100,offset,configured:Boolean((env as unknown as Record<string,string>).CRABS_INGEST_TOKEN)});

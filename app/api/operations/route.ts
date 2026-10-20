@@ -2,12 +2,15 @@ import {env} from 'cloudflare:workers';
 import {getChatGPTUser} from '../../chatgpt-auth';
 import {sameOrigin} from '../../../lib/validation';
 import {operationsCommand,managerAlerts,type OperationInput} from '../../../lib/operations';
-import {operationsSources,operationsState,type TaskRow} from '../../../lib/operations-store';
+import {operationsSources,operationsState,readFlags,tourSalesAllowed,type TaskRow} from '../../../lib/operations-store';
 import {hash} from '../../../lib/ota';
 export const dynamic='force-dynamic';
 const response=(data:unknown,status=200)=>Response.json(data,{status,headers:{'Cache-Control':'no-store'}});
 // ?view=alerts: only the manager escalation list (banner on every screen).
-export async function GET(request?:Request){const user=await getChatGPTUser();if(!user)return response({error:'Vui lòng đăng nhập.'},401);try{if(!env.DB)throw Error('DB');const s=await operationsState(env.DB,user.userId);if(request&&new URL(request.url).searchParams.get('view')==='alerts')return response({alerts:managerAlerts(s.sources,s.handoffs,s.flags),settings:s.settings});return response(s);}catch(e){console.error('Operations read failed',e instanceof Error?e.message:'unknown');return response({error:'Chưa đọc được vận hành. Kiểm tra database local đã áp dụng migration 0010.'},500);}}
+export async function GET(request?:Request){const user=await getChatGPTUser();if(!user)return response({error:'Vui lòng đăng nhập.'},401);try{if(!env.DB)throw Error('DB');const view=request?new URL(request.url).searchParams.get('view'):'';
+ // ?view=settings: switches only (top bar), without reading every conversation.
+ if(view==='settings')return response({settings:{allowReceptionistTourSales:tourSalesAllowed(await readFlags(env.DB,user.userId))}});
+ const s=await operationsState(env.DB,user.userId);if(request&&new URL(request.url).searchParams.get('view')==='alerts')return response({alerts:managerAlerts(s.sources,s.handoffs,s.flags),settings:s.settings});return response(s);}catch(e){console.error('Operations read failed',e instanceof Error?e.message:'unknown');return response({error:'Chưa đọc được vận hành. Kiểm tra database local đã áp dụng migration 0010.'},500);}}
 export async function POST(request:Request){
  const user=await getChatGPTUser();if(!user)return response({error:'Vui lòng đăng nhập.'},401);
  if(!sameOrigin(request))return response({error:'Nguồn yêu cầu không hợp lệ.'},403);
