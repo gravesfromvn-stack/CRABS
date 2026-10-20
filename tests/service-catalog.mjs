@@ -22,14 +22,18 @@ await check('Seed merges all three sources into one catalog without losing or du
 });
 await check('Core services approved, broken sources archived, demo prices make spa and tours quote-ready',()=>{
  for(const id of ['NB01','NB02','NB03','NB04','HL01','HL02','HT03','HN01','HN02','HN04','HS-luxe-75pht-car4-pickup','HS-luxe-75pht-van16-dropoff'])assert.equal(byId(id).status,'APPROVED',id);
- assert.deepEqual([byId('NB01').sellingPrice,byId('HL02').sellingPrice,byId('HT03').sellingPrice,byId('HT03').currency],[950000,1050000,255,'USD']);
- assert.equal(byId('HN04').netCost,1188000);
+ assert.deepEqual([byId('NB01').sellingPrice,byId('HL02').sellingPrice,byId('HT03').sellingPrice,byId('HT03').currency],[950000,1050000,6450000,'VND']);
+ assert.deepEqual([byId('HN04').sellingPrice,byId('HN04').netCost,byId('HN04').commission],[1150000,850000,50000]);
  for(const id of ['HT06','HT13','CH05'])assert.equal(byId(id).status,'ARCHIVED',id);
  const demo=JSON.parse(readFileSync('lib/demo-catalog-prices.json','utf8'));
- for(const p of demo.items){const e=byId(p.id);assert.equal(e.status,'APPROVED',p.id);assert.deepEqual([e.sellingPrice,e.netCost,e.commission],[p.sellingPrice,p.netCost,p.commission],p.id);assert.match(e.sourceNote,/MẪU/,'sample cost is labelled');}
+ for(const p of demo.items){const e=byId(p.id);assert.equal(e.status,'APPROVED',p.id);assert.deepEqual([e.sellingPrice,e.netCost,e.commission],[p.sellingPrice,p.netCost,p.commission],p.id);assert.ok(e.sourceNote.includes(p.note),'price source is labelled: '+p.id);}
  for(const id of ['NB01','NB02','NB03','NB04','HL01','HL02','HN01','HN02','HS-luxe-75pht-spa-trad-60','HS-luxe-75pht-spa-aroma-60','HS-luxe-75pht-spa-foot-60'])assert.ok(lib.quoteReady(byId(id)),id+' quote-ready');
- assert.equal(lib.quoteReady(byId('HT03')),false,'USD price is not quote-ready (quotes are VND)');
- assert.deepEqual([byId('HS-luxe-75pht-spa-trad-90').status,byId('HS-luxe-75pht-spa-trad-90').sellingPrice],['REFERENCE_ONLY',null],'90-minute spa still waits for a price');
+ for(const id of ['HT03','HN04','HS-luxe-75pht-car4-pickup','HS-luxe-75pht-car7-pickup','HS-luxe-75pht-van16-pickup'])assert.ok(lib.quoteReady(byId(id)),id+' quote-ready');
+ // Spa: 4 treatments × 60/90/120 at each property, PO prices by duration, margin = price − cost − commission.
+ const spa=seed.filter(e=>e.category==='SPA');assert.equal(spa.length,24);
+ for(const e of spa){const m=Number(e.variant.match(/\d+/)[0]);assert.deepEqual([e.sellingPrice,e.netCost,e.commission],{60:[400000,150000,50000],90:[600000,250000,60000],120:[800000,350000,80000]}[m],e.id);assert.equal(e.status,'APPROVED');assert.ok(e.summary.length>40,'description '+e.id);}
+ assert.equal(byId('HS-luxe-75pht-spa-head-120').title,'Spa · Head, Neck & Shoulder Relief');
+ assert.equal(lib.quoteReady(byId('HS-luxe-75pht-car4-dropoff')),false,'dropoff still lacks cost and commission');
  assert.equal(byId('HS-luxe-75pht-tour-nb-day').status,'ARCHIVED','config placeholder tours superseded');
  assert.equal(byId('NB01').channelFlow,'WHATSAPP_CONSULT');assert.equal(byId('HS-luxe-75pht-car4-pickup').channelFlow,'EXTRANET_DIRECT');
 });
@@ -46,6 +50,15 @@ await check('Hotel policy reads transfer and spa prices from the catalog',()=>{
  const r=replies.serviceReply({catalog:withSpa,propertyId:'luxe-75pht',text:'Can we book a massage and an airport pickup for 2 people?',facts:[],vi:false,tourInterested:false,hasContact:false});
  assert.match(r.paragraphs.join('\n'),/450,000 VND/);assert.match(r.paragraphs.join('\n'),/420,000 VND/);
  const off=lib.catalogPolicy(base,seed.map(e=>e.category==='AIRPORT_TRANSFER'?{...e,status:'ARCHIVED'}:e),'luxe-75pht');assert.equal(off.airportTransfer.approved,false);assert.equal(off.airportTransfer.vehicles[0].pickup,null);
+});
+await check('Spa question gets the approved menu with durations, prices and descriptions; the price guard accepts it',()=>{
+ const en=replies.serviceReply({catalog:seed,propertyId:'luxe-75pht',text:'Do you have a spa? How much is a massage?',facts:[],vi:false,tourInterested:false,hasContact:false}).paragraphs.join('\n');
+ assert.match(en,/• Head, Neck & Shoulder Relief: 60 min 400,000 VND · 90 min 600,000 VND · 120 min 800,000 VND/);
+ assert.match(en,/Vietnamese Traditional Body Massage[^\n]*\n  Traditional acupressure with herbal oils and hot stones/);
+ assert.match(en,/Foot Reflexology & Herbal Soak/);assert.doesNotMatch(en,/150,000|250,000|350,000/,'cost never shown');
+ assert.deepEqual(advice.guestDraftProblems(en,{facts:[],allowedAmounts:lib.catalogApprovedAmounts(seed,'luxe-75pht')}).filter(p=>p.hard),[]);
+ const vi=replies.serviceReply({catalog:seed,propertyId:'luxe-75pht',text:'Khách sạn có spa không, giá massage bao nhiêu?',facts:[],vi:true,tourInterested:false,hasContact:false}).paragraphs.join('\n');
+ assert.match(vi,/Massage thư giãn tinh dầu: 60 phút 400\.000đ/);assert.match(vi,/100% tinh dầu thiên nhiên nguyên chất/);
 });
 await check('Tour advice quotes catalog-approved prices and hides archived items',()=>{
  const a=advice.tourAdvice({catalog:seed,propertyId:'luxe-75pht',facts:[],text:'We would like a Ninh Binh day tour, Hoa Lu and Trang An, on 25 October for 2 adults. How much is it?'});
@@ -70,11 +83,11 @@ try{
  const edit=e=>({title:e.title,variant:e.variant,unit:e.unit,duration:e.duration,summary:e.summary,inclusions:e.inclusions,exclusions:e.exclusions,supplierName:e.supplierName,category:e.category,channelFlow:e.channelFlow,propertyScope:e.propertyScope,sellingPrice:e.sellingPrice,netCost:e.netCost,commission:e.commission,currency:e.currency,validUntil:e.validUntil,status:e.status});
  await check('First read seeds the owner once; reseeding never overwrites edits',async()=>{
   const a=await list();assert.equal(a.length,seed.length);
-  const spa=a.find(e=>e.id==='HS-luxe-75pht-spa-trad-90');
-  assert.equal((await api.POST(req('/api/catalog',{action:'save',operationId:crypto.randomUUID(),id:spa.id,version:spa.version,entry:{...edit(spa),sellingPrice:450000,status:'APPROVED'}}))).status,200);
+  const spa=a.find(e=>e.id==='NB05');
+  assert.equal((await api.POST(req('/api/catalog',{action:'save',operationId:crypto.randomUUID(),id:spa.id,version:spa.version,entry:{...edit(spa),sellingPrice:1300000,status:'APPROVED'}}))).status,200);
   await db.prepare("UPDATE service_catalog_meta SET seed_version='old' WHERE owner='owner-catalog'").run();
-  const b=await list();const s2=b.find(e=>e.id===spa.id);assert.equal(s2.sellingPrice,450000);assert.equal(s2.status,'APPROVED');assert.equal(s2.approvedBy,'owner-catalog');assert.equal(b.length,seed.length);
-  globalThis.catalogUser={userId:'owner-two'};assert.equal((await list()).find(e=>e.id===spa.id).sellingPrice,null,'owners isolated');globalThis.catalogUser={userId:'owner-catalog'};
+  const b=await list();const s2=b.find(e=>e.id===spa.id);assert.equal(s2.sellingPrice,1300000);assert.equal(s2.status,'APPROVED');assert.equal(s2.approvedBy,'owner-catalog');assert.equal(b.length,seed.length);
+  globalThis.catalogUser={userId:'owner-two'};assert.equal((await list()).find(e=>e.id===spa.id).sellingPrice,1350000,'owners isolated');globalThis.catalogUser={userId:'owner-catalog'};
  });
  await check('Edits are validated, versioned, idempotent and logged',async()=>{
   const e=(await list()).find(x=>x.id==='NB07');
@@ -93,16 +106,18 @@ try{
   globalThis.__quoteEnv={DB:db};globalThis.__quoteUser={userId:'owner-catalog'};globalThis.quoteEnv={DB:db};
   await db.prepare(`INSERT INTO contacts (owner,id,name,segment,source,status,assignee,due,service_date,adults,children,budget,interest,note,stay,version,updated) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`).bind('owner-catalog','test-cat','Khách kiểm thử','Khách lưu trú','Trực tiếp','new','Chưa phân công','','2026-10-25',2,'',0,'Tour','','',1,'2026-10-19').run();
   const qpost=async p=>{const r=await quotes.POST(req('/api/quotes',p));return {status:r.status,body:await r.json()};};
-  const line={productId:'HN04',date:'2026-10-25',quantity:2,passengers:2,price:1485000,cost:1188000,commission:0,extraCost:0,discount:0,details:'Jeep City, 2 người lớn'};
+  const line={productId:'HN04',date:'2026-10-25',quantity:2,passengers:2,price:1150000,cost:850000,commission:50000,extraCost:0,discount:0,details:'Jeep City, 2 người lớn'};
   const save=(lines)=>({action:'save',operationId:crypto.randomUUID(),id:crypto.randomUUID(),contactId:'test-cat',expectedRevision:0,contactVersion:1,quote:{lines,validUntil:'2026-10-24',conditions:'Giá theo kho dịch vụ đã duyệt; chỗ chưa xác nhận.',missing:'',childrenPolicy:'',demoPriceConfirmed:true}});
   const approve=id=>({action:'approve',operationId:crypto.randomUUID(),id,revision:1});
-  let s=save([line]);assert.equal((await qpost(s)).status,200);let a=await qpost(approve(s.id));assert.equal(a.status,400);assert.match(a.body.error,/thiếu hoa hồng/,'commission missing in catalog');
-  const hn04=(await list()).find(x=>x.id==='HN04');assert.equal((await api.POST(req('/api/catalog',{action:'save',operationId:crypto.randomUUID(),id:'HN04',version:hn04.version,entry:{...edit(hn04),commission:50000}}))).status,200);
-  s=save([{...line,commission:50000}]);assert.equal((await qpost(s)).status,200);assert.equal((await qpost(approve(s.id))).status,200,JSON.stringify(s));
-  s=save([{...line,price:1600000,commission:50000}]);await qpost(s);a=await qpost(approve(s.id));assert.equal(a.status,400);assert.match(a.body.error,/khác giá đã duyệt/);
-  s=save([{...line,productId:'R75-TOUR-OCT-4',commission:50000}]);assert.equal((await qpost(s)).status,200,'merged R75 id resolves');
+  const car={...line,productId:'HS-luxe-75pht-car4-dropoff',quantity:1,price:300000,cost:200000,commission:20000,details:'Tiễn sân bay 2 khách, 2 vali'};
+  let s=save([car]);assert.equal((await qpost(s)).status,200);let a=await qpost(approve(s.id));assert.equal(a.status,400);assert.match(a.body.error,/thiếu giá vốn, hoa hồng/,'catalog cost and commission missing');
+  const drop=(await list()).find(x=>x.id==='HS-luxe-75pht-car4-dropoff');assert.equal((await api.POST(req('/api/catalog',{action:'save',operationId:crypto.randomUUID(),id:drop.id,version:drop.version,entry:{...edit(drop),netCost:200000,commission:20000}}))).status,200);
+  s=save([car]);assert.equal((await qpost(s)).status,200);assert.equal((await qpost(approve(s.id))).status,200,'approves once the catalog is complete');
+  s=save([line]);assert.equal((await qpost(s)).status,200);assert.equal((await qpost(approve(s.id))).status,200,'HN04 at the PO price');
+  s=save([{...line,price:1600000}]);await qpost(s);a=await qpost(approve(s.id));assert.equal(a.status,400);assert.match(a.body.error,/khác giá đã duyệt/);
+  s=save([{...line,productId:'R75-TOUR-OCT-4'}]);assert.equal((await qpost(s)).status,200,'merged R75 id resolves');assert.equal((await qpost(approve(s.id))).status,200,'alias approves at the entry price');
   assert.equal((await qpost(save([{...line,productId:'NO-SUCH'}]))).status,400);
-  s=save([{...line,productId:'NB01',price:950000,cost:710000,commission:50000},{...line,productId:'HS-luxe-75pht-spa-trad-60',quantity:2,price:450000,cost:250000,commission:0}]);
+  s=save([{...line,productId:'NB01',price:950000,cost:710000,commission:50000},{...line,productId:'HS-luxe-75pht-spa-trad-60',quantity:2,price:400000,cost:150000,commission:50000},{...line,productId:'HT03',price:6450000,cost:4850000,commission:300000}]);
   assert.equal((await qpost(s)).status,200);a=await qpost(approve(s.id));assert.equal(a.status,200,'demo-priced tour + spa approve: '+JSON.stringify(a.body));
  });
 }finally{await mf.dispose();}

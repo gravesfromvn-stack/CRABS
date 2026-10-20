@@ -8,6 +8,10 @@ import {createHash} from 'node:crypto';
 
 const base='http://localhost:5173';
 const demo=JSON.parse(readFileSync('lib/demo-catalog-prices.json','utf8'));
+// Target values come from the built seed (prices from demo-catalog-prices.json, names and spa
+// descriptions from hotel-policy-config.json), so the seed and an existing database stay identical.
+const seed=JSON.parse(readFileSync('lib/service-catalog-seed.json','utf8'));
+const SYNC=['title','variant','unit','duration','summary','sellingPrice','netCost','commission','currency','status'];
 const uuid=name=>{const h=createHash('sha1').update('crabs-demo-prices:'+name).digest('hex');return `${h.slice(0,8)}-${h.slice(8,12)}-4${h.slice(13,16)}-a${h.slice(17,20)}-${h.slice(20,32)}`;};
 
 const signin=await fetch(base+'/signin-with-chatgpt?return_to=/',{redirect:'manual'});
@@ -21,10 +25,11 @@ const fields=['title','variant','unit','duration','summary','inclusions','exclus
 let changed=0,skipped=0;
 for(const p of demo.items){
  const e=d.entries.find(x=>x.id===p.id);if(!e)throw new Error('Not in catalog: '+p.id);
- if(e.status==='APPROVED'&&e.sellingPrice===p.sellingPrice&&e.netCost===p.netCost&&e.commission===p.commission){skipped++;continue;}
- const entry=Object.fromEntries(fields.map(f=>[f,e[f]]));Object.assign(entry,{sellingPrice:p.sellingPrice,netCost:p.netCost,commission:p.commission,status:'APPROVED'});
+ const target=seed.entries.find(x=>x.id===p.id);if(!target)throw new Error('Not in seed (rebuild it): '+p.id);
+ if(SYNC.every(f=>e[f]===target[f])){skipped++;continue;}
+ const entry=Object.fromEntries(fields.map(f=>[f,e[f]]));for(const f of SYNC)entry[f]=target[f];
  const w=await fetch(base+'/api/catalog',{method:'POST',headers,body:JSON.stringify({action:'save',operationId:uuid(demo.version+':'+p.id+':'+e.version),id:p.id,version:e.version,entry})});
  const out=await w.json();if(!w.ok)throw new Error(`${p.id} ${w.status}: ${JSON.stringify(out)}`);
- changed++;console.log(`${p.id}: ${p.sellingPrice} / vốn ${p.netCost} / hoa hồng ${p.commission} ${e.currency} · APPROVED`);
+ changed++;console.log(`${p.id}: ${target.sellingPrice} / vốn ${target.netCost} / hoa hồng ${target.commission} ${target.currency} · ${target.status}`);
 }
 console.log(JSON.stringify({version:demo.version,changed,skipped}));

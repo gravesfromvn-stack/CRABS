@@ -63,11 +63,12 @@ export function serviceReply(input:{catalog?:CatalogEntry[];propertyId:string;te
 
  if(spa){out.needs.push('spa');const s=p.spa;const priced=s.approved&&s.items.some(i=>i.price!==null);
   if(priced){
-   const groups=new Map<string,string[]>();for(const i of s.items.filter(i=>i.price!==null)){const name=i.name[k];groups.set(name,[...(groups.get(name)||[]),`${i.minutes} ${vi?'phút':'min'} ${formatMoney(i.price!,vi)}`]);}
-   const menu=[...groups].map(([name,v])=>`${name}: ${v.join(' · ')}`).join('\n');
+   // One line of prices per treatment, then its short description.
+   const groups=new Map<string,{prices:string[];description:string}>();for(const i of s.items.filter(i=>i.price!==null)){const name=i.name[k],g=groups.get(name)||{prices:[],description:i.description?.[k]||''};g.prices.push(`${i.minutes} ${vi?'phút':'min'} ${formatMoney(i.price!,vi)}`);groups.set(name,g);}
+   const menu=[...groups].map(([name,g])=>`• ${name}: ${g.prices.join(' · ')}${g.description?`\n  ${g.description}`:''}`).join('\n');
    out.paragraphs.push((vi?`Menu spa của khách sạn:\n${menu}`:`Our spa menu:\n${menu}`)+(s.advanceBookingOffer?'\n'+s.advanceBookingOffer[k]:'')+(vi?'\nBạn trả lời giờ mong muốn tại đây để khách sạn giữ lịch cho bạn.':'\nReply here with your preferred time and we will book the session for you.'));
   }else{
-   out.paragraphs.push(vi?'Spa của khách sạn có massage truyền thống Việt Nam, massage tinh dầu và massage chân, liệu trình 60 hoặc 90 phút. Mình sẽ gửi bảng giá và khung giờ còn trống cho bạn.':'Our spa offers Vietnamese traditional, aroma and foot massage in 60- or 90-minute sessions. We will send you the price list and available times.');
+   out.paragraphs.push(vi?'Spa của khách sạn có massage body cổ truyền, massage tinh dầu, ngâm chân bấm huyệt và trị liệu đầu-cổ-vai, liệu trình 60, 90 hoặc 120 phút. Mình sẽ gửi bảng giá và khung giờ còn trống cho bạn.':'Our spa offers Vietnamese traditional body massage, aromatherapy massage, foot reflexology and head, neck & shoulder relief in 60-, 90- or 120-minute sessions. We will send you the price list and available times.');
    out.internal.push('Bảng giá Spa chưa có/chưa duyệt trong cấu hình: nhập giá vào lib/hotel-policy-config.json.');
   }
  }

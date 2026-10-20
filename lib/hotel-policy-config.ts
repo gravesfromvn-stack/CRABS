@@ -4,7 +4,7 @@ import data from './hotel-policy-config.json';
 // Only entries marked "approved" may put an amount into a guest draft or an approvable quote.
 type Text={vi:string;en:string};
 export type Vehicle={id:string;seats:number;maxGuests:number;maxLuggage:number;pickup:number|null;dropoff:number|null;cost:number|null;commission:number|null};
-export type SpaItem={id:string;name:Text;minutes:number;price:number|null;cost:number|null;commission:number|null};
+export type SpaItem={id:string;name:Text;description?:Text;minutes:number;price:number|null;cost:number|null;commission:number|null};
 export type TourProduct={id:string;place:string;title:Text;duration:string;unit:string;fromPrice:number|null;price:number|null;cost:number|null;commission:number|null;approved:boolean;source:string};
 export type PropertyPolicy={displayName:string;demoName:string;checkIn:string;checkOut:string;
  earlyCheckIn:{approved:boolean;from:string;until:string;fee:Text;condition:Text};

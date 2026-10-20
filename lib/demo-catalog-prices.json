@@ -1,23 +1,268 @@
 {
- "version": "demo-prices-2026-10-20",
- "note": "Giá mẫu cho demo 22/10/2026 theo yêu cầu PO. Giá vốn và hoa hồng là số MẪU, chưa phải giá hợp đồng nhà cung cấp.",
+ "version": "demo-prices-2026-10-20b",
+ "note": "Giá dùng cho demo 22/10/2026; nguồn ghi ở từng mục.",
  "approvedBy": "Captain Cua",
  "approvedAt": "2026-10-20",
  "items": [
-  {"id": "HS-luxe-75pht-spa-trad-60", "sellingPrice": 450000, "netCost": 250000, "commission": 0},
-  {"id": "HS-luxe-75pht-spa-aroma-60", "sellingPrice": 500000, "netCost": 280000, "commission": 0},
-  {"id": "HS-luxe-75pht-spa-foot-60", "sellingPrice": 350000, "netCost": 180000, "commission": 0},
-  {"id": "HS-luxe-suites-spa-trad-60", "sellingPrice": 450000, "netCost": 250000, "commission": 0},
-  {"id": "HS-luxe-suites-spa-aroma-60", "sellingPrice": 500000, "netCost": 280000, "commission": 0},
-  {"id": "HS-luxe-suites-spa-foot-60", "sellingPrice": 350000, "netCost": 180000, "commission": 0},
-  {"id": "NB01", "sellingPrice": 950000, "netCost": 710000, "commission": 50000},
-  {"id": "NB02", "sellingPrice": 1050000, "netCost": 790000, "commission": 50000},
-  {"id": "NB03", "sellingPrice": 1350000, "netCost": 1010000, "commission": 70000},
-  {"id": "NB04", "sellingPrice": 1500000, "netCost": 1120000, "commission": 80000},
-  {"id": "HL01", "sellingPrice": 850000, "netCost": 640000, "commission": 40000},
-  {"id": "HL02", "sellingPrice": 1050000, "netCost": 790000, "commission": 50000},
-  {"id": "HN01", "sellingPrice": 750000, "netCost": 560000, "commission": 40000},
-  {"id": "HN02", "sellingPrice": 850000, "netCost": 640000, "commission": 40000},
-  {"id": "HT03", "sellingPrice": 255, "netCost": 191, "commission": 13}
+  {
+   "id": "HS-luxe-75pht-spa-trad-60",
+   "sellingPrice": 400000,
+   "netCost": 150000,
+   "commission": 50000,
+   "note": "Giá PO Captain Cua chốt ngày 20/10/2026 cho demo 22/10."
+  },
+  {
+   "id": "HS-luxe-75pht-spa-trad-90",
+   "sellingPrice": 600000,
+   "netCost": 250000,
+   "commission": 60000,
+   "note": "Giá PO Captain Cua chốt ngày 20/10/2026 cho demo 22/10."
+  },
+  {
+   "id": "HS-luxe-75pht-spa-trad-120",
+   "sellingPrice": 800000,
+   "netCost": 350000,
+   "commission": 80000,
+   "note": "Giá PO Captain Cua chốt ngày 20/10/2026 cho demo 22/10."
+  },
+  {
+   "id": "HS-luxe-75pht-spa-aroma-60",
+   "sellingPrice": 400000,
+   "netCost": 150000,
+   "commission": 50000,
+   "note": "Giá PO Captain Cua chốt ngày 20/10/2026 cho demo 22/10."
+  },
+  {
+   "id": "HS-luxe-75pht-spa-aroma-90",
+   "sellingPrice": 600000,
+   "netCost": 250000,
+   "commission": 60000,
+   "note": "Giá PO Captain Cua chốt ngày 20/10/2026 cho demo 22/10."
+  },
+  {
+   "id": "HS-luxe-75pht-spa-aroma-120",
+   "sellingPrice": 800000,
+   "netCost": 350000,
+   "commission": 80000,
+   "note": "Giá PO Captain Cua chốt ngày 20/10/2026 cho demo 22/10."
+  },
+  {
+   "id": "HS-luxe-75pht-spa-foot-60",
+   "sellingPrice": 400000,
+   "netCost": 150000,
+   "commission": 50000,
+   "note": "Giá PO Captain Cua chốt ngày 20/10/2026 cho demo 22/10."
+  },
+  {
+   "id": "HS-luxe-75pht-spa-foot-90",
+   "sellingPrice": 600000,
+   "netCost": 250000,
+   "commission": 60000,
+   "note": "Giá PO Captain Cua chốt ngày 20/10/2026 cho demo 22/10."
+  },
+  {
+   "id": "HS-luxe-75pht-spa-foot-120",
+   "sellingPrice": 800000,
+   "netCost": 350000,
+   "commission": 80000,
+   "note": "Giá PO Captain Cua chốt ngày 20/10/2026 cho demo 22/10."
+  },
+  {
+   "id": "HS-luxe-75pht-spa-head-60",
+   "sellingPrice": 400000,
+   "netCost": 150000,
+   "commission": 50000,
+   "note": "Giá PO Captain Cua chốt ngày 20/10/2026 cho demo 22/10."
+  },
+  {
+   "id": "HS-luxe-75pht-spa-head-90",
+   "sellingPrice": 600000,
+   "netCost": 250000,
+   "commission": 60000,
+   "note": "Giá PO Captain Cua chốt ngày 20/10/2026 cho demo 22/10."
+  },
+  {
+   "id": "HS-luxe-75pht-spa-head-120",
+   "sellingPrice": 800000,
+   "netCost": 350000,
+   "commission": 80000,
+   "note": "Giá PO Captain Cua chốt ngày 20/10/2026 cho demo 22/10."
+  },
+  {
+   "id": "HS-luxe-suites-spa-trad-60",
+   "sellingPrice": 400000,
+   "netCost": 150000,
+   "commission": 50000,
+   "note": "Giá PO Captain Cua chốt ngày 20/10/2026 cho demo 22/10."
+  },
+  {
+   "id": "HS-luxe-suites-spa-trad-90",
+   "sellingPrice": 600000,
+   "netCost": 250000,
+   "commission": 60000,
+   "note": "Giá PO Captain Cua chốt ngày 20/10/2026 cho demo 22/10."
+  },
+  {
+   "id": "HS-luxe-suites-spa-trad-120",
+   "sellingPrice": 800000,
+   "netCost": 350000,
+   "commission": 80000,
+   "note": "Giá PO Captain Cua chốt ngày 20/10/2026 cho demo 22/10."
+  },
+  {
+   "id": "HS-luxe-suites-spa-aroma-60",
+   "sellingPrice": 400000,
+   "netCost": 150000,
+   "commission": 50000,
+   "note": "Giá PO Captain Cua chốt ngày 20/10/2026 cho demo 22/10."
+  },
+  {
+   "id": "HS-luxe-suites-spa-aroma-90",
+   "sellingPrice": 600000,
+   "netCost": 250000,
+   "commission": 60000,
+   "note": "Giá PO Captain Cua chốt ngày 20/10/2026 cho demo 22/10."
+  },
+  {
+   "id": "HS-luxe-suites-spa-aroma-120",
+   "sellingPrice": 800000,
+   "netCost": 350000,
+   "commission": 80000,
+   "note": "Giá PO Captain Cua chốt ngày 20/10/2026 cho demo 22/10."
+  },
+  {
+   "id": "HS-luxe-suites-spa-foot-60",
+   "sellingPrice": 400000,
+   "netCost": 150000,
+   "commission": 50000,
+   "note": "Giá PO Captain Cua chốt ngày 20/10/2026 cho demo 22/10."
+  },
+  {
+   "id": "HS-luxe-suites-spa-foot-90",
+   "sellingPrice": 600000,
+   "netCost": 250000,
+   "commission": 60000,
+   "note": "Giá PO Captain Cua chốt ngày 20/10/2026 cho demo 22/10."
+  },
+  {
+   "id": "HS-luxe-suites-spa-foot-120",
+   "sellingPrice": 800000,
+   "netCost": 350000,
+   "commission": 80000,
+   "note": "Giá PO Captain Cua chốt ngày 20/10/2026 cho demo 22/10."
+  },
+  {
+   "id": "HS-luxe-suites-spa-head-60",
+   "sellingPrice": 400000,
+   "netCost": 150000,
+   "commission": 50000,
+   "note": "Giá PO Captain Cua chốt ngày 20/10/2026 cho demo 22/10."
+  },
+  {
+   "id": "HS-luxe-suites-spa-head-90",
+   "sellingPrice": 600000,
+   "netCost": 250000,
+   "commission": 60000,
+   "note": "Giá PO Captain Cua chốt ngày 20/10/2026 cho demo 22/10."
+  },
+  {
+   "id": "HS-luxe-suites-spa-head-120",
+   "sellingPrice": 800000,
+   "netCost": 350000,
+   "commission": 80000,
+   "note": "Giá PO Captain Cua chốt ngày 20/10/2026 cho demo 22/10."
+  },
+  {
+   "id": "HS-luxe-75pht-car4-pickup",
+   "sellingPrice": 350000,
+   "netCost": 250000,
+   "commission": 30000,
+   "note": "Giá PO Captain Cua chốt ngày 20/10/2026 cho demo 22/10."
+  },
+  {
+   "id": "HS-luxe-75pht-car7-pickup",
+   "sellingPrice": 450000,
+   "netCost": 320000,
+   "commission": 40000,
+   "note": "Giá PO Captain Cua chốt ngày 20/10/2026 cho demo 22/10."
+  },
+  {
+   "id": "HS-luxe-75pht-van16-pickup",
+   "sellingPrice": 700000,
+   "netCost": 500000,
+   "commission": 50000,
+   "note": "Giá PO Captain Cua chốt ngày 20/10/2026 cho demo 22/10."
+  },
+  {
+   "id": "NB01",
+   "sellingPrice": 950000,
+   "netCost": 710000,
+   "commission": 50000,
+   "note": "Giá vốn và hoa hồng là số MẪU cho demo, chưa phải giá hợp đồng nhà cung cấp."
+  },
+  {
+   "id": "NB02",
+   "sellingPrice": 1050000,
+   "netCost": 790000,
+   "commission": 50000,
+   "note": "Giá vốn và hoa hồng là số MẪU cho demo, chưa phải giá hợp đồng nhà cung cấp."
+  },
+  {
+   "id": "NB03",
+   "sellingPrice": 1350000,
+   "netCost": 1010000,
+   "commission": 70000,
+   "note": "Giá vốn và hoa hồng là số MẪU cho demo, chưa phải giá hợp đồng nhà cung cấp."
+  },
+  {
+   "id": "NB04",
+   "sellingPrice": 1500000,
+   "netCost": 1120000,
+   "commission": 80000,
+   "note": "Giá vốn và hoa hồng là số MẪU cho demo, chưa phải giá hợp đồng nhà cung cấp."
+  },
+  {
+   "id": "HL01",
+   "sellingPrice": 850000,
+   "netCost": 640000,
+   "commission": 40000,
+   "note": "Giá vốn và hoa hồng là số MẪU cho demo, chưa phải giá hợp đồng nhà cung cấp."
+  },
+  {
+   "id": "HL02",
+   "sellingPrice": 1050000,
+   "netCost": 790000,
+   "commission": 50000,
+   "note": "Giá vốn và hoa hồng là số MẪU cho demo, chưa phải giá hợp đồng nhà cung cấp."
+  },
+  {
+   "id": "HN01",
+   "sellingPrice": 750000,
+   "netCost": 560000,
+   "commission": 40000,
+   "note": "Giá vốn và hoa hồng là số MẪU cho demo, chưa phải giá hợp đồng nhà cung cấp."
+  },
+  {
+   "id": "HN02",
+   "sellingPrice": 850000,
+   "netCost": 640000,
+   "commission": 40000,
+   "note": "Giá vốn và hoa hồng là số MẪU cho demo, chưa phải giá hợp đồng nhà cung cấp."
+  },
+  {
+   "id": "HN04",
+   "sellingPrice": 1150000,
+   "netCost": 850000,
+   "commission": 50000,
+   "note": "Giá PO Captain Cua chốt ngày 20/10/2026 cho demo 22/10."
+  },
+  {
+   "id": "HT03",
+   "sellingPrice": 6450000,
+   "netCost": 4850000,
+   "commission": 300000,
+   "currency": "VND",
+   "note": "Giá PO Captain Cua chốt ngày 20/10/2026 cho demo 22/10. Quy đổi từ 255 USD theo tỉ giá 25.300."
+  }
  ]
 }

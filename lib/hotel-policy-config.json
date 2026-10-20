@@ -91,14 +91,18 @@
       },
       "spa": {
         "approved": false,
-        "note": "Chưa có bảng giá Spa. Nhập giá vào các ô price rồi đặt approved: true.",
+        "note": "Giá Spa lấy từ Kho dịch vụ & giá (lib/demo-catalog-prices.json khi nạp seed). Mô tả ở đây dùng cho trả lời khách.",
         "advanceBookingOffer": null,
         "items": [
           {
             "id": "spa-trad-60",
             "name": {
-              "vi": "Massage truyền thống Việt Nam",
-              "en": "Vietnamese Traditional Massage"
+              "vi": "Massage body cổ truyền Việt Nam",
+              "en": "Vietnamese Traditional Body Massage"
+            },
+            "description": {
+              "vi": "Liệu pháp bấm huyệt cổ truyền kết hợp tinh dầu thảo dược và đá nóng chườm lưng; giải tỏa căng cơ, lưu thông khí huyết và đặc trị nhức mỏi sau chuyến bay dài (jet-lag).",
+              "en": "Traditional acupressure with herbal oils and hot stones on the back; releases muscle tension, improves circulation and eases aches after a long flight (jet lag)."
             },
             "minutes": 60,
             "price": null,
@@ -108,8 +112,12 @@
           {
             "id": "spa-trad-90",
             "name": {
-              "vi": "Massage truyền thống Việt Nam",
-              "en": "Vietnamese Traditional Massage"
+              "vi": "Massage body cổ truyền Việt Nam",
+              "en": "Vietnamese Traditional Body Massage"
+            },
+            "description": {
+              "vi": "Liệu pháp bấm huyệt cổ truyền kết hợp tinh dầu thảo dược và đá nóng chườm lưng; giải tỏa căng cơ, lưu thông khí huyết và đặc trị nhức mỏi sau chuyến bay dài (jet-lag).",
+              "en": "Traditional acupressure with herbal oils and hot stones on the back; releases muscle tension, improves circulation and eases aches after a long flight (jet lag)."
             },
             "minutes": 90,
             "price": null,
@@ -117,10 +125,29 @@
             "commission": null
           },
           {
+            "id": "spa-trad-120",
+            "name": {
+              "vi": "Massage body cổ truyền Việt Nam",
+              "en": "Vietnamese Traditional Body Massage"
+            },
+            "description": {
+              "vi": "Liệu pháp bấm huyệt cổ truyền kết hợp tinh dầu thảo dược và đá nóng chườm lưng; giải tỏa căng cơ, lưu thông khí huyết và đặc trị nhức mỏi sau chuyến bay dài (jet-lag).",
+              "en": "Traditional acupressure with herbal oils and hot stones on the back; releases muscle tension, improves circulation and eases aches after a long flight (jet lag)."
+            },
+            "minutes": 120,
+            "price": null,
+            "cost": null,
+            "commission": null
+          },
+          {
             "id": "spa-aroma-60",
             "name": {
-              "vi": "Massage tinh dầu",
-              "en": "Aroma Massage"
+              "vi": "Massage thư giãn tinh dầu",
+              "en": "Aromatherapy Relaxation Massage"
+            },
+            "description": {
+              "vi": "Liệu trình vuốt miết thư giãn sâu theo đường kinh lạc với 100% tinh dầu thiên nhiên nguyên chất; giúp xua tan căng thẳng và mang lại giấc ngủ sâu.",
+              "en": "Deeply relaxing long strokes along the meridians with 100% pure natural essential oils; melts away stress and helps you sleep deeply."
             },
             "minutes": 60,
             "price": null,
@@ -130,8 +157,12 @@
           {
             "id": "spa-aroma-90",
             "name": {
-              "vi": "Massage tinh dầu",
-              "en": "Aroma Massage"
+              "vi": "Massage thư giãn tinh dầu",
+              "en": "Aromatherapy Relaxation Massage"
+            },
+            "description": {
+              "vi": "Liệu trình vuốt miết thư giãn sâu theo đường kinh lạc với 100% tinh dầu thiên nhiên nguyên chất; giúp xua tan căng thẳng và mang lại giấc ngủ sâu.",
+              "en": "Deeply relaxing long strokes along the meridians with 100% pure natural essential oils; melts away stress and helps you sleep deeply."
             },
             "minutes": 90,
             "price": null,
@@ -139,10 +170,29 @@
             "commission": null
           },
           {
+            "id": "spa-aroma-120",
+            "name": {
+              "vi": "Massage thư giãn tinh dầu",
+              "en": "Aromatherapy Relaxation Massage"
+            },
+            "description": {
+              "vi": "Liệu trình vuốt miết thư giãn sâu theo đường kinh lạc với 100% tinh dầu thiên nhiên nguyên chất; giúp xua tan căng thẳng và mang lại giấc ngủ sâu.",
+              "en": "Deeply relaxing long strokes along the meridians with 100% pure natural essential oils; melts away stress and helps you sleep deeply."
+            },
+            "minutes": 120,
+            "price": null,
+            "cost": null,
+            "commission": null
+          },
+          {
             "id": "spa-foot-60",
             "name": {
-              "vi": "Massage chân",
-              "en": "Foot Massage"
+              "vi": "Ngâm chân thảo dược & bấm huyệt bàn chân",
+              "en": "Foot Reflexology & Herbal Soak"
+            },
+            "description": {
+              "vi": "Ngâm chân nước lá thuốc thảo dược ấm giúp đào thải độc tố, tiếp nối bằng bấm huyệt lòng bàn chân chuyên sâu; giải pháp phục hồi lý tưởng sau một ngày đi bộ tham quan phố cổ.",
+              "en": "A warm herbal foot soak to help detox, followed by in-depth foot reflexology; the ideal recovery after a day walking around the Old Quarter."
             },
             "minutes": 60,
             "price": null,
@@ -152,10 +202,74 @@
           {
             "id": "spa-foot-90",
             "name": {
-              "vi": "Massage chân",
-              "en": "Foot Massage"
+              "vi": "Ngâm chân thảo dược & bấm huyệt bàn chân",
+              "en": "Foot Reflexology & Herbal Soak"
+            },
+            "description": {
+              "vi": "Ngâm chân nước lá thuốc thảo dược ấm giúp đào thải độc tố, tiếp nối bằng bấm huyệt lòng bàn chân chuyên sâu; giải pháp phục hồi lý tưởng sau một ngày đi bộ tham quan phố cổ.",
+              "en": "A warm herbal foot soak to help detox, followed by in-depth foot reflexology; the ideal recovery after a day walking around the Old Quarter."
             },
             "minutes": 90,
+            "price": null,
+            "cost": null,
+            "commission": null
+          },
+          {
+            "id": "spa-foot-120",
+            "name": {
+              "vi": "Ngâm chân thảo dược & bấm huyệt bàn chân",
+              "en": "Foot Reflexology & Herbal Soak"
+            },
+            "description": {
+              "vi": "Ngâm chân nước lá thuốc thảo dược ấm giúp đào thải độc tố, tiếp nối bằng bấm huyệt lòng bàn chân chuyên sâu; giải pháp phục hồi lý tưởng sau một ngày đi bộ tham quan phố cổ.",
+              "en": "A warm herbal foot soak to help detox, followed by in-depth foot reflexology; the ideal recovery after a day walking around the Old Quarter."
+            },
+            "minutes": 120,
+            "price": null,
+            "cost": null,
+            "commission": null
+          },
+          {
+            "id": "spa-head-60",
+            "name": {
+              "vi": "Trị liệu đầu, cổ, vai",
+              "en": "Head, Neck & Shoulder Relief"
+            },
+            "description": {
+              "vi": "Trị liệu tập trung giải phóng áp lực vùng cơ cổ, vai, gáy bị co cứng do ngồi xe/máy bay.",
+              "en": "Focused treatment to release tight neck, shoulder and upper-back muscles after long car or plane journeys."
+            },
+            "minutes": 60,
+            "price": null,
+            "cost": null,
+            "commission": null
+          },
+          {
+            "id": "spa-head-90",
+            "name": {
+              "vi": "Trị liệu đầu, cổ, vai",
+              "en": "Head, Neck & Shoulder Relief"
+            },
+            "description": {
+              "vi": "Trị liệu tập trung giải phóng áp lực vùng cơ cổ, vai, gáy bị co cứng do ngồi xe/máy bay.",
+              "en": "Focused treatment to release tight neck, shoulder and upper-back muscles after long car or plane journeys."
+            },
+            "minutes": 90,
+            "price": null,
+            "cost": null,
+            "commission": null
+          },
+          {
+            "id": "spa-head-120",
+            "name": {
+              "vi": "Trị liệu đầu, cổ, vai",
+              "en": "Head, Neck & Shoulder Relief"
+            },
+            "description": {
+              "vi": "Trị liệu tập trung giải phóng áp lực vùng cơ cổ, vai, gáy bị co cứng do ngồi xe/máy bay.",
+              "en": "Focused treatment to release tight neck, shoulder and upper-back muscles after long car or plane journeys."
+            },
+            "minutes": 120,
             "price": null,
             "cost": null,
             "commission": null
@@ -315,14 +429,18 @@
       },
       "spa": {
         "approved": false,
-        "note": "Chưa có bảng giá Spa.",
+        "note": "Giá Spa lấy từ Kho dịch vụ & giá (lib/demo-catalog-prices.json khi nạp seed). Mô tả ở đây dùng cho trả lời khách.",
         "advanceBookingOffer": null,
         "items": [
           {
             "id": "spa-trad-60",
             "name": {
-              "vi": "Massage truyền thống Việt Nam",
-              "en": "Vietnamese Traditional Massage"
+              "vi": "Massage body cổ truyền Việt Nam",
+              "en": "Vietnamese Traditional Body Massage"
+            },
+            "description": {
+              "vi": "Liệu pháp bấm huyệt cổ truyền kết hợp tinh dầu thảo dược và đá nóng chườm lưng; giải tỏa căng cơ, lưu thông khí huyết và đặc trị nhức mỏi sau chuyến bay dài (jet-lag).",
+              "en": "Traditional acupressure with herbal oils and hot stones on the back; releases muscle tension, improves circulation and eases aches after a long flight (jet lag)."
             },
             "minutes": 60,
             "price": null,
@@ -332,8 +450,12 @@
           {
             "id": "spa-trad-90",
             "name": {
-              "vi": "Massage truyền thống Việt Nam",
-              "en": "Vietnamese Traditional Massage"
+              "vi": "Massage body cổ truyền Việt Nam",
+              "en": "Vietnamese Traditional Body Massage"
+            },
+            "description": {
+              "vi": "Liệu pháp bấm huyệt cổ truyền kết hợp tinh dầu thảo dược và đá nóng chườm lưng; giải tỏa căng cơ, lưu thông khí huyết và đặc trị nhức mỏi sau chuyến bay dài (jet-lag).",
+              "en": "Traditional acupressure with herbal oils and hot stones on the back; releases muscle tension, improves circulation and eases aches after a long flight (jet lag)."
             },
             "minutes": 90,
             "price": null,
@@ -341,10 +463,29 @@
             "commission": null
           },
           {
+            "id": "spa-trad-120",
+            "name": {
+              "vi": "Massage body cổ truyền Việt Nam",
+              "en": "Vietnamese Traditional Body Massage"
+            },
+            "description": {
+              "vi": "Liệu pháp bấm huyệt cổ truyền kết hợp tinh dầu thảo dược và đá nóng chườm lưng; giải tỏa căng cơ, lưu thông khí huyết và đặc trị nhức mỏi sau chuyến bay dài (jet-lag).",
+              "en": "Traditional acupressure with herbal oils and hot stones on the back; releases muscle tension, improves circulation and eases aches after a long flight (jet lag)."
+            },
+            "minutes": 120,
+            "price": null,
+            "cost": null,
+            "commission": null
+          },
+          {
             "id": "spa-aroma-60",
             "name": {
-              "vi": "Massage tinh dầu",
-              "en": "Aroma Massage"
+              "vi": "Massage thư giãn tinh dầu",
+              "en": "Aromatherapy Relaxation Massage"
+            },
+            "description": {
+              "vi": "Liệu trình vuốt miết thư giãn sâu theo đường kinh lạc với 100% tinh dầu thiên nhiên nguyên chất; giúp xua tan căng thẳng và mang lại giấc ngủ sâu.",
+              "en": "Deeply relaxing long strokes along the meridians with 100% pure natural essential oils; melts away stress and helps you sleep deeply."
             },
             "minutes": 60,
             "price": null,
@@ -354,8 +495,12 @@
           {
             "id": "spa-aroma-90",
             "name": {
-              "vi": "Massage tinh dầu",
-              "en": "Aroma Massage"
+              "vi": "Massage thư giãn tinh dầu",
+              "en": "Aromatherapy Relaxation Massage"
+            },
+            "description": {
+              "vi": "Liệu trình vuốt miết thư giãn sâu theo đường kinh lạc với 100% tinh dầu thiên nhiên nguyên chất; giúp xua tan căng thẳng và mang lại giấc ngủ sâu.",
+              "en": "Deeply relaxing long strokes along the meridians with 100% pure natural essential oils; melts away stress and helps you sleep deeply."
             },
             "minutes": 90,
             "price": null,
@@ -363,10 +508,29 @@
             "commission": null
           },
           {
+            "id": "spa-aroma-120",
+            "name": {
+              "vi": "Massage thư giãn tinh dầu",
+              "en": "Aromatherapy Relaxation Massage"
+            },
+            "description": {
+              "vi": "Liệu trình vuốt miết thư giãn sâu theo đường kinh lạc với 100% tinh dầu thiên nhiên nguyên chất; giúp xua tan căng thẳng và mang lại giấc ngủ sâu.",
+              "en": "Deeply relaxing long strokes along the meridians with 100% pure natural essential oils; melts away stress and helps you sleep deeply."
+            },
+            "minutes": 120,
+            "price": null,
+            "cost": null,
+            "commission": null
+          },
+          {
             "id": "spa-foot-60",
             "name": {
-              "vi": "Massage chân",
-              "en": "Foot Massage"
+              "vi": "Ngâm chân thảo dược & bấm huyệt bàn chân",
+              "en": "Foot Reflexology & Herbal Soak"
+            },
+            "description": {
+              "vi": "Ngâm chân nước lá thuốc thảo dược ấm giúp đào thải độc tố, tiếp nối bằng bấm huyệt lòng bàn chân chuyên sâu; giải pháp phục hồi lý tưởng sau một ngày đi bộ tham quan phố cổ.",
+              "en": "A warm herbal foot soak to help detox, followed by in-depth foot reflexology; the ideal recovery after a day walking around the Old Quarter."
             },
             "minutes": 60,
             "price": null,
@@ -376,10 +540,74 @@
           {
             "id": "spa-foot-90",
             "name": {
-              "vi": "Massage chân",
-              "en": "Foot Massage"
+              "vi": "Ngâm chân thảo dược & bấm huyệt bàn chân",
+              "en": "Foot Reflexology & Herbal Soak"
+            },
+            "description": {
+              "vi": "Ngâm chân nước lá thuốc thảo dược ấm giúp đào thải độc tố, tiếp nối bằng bấm huyệt lòng bàn chân chuyên sâu; giải pháp phục hồi lý tưởng sau một ngày đi bộ tham quan phố cổ.",
+              "en": "A warm herbal foot soak to help detox, followed by in-depth foot reflexology; the ideal recovery after a day walking around the Old Quarter."
             },
             "minutes": 90,
+            "price": null,
+            "cost": null,
+            "commission": null
+          },
+          {
+            "id": "spa-foot-120",
+            "name": {
+              "vi": "Ngâm chân thảo dược & bấm huyệt bàn chân",
+              "en": "Foot Reflexology & Herbal Soak"
+            },
+            "description": {
+              "vi": "Ngâm chân nước lá thuốc thảo dược ấm giúp đào thải độc tố, tiếp nối bằng bấm huyệt lòng bàn chân chuyên sâu; giải pháp phục hồi lý tưởng sau một ngày đi bộ tham quan phố cổ.",
+              "en": "A warm herbal foot soak to help detox, followed by in-depth foot reflexology; the ideal recovery after a day walking around the Old Quarter."
+            },
+            "minutes": 120,
+            "price": null,
+            "cost": null,
+            "commission": null
+          },
+          {
+            "id": "spa-head-60",
+            "name": {
+              "vi": "Trị liệu đầu, cổ, vai",
+              "en": "Head, Neck & Shoulder Relief"
+            },
+            "description": {
+              "vi": "Trị liệu tập trung giải phóng áp lực vùng cơ cổ, vai, gáy bị co cứng do ngồi xe/máy bay.",
+              "en": "Focused treatment to release tight neck, shoulder and upper-back muscles after long car or plane journeys."
+            },
+            "minutes": 60,
+            "price": null,
+            "cost": null,
+            "commission": null
+          },
+          {
+            "id": "spa-head-90",
+            "name": {
+              "vi": "Trị liệu đầu, cổ, vai",
+              "en": "Head, Neck & Shoulder Relief"
+            },
+            "description": {
+              "vi": "Trị liệu tập trung giải phóng áp lực vùng cơ cổ, vai, gáy bị co cứng do ngồi xe/máy bay.",
+              "en": "Focused treatment to release tight neck, shoulder and upper-back muscles after long car or plane journeys."
+            },
+            "minutes": 90,
+            "price": null,
+            "cost": null,
+            "commission": null
+          },
+          {
+            "id": "spa-head-120",
+            "name": {
+              "vi": "Trị liệu đầu, cổ, vai",
+              "en": "Head, Neck & Shoulder Relief"
+            },
+            "description": {
+              "vi": "Trị liệu tập trung giải phóng áp lực vùng cơ cổ, vai, gáy bị co cứng do ngồi xe/máy bay.",
+              "en": "Focused treatment to release tight neck, shoulder and upper-back muscles after long car or plane journeys."
+            },
+            "minutes": 120,
             "price": null,
             "cost": null,
             "commission": null

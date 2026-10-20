@@ -51,12 +51,18 @@ Bản chạy local `http://localhost:5173`, nhánh `integration/claude-travis`.
   - 6 chiều xe sân bay 75PHT;
   - NB01–NB04, HL01–HL02, HN01, HN02, HN04 (Jeep), HT03 (Sa Pa, 255 USD);
   - 6 quy định phòng (nhận sớm, trả muộn, gia hạn).
-- Giá mẫu cho demo 22/10 (`lib/demo-catalog-prices.json`; giá vốn và hoa hồng là số MẪU, chưa phải giá hợp đồng):
-  - Spa 60 phút ở cả hai cơ sở: Traditional 450.000/250.000đ, Aroma 500.000/280.000đ, Foot 350.000/180.000đ (giá bán/giá vốn), hoa hồng 0.
-  - Tour NB01–NB04, HL01–HL02, HN01, HN02: thêm giá vốn và hoa hồng mẫu, nên báo giá duyệt được.
-  - HT03 tính bằng USD nên chưa duyệt được trong báo giá (báo giá tính VND).
-  - DB đã nạp trước đó được cập nhật bằng `node scripts/apply-demo-catalog-prices.mjs` (qua API, có lịch sử; chạy lại không đổi gì).
-- **Còn thiếu:** giá Spa 90 phút; giá vốn và hoa hồng của xe sân bay và HN04.
+- Giá cho demo 22/10 nằm ở `lib/demo-catalog-prices.json`; nguồn ghi ở từng mục.
+  - **Spa (PO chốt 20/10):** 4 liệu trình × 60/90/120 phút ở cả hai cơ sở. Giá bán / vốn / hoa hồng lễ tân, phần còn lại là lãi khách sạn:
+    - 60 phút: 400.000 / 150.000 / 50.000đ, lãi 200.000đ;
+    - 90 phút: 600.000 / 250.000 / 60.000đ, lãi 290.000đ;
+    - 120 phút: 800.000 / 350.000 / 80.000đ, lãi 370.000đ.
+  - Liệu trình Spa: Traditional Body, Aromatherapy, Foot Reflexology & Herbal Soak, Head-Neck-Shoulder. Mô tả nằm trong `hotel-policy-config.json`; khách hỏi spa thì nháp in bảng giá kèm mô tả, không in giá vốn.
+  - **Xe đón sân bay 75PHT (PO chốt 20/10):** 4 chỗ 350.000đ, 7 chỗ 450.000đ, 16 chỗ 700.000đ, có giá vốn và hoa hồng. Xe tiễn giữ giá cũ, chưa có giá vốn và hoa hồng.
+  - **HN04 Jeep (PO chốt 20/10):** 1.150.000 / 850.000 / 50.000đ.
+  - **HT03 Sa Pa (PO chốt 20/10):** 6.450.000 / 4.850.000 / 300.000đ, tính bằng VND (quy đổi 255 USD × 25.300).
+  - **NB01–NB04, HL01–HL02, HN01, HN02:** giá vốn và hoa hồng là số MẪU.
+  - DB đã nạp trước đó được đồng bộ bằng `node scripts/apply-demo-catalog-prices.mjs`: lấy giá, tên và mô tả từ seed, đi qua API, có lịch sử; chạy lại không đổi gì.
+- **Còn thiếu:** giá vốn và hoa hồng của xe tiễn sân bay.
 - Làm sạch tên thật còn sót: `node scripts/sanitize-remaining-pii.mjs --dry-run` để xem trước, rồi chạy lại không có `--dry-run` (tự sao lưu vào `private-data/backups` trước khi ghi).
 - Dữ liệu dùng chung:
   - Hộp thư OTA: bộ kiểm tra giá, giá xe/spa, giá tour theo hạng hiện trong bảng tư vấn. Tour vẫn qua WhatsApp, nháp OTA không ghi giá tour.
