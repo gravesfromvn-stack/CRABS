@@ -18,7 +18,7 @@ check('#079 · coming overland from Sapa at 3 am inside the booked night: 24/7 r
  const t='Hi, I am in Sapa now and I will take a bus to hanoi very late and I may reach to hanoi 3 am or after. So can I still check in at this time?';
  const o={sentAt:'2026-10-14T07:17:58Z',stay:{checkIn:'2026-10-14',checkOut:'2026-10-15'}};
  assert.equal(timing.arrivalTiming({text:t,sentAt:o.sentAt,checkIn:o.stay.checkIn}).kind,'night');
- const r=reply(t,o);assert.match(r.text,/open 24\/7/);assert.match(r.text,/room is held for your booking/);assert.match(r.text,/where to go next\? We offer airport drop-off and car transfers to other provinces/);
+ const r=reply(t,o);assert.match(r.text,/open 24\/7/);assert.match(r.text,/room is held for your booking/);assert.match(r.text,/interested in visiting Ha Long Bay, Ninh Binh, or Ha Giang during your stay\? .*as well as airport drop-off and car transfers to other provinces/);
  assert.doesNotMatch(r.text,/pick-up|Airport pick/i);assert.doesNotMatch(r.text,/early check-in/i);
  const tg=tagsOf([[t,o.sentAt]],o.stay);assert.ok(codes(tg).includes('TAG_URGENT'));assert.match(tg.notes.join(' '),/\[ĐẾN KHUYA\].*03:00.*Sapa/);
  assert.equal(advice.tourAdvice({propertyId:'luxe-75pht',facts:[],text:t}).status,'none','Sapa is the origin, not a tour');
@@ -27,7 +27,7 @@ check('#196 · landing at 5 in the morning on the check-in day: two options, fre
  const t='because my airplane arrives at 5 in the\nmorning , is there any chance that I might get in the room a little earlier? Or if you can keep my luggages for this hours so I don’t carry them around?';
  const r=reply(t,{property:'luxe-suites',sentAt:'2026-10-13T05:50:30Z',stay:{checkIn:'2026-10-15',checkOut:'2026-10-16'}});
  assert.ok(r.needs.includes('early_options'));assert.match(r.text,/1\. Room ready on arrival: book the previous night/);assert.match(r.text,/2\. Flexible and economical: early check-in from 09:00 .*50% .*complimentary buffet breakfast/);
- assert.match(r.text,/store your luggage free of charge at reception 24\/7, use the lobby restroom/);assert.match(r.text,/plans for sightseeing/);
+ assert.match(r.text,/store your luggage free of charge at reception 24\/7, use the lobby restroom/);assert.match(r.text,/interested in visiting Ha Long Bay, Ninh Binh, Sapa, or Ha Giang/);
  assert.equal((r.text.match(/store your luggage/g)||[]).length,1,'luggage once');
 });
 check('#001 · booked on behalf, wants to pay in advance: no card in chat, secure link via WhatsApp, billing tag and hand-off',()=>{
@@ -73,7 +73,7 @@ check('#210 · tired guest from Cat Ba asking for a quiet non-smoking room: VIP 
  const t2='could I please have a quiet non smoking room as I am a very light sleeper and have just spent two on Cat Ba in not the best of hotels that had no sound proofing between rooms. Next to me was a Very unhappy child who cried nearly all night so I haven\'t slept much. I\'m very tired.';
  const o={sentAt:'2026-10-14T03:45:49Z',stay:{checkIn:'2026-10-14',checkOut:'2026-10-15'}};
  assert.match(reply(t1,{...o,sentAt:'2026-10-14T03:18:01Z'}).text,/arrival around 19:00/);
- const r=reply(t2,o);assert.ok(r.needs.includes('care'));assert.match(r.text,/sorry to hear you had such a difficult night.*quiet room, non-smoking/s);assert.doesNotMatch(r.text,/tour|children/i);
+ const r=reply(t2,o);assert.ok(r.needs.includes('care'));assert.match(r.text,/tiring, sleepless journey from Cat Ba\. Please rest assured that we will prioritise a quiet, fresh and tranquil room for you \(non-smoking\)/);assert.ok(r.needs.includes('spa_recovery'));assert.doesNotMatch(r.text,/\btours?\b|children|interested in visiting/i);
  const tg=tagsOf([[t1,'2026-10-14T03:18:01Z'],[t2,o.sentAt]],o.stay);assert.ok(codes(tg).includes('TAG_VIP_CARE'));assert.ok(!codes(tg).includes('TAG_COMPLAINT'),'another hotel is not a complaint about us');
  assert.equal(advice.tourAdvice({propertyId:'luxe-75pht',facts:[],text:t1+'\n'+t2}).status,'none');
 });

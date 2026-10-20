@@ -1,6 +1,7 @@
 import {normalize} from './ota-profile';
 import {arrivalTiming} from './arrival-timing';
 import {transferConfirmation} from './transfer-confirm';
+import {extractAdjectivesAndEmotion,adjectivesVi} from './guest-emotion';
 
 // Front-desk tags read from the guest's messages, with the hand-off note reception needs before the
 // guest walks in. Rules only; Cua reviews the conversation before acting.
@@ -11,6 +12,7 @@ export const tagInfo={
  TAG_SPECIAL_REQUEST:{label:'[YÊU CẦU ĐẶC BIỆT]',tone:'purple'},
  TAG_VIP_CARE:{label:'[VIP CARE - CHĂM SÓC ĐẶC BIỆT]',tone:'orange'},
  TAG_BILLING:{label:'[THANH TOÁN / HÓA ĐƠN]',tone:'green'},
+ TAG_SPA_POTENTIAL:{label:'[TIỀM NĂNG SPA]',tone:'teal'},
 } as const;
 export type TagCode=keyof typeof tagInfo;
 export type SmartTag={code:TagCode;label:string;tone:string;reason:string};
@@ -37,16 +39,20 @@ export function smartTags(messages:Msg[],stay:{checkIn?:string;checkOut?:string}
  if(/disappoint|unacceptable|complain|refund|very bad service|terrible|worst|rude|dirty|not clean|broken|(?:your|this|the) (?:room|hotel|staff|service)[^.]{0,30}(?:bad|awful|noisy)/.test(n)&&!(elsewhere&&!/your|this hotel|here/.test(n)))add('TAG_COMPLAINT','Khách phàn nàn dịch vụ');
  // Special requests: occasions, bed type, room position.
  const occasion=/honeymoon|trang mat/.test(n)?'honeymoon':/anniversary|ky niem/.test(n)?'kỷ niệm':/birthday|sinh nhat/.test(n)?'sinh nhật':'';
- const bedChange=/(?:two|2) separate beds|twin[^.]{0,40}(?:double|one bed|king|queen)|(?:one|a) double bed|double bed instead|doi (?:sang )?giuong doi/.test(n);
- const room=[/high(?:er)? floor|tang cao/.test(n)&&'tầng cao',/quiet|yen tinh/.test(n)&&'phòng yên tĩnh',/non.?smoking|khong hut thuoc/.test(n)&&'không hút thuốc'].filter(Boolean) as string[];
+ const bedChange=/(?:two|2) separate beds|twin[^.]{0,40}(?:double|one bed|king|queen)|double bed instead|doi (?:sang )?giuong doi/.test(n)||/(?:one|a) double bed/.test(n)&&/twin|separate beds|two beds|2 beds|mistake/.test(n);
+ const room=[/high(?:er)? floor|tang cao/.test(n)&&'tầng cao',/quiet|yen tinh/.test(n)&&'phòng yên tĩnh',/non.?smoking|khong hut thuoc/.test(n)&&'không hút thuốc',!bedChange&&/double bed|king bed|queen bed|giuong doi/.test(n)&&'giường đôi'].filter(Boolean) as string[];
  if(occasion||bedChange||room.length)add('TAG_SPECIAL_REQUEST',[occasion,bedChange&&'đổi sang giường đôi',...room].filter(Boolean).join(', '));
  if(occasion&&bedChange)notes.push(`[${occasion==='honeymoon'?'HONEYMOON':'KỶ NIỆM'} & ĐỔI GIƯỜNG] ${timing?.time?`Khách đến khoảng ${timing.time}. `:''}Bắt buộc xếp phòng giường đôi (Double), không xếp Twin. Setup trang trí ${occasion==='honeymoon'?'trăng mật':'kỷ niệm'} (thiệp chúc mừng, hoa/thiên nga gấp khăn).`);
  else if(bedChange)notes.push('[ĐỔI GIƯỜNG] Xếp phòng giường đôi (Double), không xếp Twin.');
  else if(occasion)notes.push(`[${occasion.toUpperCase()}] Chuẩn bị lời chúc/trang trí theo tiêu chuẩn khách sạn.`);
  if(room.length&&!bedChange)notes.push(`[YÊU CẦU PHÒNG] Ưu tiên ${room.join(', ')}.`);
- // Care: tired, no sleep, bad experience elsewhere, unwell.
- if(/haven.?t slept|have not slept|no sleep|light sleeper|very tired|exhausted|so tired|unwell|feel(?:ing)? sick|met moi|khong ngu duoc/.test(n)||elsewhere&&/no sound ?proof|noisy|cried|not the best/.test(n)){add('TAG_VIP_CARE','Khách mệt, thiếu ngủ hoặc vừa có trải nghiệm không tốt');
-  notes.push(`[VIP CARE] Khách mệt/thiếu ngủ${timing?.time?`, đến khoảng ${timing.time}`:''}: xếp phòng yên tĩnh, xa thang máy/đường phố, chào đón nhẹ nhàng (nước, khăn lạnh), nhận phòng nhanh.`);}
+ // Care: the guest's own words (sleepless, noisy, exhausting journey…) → rest first, spa as recovery.
+ const emo=extractAdjectivesAndEmotion(all);
+ if(emo.emotional_state==='SENSORY_OVERLOAD_TIRED'||emo.emotional_state==='PHYSICAL_EXHAUSTION'||/unwell|feel(?:ing)? sick/.test(n)){
+  add('TAG_VIP_CARE',`Khách mệt/thiếu ngủ (${adjectivesVi(emo.detected_adjectives)||'không khỏe'})`);
+  notes.push(`[VIP CARE - CẦN NGHỈ NGƠI] Khách ${adjectivesVi(emo.detected_adjectives)||'mệt'}${emo.origins[0]?` sau chặng ${titleCase(emo.origins[0])}`:''}${timing?.time?`, đến khoảng ${timing.time}`:''}: xếp phòng yên tĩnh nhất, xa thang máy/đường phố, chào đón nhẹ nhàng (nước, khăn lạnh), nhận phòng nhanh.`);
+  if(emo.applicable_care_path==='SPA_RECOVERY'&&!/\bspa\b|massage/.test(n)){add('TAG_SPA_POTENTIAL','Khách mệt: mời spa phục hồi');notes.push('[TIỀM NĂNG SPA] Đã mời spa phục hồi trong nháp: khi khách nhận phòng, hỏi lại và giữ khung giờ spa (60/90/120 phút) nếu khách muốn.');}}
+ else if(emo.emotional_state==='ANXIOUS_UNCERTAIN')notes.push(`[TRẤN AN] Khách ${adjectivesVi(emo.detected_adjectives)}: hướng dẫn từng bước khi đến, nhắc WhatsApp lễ tân 24/7.`);
  // Billing: paying for someone else, prepayment, card, invoice.
  const onBehalf=/on behalf of|for my client|for my (?:friend|colleague|boss|parents|mother|father)|dat ho|dat cho/.test(n);
  const prepay=/pay (?:in advance|before|for (?:him|her|them))|prepay|credit card|avoid (?:him|her|them) paying|thanh toan truoc/.test(n);

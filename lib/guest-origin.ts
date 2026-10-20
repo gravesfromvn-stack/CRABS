@@ -9,6 +9,10 @@ const ORIGIN=[
  new RegExp(`\\b(?:i am|i'm|we are|we're|am|are|currently|still|now)\\s+(?:currently\\s+|still\\s+|now\\s+)?(?:in|at)\\s+(${PLACE})`,'g'),
  new RegExp(`\\btu\\s+(${PLACE})\\s+ra\\b`,'g'),
  new RegExp(`\\b(?:spent|stayed|been)\\s+(?:\\w+\\s+){0,3}(?:in|on|at)\\s+(${PLACE})`,'g'),
+ // A night/stay already had there ("we had a terrible noisy night in Cat Ba").
+ new RegExp(`\\b(?:had|spent|after)\\s+(?:\\w+\\s+){0,4}(?:night|nights|stay|days?|time|trip)\\s+(?:in|on|at)\\s+(${PLACE})`,'g'),
+ // Vietnamese: "một đêm rất ồn ào ở Cát Bà", "vừa ở Sa Pa về".
+ new RegExp(`\\b(?:dem|may ngay|vua)\\b(?:\\s+\\S+){0,4}?\\s+o\\s+(${PLACE})`,'g'),
  // Flight routes into Hanoi ("Route: Da Nang → Hanoi").
  new RegExp(`(${PLACE})\\s*(?:→|->|=>|–|-|to)\\s*(?:ha ?noi|noi bai)\\b`,'g'),
 ];

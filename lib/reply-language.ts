@@ -1,3 +1,4 @@
+import {CARE} from './reply-language-care';
 // Short replies in the guest's own language for the common case: the guest gives an arrival time
 // (or arrives late at night). Longer requests stay in English and Cua uses the translate button.
 // Placeholders: {time}, {checkIn}. Cua reviews every draft before sending.
@@ -13,10 +14,23 @@ const P:Record<string,Phrases>={
  ko:{hello:'안녕하세요, 메시지 감사합니다.',arrival:'도착 시간을 알려 주셔서 감사합니다. {time}경 도착하시는 것으로 기록해 두었습니다. 기본 체크인 시간은 {checkIn}부터입니다.',early:'도착하실 때 객실이 준비되어 있으면 기꺼이 얼리 체크인을 도와드리겠습니다. 준비되지 않은 경우 프런트에 짐을 무료로 맡기시고 기다리시는 동안 로비 화장실에서 편히 정리하실 수 있습니다.',reception:'프런트는 24시간 운영되며 언제든지 환영합니다.',held:'예약에 따라 객실이 준비되어 있으니 {time}경 도착하시면 바로 체크인하실 수 있습니다.',closing:'곧 뵙기를 기대합니다.\n프런트 팀 드림'},
 };
 export const localizedLanguages=Object.keys(P);
-// From a service reply: only arrival / late-night reception needs are localized.
-export function localizedFromNeeds(lang:string,needs:string[],o:{time:string;checkIn:string;night:boolean}){
- if(!needs.length||!needs.every(x=>['arrival','reception_24h','onward','thanks','contact'].includes(x))||!(needs.includes('arrival')||needs.includes('reception_24h')))return null;
- return localizedArrivalReply(lang,{time:o.time,checkIn:o.checkIn,kind:needs.includes('reception_24h')?(o.night?'night':'sameDayLate'):'arrival'});
+// Supported needs for a reply fully in the guest's language; anything else stays in English.
+const LOCAL_NEEDS=['arrival','reception_24h','thanks','contact','care','spa_recovery','tour_upsell','excited','anxious'];
+export type LocalMeta={sleepy:boolean;origin:string;places:string[];overland:boolean;whatsapp:string};
+export function localizedFromNeeds(lang:string,needs:string[],o:{time:string;checkIn:string;night:boolean;meta?:LocalMeta}){
+ const p=P[lang],c=CARE[lang];
+ if(!p||!c||!needs.length||!needs.every(x=>LOCAL_NEEDS.includes(x)))return null;
+ const m=o.meta||{sleepy:false,origin:'',places:[],overland:false,whatsapp:''},v={time:o.time,checkIn:o.checkIn};
+ const parts:string[]=[p.hello];
+ if(needs.includes('anxious'))parts.push(fill(c.anxious,{whatsapp:m.whatsapp,pickup:m.overland?'':c.pickup}));
+ if(needs.includes('reception_24h')&&o.time)parts.push(p.reception+' '+fill(p.held,v));
+ else if(needs.includes('arrival')&&o.time)parts.push(fill(p.arrival,v)+(o.time<o.checkIn?' '+p.early:''));
+ if(needs.includes('care'))parts.push(fill(m.sleepy?c.empathySleepy:c.empathyTiring,{from:m.origin?fill(c.from,{o:m.origin}):''})+' '+c.quiet);
+ if(needs.includes('spa_recovery'))parts.push(c.spa);
+ if(needs.includes('excited'))parts.push(c.excited);
+ if(needs.includes('tour_upsell')&&m.places.length)parts.push(fill(c.tour,{places:c.join(m.places.map(k=>c.places[k]||k)),transfers:m.overland?c.transfers:''}));
+ if(parts.length===1)return null;
+ return [...parts,p.closing].join('\n\n');
 }
 const fill=(s:string,v:Record<string,string>)=>s.replace(/\{(\w+)\}/g,(_,k)=>v[k]??'');
 

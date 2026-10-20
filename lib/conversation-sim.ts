@@ -39,11 +39,11 @@ export function simulateConversation(input:{catalog?:CatalogEntry[];thread:{id:s
   // Tour content only when this message talks about a trip; earlier tour interest is not repeated.
   const tourNow=advice.status==='interested'&&(placesIn(text).length>0||/\btour|trip|sightsee|excursion|cruise|tham quan|lich trinh/.test(normalize(text)));
   const contact=guestContact(prior.map(x=>x.guest_text));
-  const service=serviceReply({stay:input.stay,sentAt:e.received,guestName:e.guest_name||'',catalog:input.catalog,propertyId:input.thread.property_id,text,facts,vi,tourInterested:tourNow,hasContact:Boolean(contact),tourPlaces:advice.destinations.map(d=>d.label.vi),history});
+  const service=serviceReply({offeredTour:sent.some(x=>/interested in visiting|có muốn tham quan|באם יש עניין לבקר|хотели бы вы во время пребывания|aimeriez-vous visiter|le gustaría visitar|Interesse, während Ihres Aufenthalts|是否有兴趣游览|を訪れてみませんか|가 보실 생각/.test(x.body)),stay:input.stay,sentAt:e.received,guestName:e.guest_name||'',catalog:input.catalog,propertyId:input.thread.property_id,text,facts,vi,tourInterested:tourNow,hasContact:Boolean(contact),tourPlaces:advice.destinations.map(d=>d.label.vi),history});
   const plan=planReply({thread:input.thread,events:prior,sent,stay:input.stay,profile,tourParagraph:tourNow?tourParagraph(advice,vi):'',serviceInfo:service.paragraphs.join('\n\n')},input.templates);
   let body='',source:ChatTurn['source']='rules';const notes:string[]=[];
   const lang=detectLanguage(text),tm=arrivalTiming({text,sentAt:e.received,checkIn:input.stay?.checkIn});
-  const localized=lang!=='en'&&lang!=='vi'?localizedFromNeeds(lang,service.needs,{time:tm?.time||clockTimes(text)[0]||'',checkIn:policyFor(input.thread.property_id)?.checkIn||'14:00',night:tm?.kind==='night'}):null;
+  const localized=lang!=='en'&&lang!=='vi'?localizedFromNeeds(lang,service.needs,{time:tm?.time||clockTimes(text)[0]||'',checkIn:policyFor(input.thread.property_id)?.checkIn||'14:00',night:tm?.kind==='night',meta:service.meta}):null;
   if(localized)body=localized;
   else if(plan.template&&plan.body&&!templateMisses(service,plan.template.body)){body=plan.body;source='template';}
   else{

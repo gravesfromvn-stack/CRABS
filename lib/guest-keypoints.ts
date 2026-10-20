@@ -1,5 +1,6 @@
 import {normalize,clockTimes,type GuestFact} from './ota-profile';
 import {guestContact} from './guest-contact';
+import {extractAdjectivesAndEmotion,stateLabels,pathLabels,adjectivesVi} from './guest-emotion';
 
 // Short key points of what the guest needs, for the top of the conversation: arrival, special
 // requests, payment, booking changes, transport, tours, contact. Each point names the day the
@@ -58,5 +59,8 @@ export function guestKeyPoints(events:Ev[],facts:GuestFact[]):KeyPoint[]{
  // Where the stay stands, from the guest's own words.
  const inRoom=lastWith(/thank you for (?:our|the) room|we (?:have )?arrived|checked in|room is (?:lovely|great|perfect)|da nhan phong/);if(inRoom)add({topic:'Tình trạng',text:'Khách đã nhận phòng',day:day(inRoom.received),status:'done'});
  const happy=lastWith(/it'?s perfect|so lovely|loved|amazing|wonderful|tuyet voi|rat hai long/);if(happy)add({topic:'Tình trạng',text:'Khách phản hồi hài lòng',day:day(happy.received),status:'done'});
+ // How the guest feels (their own descriptive words) and the care path used in the draft.
+ const emo=extractAdjectivesAndEmotion(msgs.map(e=>e.guest_text).join('\n'));
+ if(emo.emotional_state!=='NEUTRAL_BUSINESS')add({topic:'Cảm xúc',text:`${stateLabels[emo.emotional_state]}${emo.detected_adjectives.length?` (${adjectivesVi(emo.detected_adjectives)})`:''} → ${pathLabels[emo.applicable_care_path]}`,day:'',status:emo.applicable_care_path==='SPA_RECOVERY'||emo.emotional_state==='ANXIOUS_UNCERTAIN'?'need':'info'});
  return out;
 }

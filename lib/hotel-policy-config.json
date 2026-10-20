@@ -414,6 +414,36 @@
         "plansAsk": {
           "vi": "Bạn đã có dự định tham quan gì ở Hà Nội và lân cận chưa? Khách sạn có thể gợi ý tour và dịch vụ phù hợp.",
           "en": "Do you have any plans for sightseeing in and around Hanoi? We would be happy to suggest suitable tours and services."
+        },
+        "care": {
+          "empathy": {
+            "en": "We completely understand and are truly sorry to hear about your experience at your previous stay. A good night's rest is so important while travelling, and we are sorry you had such a {feeling} journey{from}.",
+            "vi": "Khách sạn rất thấu hiểu và thật sự tiếc khi biết trải nghiệm của bạn ở nơi lưu trú trước chưa được như ý. Một giấc ngủ ngon rất quan trọng khi đi du lịch, và mình rất tiếc vì bạn vừa có một hành trình {feeling}{from}."
+          },
+          "quietRoom": {
+            "en": "Please rest assured that we will prioritise a quiet, fresh and tranquil room for you{extras}, so you can completely unwind upon arrival.",
+            "vi": "Bạn yên tâm, khách sạn sẽ ưu tiên dành cho bạn một phòng yên tĩnh, sạch sẽ và thoáng mát{extras} để bạn được nghỉ ngơi trọn vẹn khi đến."
+          },
+          "spaInvite": {
+            "en": "To help ease muscle tension, calm your mind and enjoy a deep, restorative sleep, we warmly invite you to try our in-house spa treatments. A soothing massage will help revitalise your body so you feel fully refreshed to continue exploring Vietnam. If you would like us to reserve a relaxing spa slot for you when you arrive, just let us know!",
+            "vi": "Để thư giãn cơ bắp, xoa dịu tinh thần và có giấc ngủ sâu hơn, khách sạn trân trọng mời bạn trải nghiệm các liệu trình spa ngay tại khách sạn. Một buổi massage nhẹ nhàng sẽ giúp bạn lấy lại sức để tiếp tục khám phá Việt Nam. Nếu bạn muốn khách sạn giữ sẵn một khung giờ spa khi bạn đến, bạn cứ nhắn mình nhé!"
+          }
+        },
+        "tourAsk": {
+          "en": "By the way, are you interested in visiting {places} during your stay? We offer carefully selected tours at special hotel rates{transfers}. If you would like, we would be happy to recommend the best options for your trip.",
+          "vi": "Nhân tiện, bạn có muốn tham quan {places} trong thời gian lưu trú không? Khách sạn có các tour được chọn lọc kỹ với giá ưu đãi cho khách lưu trú{transfers}. Nếu bạn muốn, mình rất sẵn lòng gợi ý lựa chọn phù hợp nhất cho chuyến đi.",
+          "transfersEn": ", as well as airport drop-off and car transfers to other provinces",
+          "transfersVi": ", cùng dịch vụ xe tiễn sân bay và xe đi các tỉnh"
+        },
+        "excited": {
+          "en": "We love your excitement and are so happy to be part of your trip! While in Hanoi, you might enjoy a sunset stroll around Hoan Kiem Lake, the street food of the Old Quarter and a cup of the city's famous egg coffee; our reception will gladly share their favourite spots.",
+          "vi": "Khách sạn rất vui khi được đồng hành trong chuyến đi đầy hứng khởi của bạn! Ở Hà Nội, bạn có thể dạo quanh Hồ Hoàn Kiếm lúc hoàng hôn, thưởng thức ẩm thực đường phố trong phố cổ và một tách cà phê trứng nổi tiếng; lễ tân sẽ vui lòng chia sẻ những địa điểm yêu thích."
+        },
+        "anxious": {
+          "en": "Please don't worry, we are here to help every step of the way. Our reception is available 24/7 on WhatsApp {whatsapp}, so you can reach us any time, including when you land.{pickup} Our team will also gladly help with tips on exchanging money, getting around and settling in comfortably in Hanoi.",
+          "vi": "Bạn đừng lo, khách sạn luôn sẵn sàng hỗ trợ bạn từng bước. Lễ tân trực 24/7 qua WhatsApp {whatsapp}, bạn có thể nhắn bất cứ lúc nào, kể cả khi vừa hạ cánh.{pickup} Lễ tân cũng sẽ hướng dẫn bạn đổi tiền, di chuyển và ổn định chỗ ở thật thoải mái ở Hà Nội.",
+          "pickupEn": " If you like, we can arrange a private airport pick-up with a driver holding a sign with your name.",
+          "pickupVi": " Nếu bạn muốn, khách sạn có thể sắp xếp xe riêng đón sân bay, tài xế cầm biển tên bạn."
         }
       }
     },
@@ -752,6 +782,36 @@
         "plansAsk": {
           "vi": "Bạn đã có dự định tham quan gì ở Hà Nội và lân cận chưa? Khách sạn có thể gợi ý tour và dịch vụ phù hợp.",
           "en": "Do you have any plans for sightseeing in and around Hanoi? We would be happy to suggest suitable tours and services."
+        },
+        "care": {
+          "empathy": {
+            "en": "We completely understand and are truly sorry to hear about your experience at your previous stay. A good night's rest is so important while travelling, and we are sorry you had such a {feeling} journey{from}.",
+            "vi": "Khách sạn rất thấu hiểu và thật sự tiếc khi biết trải nghiệm của bạn ở nơi lưu trú trước chưa được như ý. Một giấc ngủ ngon rất quan trọng khi đi du lịch, và mình rất tiếc vì bạn vừa có một hành trình {feeling}{from}."
+          },
+          "quietRoom": {
+            "en": "Please rest assured that we will prioritise a quiet, fresh and tranquil room for you{extras}, so you can completely unwind upon arrival.",
+            "vi": "Bạn yên tâm, khách sạn sẽ ưu tiên dành cho bạn một phòng yên tĩnh, sạch sẽ và thoáng mát{extras} để bạn được nghỉ ngơi trọn vẹn khi đến."
+          },
+          "spaInvite": {
+            "en": "To help ease muscle tension, calm your mind and enjoy a deep, restorative sleep, we warmly invite you to try our in-house spa treatments. A soothing massage will help revitalise your body so you feel fully refreshed to continue exploring Vietnam. If you would like us to reserve a relaxing spa slot for you when you arrive, just let us know!",
+            "vi": "Để thư giãn cơ bắp, xoa dịu tinh thần và có giấc ngủ sâu hơn, khách sạn trân trọng mời bạn trải nghiệm các liệu trình spa ngay tại khách sạn. Một buổi massage nhẹ nhàng sẽ giúp bạn lấy lại sức để tiếp tục khám phá Việt Nam. Nếu bạn muốn khách sạn giữ sẵn một khung giờ spa khi bạn đến, bạn cứ nhắn mình nhé!"
+          }
+        },
+        "tourAsk": {
+          "en": "By the way, are you interested in visiting {places} during your stay? We offer carefully selected tours at special hotel rates{transfers}. If you would like, we would be happy to recommend the best options for your trip.",
+          "vi": "Nhân tiện, bạn có muốn tham quan {places} trong thời gian lưu trú không? Khách sạn có các tour được chọn lọc kỹ với giá ưu đãi cho khách lưu trú{transfers}. Nếu bạn muốn, mình rất sẵn lòng gợi ý lựa chọn phù hợp nhất cho chuyến đi.",
+          "transfersEn": ", as well as airport drop-off and car transfers to other provinces",
+          "transfersVi": ", cùng dịch vụ xe tiễn sân bay và xe đi các tỉnh"
+        },
+        "excited": {
+          "en": "We love your excitement and are so happy to be part of your trip! While in Hanoi, you might enjoy a sunset stroll around Hoan Kiem Lake, the street food of the Old Quarter and a cup of the city's famous egg coffee; our reception will gladly share their favourite spots.",
+          "vi": "Khách sạn rất vui khi được đồng hành trong chuyến đi đầy hứng khởi của bạn! Ở Hà Nội, bạn có thể dạo quanh Hồ Hoàn Kiếm lúc hoàng hôn, thưởng thức ẩm thực đường phố trong phố cổ và một tách cà phê trứng nổi tiếng; lễ tân sẽ vui lòng chia sẻ những địa điểm yêu thích."
+        },
+        "anxious": {
+          "en": "Please don't worry, we are here to help every step of the way. Our reception is available 24/7 on WhatsApp {whatsapp}, so you can reach us any time, including when you land.{pickup} Our team will also gladly help with tips on exchanging money, getting around and settling in comfortably in Hanoi.",
+          "vi": "Bạn đừng lo, khách sạn luôn sẵn sàng hỗ trợ bạn từng bước. Lễ tân trực 24/7 qua WhatsApp {whatsapp}, bạn có thể nhắn bất cứ lúc nào, kể cả khi vừa hạ cánh.{pickup} Lễ tân cũng sẽ hướng dẫn bạn đổi tiền, di chuyển và ổn định chỗ ở thật thoải mái ở Hà Nội.",
+          "pickupEn": " If you like, we can arrange a private airport pick-up with a driver holding a sign with your name.",
+          "pickupVi": " Nếu bạn muốn, khách sạn có thể sắp xếp xe riêng đón sân bay, tài xế cầm biển tên bạn."
         }
       }
     }
