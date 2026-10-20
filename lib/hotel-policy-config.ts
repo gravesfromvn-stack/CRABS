@@ -15,7 +15,8 @@ export type PropertyPolicy={displayName:string;demoName:string;checkIn:string;ch
  frontDesk:{approved:boolean;source:string;luggageStorage:Text;earlyArrival:Text;breakfast:Text;airportMeeting:Text;
   hotline:{whatsapp:string;display:string;source:string};airportMeetingPoints:{T1:Text;T2:Text};reception24:Text;specialRequestHint:Text;onward:Text;plansAsk:Text;
   earlyOptions:{vi:{intro:string;one:string;two:string;always:string};en:{intro:string;one:string;two:string;always:string}};
-  care:{empathy:Text;quietRoom:Text;spaInvite:Text};tourAsk:Text&{transfersEn:string;transfersVi:string};excited:Text;anxious:Text&{pickupEn:string;pickupVi:string}};
+  care:{empathy:Text;quietRoom:Text;spaInvite:Text};
+  letters:{source:string;fixMinutes:number;contact:Text;hotline:string;hotlineNote:string;apologyRoom:Text;apologyStay:Text;checkoutDay:Text;thanksAfter:Text};tourAsk:Text&{transfersEn:string;transfersVi:string};excited:Text;anxious:Text&{pickupEn:string;pickupVi:string}};
  tours:{whatsappAsk:boolean;note:string;products:TourProduct[]}};
 export const hotelPolicy=data as unknown as {version:string;presentation:{brandDemoName:string;maskPatterns:string[]};properties:Record<string,PropertyPolicy>};
 export const policyFor=(propertyId:string):PropertyPolicy|undefined=>hotelPolicy.properties[propertyId];

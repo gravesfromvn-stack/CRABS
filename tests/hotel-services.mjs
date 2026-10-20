@@ -45,7 +45,7 @@ check('Branch 1 · spa without approved prices promises a price list, not number
  const r=reply('Do you have a massage or spa?');assert.ok(r.needs.includes('spa'));
  assert.doesNotMatch(r.paragraphs.join(' '),/VND|đ\b/);assert.match(r.internal.join(' '),/Spa/);
 });
-check('No service offers in a complaint',()=>{assert.deepEqual(reply('I want to complain about the noise; also is there an airport car?').paragraphs,[]);});
+check('No service offers in a complaint: only the apology letter (PO 20/10)',()=>{const r=reply('I want to complain about the noise; also is there an airport car?');assert.deepEqual(r.needs,['apology_stay']);assert.equal(r.paragraphs.length,1);assert.doesNotMatch(r.paragraphs[0],/airport|car|price|VND/i);});
 check('Branch 2 · tour interest asks for WhatsApp, or uses the number already given',()=>{
  const ask=reply('Any Ha Long tours?',{tourInterested:true,tourPlaces:['vịnh Hạ Long']});
  assert.match(ask.paragraphs.join(' '),/share your WhatsApp number\?/);assert.doesNotMatch(ask.paragraphs.join(' '),/VND/,'unapproved tour prices stay out');

@@ -3,6 +3,7 @@ import {policyFor,formatMoney,chooseVehicle} from './hotel-policy-config';
 import {catalogPolicy,type CatalogEntry} from './service-catalog';
 import {transferConfirmation,flightUpdate} from './transfer-confirm';
 import {arrivalTiming} from './arrival-timing';
+import {detectApology,apologyLetter} from './apology-letters';
 import {extractAdjectivesAndEmotion,tourPlacesExcluding,joinOr,placeName} from './guest-emotion';
 const fill=(t:string,v:Record<string,string>)=>t.replace(/\{(\w+)\}/g,(_,key:string)=>v[key]??'');
 const titlePlace=(p:string)=>p.replace(/(^|\s)\S/g,c=>c.toUpperCase());
@@ -12,10 +13,10 @@ const titlePlace=(p:string)=>p.replace(/(^|\s)\S/g,c=>c.toUpperCase());
 //     check-out, hotel times): the draft states the configured, approved terms so Cua can copy it.
 //  2. Tours: suggest the route (tour-advice) and ask for WhatsApp to send the detailed itinerary.
 // Amounts appear only when the configuration marks them approved.
-export type ServiceNeed='spa_recovery'|'anxious'|'excited'|'tour_upsell'|'followup_ping'|'reception_24h'|'early_options'|'onward'|'billing'|'bed_change'|'care'|'room_pref'|'breakfast'|'luggage'|'invoice'|'confirm_transfer'|'flight_update'|'early_checkin'|'late_checkout'|'hotel_times'|'transfer'|'spa'|'tour_whatsapp'|'occasion'|'room_feature'|'payment'|'extension'|'thanks'|'arrival'|'contact';
+export type ServiceNeed='apology_room'|'apology_stay'|'spa_recovery'|'anxious'|'excited'|'tour_upsell'|'followup_ping'|'reception_24h'|'early_options'|'onward'|'billing'|'bed_change'|'care'|'room_pref'|'breakfast'|'luggage'|'invoice'|'confirm_transfer'|'flight_update'|'early_checkin'|'late_checkout'|'hotel_times'|'transfer'|'spa'|'tour_whatsapp'|'occasion'|'room_feature'|'payment'|'extension'|'thanks'|'arrival'|'contact';
 // meta: what the guest-language reply needs (emotion, origin, tour places, WhatsApp).
 export type ReplyMeta={sleepy:boolean;origin:string;places:string[];overland:boolean;whatsapp:string;state:string;adjectives:string[]};
-export type ServiceReply={needs:ServiceNeed[];paragraphs:string[];internal:string[];transferParagraph?:string;vi?:boolean;meta?:ReplyMeta};
+export type ServiceReply={needs:ServiceNeed[];paragraphs:string[];internal:string[];letter?:string;transferParagraph?:string;vi?:boolean;meta?:ReplyMeta};
 
 const partySize=(text:string)=>{const m=text.match(/\b(\d{1,2})\s*(?:adults?|people|persons|pax|guests|nguoi(?: lon)?|khach)\b/)||text.match(/\b(two|three|four|five|six)\s+(?:adults?|people|persons|of us)\b/);if(!m)return 0;const map:Record<string,number>={two:2,three:3,four:4,five:5,six:6};return map[m[1]]??Number(m[1]);};
 const luggageCount=(text:string)=>{const m=text.match(/\b(\d{1,2}|two|three|four|five|six)\s+(?:suitcases?|bags?|luggage|pieces of luggage|vali|kien hanh ly)\b/);if(!m)return 0;const map:Record<string,number>={two:2,three:3,four:4,five:5,six:6};return map[m[1]]??Number(m[1]);};
@@ -26,7 +27,10 @@ export function serviceReply(input:{catalog?:CatalogEntry[];propertyId:string;te
  const p=catalogPolicy(policyFor(input.propertyId),input.catalog,input.propertyId),out:ServiceReply={needs:[],paragraphs:[],internal:[],vi:input.vi};
  if(!p)return out;
  const n=normalize(input.text),vi=input.vi,k=vi?'vi':'en',h=normalize(input.history||'');
- // Complaints and cancellations get no service offers.
+ // A room problem or an unhappy stay gets the approved apology letter only (no service offers, no
+ // compensation); other cancellations/refunds get no draft and stay with Cua.
+ const apology=p.frontDesk?.approved&&p.frontDesk.letters?detectApology(n):null;
+ if(apology){const l=apologyLetter(p,apology,vi,input.guestName);out.needs.push(apology.kind==='room'?'apology_room':'apology_stay');out.letter=l.body;out.paragraphs.push(l.body);out.internal.push(...l.internal);return out;}
  if(/complain|refund|cancel|khieu nai|hoan tien|huy phong|not happy|disappoint/.test(n))return out;
  const blocked=(c:'pickup'|'dropoff')=>input.facts.some(f=>f.category===c&&['declined','own_transport','deferred','arranged_by_guest'].includes(f.status));
  // Facts said in this message (not earlier ones), so answers are not repeated every turn.

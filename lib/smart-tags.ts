@@ -2,6 +2,7 @@ import {normalize} from './ota-profile';
 import {arrivalTiming} from './arrival-timing';
 import {transferConfirmation} from './transfer-confirm';
 import {extractAdjectivesAndEmotion,adjectivesVi} from './guest-emotion';
+import {detectApology} from './apology-letters';
 
 // Front-desk tags read from the guest's messages, with the hand-off note reception needs before the
 // guest walks in. Rules only; Cua reviews the conversation before acting.
@@ -37,6 +38,10 @@ export function smartTags(messages:Msg[],stay:{checkIn?:string;checkOut?:string}
  // Complaints about THIS stay (another hotel's problems are care, not a complaint).
  const elsewhere=/(?:other|previous|last|not the best of) hotels?|in (?:cat ba|sapa|ha long|ninh binh|hue|hoi an)\b/.test(n);
  if(/disappoint|unacceptable|complain|refund|very bad service|terrible|worst|rude|dirty|not clean|broken|(?:your|this|the) (?:room|hotel|staff|service)[^.]{0,30}(?:bad|awful|noisy)/.test(n)&&!(elsewhere&&!/your|this hotel|here/.test(n)))add('TAG_COMPLAINT','Khách phàn nàn dịch vụ');
+ // Room problems during the stay (PO 20/10): fix within 15 minutes, Front Office Manager follows up.
+ const issue=detectApology(n);
+ if(issue?.kind==='room'){add('TAG_URGENT',`Sự cố phòng: ${issue.issue!.vi}`);add('TAG_COMPLAINT',`Sự cố phòng: ${issue.issue!.vi}`);notes.push(`[SỰ CỐ PHÒNG] ${issue.issue!.vi}: báo ${issue.team!.vi} xử lý trong 15 phút; Quản lý Lễ tân gọi lại khách. Chưa hứa bồi thường.`);}
+ else if(issue?.kind==='stay')notes.push('[KHÁCH KHÔNG HÀI LÒNG] Quản lý Lễ tân liên hệ trực tiếp với khách. Chưa hứa bồi thường.');
  // Special requests: occasions, bed type, room position.
  const occasion=/honeymoon|trang mat/.test(n)?'honeymoon':/anniversary|ky niem/.test(n)?'kỷ niệm':/birthday|sinh nhat/.test(n)?'sinh nhật':'';
  const bedChange=/(?:two|2) separate beds|twin[^.]{0,40}(?:double|one bed|king|queen)|double bed instead|doi (?:sang )?giuong doi/.test(n)||/(?:one|a) double bed/.test(n)&&/twin|separate beds|two beds|2 beds|mistake/.test(n);

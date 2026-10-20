@@ -44,7 +44,8 @@ export function simulateConversation(input:{catalog?:CatalogEntry[];thread:{id:s
   let body='',source:ChatTurn['source']='rules';const notes:string[]=[];
   const lang=detectLanguage(text),tm=arrivalTiming({text,sentAt:e.received,checkIn:input.stay?.checkIn});
   const localized=lang!=='en'&&lang!=='vi'?localizedFromNeeds(lang,service.needs,{time:tm?.time||clockTimes(text)[0]||'',checkIn:policyFor(input.thread.property_id)?.checkIn||'14:00',night:tm?.kind==='night',meta:service.meta}):null;
-  if(localized)body=localized;
+  if(service.letter)body=service.letter;
+  else if(localized)body=localized;
   else if(plan.template&&plan.body&&!templateMisses(service,plan.template.body)){body=plan.body;source='template';}
   else{
    const r=followupDraft(suggestedDraft(text),profile,text,sent);
