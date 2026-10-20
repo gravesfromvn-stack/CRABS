@@ -5,17 +5,20 @@ import type {PropertyPolicy} from './hotel-policy-config';
 // One service & rate catalog for OTA advice, quotes and the tour library. Seeded from the merged
 // sources (scripts/build-service-catalog.mjs) into D1 per owner, then edited in the app.
 // Only APPROVED entries with a selling price may put an amount into a guest draft or quote.
-export const categoryLabels={AIRPORT_TRANSFER:'Xe sân bay',HALONG_TOUR:'Tour Hạ Long',NINHBINH_TOUR:'Tour Ninh Bình',SAPA_TOUR:'Tour Sa Pa',HANOI_TOUR:'Tour Hà Nội',OTHER_TOUR:'Tour khác',INTERCITY_BUS_12GO:'Xe khách / 12Go',SPA:'Spa',ROOM_POLICY:'Phụ phí phòng / gia hạn'} as const;
+export const categoryLabels={AIRPORT_TRANSFER:'Xe sân bay',HALONG_TOUR:'Tour Hạ Long',NINHBINH_TOUR:'Tour Ninh Bình',SAPA_TOUR:'Tour Sa Pa',HANOI_TOUR:'Tour Hà Nội',OTHER_TOUR:'Tour khác',INTERCITY_BUS_12GO:'Xe liên tỉnh (riêng, ghép, 12Go)',SPA:'Spa',ROOM_POLICY:'Phụ phí phòng / gia hạn'} as const;
 export const statusLabels={APPROVED:'Đã duyệt giá',REFERENCE_ONLY:'Chỉ tham khảo',ARCHIVED:'Lưu trữ'} as const;
 export const flowLabels={EXTRANET_DIRECT:'Báo giá trên Extranet',WHATSAPP_CONSULT:'Tư vấn qua WhatsApp'} as const;
 export type CatalogCategory=keyof typeof categoryLabels;
 export type CatalogStatus=keyof typeof statusLabels;
 export type CatalogFlow=keyof typeof flowLabels;
+export type ItineraryStep={day:number;time:string;text:string;meal?:string};
+export type CatalogImage={src:string;caption:string;source?:string};
 export type CatalogRule={kind:'percent_of_room'|'discount_percent';percent:number;window:string;text:string};
 export type CatalogEntry={id:string;crmCode:string|null;sourceIds:string[];propertyScope:'ALL'|string[];category:CatalogCategory;channelFlow:CatalogFlow;
  title:string;variant:string;unit:string;duration:string;summary:string;highlights:string[];inclusions:string;exclusions:string;supplierName:string;
  netCost:number|null;sellingPrice:number|null;commission:number|null;currency:'VND'|'USD';status:CatalogStatus;place:string;validUntil:string;
- sourceNote:string;sourceUrl:string;approvedBy:string;approvedAt:string;capacity?:number;direction?:'pickup'|'dropoff';rule?:CatalogRule};
+ sourceNote:string;sourceUrl:string;approvedBy:string;approvedAt:string;capacity?:number;direction?:'pickup'|'dropoff';rule?:CatalogRule;
+ supplierId?:string;preferred?:boolean;itinerary?:ItineraryStep[];images?:CatalogImage[];policies?:string[]};
 export type StoredEntry=CatalogEntry&{version:number;updated:string};
 
 export const seedEntries=seed.entries as unknown as CatalogEntry[];
@@ -34,7 +37,6 @@ export const entryEdit=z.object({
 }).superRefine((v,c)=>{
  if(v.status==='APPROVED'&&v.category!=='ROOM_POLICY'&&!v.sellingPrice)c.addIssue({code:'custom',message:'Cần giá bán trước khi duyệt.'});
  if(v.currency==='VND'&&[v.sellingPrice,v.netCost,v.commission].some(x=>x!==null&&!Number.isInteger(x)))c.addIssue({code:'custom',message:'Giá VND phải là số nguyên.'});
- if(v.sellingPrice!==null&&v.netCost!==null&&v.netCost>v.sellingPrice)c.addIssue({code:'custom',message:'Giá vốn cao hơn giá bán.'});
 });
 export type EntryEdit=z.infer<typeof entryEdit>;
 export const catalogCommand=z.discriminatedUnion('action',[
@@ -42,6 +44,8 @@ export const catalogCommand=z.discriminatedUnion('action',[
  z.object({action:z.literal('create'),operationId:z.string().uuid(),entry:entryEdit}),
 ]);
 
+// Margin per unit after cost and commission; negative means the price loses money (quotes are blocked).
+export const unitMargin=(e:Pick<CatalogEntry,'sellingPrice'|'netCost'|'commission'>)=>e.sellingPrice===null||e.netCost===null?null:e.sellingPrice-e.netCost-(e.commission??0);
 export const inScope=(e:Pick<CatalogEntry,'propertyScope'>,propertyId?:string)=>!propertyId||e.propertyScope==='ALL'||e.propertyScope.includes(propertyId);
 export const priceApproved=(e:CatalogEntry)=>e.status==='APPROVED'&&e.sellingPrice!==null&&e.sellingPrice>0;
 // Ready for an approvable quote with profit: approved price, cost and commission, in VND.
@@ -92,9 +96,21 @@ const kindOf=(c:CatalogCategory)=>c==='AIRPORT_TRANSFER'?'transfer':c==='SPA'?'s
 export function catalogProduct(e:CatalogEntry):CatalogProduct{
  const ready=quoteReady(e);
  return {id:e.id,title:e.variant&&!e.title.includes(e.variant)?`${e.title} · ${e.variant}`:e.title,kind:kindOf(e.category),unit:e.unit,supplier:e.supplierName,duration:e.duration,
-  price:ready?e.sellingPrice:null,cost:ready?e.netCost:null,commission:ready?e.commission:null,validUntil:e.validUntil,description:e.summary,includes:e.inclusions||'Chưa xác nhận',excludes:e.exclusions||'Chưa xác nhận',region:e.place,
+  price:ready?e.sellingPrice:null,cost:e.currency==='VND'?e.netCost:null,commission:ready?e.commission:null,validUntil:e.validUntil,description:e.summary,includes:e.inclusions||'Chưa xác nhận',excludes:e.exclusions||'Chưa xác nhận',region:e.place,
   ...(e.capacity?{capacity:e.capacity}:{}),...(e.direction?{direction:e.direction}:{}),status:e.status,ready,category:e.category,propertyScope:e.propertyScope,currency:e.currency};
 }
+// Preferred-supplier tours for the places a guest asked about (internal advice; prices stay internal).
+const plain=(s:string)=>s.normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/đ/g,'d').toLowerCase().replace(/s+/g,'');
+export function preferredFor(entries:CatalogEntry[],places:string[],limit=8){
+ const want=places.map(plain).filter(Boolean);if(!want.length)return [];
+ // Up to limit/places per place, so every place the guest named gets options.
+ const per=Math.max(2,Math.floor(limit/want.length));
+ return want.flatMap(w=>entries.filter(e=>e.preferred&&e.status!=='ARCHIVED'&&['HALONG_TOUR','NINHBINH_TOUR','SAPA_TOUR','HANOI_TOUR','OTHER_TOUR'].includes(e.category)&&(plain(e.place).includes(w)||w.includes(plain(e.place))))
+  .sort((a,b)=>Number(!!b.itinerary?.length)-Number(!!a.itinerary?.length)||(a.netCost??Infinity)-(b.netCost??Infinity)).slice(0,per))
+  .filter((e,i,all)=>all.findIndex(x=>x.id===e.id)===i).slice(0,limit)
+  .map(e=>({id:e.id,title:e.title,variant:e.variant,duration:e.duration,supplierName:e.supplierName,netCost:e.netCost,sellingPrice:e.sellingPrice,currency:e.currency,status:e.status,unit:e.unit,summary:e.summary,itinerary:e.itinerary,images:e.images,policies:e.policies}));
+}
+export type PreferredProduct=ReturnType<typeof preferredFor>[number];
 export const catalogProducts=(entries:CatalogEntry[])=>entries.filter(e=>e.category!=='ROOM_POLICY').map(catalogProduct);
 // An id merged into another entry (R75 row, XE…, config id) still resolves to that entry.
 export function findEntry<T extends CatalogEntry>(entries:T[]|undefined,id:string):T|undefined{return entries?.find(e=>e.id===id)||entries?.find(e=>e.sourceIds.includes(id));}

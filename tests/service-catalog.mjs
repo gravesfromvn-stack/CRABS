@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import {build} from 'esbuild';
 import {Miniflare} from 'miniflare';
-import {readFileSync,readdirSync,mkdirSync} from 'node:fs';
+import {readFileSync,readdirSync,mkdirSync,existsSync} from 'node:fs';
 mkdirSync('.quote-tests/catalog',{recursive:true});
 const stub={name:'catalog-test',setup(b){b.onResolve({filter:/^cloudflare:workers$/},()=>({path:'env',namespace:'stub'}));b.onResolve({filter:/chatgpt-auth$/},()=>({path:'auth',namespace:'stub'}));b.onLoad({filter:/.*/,namespace:'stub'},a=>({contents:a.path==='env'?'export const env=globalThis.catalogEnv;':'export async function getChatGPTUser(){return globalThis.catalogUser;}',loader:'js'}));}};
 await build({entryPoints:{lib:'lib/service-catalog.ts',advice:'lib/tour-advice.ts',replies:'lib/service-replies.ts',policy:'lib/hotel-policy-config.ts',catalogApi:'app/api/catalog/route.ts',quotesApi:'app/api/quotes/route.ts'},outdir:'.quote-tests/catalog',bundle:true,platform:'node',format:'esm',outExtension:{'.js':'.mjs'},plugins:[stub]});
@@ -36,6 +36,21 @@ await check('Core services approved, broken sources archived, demo prices make s
  assert.equal(lib.quoteReady(byId('HS-luxe-75pht-car4-dropoff')),false,'dropoff still lacks cost and commission');
  assert.equal(byId('HS-luxe-75pht-tour-nb-day').status,'ARCHIVED','config placeholder tours superseded');
  assert.equal(byId('NB01').channelFlow,'WHATSAPP_CONSULT');assert.equal(byId('HS-luxe-75pht-car4-pickup').channelFlow,'EXTRANET_DIRECT');
+});
+await check('Preferred suppliers: costs from their documents, no selling price until Cua sets it, itinerary and photos kept',()=>{
+ const sup=JSON.parse(readFileSync('lib/supplier-rates.json','utf8'));
+ const pref=seed.filter(e=>e.preferred);assert.equal(pref.length,sup.items.length);
+ for(const e of pref){assert.equal(e.status,'REFERENCE_ONLY',e.id);assert.equal(e.sellingPrice,null,e.id);assert.match(e.sourceNote,/Giá thu gốc/);}
+ assert.deepEqual([byId('EXC-HL-apollo-limo').netCost,byId('EXC-HL-apollo-pier').netCost,byId('EXC-HL-liberty-pier').netCost],[1150000,880000,730000]);
+ assert.equal(byId('EXC-NB-hl-ta-mua-dcar9').netCost,1200000);assert.equal(byId('EXC-NB-3d2n').netCost,4350000);
+ assert.deepEqual([byId('VA-jeep-inside').netCost,byId('VA-jeep-inside').currency],[44,'USD']);
+ const sapa=byId('VA-sapa-3d2n-hotel');assert.equal(sapa.itinerary[0].time,'06:00–06:20');assert.equal(sapa.itinerary.at(-1).time,'21:30–21:45');assert.equal(sapa.images.length,4);
+ for(const img of sapa.images)assert.ok(existsSync('public'+img.src),img.src);
+ assert.equal(byId('HH-san-bay-noi-bai-ha-noi-5').netCost,350000);assert.equal(byId('HH-ghep-ha-noi-sa-pa').netCost,450000);
+ // Hotel airport transfers carry the HH cost; a loss shows as a negative margin.
+ assert.equal(byId('HS-luxe-75pht-car4-pickup').netCost,350000);assert.ok(lib.unitMargin(byId('HS-luxe-75pht-van16-pickup'))<0);
+ const hl=lib.preferredFor(seed,['Hạ Long']);assert.ok(hl.length>0&&hl.every(p=>/Hạ Long/.test(p.title)));
+ assert.ok(lib.preferredFor(seed,['Sa Pa']).some(p=>p.id==='VA-sapa-3d2n-hotel'));
 });
 await check('Approved amounts follow status and property scope',()=>{
  const a75=lib.catalogApprovedAmounts(seed,'luxe-75pht'),suites=lib.catalogApprovedAmounts(seed,'luxe-suites');
@@ -92,7 +107,6 @@ try{
  await check('Edits are validated, versioned, idempotent and logged',async()=>{
   const e=(await list()).find(x=>x.id==='NB07');
   assert.equal((await api.POST(req('/api/catalog',{action:'save',operationId:crypto.randomUUID(),id:e.id,version:e.version,entry:{...edit(e),sellingPrice:null,status:'APPROVED'}}))).status,400,'approve without price');
-  assert.equal((await api.POST(req('/api/catalog',{action:'save',operationId:crypto.randomUUID(),id:e.id,version:e.version,entry:{...edit(e),sellingPrice:900000,netCost:1000000}}))).status,400,'cost above price');
   assert.equal((await api.POST(req('/api/catalog',{action:'save',operationId:crypto.randomUUID(),id:e.id,version:e.version,entry:edit(e)},'https://evil.example'))).status,403);
   const op=crypto.randomUUID(),body={action:'save',operationId:op,id:e.id,version:e.version,entry:{...edit(e),sellingPrice:1100000,supplierName:'NCC kiểm thử'}};
   assert.equal((await api.POST(req('/api/catalog',body))).status,200);assert.equal((await api.POST(req('/api/catalog',body))).status,200,'retry is idempotent');
@@ -110,7 +124,7 @@ try{
   const save=(lines)=>({action:'save',operationId:crypto.randomUUID(),id:crypto.randomUUID(),contactId:'test-cat',expectedRevision:0,contactVersion:1,quote:{lines,validUntil:'2026-10-24',conditions:'Giá theo kho dịch vụ đã duyệt; chỗ chưa xác nhận.',missing:'',childrenPolicy:'',demoPriceConfirmed:true}});
   const approve=id=>({action:'approve',operationId:crypto.randomUUID(),id,revision:1});
   const car={...line,productId:'HS-luxe-75pht-car4-dropoff',quantity:1,price:300000,cost:200000,commission:20000,details:'Tiễn sân bay 2 khách, 2 vali'};
-  let s=save([car]);assert.equal((await qpost(s)).status,200);let a=await qpost(approve(s.id));assert.equal(a.status,400);assert.match(a.body.error,/thiếu giá vốn, hoa hồng/,'catalog cost and commission missing');
+  let s=save([car]);assert.equal((await qpost(s)).status,200);let a=await qpost(approve(s.id));assert.equal(a.status,400);assert.match(a.body.error,/thiếu hoa hồng/,'catalog commission missing');
   const drop=(await list()).find(x=>x.id==='HS-luxe-75pht-car4-dropoff');assert.equal((await api.POST(req('/api/catalog',{action:'save',operationId:crypto.randomUUID(),id:drop.id,version:drop.version,entry:{...edit(drop),netCost:200000,commission:20000}}))).status,200);
   s=save([car]);assert.equal((await qpost(s)).status,200);assert.equal((await qpost(approve(s.id))).status,200,'approves once the catalog is complete');
   s=save([line]);assert.equal((await qpost(s)).status,200);assert.equal((await qpost(approve(s.id))).status,200,'HN04 at the PO price');

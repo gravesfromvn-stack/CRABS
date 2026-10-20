@@ -6,10 +6,12 @@ import {usePresentation} from './use-presentation';
 import type {TourAdvice,DraftProblem} from '../lib/tour-advice';
 import type {FactChange} from '../lib/ota-profile';
 import {intentLabels,type Intent} from '../lib/guest-intent';
+import {formatEntryPrice,type PreferredProduct} from '../lib/service-catalog';
+import {EntryMedia} from './catalog-media';
 
 // Internal advice view for Cua: what the guest gave, what is still open, sourced options with
 // price status, transport cautions and draft checks. Nothing here is copied into the guest draft.
-export type AdviceView={tour?:TourAdvice;checks?:DraftProblem[];roomTasks?:{title:string;status:string;evidence:string}[];history?:FactChange[];contact?:GuestContact;policy?:PropertyPolicy|null;guestName?:string;whatsappMessage?:string};
+export type AdviceView={tour?:TourAdvice;checks?:DraftProblem[];roomTasks?:{title:string;status:string;evidence:string}[];history?:FactChange[];contact?:GuestContact;policy?:PropertyPolicy|null;guestName?:string;whatsappMessage?:string;preferred?:PreferredProduct[]};
 const vnd=(n:number|null)=>n===null?'—':formatMoney(n,true);
 const margin=(price:number|null,cost:number|null,commission:number|null)=>price===null||cost===null?'—':formatMoney(price-cost-(commission||0),true)+(commission===null?' (chưa trừ hoa hồng)':'');
 const statusLabel:Record<TourAdvice['status'],string>={none:'Chưa nhắc tour',interested:'Đang quan tâm',deferred:'Để sau',declined:'Không cần'};
@@ -37,6 +39,8 @@ export function OtaAdvicePanel({view}:{view:AdviceView}){
    {rooms.length>0&&<div><h4>Yêu cầu phòng</h4><ul>{rooms.map((r,i)=><li key={i}><strong>{r.title}</strong> · {r.status}{r.evidence?' · '+r.evidence:''}</li>)}</ul></div>}
    {checks.length>0&&<div><h4>Kiểm tra nháp hiện tại</h4><ul>{checks.map((p,i)=><li key={i} className={p.hard?'block':'warn'}>{p.hard?'Chặn duyệt: ':'Lưu ý: '}{p.text}</li>)}</ul></div>}
   </div>
+  {!!view.preferred?.length&&<div className="ota-advice-preferred"><h4>Sản phẩm nhà cung cấp ưu tiên · {a?.destinations.map(d=>d.label.vi).join(', ')}</h4><p className="muted">Giá thu gốc chỉ dùng nội bộ. Khi khách chọn, Cua đặt giá bán ở Kho dịch vụ & giá rồi gửi lịch trình qua WhatsApp.</p>
+   {view.preferred.map(p=><details key={p.id}><summary>{p.images?.[0]&&<img src={p.images[0].src} alt="" loading="lazy" referrerPolicy="no-referrer"/>}<span><strong>{p.title}</strong><small>{p.variant} · {p.supplierName} · {p.duration}</small><small>{p.netCost===null?'Chưa có giá thu gốc':`Giá thu gốc ${formatEntryPrice({sellingPrice:p.netCost,currency:p.currency})}/${p.unit}`}{p.sellingPrice!==null?` · bán ${formatEntryPrice(p)}`:' · chưa đặt giá bán'}</small></span></summary>{p.summary&&<p>{p.summary}</p>}<EntryMedia entry={p}/></details>)}</div>}
   {(tourTalk||contact)&&<div className="ota-advice-whatsapp"><h4><MessageCircle size={14}/> Tư vấn tour qua WhatsApp</h4>{contact?<><p>Số khách để lại: <strong>{contact.display}</strong> <a className="button secondary" href={whatsappLink(contact,view.whatsappMessage||greeting)} target="_blank" rel="noopener noreferrer">Mở WhatsApp Web</a><small>Tin nhắn điền sẵn: thông tin tour trước, chưa có giá; Cua đọc lại và gửi thủ công.</small></p>{view.whatsappMessage&&<details><summary>Xem tin nhắn WhatsApp sẽ điền sẵn</summary><pre className="ota-source">{view.whatsappMessage}</pre></details>}</>:<p className="muted">Khách chưa để số WhatsApp. Nháp trên Extranet đã xin số để gửi lịch trình chi tiết.</p>}</div>}
   {policy&&<div className="ota-advice-options"><h4>Dịch vụ chốt trên Extranet · {present?policy.demoName:policy.displayName}</h4>
    <p>Nhận phòng {policy.checkIn} · trả phòng {policy.checkOut}. Nhận sớm {policy.earlyCheckIn.from}–{policy.earlyCheckIn.until}: {policy.earlyCheckIn.fee.vi}. Trả muộn đến {policy.lateCheckOut.until}: {policy.lateCheckOut.fee.vi}.</p>

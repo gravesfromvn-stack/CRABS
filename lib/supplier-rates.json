@@ -1,0 +1,4316 @@
+{
+ "version": "supplier-rates-2026-10-20",
+ "suppliers": {
+  "excursion": {
+   "id": "excursion",
+   "name": "Excursion (Hạ Long Excursion / Ninh Bình Excursion)",
+   "contact": "Hotline 0379.78.5566 – 0979.566.075 · ninhbinhexcursion@gmail.com / halongexcursion@gmail.com",
+   "source": "(New)1.BẢNG GIÁ ĐẠI LÝ EXCURSION 01.09.2026.pdf",
+   "validFrom": "2026-09-01",
+   "segment": "Tour 1 ngày Hạ Long, Ninh Bình (trung cấp, khoảng 50–65$ giá bán)",
+   "priority": 1
+  },
+  "viet-adventures": {
+   "id": "viet-adventures",
+   "name": "Viet Adventures",
+   "contact": "Sale@vietadventures.com · Hotline 038.919.0095 (Ms Thúy) · 58/91 Hồng Hà, Ba Đình, Hà Nội",
+   "source": "BÁO GIÁ TOUR 2026.1.pdf; Sapa 3N2Đ-2 NIGHT HOTEL ( CC-LC-FAN).docx",
+   "validFrom": "2026-01-01",
+   "segment": "Tour Sapa, Jeep/Vespa và walking tour Hà Nội",
+   "priority": 1
+  },
+  "hh-limousine": {
+   "id": "hh-limousine",
+   "name": "HH Limousine",
+   "contact": "Thư mục Drive \"HH LIMOUSINE\"",
+   "source": "Báo Giá Xe Riêng Các Tuyến.xlsx; Giờ đón_trả.png",
+   "validFrom": "",
+   "segment": "Xe riêng 5–16 chỗ và xe ghép liên tỉnh",
+   "priority": 1
+  }
+ },
+ "items": [
+  {
+   "currency": "VND",
+   "unit": "khách",
+   "inclusions": "Tàu có bể sục, điều hòa; chương trình thăm vịnh 6 tiếng (12:00–18:00); welcome drink; ăn trưa buffet/set menu; vé thăm vịnh; kayak hoặc thuyền nan; khăn tắm; tiệc trà chiều (sunset party); hướng dẫn viên theo xe và trên tàu.",
+   "exclusions": "",
+   "policies": [
+    "Trẻ 1–4 tuổi miễn phí (ngồi chung bố mẹ); thêm ghế: xe thường 250k, limo 350k. 5–8 tuổi 75%. Từ 9 tuổi 100%.",
+    "Hủy trước 21:00 hôm trước ngày đi: miễn phí. Hủy sát giờ: xe thường 250k/khách, limo 350k/khách.",
+    "Tết Âm lịch (29 Tết đến hết mùng 3): phụ thu 250k/khách."
+   ],
+   "itinerary": [
+    {
+     "day": 1,
+     "time": "12:00–18:00",
+     "text": "Thăm vịnh trên tàu: ăn trưa, kayak/thuyền nan, tiệc trà chiều hoàng hôn."
+    }
+   ],
+   "images": [],
+   "id": "EXC-HL-apollo-limo",
+   "supplier": "excursion",
+   "category": "HALONG_TOUR",
+   "title": "Hạ Long 1 ngày · Apollo Cruise 99 (5 sao)",
+   "variant": "Xe limousine 17–22 chỗ đón Hà Nội",
+   "duration": "1 ngày (trên tàu 12:00–18:00)",
+   "netCost": 1150000,
+   "summary": "Bể sục Jacuzzi – Buffet 32 món; có set Ấn cho đoàn từ 4–6 khách (trừ 50k). Không đặt kayak: trừ 80k.",
+   "place": "Hạ Long"
+  },
+  {
+   "currency": "VND",
+   "unit": "khách",
+   "inclusions": "Tàu có bể sục, điều hòa; chương trình thăm vịnh 6 tiếng (12:00–18:00); welcome drink; ăn trưa buffet/set menu; vé thăm vịnh; kayak hoặc thuyền nan; khăn tắm; tiệc trà chiều (sunset party); hướng dẫn viên theo xe và trên tàu.",
+   "exclusions": "",
+   "policies": [
+    "Trẻ 1–4 tuổi miễn phí (ngồi chung bố mẹ); thêm ghế: xe thường 250k, limo 350k. 5–8 tuổi 75%. Từ 9 tuổi 100%.",
+    "Hủy trước 21:00 hôm trước ngày đi: miễn phí. Hủy sát giờ: xe thường 250k/khách, limo 350k/khách.",
+    "Tết Âm lịch (29 Tết đến hết mùng 3): phụ thu 250k/khách."
+   ],
+   "itinerary": [
+    {
+     "day": 1,
+     "time": "12:00–18:00",
+     "text": "Thăm vịnh trên tàu: ăn trưa, kayak/thuyền nan, tiệc trà chiều hoàng hôn."
+    }
+   ],
+   "images": [],
+   "id": "EXC-HL-apollo-bus",
+   "supplier": "excursion",
+   "category": "HALONG_TOUR",
+   "title": "Hạ Long 1 ngày · Apollo Cruise 99 (5 sao)",
+   "variant": "Xe shuttle bus 35 chỗ đón Hà Nội",
+   "duration": "1 ngày (trên tàu 12:00–18:00)",
+   "netCost": 1050000,
+   "summary": "Bể sục Jacuzzi – Buffet 32 món; có set Ấn cho đoàn từ 4–6 khách (trừ 50k). Không đặt kayak: trừ 80k.",
+   "place": "Hạ Long"
+  },
+  {
+   "currency": "VND",
+   "unit": "khách",
+   "inclusions": "Tàu có bể sục, điều hòa; chương trình thăm vịnh 6 tiếng (12:00–18:00); welcome drink; ăn trưa buffet/set menu; vé thăm vịnh; kayak hoặc thuyền nan; khăn tắm; tiệc trà chiều (sunset party); hướng dẫn viên theo xe và trên tàu.",
+   "exclusions": "",
+   "policies": [
+    "Trẻ 1–4 tuổi miễn phí (ngồi chung bố mẹ); thêm ghế: xe thường 250k, limo 350k. 5–8 tuổi 75%. Từ 9 tuổi 100%.",
+    "Hủy trước 21:00 hôm trước ngày đi: miễn phí. Hủy sát giờ: xe thường 250k/khách, limo 350k/khách.",
+    "Tết Âm lịch (29 Tết đến hết mùng 3): phụ thu 250k/khách."
+   ],
+   "itinerary": [
+    {
+     "day": 1,
+     "time": "11:40",
+     "text": "Khách tự đến: có mặt tại bến Tuần Châu Marina (gói đón bến)."
+    },
+    {
+     "day": 1,
+     "time": "12:00–18:00",
+     "text": "Thăm vịnh trên tàu: ăn trưa, kayak/thuyền nan, tiệc trà chiều hoàng hôn."
+    }
+   ],
+   "images": [],
+   "id": "EXC-HL-apollo-pier",
+   "supplier": "excursion",
+   "category": "HALONG_TOUR",
+   "title": "Hạ Long 1 ngày · Apollo Cruise 99 (5 sao)",
+   "variant": "Tự đến bến Tuần Châu (không xe)",
+   "duration": "1 ngày (trên tàu 12:00–18:00)",
+   "netCost": 880000,
+   "summary": "Bể sục Jacuzzi – Buffet 32 món; có set Ấn cho đoàn từ 4–6 khách (trừ 50k). Không đặt kayak: trừ 80k.",
+   "place": "Hạ Long"
+  },
+  {
+   "currency": "VND",
+   "unit": "khách",
+   "inclusions": "Tàu có bể sục, điều hòa; chương trình thăm vịnh 6 tiếng (12:00–18:00); welcome drink; ăn trưa buffet/set menu; vé thăm vịnh; kayak hoặc thuyền nan; khăn tắm; tiệc trà chiều (sunset party); hướng dẫn viên theo xe và trên tàu.",
+   "exclusions": "",
+   "policies": [
+    "Trẻ 1–4 tuổi miễn phí (ngồi chung bố mẹ); thêm ghế: xe thường 250k, limo 350k. 5–8 tuổi 75%. Từ 9 tuổi 100%.",
+    "Hủy trước 21:00 hôm trước ngày đi: miễn phí. Hủy sát giờ: xe thường 250k/khách, limo 350k/khách.",
+    "Tết Âm lịch (29 Tết đến hết mùng 3): phụ thu 250k/khách."
+   ],
+   "itinerary": [
+    {
+     "day": 1,
+     "time": "12:00–18:00",
+     "text": "Thăm vịnh trên tàu: ăn trưa, kayak/thuyền nan, tiệc trà chiều hoàng hôn."
+    }
+   ],
+   "images": [],
+   "id": "EXC-HL-sky-limo",
+   "supplier": "excursion",
+   "category": "HALONG_TOUR",
+   "title": "Hạ Long 1 ngày · Sky Cruise 99 (5 sao)",
+   "variant": "Xe limousine 17–22 chỗ đón Hà Nội",
+   "duration": "1 ngày (trên tàu 12:00–18:00)",
+   "netCost": 1100000,
+   "summary": "Bể sục Jacuzzi – Buffet 32 món. Không đặt kayak: trừ 80k.",
+   "place": "Hạ Long"
+  },
+  {
+   "currency": "VND",
+   "unit": "khách",
+   "inclusions": "Tàu có bể sục, điều hòa; chương trình thăm vịnh 6 tiếng (12:00–18:00); welcome drink; ăn trưa buffet/set menu; vé thăm vịnh; kayak hoặc thuyền nan; khăn tắm; tiệc trà chiều (sunset party); hướng dẫn viên theo xe và trên tàu.",
+   "exclusions": "",
+   "policies": [
+    "Trẻ 1–4 tuổi miễn phí (ngồi chung bố mẹ); thêm ghế: xe thường 250k, limo 350k. 5–8 tuổi 75%. Từ 9 tuổi 100%.",
+    "Hủy trước 21:00 hôm trước ngày đi: miễn phí. Hủy sát giờ: xe thường 250k/khách, limo 350k/khách.",
+    "Tết Âm lịch (29 Tết đến hết mùng 3): phụ thu 250k/khách."
+   ],
+   "itinerary": [
+    {
+     "day": 1,
+     "time": "12:00–18:00",
+     "text": "Thăm vịnh trên tàu: ăn trưa, kayak/thuyền nan, tiệc trà chiều hoàng hôn."
+    }
+   ],
+   "images": [],
+   "id": "EXC-HL-sky-bus",
+   "supplier": "excursion",
+   "category": "HALONG_TOUR",
+   "title": "Hạ Long 1 ngày · Sky Cruise 99 (5 sao)",
+   "variant": "Xe shuttle bus 35 chỗ đón Hà Nội",
+   "duration": "1 ngày (trên tàu 12:00–18:00)",
+   "netCost": 1000000,
+   "summary": "Bể sục Jacuzzi – Buffet 32 món. Không đặt kayak: trừ 80k.",
+   "place": "Hạ Long"
+  },
+  {
+   "currency": "VND",
+   "unit": "khách",
+   "inclusions": "Tàu có bể sục, điều hòa; chương trình thăm vịnh 6 tiếng (12:00–18:00); welcome drink; ăn trưa buffet/set menu; vé thăm vịnh; kayak hoặc thuyền nan; khăn tắm; tiệc trà chiều (sunset party); hướng dẫn viên theo xe và trên tàu.",
+   "exclusions": "",
+   "policies": [
+    "Trẻ 1–4 tuổi miễn phí (ngồi chung bố mẹ); thêm ghế: xe thường 250k, limo 350k. 5–8 tuổi 75%. Từ 9 tuổi 100%.",
+    "Hủy trước 21:00 hôm trước ngày đi: miễn phí. Hủy sát giờ: xe thường 250k/khách, limo 350k/khách.",
+    "Tết Âm lịch (29 Tết đến hết mùng 3): phụ thu 250k/khách."
+   ],
+   "itinerary": [
+    {
+     "day": 1,
+     "time": "11:40",
+     "text": "Khách tự đến: có mặt tại bến Tuần Châu Marina (gói đón bến)."
+    },
+    {
+     "day": 1,
+     "time": "12:00–18:00",
+     "text": "Thăm vịnh trên tàu: ăn trưa, kayak/thuyền nan, tiệc trà chiều hoàng hôn."
+    }
+   ],
+   "images": [],
+   "id": "EXC-HL-sky-pier",
+   "supplier": "excursion",
+   "category": "HALONG_TOUR",
+   "title": "Hạ Long 1 ngày · Sky Cruise 99 (5 sao)",
+   "variant": "Tự đến bến Tuần Châu (không xe)",
+   "duration": "1 ngày (trên tàu 12:00–18:00)",
+   "netCost": 880000,
+   "summary": "Bể sục Jacuzzi – Buffet 32 món. Không đặt kayak: trừ 80k.",
+   "place": "Hạ Long"
+  },
+  {
+   "currency": "VND",
+   "unit": "khách",
+   "inclusions": "Tàu có bể sục, điều hòa; chương trình thăm vịnh 6 tiếng (12:00–18:00); welcome drink; ăn trưa buffet/set menu; vé thăm vịnh; kayak hoặc thuyền nan; khăn tắm; tiệc trà chiều (sunset party); hướng dẫn viên theo xe và trên tàu.",
+   "exclusions": "",
+   "policies": [
+    "Trẻ 1–4 tuổi miễn phí (ngồi chung bố mẹ); thêm ghế: xe thường 250k, limo 350k. 5–8 tuổi 75%. Từ 9 tuổi 100%.",
+    "Hủy trước 21:00 hôm trước ngày đi: miễn phí. Hủy sát giờ: xe thường 250k/khách, limo 350k/khách.",
+    "Tết Âm lịch (29 Tết đến hết mùng 3): phụ thu 250k/khách."
+   ],
+   "itinerary": [
+    {
+     "day": 1,
+     "time": "12:00–18:00",
+     "text": "Thăm vịnh trên tàu: ăn trưa, kayak/thuyền nan, tiệc trà chiều hoàng hôn."
+    }
+   ],
+   "images": [],
+   "id": "EXC-HL-harmony-bus",
+   "supplier": "excursion",
+   "category": "HALONG_TOUR",
+   "title": "Hạ Long 1 ngày · Harmony Cruise 99 (5 sao)",
+   "variant": "Xe shuttle bus 35 chỗ đón Hà Nội",
+   "duration": "1 ngày (trên tàu 12:00–18:00)",
+   "netCost": 940000,
+   "summary": "Bể sục Jacuzzi – Set menu. Không đặt kayak: trừ 80k.",
+   "place": "Hạ Long"
+  },
+  {
+   "currency": "VND",
+   "unit": "khách",
+   "inclusions": "Tàu có bể sục, điều hòa; chương trình thăm vịnh 6 tiếng (12:00–18:00); welcome drink; ăn trưa buffet/set menu; vé thăm vịnh; kayak hoặc thuyền nan; khăn tắm; tiệc trà chiều (sunset party); hướng dẫn viên theo xe và trên tàu.",
+   "exclusions": "",
+   "policies": [
+    "Trẻ 1–4 tuổi miễn phí (ngồi chung bố mẹ); thêm ghế: xe thường 250k, limo 350k. 5–8 tuổi 75%. Từ 9 tuổi 100%.",
+    "Hủy trước 21:00 hôm trước ngày đi: miễn phí. Hủy sát giờ: xe thường 250k/khách, limo 350k/khách.",
+    "Tết Âm lịch (29 Tết đến hết mùng 3): phụ thu 250k/khách."
+   ],
+   "itinerary": [
+    {
+     "day": 1,
+     "time": "11:40",
+     "text": "Khách tự đến: có mặt tại bến Tuần Châu Marina (gói đón bến)."
+    },
+    {
+     "day": 1,
+     "time": "12:00–18:00",
+     "text": "Thăm vịnh trên tàu: ăn trưa, kayak/thuyền nan, tiệc trà chiều hoàng hôn."
+    }
+   ],
+   "images": [],
+   "id": "EXC-HL-harmony-pier",
+   "supplier": "excursion",
+   "category": "HALONG_TOUR",
+   "title": "Hạ Long 1 ngày · Harmony Cruise 99 (5 sao)",
+   "variant": "Tự đến bến Tuần Châu (không xe)",
+   "duration": "1 ngày (trên tàu 12:00–18:00)",
+   "netCost": 760000,
+   "summary": "Bể sục Jacuzzi – Set menu. Không đặt kayak: trừ 80k.",
+   "place": "Hạ Long"
+  },
+  {
+   "currency": "VND",
+   "unit": "khách",
+   "inclusions": "Tàu có bể sục, điều hòa; chương trình thăm vịnh 6 tiếng (12:00–18:00); welcome drink; ăn trưa buffet/set menu; vé thăm vịnh; kayak hoặc thuyền nan; khăn tắm; tiệc trà chiều (sunset party); hướng dẫn viên theo xe và trên tàu.",
+   "exclusions": "",
+   "policies": [
+    "Trẻ 1–4 tuổi miễn phí (ngồi chung bố mẹ); thêm ghế: xe thường 250k, limo 350k. 5–8 tuổi 75%. Từ 9 tuổi 100%.",
+    "Hủy trước 21:00 hôm trước ngày đi: miễn phí. Hủy sát giờ: xe thường 250k/khách, limo 350k/khách.",
+    "Tết Âm lịch (29 Tết đến hết mùng 3): phụ thu 250k/khách."
+   ],
+   "itinerary": [
+    {
+     "day": 1,
+     "time": "12:00–18:00",
+     "text": "Thăm vịnh trên tàu: ăn trưa, kayak/thuyền nan, tiệc trà chiều hoàng hôn."
+    }
+   ],
+   "images": [],
+   "id": "EXC-HL-liberty-bus",
+   "supplier": "excursion",
+   "category": "HALONG_TOUR",
+   "title": "Hạ Long 1 ngày · Liberty Cruise 86 (4 sao, mới)",
+   "variant": "Xe shuttle bus 35 chỗ đón Hà Nội",
+   "duration": "1 ngày (trên tàu 12:00–18:00)",
+   "netCost": 880000,
+   "summary": "Bể sục Jacuzzi – Set menu. Không đặt kayak: trừ 80k.",
+   "place": "Hạ Long"
+  },
+  {
+   "currency": "VND",
+   "unit": "khách",
+   "inclusions": "Tàu có bể sục, điều hòa; chương trình thăm vịnh 6 tiếng (12:00–18:00); welcome drink; ăn trưa buffet/set menu; vé thăm vịnh; kayak hoặc thuyền nan; khăn tắm; tiệc trà chiều (sunset party); hướng dẫn viên theo xe và trên tàu.",
+   "exclusions": "",
+   "policies": [
+    "Trẻ 1–4 tuổi miễn phí (ngồi chung bố mẹ); thêm ghế: xe thường 250k, limo 350k. 5–8 tuổi 75%. Từ 9 tuổi 100%.",
+    "Hủy trước 21:00 hôm trước ngày đi: miễn phí. Hủy sát giờ: xe thường 250k/khách, limo 350k/khách.",
+    "Tết Âm lịch (29 Tết đến hết mùng 3): phụ thu 250k/khách."
+   ],
+   "itinerary": [
+    {
+     "day": 1,
+     "time": "11:40",
+     "text": "Khách tự đến: có mặt tại bến Tuần Châu Marina (gói đón bến)."
+    },
+    {
+     "day": 1,
+     "time": "12:00–18:00",
+     "text": "Thăm vịnh trên tàu: ăn trưa, kayak/thuyền nan, tiệc trà chiều hoàng hôn."
+    }
+   ],
+   "images": [],
+   "id": "EXC-HL-liberty-pier",
+   "supplier": "excursion",
+   "category": "HALONG_TOUR",
+   "title": "Hạ Long 1 ngày · Liberty Cruise 86 (4 sao, mới)",
+   "variant": "Tự đến bến Tuần Châu (không xe)",
+   "duration": "1 ngày (trên tàu 12:00–18:00)",
+   "netCost": 730000,
+   "summary": "Bể sục Jacuzzi – Set menu. Không đặt kayak: trừ 80k.",
+   "place": "Hạ Long"
+  },
+  {
+   "currency": "VND",
+   "unit": "khách",
+   "inclusions": "Xe limo/shuttle; 2 chai nước/ngày; hướng dẫn viên Anh/Việt; buffet nhà hàng phong cách 5 sao (Limo 11 ăn phòng VIP); vé thắng cảnh, vé đò; xe điện 2 chiều Bái Đính; xe đạp tour Hoa Lư; áo mưa/nón lá tùy thời tiết.",
+   "exclusions": "",
+   "policies": [
+    "Trẻ 1–4 tuổi miễn phí; thêm ghế 300k (xe 17–22), 400k (Dcar). 5–8 tuổi 75%. Từ 9 tuổi 100%.",
+    "Hủy trước 21:00 hôm trước: miễn phí. Hủy sát giờ: limo 11c 400k, limo 15–22c 300k, xe thường 200k/khách.",
+    "Tết Âm lịch: phụ thu 250k/khách (limo 15–22c), 350k/khách (Dcar)."
+   ],
+   "itinerary": [],
+   "images": [],
+   "id": "EXC-NB-hl-tc-shuttle",
+   "supplier": "excursion",
+   "category": "NINHBINH_TOUR",
+   "title": "Ninh Bình 1 ngày · Hoa Lư – Tam Cốc – đạp xe",
+   "variant": "Shuttle bus (nhóm đến 32 khách)",
+   "duration": "1 ngày",
+   "netCost": 680000,
+   "summary": "Đón trả tận nơi khách sạn phố cổ cho nhóm 9–15 khách.",
+   "place": "Ninh Bình"
+  },
+  {
+   "currency": "VND",
+   "unit": "khách",
+   "inclusions": "Xe limo/shuttle; 2 chai nước/ngày; hướng dẫn viên Anh/Việt; buffet nhà hàng phong cách 5 sao (Limo 11 ăn phòng VIP); vé thắng cảnh, vé đò; xe điện 2 chiều Bái Đính; xe đạp tour Hoa Lư; áo mưa/nón lá tùy thời tiết.",
+   "exclusions": "",
+   "policies": [
+    "Trẻ 1–4 tuổi miễn phí; thêm ghế 300k (xe 17–22), 400k (Dcar). 5–8 tuổi 75%. Từ 9 tuổi 100%.",
+    "Hủy trước 21:00 hôm trước: miễn phí. Hủy sát giờ: limo 11c 400k, limo 15–22c 300k, xe thường 200k/khách.",
+    "Tết Âm lịch: phụ thu 250k/khách (limo 15–22c), 350k/khách (Dcar)."
+   ],
+   "itinerary": [],
+   "images": [],
+   "id": "EXC-NB-hl-tc-limo22",
+   "supplier": "excursion",
+   "category": "NINHBINH_TOUR",
+   "title": "Ninh Bình 1 ngày · Hoa Lư – Tam Cốc – đạp xe",
+   "variant": "Limousine 22 chỗ",
+   "duration": "1 ngày",
+   "netCost": 730000,
+   "summary": "Đón trả tận nơi khách sạn phố cổ cho nhóm 9–15 khách.",
+   "place": "Ninh Bình"
+  },
+  {
+   "currency": "VND",
+   "unit": "khách",
+   "inclusions": "Xe limo/shuttle; 2 chai nước/ngày; hướng dẫn viên Anh/Việt; buffet nhà hàng phong cách 5 sao (Limo 11 ăn phòng VIP); vé thắng cảnh, vé đò; xe điện 2 chiều Bái Đính; xe đạp tour Hoa Lư; áo mưa/nón lá tùy thời tiết.",
+   "exclusions": "",
+   "policies": [
+    "Trẻ 1–4 tuổi miễn phí; thêm ghế 300k (xe 17–22), 400k (Dcar). 5–8 tuổi 75%. Từ 9 tuổi 100%.",
+    "Hủy trước 21:00 hôm trước: miễn phí. Hủy sát giờ: limo 11c 400k, limo 15–22c 300k, xe thường 200k/khách.",
+    "Tết Âm lịch: phụ thu 250k/khách (limo 15–22c), 350k/khách (Dcar)."
+   ],
+   "itinerary": [],
+   "images": [],
+   "id": "EXC-NB-hl-tc-mua-shuttle",
+   "supplier": "excursion",
+   "category": "NINHBINH_TOUR",
+   "title": "Ninh Bình 1 ngày · Hoa Lư – Tam Cốc – Hang Múa – đạp xe",
+   "variant": "Shuttle bus (nhóm đến 32 khách)",
+   "duration": "1 ngày",
+   "netCost": 830000,
+   "summary": "Đón trả tận nơi khách sạn phố cổ cho nhóm 9–15 khách.",
+   "place": "Ninh Bình"
+  },
+  {
+   "currency": "VND",
+   "unit": "khách",
+   "inclusions": "Xe limo/shuttle; 2 chai nước/ngày; hướng dẫn viên Anh/Việt; buffet nhà hàng phong cách 5 sao (Limo 11 ăn phòng VIP); vé thắng cảnh, vé đò; xe điện 2 chiều Bái Đính; xe đạp tour Hoa Lư; áo mưa/nón lá tùy thời tiết.",
+   "exclusions": "",
+   "policies": [
+    "Trẻ 1–4 tuổi miễn phí; thêm ghế 300k (xe 17–22), 400k (Dcar). 5–8 tuổi 75%. Từ 9 tuổi 100%.",
+    "Hủy trước 21:00 hôm trước: miễn phí. Hủy sát giờ: limo 11c 400k, limo 15–22c 300k, xe thường 200k/khách.",
+    "Tết Âm lịch: phụ thu 250k/khách (limo 15–22c), 350k/khách (Dcar)."
+   ],
+   "itinerary": [],
+   "images": [],
+   "id": "EXC-NB-hl-tc-mua-limo22",
+   "supplier": "excursion",
+   "category": "NINHBINH_TOUR",
+   "title": "Ninh Bình 1 ngày · Hoa Lư – Tam Cốc – Hang Múa – đạp xe",
+   "variant": "Limousine 22 chỗ",
+   "duration": "1 ngày",
+   "netCost": 880000,
+   "summary": "Đón trả tận nơi khách sạn phố cổ cho nhóm 9–15 khách.",
+   "place": "Ninh Bình"
+  },
+  {
+   "currency": "VND",
+   "unit": "khách",
+   "inclusions": "Xe limo/shuttle; 2 chai nước/ngày; hướng dẫn viên Anh/Việt; buffet nhà hàng phong cách 5 sao (Limo 11 ăn phòng VIP); vé thắng cảnh, vé đò; xe điện 2 chiều Bái Đính; xe đạp tour Hoa Lư; áo mưa/nón lá tùy thời tiết.",
+   "exclusions": "",
+   "policies": [
+    "Trẻ 1–4 tuổi miễn phí; thêm ghế 300k (xe 17–22), 400k (Dcar). 5–8 tuổi 75%. Từ 9 tuổi 100%.",
+    "Hủy trước 21:00 hôm trước: miễn phí. Hủy sát giờ: limo 11c 400k, limo 15–22c 300k, xe thường 200k/khách.",
+    "Tết Âm lịch: phụ thu 250k/khách (limo 15–22c), 350k/khách (Dcar)."
+   ],
+   "itinerary": [],
+   "images": [],
+   "id": "EXC-NB-hl-tc-mua-limo15",
+   "supplier": "excursion",
+   "category": "NINHBINH_TOUR",
+   "title": "Ninh Bình 1 ngày · Hoa Lư – Tam Cốc – Hang Múa – đạp xe",
+   "variant": "Limousine 15 chỗ",
+   "duration": "1 ngày",
+   "netCost": 910000,
+   "summary": "Đón trả tận nơi khách sạn phố cổ cho nhóm 9–15 khách.",
+   "place": "Ninh Bình"
+  },
+  {
+   "currency": "VND",
+   "unit": "khách",
+   "inclusions": "Xe limo/shuttle; 2 chai nước/ngày; hướng dẫn viên Anh/Việt; buffet nhà hàng phong cách 5 sao (Limo 11 ăn phòng VIP); vé thắng cảnh, vé đò; xe điện 2 chiều Bái Đính; xe đạp tour Hoa Lư; áo mưa/nón lá tùy thời tiết.",
+   "exclusions": "",
+   "policies": [
+    "Trẻ 1–4 tuổi miễn phí; thêm ghế 300k (xe 17–22), 400k (Dcar). 5–8 tuổi 75%. Từ 9 tuổi 100%.",
+    "Hủy trước 21:00 hôm trước: miễn phí. Hủy sát giờ: limo 11c 400k, limo 15–22c 300k, xe thường 200k/khách.",
+    "Tết Âm lịch: phụ thu 250k/khách (limo 15–22c), 350k/khách (Dcar)."
+   ],
+   "itinerary": [],
+   "images": [],
+   "id": "EXC-NB-hl-tc-mua-dcar9",
+   "supplier": "excursion",
+   "category": "NINHBINH_TOUR",
+   "title": "Ninh Bình 1 ngày · Hoa Lư – Tam Cốc – Hang Múa – đạp xe",
+   "variant": "Limousine Dcar 9 chỗ",
+   "duration": "1 ngày",
+   "netCost": 1150000,
+   "summary": "Đón trả tận nơi khách sạn phố cổ cho nhóm 9–15 khách.",
+   "place": "Ninh Bình"
+  },
+  {
+   "currency": "VND",
+   "unit": "khách",
+   "inclusions": "Xe limo/shuttle; 2 chai nước/ngày; hướng dẫn viên Anh/Việt; buffet nhà hàng phong cách 5 sao (Limo 11 ăn phòng VIP); vé thắng cảnh, vé đò; xe điện 2 chiều Bái Đính; xe đạp tour Hoa Lư; áo mưa/nón lá tùy thời tiết.",
+   "exclusions": "",
+   "policies": [
+    "Trẻ 1–4 tuổi miễn phí; thêm ghế 300k (xe 17–22), 400k (Dcar). 5–8 tuổi 75%. Từ 9 tuổi 100%.",
+    "Hủy trước 21:00 hôm trước: miễn phí. Hủy sát giờ: limo 11c 400k, limo 15–22c 300k, xe thường 200k/khách.",
+    "Tết Âm lịch: phụ thu 250k/khách (limo 15–22c), 350k/khách (Dcar)."
+   ],
+   "itinerary": [],
+   "images": [],
+   "id": "EXC-NB-hl-ta-shuttle",
+   "supplier": "excursion",
+   "category": "NINHBINH_TOUR",
+   "title": "Ninh Bình 1 ngày · Hoa Lư – Tràng An – đạp xe",
+   "variant": "Shuttle bus (nhóm đến 32 khách)",
+   "duration": "1 ngày",
+   "netCost": 730000,
+   "summary": "Đón trả tận nơi khách sạn phố cổ cho nhóm 9–15 khách.",
+   "place": "Ninh Bình"
+  },
+  {
+   "currency": "VND",
+   "unit": "khách",
+   "inclusions": "Xe limo/shuttle; 2 chai nước/ngày; hướng dẫn viên Anh/Việt; buffet nhà hàng phong cách 5 sao (Limo 11 ăn phòng VIP); vé thắng cảnh, vé đò; xe điện 2 chiều Bái Đính; xe đạp tour Hoa Lư; áo mưa/nón lá tùy thời tiết.",
+   "exclusions": "",
+   "policies": [
+    "Trẻ 1–4 tuổi miễn phí; thêm ghế 300k (xe 17–22), 400k (Dcar). 5–8 tuổi 75%. Từ 9 tuổi 100%.",
+    "Hủy trước 21:00 hôm trước: miễn phí. Hủy sát giờ: limo 11c 400k, limo 15–22c 300k, xe thường 200k/khách.",
+    "Tết Âm lịch: phụ thu 250k/khách (limo 15–22c), 350k/khách (Dcar)."
+   ],
+   "itinerary": [],
+   "images": [],
+   "id": "EXC-NB-hl-ta-limo22",
+   "supplier": "excursion",
+   "category": "NINHBINH_TOUR",
+   "title": "Ninh Bình 1 ngày · Hoa Lư – Tràng An – đạp xe",
+   "variant": "Limousine 22 chỗ",
+   "duration": "1 ngày",
+   "netCost": 780000,
+   "summary": "Đón trả tận nơi khách sạn phố cổ cho nhóm 9–15 khách.",
+   "place": "Ninh Bình"
+  },
+  {
+   "currency": "VND",
+   "unit": "khách",
+   "inclusions": "Xe limo/shuttle; 2 chai nước/ngày; hướng dẫn viên Anh/Việt; buffet nhà hàng phong cách 5 sao (Limo 11 ăn phòng VIP); vé thắng cảnh, vé đò; xe điện 2 chiều Bái Đính; xe đạp tour Hoa Lư; áo mưa/nón lá tùy thời tiết.",
+   "exclusions": "",
+   "policies": [
+    "Trẻ 1–4 tuổi miễn phí; thêm ghế 300k (xe 17–22), 400k (Dcar). 5–8 tuổi 75%. Từ 9 tuổi 100%.",
+    "Hủy trước 21:00 hôm trước: miễn phí. Hủy sát giờ: limo 11c 400k, limo 15–22c 300k, xe thường 200k/khách.",
+    "Tết Âm lịch: phụ thu 250k/khách (limo 15–22c), 350k/khách (Dcar)."
+   ],
+   "itinerary": [],
+   "images": [],
+   "id": "EXC-NB-hl-ta-mua-shuttle",
+   "supplier": "excursion",
+   "category": "NINHBINH_TOUR",
+   "title": "Ninh Bình 1 ngày · Hoa Lư – Tràng An – Hang Múa – đạp xe",
+   "variant": "Shuttle bus (nhóm đến 32 khách)",
+   "duration": "1 ngày",
+   "netCost": 880000,
+   "summary": "Đón trả tận nơi khách sạn phố cổ cho nhóm 9–15 khách.",
+   "place": "Ninh Bình"
+  },
+  {
+   "currency": "VND",
+   "unit": "khách",
+   "inclusions": "Xe limo/shuttle; 2 chai nước/ngày; hướng dẫn viên Anh/Việt; buffet nhà hàng phong cách 5 sao (Limo 11 ăn phòng VIP); vé thắng cảnh, vé đò; xe điện 2 chiều Bái Đính; xe đạp tour Hoa Lư; áo mưa/nón lá tùy thời tiết.",
+   "exclusions": "",
+   "policies": [
+    "Trẻ 1–4 tuổi miễn phí; thêm ghế 300k (xe 17–22), 400k (Dcar). 5–8 tuổi 75%. Từ 9 tuổi 100%.",
+    "Hủy trước 21:00 hôm trước: miễn phí. Hủy sát giờ: limo 11c 400k, limo 15–22c 300k, xe thường 200k/khách.",
+    "Tết Âm lịch: phụ thu 250k/khách (limo 15–22c), 350k/khách (Dcar)."
+   ],
+   "itinerary": [],
+   "images": [],
+   "id": "EXC-NB-hl-ta-mua-limo22",
+   "supplier": "excursion",
+   "category": "NINHBINH_TOUR",
+   "title": "Ninh Bình 1 ngày · Hoa Lư – Tràng An – Hang Múa – đạp xe",
+   "variant": "Limousine 22 chỗ",
+   "duration": "1 ngày",
+   "netCost": 930000,
+   "summary": "Đón trả tận nơi khách sạn phố cổ cho nhóm 9–15 khách.",
+   "place": "Ninh Bình"
+  },
+  {
+   "currency": "VND",
+   "unit": "khách",
+   "inclusions": "Xe limo/shuttle; 2 chai nước/ngày; hướng dẫn viên Anh/Việt; buffet nhà hàng phong cách 5 sao (Limo 11 ăn phòng VIP); vé thắng cảnh, vé đò; xe điện 2 chiều Bái Đính; xe đạp tour Hoa Lư; áo mưa/nón lá tùy thời tiết.",
+   "exclusions": "",
+   "policies": [
+    "Trẻ 1–4 tuổi miễn phí; thêm ghế 300k (xe 17–22), 400k (Dcar). 5–8 tuổi 75%. Từ 9 tuổi 100%.",
+    "Hủy trước 21:00 hôm trước: miễn phí. Hủy sát giờ: limo 11c 400k, limo 15–22c 300k, xe thường 200k/khách.",
+    "Tết Âm lịch: phụ thu 250k/khách (limo 15–22c), 350k/khách (Dcar)."
+   ],
+   "itinerary": [],
+   "images": [],
+   "id": "EXC-NB-hl-ta-mua-limo15",
+   "supplier": "excursion",
+   "category": "NINHBINH_TOUR",
+   "title": "Ninh Bình 1 ngày · Hoa Lư – Tràng An – Hang Múa – đạp xe",
+   "variant": "Limousine 15 chỗ",
+   "duration": "1 ngày",
+   "netCost": 960000,
+   "summary": "Đón trả tận nơi khách sạn phố cổ cho nhóm 9–15 khách.",
+   "place": "Ninh Bình"
+  },
+  {
+   "currency": "VND",
+   "unit": "khách",
+   "inclusions": "Xe limo/shuttle; 2 chai nước/ngày; hướng dẫn viên Anh/Việt; buffet nhà hàng phong cách 5 sao (Limo 11 ăn phòng VIP); vé thắng cảnh, vé đò; xe điện 2 chiều Bái Đính; xe đạp tour Hoa Lư; áo mưa/nón lá tùy thời tiết.",
+   "exclusions": "",
+   "policies": [
+    "Trẻ 1–4 tuổi miễn phí; thêm ghế 300k (xe 17–22), 400k (Dcar). 5–8 tuổi 75%. Từ 9 tuổi 100%.",
+    "Hủy trước 21:00 hôm trước: miễn phí. Hủy sát giờ: limo 11c 400k, limo 15–22c 300k, xe thường 200k/khách.",
+    "Tết Âm lịch: phụ thu 250k/khách (limo 15–22c), 350k/khách (Dcar)."
+   ],
+   "itinerary": [],
+   "images": [],
+   "id": "EXC-NB-hl-ta-mua-dcar9",
+   "supplier": "excursion",
+   "category": "NINHBINH_TOUR",
+   "title": "Ninh Bình 1 ngày · Hoa Lư – Tràng An – Hang Múa – đạp xe",
+   "variant": "Limousine Dcar 9 chỗ",
+   "duration": "1 ngày",
+   "netCost": 1200000,
+   "summary": "Đón trả tận nơi khách sạn phố cổ cho nhóm 9–15 khách.",
+   "place": "Ninh Bình"
+  },
+  {
+   "currency": "VND",
+   "unit": "khách",
+   "inclusions": "Xe limo/shuttle; 2 chai nước/ngày; hướng dẫn viên Anh/Việt; buffet nhà hàng phong cách 5 sao (Limo 11 ăn phòng VIP); vé thắng cảnh, vé đò; xe điện 2 chiều Bái Đính; xe đạp tour Hoa Lư; áo mưa/nón lá tùy thời tiết.",
+   "exclusions": "",
+   "policies": [
+    "Trẻ 1–4 tuổi miễn phí; thêm ghế 300k (xe 17–22), 400k (Dcar). 5–8 tuổi 75%. Từ 9 tuổi 100%.",
+    "Hủy trước 21:00 hôm trước: miễn phí. Hủy sát giờ: limo 11c 400k, limo 15–22c 300k, xe thường 200k/khách.",
+    "Tết Âm lịch: phụ thu 250k/khách (limo 15–22c), 350k/khách (Dcar)."
+   ],
+   "itinerary": [],
+   "images": [],
+   "id": "EXC-NB-bd-ta-shuttle",
+   "supplier": "excursion",
+   "category": "NINHBINH_TOUR",
+   "title": "Ninh Bình 1 ngày · Bái Đính – Tràng An (xe điện)",
+   "variant": "Shuttle bus (nhóm đến 32 khách)",
+   "duration": "1 ngày",
+   "netCost": 860000,
+   "summary": "Đón trả tận nơi khách sạn phố cổ cho nhóm 9–15 khách.",
+   "place": "Ninh Bình"
+  },
+  {
+   "currency": "VND",
+   "unit": "khách",
+   "inclusions": "Xe limo/shuttle; 2 chai nước/ngày; hướng dẫn viên Anh/Việt; buffet nhà hàng phong cách 5 sao (Limo 11 ăn phòng VIP); vé thắng cảnh, vé đò; xe điện 2 chiều Bái Đính; xe đạp tour Hoa Lư; áo mưa/nón lá tùy thời tiết.",
+   "exclusions": "",
+   "policies": [
+    "Trẻ 1–4 tuổi miễn phí; thêm ghế 300k (xe 17–22), 400k (Dcar). 5–8 tuổi 75%. Từ 9 tuổi 100%.",
+    "Hủy trước 21:00 hôm trước: miễn phí. Hủy sát giờ: limo 11c 400k, limo 15–22c 300k, xe thường 200k/khách.",
+    "Tết Âm lịch: phụ thu 250k/khách (limo 15–22c), 350k/khách (Dcar)."
+   ],
+   "itinerary": [],
+   "images": [],
+   "id": "EXC-NB-bd-ta-limo22",
+   "supplier": "excursion",
+   "category": "NINHBINH_TOUR",
+   "title": "Ninh Bình 1 ngày · Bái Đính – Tràng An (xe điện)",
+   "variant": "Limousine 22 chỗ",
+   "duration": "1 ngày",
+   "netCost": 910000,
+   "summary": "Đón trả tận nơi khách sạn phố cổ cho nhóm 9–15 khách.",
+   "place": "Ninh Bình"
+  },
+  {
+   "currency": "VND",
+   "unit": "khách",
+   "inclusions": "Xe limo/shuttle; 2 chai nước/ngày; hướng dẫn viên Anh/Việt; buffet nhà hàng phong cách 5 sao (Limo 11 ăn phòng VIP); vé thắng cảnh, vé đò; xe điện 2 chiều Bái Đính; xe đạp tour Hoa Lư; áo mưa/nón lá tùy thời tiết.",
+   "exclusions": "",
+   "policies": [
+    "Trẻ 1–4 tuổi miễn phí; thêm ghế 300k (xe 17–22), 400k (Dcar). 5–8 tuổi 75%. Từ 9 tuổi 100%.",
+    "Hủy trước 21:00 hôm trước: miễn phí. Hủy sát giờ: limo 11c 400k, limo 15–22c 300k, xe thường 200k/khách.",
+    "Tết Âm lịch: phụ thu 250k/khách (limo 15–22c), 350k/khách (Dcar)."
+   ],
+   "itinerary": [],
+   "images": [],
+   "id": "EXC-NB-bd-ta-mua-shuttle",
+   "supplier": "excursion",
+   "category": "NINHBINH_TOUR",
+   "title": "Ninh Bình 1 ngày · Bái Đính – Tràng An – Hang Múa (xe điện)",
+   "variant": "Shuttle bus (nhóm đến 32 khách)",
+   "duration": "1 ngày",
+   "netCost": 1010000,
+   "summary": "Đón trả tận nơi khách sạn phố cổ cho nhóm 9–15 khách.",
+   "place": "Ninh Bình"
+  },
+  {
+   "currency": "VND",
+   "unit": "khách",
+   "inclusions": "Xe limo/shuttle; 2 chai nước/ngày; hướng dẫn viên Anh/Việt; buffet nhà hàng phong cách 5 sao (Limo 11 ăn phòng VIP); vé thắng cảnh, vé đò; xe điện 2 chiều Bái Đính; xe đạp tour Hoa Lư; áo mưa/nón lá tùy thời tiết.",
+   "exclusions": "",
+   "policies": [
+    "Trẻ 1–4 tuổi miễn phí; thêm ghế 300k (xe 17–22), 400k (Dcar). 5–8 tuổi 75%. Từ 9 tuổi 100%.",
+    "Hủy trước 21:00 hôm trước: miễn phí. Hủy sát giờ: limo 11c 400k, limo 15–22c 300k, xe thường 200k/khách.",
+    "Tết Âm lịch: phụ thu 250k/khách (limo 15–22c), 350k/khách (Dcar)."
+   ],
+   "itinerary": [],
+   "images": [],
+   "id": "EXC-NB-bd-ta-mua-limo22",
+   "supplier": "excursion",
+   "category": "NINHBINH_TOUR",
+   "title": "Ninh Bình 1 ngày · Bái Đính – Tràng An – Hang Múa (xe điện)",
+   "variant": "Limousine 22 chỗ",
+   "duration": "1 ngày",
+   "netCost": 1060000,
+   "summary": "Đón trả tận nơi khách sạn phố cổ cho nhóm 9–15 khách.",
+   "place": "Ninh Bình"
+  },
+  {
+   "currency": "VND",
+   "unit": "khách",
+   "inclusions": "Xe limo/shuttle; 2 chai nước/ngày; hướng dẫn viên Anh/Việt; buffet nhà hàng phong cách 5 sao (Limo 11 ăn phòng VIP); vé thắng cảnh, vé đò; xe điện 2 chiều Bái Đính; xe đạp tour Hoa Lư; áo mưa/nón lá tùy thời tiết.",
+   "exclusions": "",
+   "policies": [
+    "Trẻ 1–4 tuổi miễn phí; thêm ghế 300k (xe 17–22), 400k (Dcar). 5–8 tuổi 75%. Từ 9 tuổi 100%.",
+    "Hủy trước 21:00 hôm trước: miễn phí. Hủy sát giờ: limo 11c 400k, limo 15–22c 300k, xe thường 200k/khách.",
+    "Tết Âm lịch: phụ thu 250k/khách (limo 15–22c), 350k/khách (Dcar)."
+   ],
+   "itinerary": [],
+   "images": [],
+   "id": "EXC-NB-bd-ta-mua-limo15",
+   "supplier": "excursion",
+   "category": "NINHBINH_TOUR",
+   "title": "Ninh Bình 1 ngày · Bái Đính – Tràng An – Hang Múa (xe điện)",
+   "variant": "Limousine 15 chỗ",
+   "duration": "1 ngày",
+   "netCost": 1090000,
+   "summary": "Đón trả tận nơi khách sạn phố cổ cho nhóm 9–15 khách.",
+   "place": "Ninh Bình"
+  },
+  {
+   "currency": "VND",
+   "unit": "khách",
+   "inclusions": "Xe limo/shuttle; 2 chai nước/ngày; hướng dẫn viên Anh/Việt; buffet nhà hàng phong cách 5 sao (Limo 11 ăn phòng VIP); vé thắng cảnh, vé đò; xe điện 2 chiều Bái Đính; xe đạp tour Hoa Lư; áo mưa/nón lá tùy thời tiết. Ngủ TC Little Charm Villa & Bungalow hoặc tương đương.",
+   "exclusions": "",
+   "policies": [
+    "Trẻ 1–4 tuổi miễn phí; thêm ghế 300k (xe 17–22), 400k (Dcar). 5–8 tuổi 75%. Từ 9 tuổi 100%.",
+    "Hủy trước 21:00 hôm trước: miễn phí. Hủy sát giờ: limo 11c 400k, limo 15–22c 300k, xe thường 200k/khách."
+   ],
+   "itinerary": [],
+   "images": [],
+   "id": "EXC-NB-2d-bdta-shuttle",
+   "supplier": "excursion",
+   "category": "NINHBINH_TOUR",
+   "title": "Ninh Bình 2N1Đ · Ngày 1 Hoa Lư – Tam Cốc – Hang Múa · Ngày 2 Bái Đính – Tràng An",
+   "variant": "Shuttle bus (nhóm đến 32 khách) · ngủ bungalow/homestay có bể bơi",
+   "duration": "2 ngày 1 đêm",
+   "netCost": 2550000,
+   "summary": "Phụ thu phòng đơn 350k. Nâng hạng khách sạn: Nam Hoa 3 sao +200k/khách (phòng đơn 400k); Lalita/Orchid 4 sao +600k/khách (phòng đơn 600k, cuối tuần +300k/phòng); Hidden Charm 4 sao +700k/khách (phòng đơn 750k).",
+   "place": "Ninh Bình"
+  },
+  {
+   "currency": "VND",
+   "unit": "khách",
+   "inclusions": "Xe limo/shuttle; 2 chai nước/ngày; hướng dẫn viên Anh/Việt; buffet nhà hàng phong cách 5 sao (Limo 11 ăn phòng VIP); vé thắng cảnh, vé đò; xe điện 2 chiều Bái Đính; xe đạp tour Hoa Lư; áo mưa/nón lá tùy thời tiết. Ngủ TC Little Charm Villa & Bungalow hoặc tương đương.",
+   "exclusions": "",
+   "policies": [
+    "Trẻ 1–4 tuổi miễn phí; thêm ghế 300k (xe 17–22), 400k (Dcar). 5–8 tuổi 75%. Từ 9 tuổi 100%.",
+    "Hủy trước 21:00 hôm trước: miễn phí. Hủy sát giờ: limo 11c 400k, limo 15–22c 300k, xe thường 200k/khách."
+   ],
+   "itinerary": [],
+   "images": [],
+   "id": "EXC-NB-2d-bdta-limo22",
+   "supplier": "excursion",
+   "category": "NINHBINH_TOUR",
+   "title": "Ninh Bình 2N1Đ · Ngày 1 Hoa Lư – Tam Cốc – Hang Múa · Ngày 2 Bái Đính – Tràng An",
+   "variant": "Limousine 22 chỗ · ngủ bungalow/homestay có bể bơi",
+   "duration": "2 ngày 1 đêm",
+   "netCost": 2650000,
+   "summary": "Phụ thu phòng đơn 350k. Nâng hạng khách sạn: Nam Hoa 3 sao +200k/khách (phòng đơn 400k); Lalita/Orchid 4 sao +600k/khách (phòng đơn 600k, cuối tuần +300k/phòng); Hidden Charm 4 sao +700k/khách (phòng đơn 750k).",
+   "place": "Ninh Bình"
+  },
+  {
+   "currency": "VND",
+   "unit": "khách",
+   "inclusions": "Xe limo/shuttle; 2 chai nước/ngày; hướng dẫn viên Anh/Việt; buffet nhà hàng phong cách 5 sao (Limo 11 ăn phòng VIP); vé thắng cảnh, vé đò; xe điện 2 chiều Bái Đính; xe đạp tour Hoa Lư; áo mưa/nón lá tùy thời tiết. Ngủ TC Little Charm Villa & Bungalow hoặc tương đương.",
+   "exclusions": "",
+   "policies": [
+    "Trẻ 1–4 tuổi miễn phí; thêm ghế 300k (xe 17–22), 400k (Dcar). 5–8 tuổi 75%. Từ 9 tuổi 100%.",
+    "Hủy trước 21:00 hôm trước: miễn phí. Hủy sát giờ: limo 11c 400k, limo 15–22c 300k, xe thường 200k/khách."
+   ],
+   "itinerary": [],
+   "images": [],
+   "id": "EXC-NB-2d-bdta-limo15",
+   "supplier": "excursion",
+   "category": "NINHBINH_TOUR",
+   "title": "Ninh Bình 2N1Đ · Ngày 1 Hoa Lư – Tam Cốc – Hang Múa · Ngày 2 Bái Đính – Tràng An",
+   "variant": "Limousine 15 chỗ · ngủ bungalow/homestay có bể bơi",
+   "duration": "2 ngày 1 đêm",
+   "netCost": 2700000,
+   "summary": "Phụ thu phòng đơn 350k. Nâng hạng khách sạn: Nam Hoa 3 sao +200k/khách (phòng đơn 400k); Lalita/Orchid 4 sao +600k/khách (phòng đơn 600k, cuối tuần +300k/phòng); Hidden Charm 4 sao +700k/khách (phòng đơn 750k).",
+   "place": "Ninh Bình"
+  },
+  {
+   "currency": "VND",
+   "unit": "khách",
+   "inclusions": "Xe limo/shuttle; 2 chai nước/ngày; hướng dẫn viên Anh/Việt; buffet nhà hàng phong cách 5 sao (Limo 11 ăn phòng VIP); vé thắng cảnh, vé đò; xe điện 2 chiều Bái Đính; xe đạp tour Hoa Lư; áo mưa/nón lá tùy thời tiết. Ngủ TC Little Charm Villa & Bungalow hoặc tương đương.",
+   "exclusions": "",
+   "policies": [
+    "Trẻ 1–4 tuổi miễn phí; thêm ghế 300k (xe 17–22), 400k (Dcar). 5–8 tuổi 75%. Từ 9 tuổi 100%.",
+    "Hủy trước 21:00 hôm trước: miễn phí. Hủy sát giờ: limo 11c 400k, limo 15–22c 300k, xe thường 200k/khách."
+   ],
+   "itinerary": [],
+   "images": [],
+   "id": "EXC-NB-2d-thungnham-shuttle",
+   "supplier": "excursion",
+   "category": "NINHBINH_TOUR",
+   "title": "Ninh Bình 2N1Đ · Ngày 1 Hoa Lư – Tam Cốc – Hang Múa · Ngày 2 Thung Nham – Bích Động – Thái Vi",
+   "variant": "Shuttle bus (nhóm đến 32 khách) · ngủ bungalow/homestay có bể bơi",
+   "duration": "2 ngày 1 đêm",
+   "netCost": 2650000,
+   "summary": "Phụ thu phòng đơn 350k. Nâng hạng khách sạn: Nam Hoa 3 sao +200k/khách (phòng đơn 400k); Lalita/Orchid 4 sao +600k/khách (phòng đơn 600k, cuối tuần +300k/phòng); Hidden Charm 4 sao +700k/khách (phòng đơn 750k).",
+   "place": "Ninh Bình"
+  },
+  {
+   "currency": "VND",
+   "unit": "khách",
+   "inclusions": "Xe limo/shuttle; 2 chai nước/ngày; hướng dẫn viên Anh/Việt; buffet nhà hàng phong cách 5 sao (Limo 11 ăn phòng VIP); vé thắng cảnh, vé đò; xe điện 2 chiều Bái Đính; xe đạp tour Hoa Lư; áo mưa/nón lá tùy thời tiết. Ngủ TC Little Charm Villa & Bungalow hoặc tương đương.",
+   "exclusions": "",
+   "policies": [
+    "Trẻ 1–4 tuổi miễn phí; thêm ghế 300k (xe 17–22), 400k (Dcar). 5–8 tuổi 75%. Từ 9 tuổi 100%.",
+    "Hủy trước 21:00 hôm trước: miễn phí. Hủy sát giờ: limo 11c 400k, limo 15–22c 300k, xe thường 200k/khách."
+   ],
+   "itinerary": [],
+   "images": [],
+   "id": "EXC-NB-2d-thungnham-limo22",
+   "supplier": "excursion",
+   "category": "NINHBINH_TOUR",
+   "title": "Ninh Bình 2N1Đ · Ngày 1 Hoa Lư – Tam Cốc – Hang Múa · Ngày 2 Thung Nham – Bích Động – Thái Vi",
+   "variant": "Limousine 22 chỗ · ngủ bungalow/homestay có bể bơi",
+   "duration": "2 ngày 1 đêm",
+   "netCost": 2750000,
+   "summary": "Phụ thu phòng đơn 350k. Nâng hạng khách sạn: Nam Hoa 3 sao +200k/khách (phòng đơn 400k); Lalita/Orchid 4 sao +600k/khách (phòng đơn 600k, cuối tuần +300k/phòng); Hidden Charm 4 sao +700k/khách (phòng đơn 750k).",
+   "place": "Ninh Bình"
+  },
+  {
+   "currency": "VND",
+   "unit": "khách",
+   "inclusions": "Xe limo/shuttle; 2 chai nước/ngày; hướng dẫn viên Anh/Việt; buffet nhà hàng phong cách 5 sao (Limo 11 ăn phòng VIP); vé thắng cảnh, vé đò; xe điện 2 chiều Bái Đính; xe đạp tour Hoa Lư; áo mưa/nón lá tùy thời tiết. Ngủ TC Little Charm Villa & Bungalow hoặc tương đương.",
+   "exclusions": "",
+   "policies": [
+    "Trẻ 1–4 tuổi miễn phí; thêm ghế 300k (xe 17–22), 400k (Dcar). 5–8 tuổi 75%. Từ 9 tuổi 100%.",
+    "Hủy trước 21:00 hôm trước: miễn phí. Hủy sát giờ: limo 11c 400k, limo 15–22c 300k, xe thường 200k/khách."
+   ],
+   "itinerary": [],
+   "images": [],
+   "id": "EXC-NB-2d-thungnham-limo15",
+   "supplier": "excursion",
+   "category": "NINHBINH_TOUR",
+   "title": "Ninh Bình 2N1Đ · Ngày 1 Hoa Lư – Tam Cốc – Hang Múa · Ngày 2 Thung Nham – Bích Động – Thái Vi",
+   "variant": "Limousine 15 chỗ · ngủ bungalow/homestay có bể bơi",
+   "duration": "2 ngày 1 đêm",
+   "netCost": 2800000,
+   "summary": "Phụ thu phòng đơn 350k. Nâng hạng khách sạn: Nam Hoa 3 sao +200k/khách (phòng đơn 400k); Lalita/Orchid 4 sao +600k/khách (phòng đơn 600k, cuối tuần +300k/phòng); Hidden Charm 4 sao +700k/khách (phòng đơn 750k).",
+   "place": "Ninh Bình"
+  },
+  {
+   "currency": "VND",
+   "unit": "khách",
+   "inclusions": "Xe limo/shuttle; 2 chai nước/ngày; hướng dẫn viên Anh/Việt; buffet nhà hàng phong cách 5 sao (Limo 11 ăn phòng VIP); vé thắng cảnh, vé đò; xe điện 2 chiều Bái Đính; xe đạp tour Hoa Lư; áo mưa/nón lá tùy thời tiết. Ngủ TC Little Charm Villa & Bungalow hoặc tương đương.",
+   "exclusions": "",
+   "policies": [
+    "Trẻ 1–4 tuổi miễn phí; thêm ghế 300k (xe 17–22), 400k (Dcar). 5–8 tuổi 75%. Từ 9 tuổi 100%.",
+    "Hủy trước 21:00 hôm trước: miễn phí. Hủy sát giờ: limo 11c 400k, limo 15–22c 300k, xe thường 200k/khách."
+   ],
+   "itinerary": [],
+   "images": [],
+   "id": "EXC-NB-2d-cucphuong-shuttle",
+   "supplier": "excursion",
+   "category": "NINHBINH_TOUR",
+   "title": "Ninh Bình 2N1Đ · Ngày 1 Hoa Lư – Tam Cốc – Hang Múa · Ngày 2 Rừng Cúc Phương",
+   "variant": "Shuttle bus (nhóm đến 32 khách) · ngủ bungalow/homestay có bể bơi",
+   "duration": "2 ngày 1 đêm",
+   "netCost": 2750000,
+   "summary": "Phụ thu phòng đơn 350k. Nâng hạng khách sạn: Nam Hoa 3 sao +200k/khách (phòng đơn 400k); Lalita/Orchid 4 sao +600k/khách (phòng đơn 600k, cuối tuần +300k/phòng); Hidden Charm 4 sao +700k/khách (phòng đơn 750k).",
+   "place": "Ninh Bình"
+  },
+  {
+   "currency": "VND",
+   "unit": "khách",
+   "inclusions": "Xe limo/shuttle; 2 chai nước/ngày; hướng dẫn viên Anh/Việt; buffet nhà hàng phong cách 5 sao (Limo 11 ăn phòng VIP); vé thắng cảnh, vé đò; xe điện 2 chiều Bái Đính; xe đạp tour Hoa Lư; áo mưa/nón lá tùy thời tiết. Ngủ TC Little Charm Villa & Bungalow hoặc tương đương.",
+   "exclusions": "",
+   "policies": [
+    "Trẻ 1–4 tuổi miễn phí; thêm ghế 300k (xe 17–22), 400k (Dcar). 5–8 tuổi 75%. Từ 9 tuổi 100%.",
+    "Hủy trước 21:00 hôm trước: miễn phí. Hủy sát giờ: limo 11c 400k, limo 15–22c 300k, xe thường 200k/khách."
+   ],
+   "itinerary": [],
+   "images": [],
+   "id": "EXC-NB-2d-cucphuong-limo22",
+   "supplier": "excursion",
+   "category": "NINHBINH_TOUR",
+   "title": "Ninh Bình 2N1Đ · Ngày 1 Hoa Lư – Tam Cốc – Hang Múa · Ngày 2 Rừng Cúc Phương",
+   "variant": "Limousine 22 chỗ · ngủ bungalow/homestay có bể bơi",
+   "duration": "2 ngày 1 đêm",
+   "netCost": 2850000,
+   "summary": "Phụ thu phòng đơn 350k. Nâng hạng khách sạn: Nam Hoa 3 sao +200k/khách (phòng đơn 400k); Lalita/Orchid 4 sao +600k/khách (phòng đơn 600k, cuối tuần +300k/phòng); Hidden Charm 4 sao +700k/khách (phòng đơn 750k).",
+   "place": "Ninh Bình"
+  },
+  {
+   "currency": "VND",
+   "unit": "khách",
+   "inclusions": "Xe limo/shuttle; 2 chai nước/ngày; hướng dẫn viên Anh/Việt; buffet nhà hàng phong cách 5 sao (Limo 11 ăn phòng VIP); vé thắng cảnh, vé đò; xe điện 2 chiều Bái Đính; xe đạp tour Hoa Lư; áo mưa/nón lá tùy thời tiết. Ngủ TC Little Charm Villa & Bungalow hoặc tương đương.",
+   "exclusions": "",
+   "policies": [
+    "Trẻ 1–4 tuổi miễn phí; thêm ghế 300k (xe 17–22), 400k (Dcar). 5–8 tuổi 75%. Từ 9 tuổi 100%.",
+    "Hủy trước 21:00 hôm trước: miễn phí. Hủy sát giờ: limo 11c 400k, limo 15–22c 300k, xe thường 200k/khách."
+   ],
+   "itinerary": [],
+   "images": [],
+   "id": "EXC-NB-2d-cucphuong-limo15",
+   "supplier": "excursion",
+   "category": "NINHBINH_TOUR",
+   "title": "Ninh Bình 2N1Đ · Ngày 1 Hoa Lư – Tam Cốc – Hang Múa · Ngày 2 Rừng Cúc Phương",
+   "variant": "Limousine 15 chỗ · ngủ bungalow/homestay có bể bơi",
+   "duration": "2 ngày 1 đêm",
+   "netCost": 2900000,
+   "summary": "Phụ thu phòng đơn 350k. Nâng hạng khách sạn: Nam Hoa 3 sao +200k/khách (phòng đơn 400k); Lalita/Orchid 4 sao +600k/khách (phòng đơn 600k, cuối tuần +300k/phòng); Hidden Charm 4 sao +700k/khách (phòng đơn 750k).",
+   "place": "Ninh Bình"
+  },
+  {
+   "currency": "VND",
+   "unit": "khách",
+   "inclusions": "Xe limo/shuttle; 2 chai nước/ngày; hướng dẫn viên Anh/Việt; buffet nhà hàng phong cách 5 sao (Limo 11 ăn phòng VIP); vé thắng cảnh, vé đò; xe điện 2 chiều Bái Đính; xe đạp tour Hoa Lư; áo mưa/nón lá tùy thời tiết.",
+   "exclusions": "",
+   "policies": [
+    "Trẻ 1–4 tuổi miễn phí; thêm ghế 300k (xe 17–22), 400k (Dcar). 5–8 tuổi 75%. Từ 9 tuổi 100%.",
+    "Hủy trước 21:00 hôm trước: miễn phí. Hủy sát giờ: limo 11c 400k, limo 15–22c 300k, xe thường 200k/khách."
+   ],
+   "itinerary": [],
+   "images": [],
+   "id": "EXC-NB-combo-halong-2d",
+   "supplier": "excursion",
+   "category": "NINHBINH_TOUR",
+   "title": "Combo Ninh Bình + Hạ Long 2N1Đ",
+   "variant": "Limo 22 chỗ · ngủ bungalow/homestay có bể bơi + ăn tối",
+   "duration": "2 ngày 1 đêm",
+   "netCost": 2900000,
+   "summary": "Ngày 1 Hoa Lư – Tam Cốc – Hang Múa; ngày 2 Hạ Long tàu Apollo. Đón và trả Hà Nội. Đi Tràng An thay Tam Cốc: +50k/khách. Phụ thu phòng đơn 350k.",
+   "place": "Ninh Bình"
+  },
+  {
+   "currency": "VND",
+   "unit": "khách",
+   "inclusions": "Xe limo/shuttle; 2 chai nước/ngày; hướng dẫn viên Anh/Việt; buffet nhà hàng phong cách 5 sao (Limo 11 ăn phòng VIP); vé thắng cảnh, vé đò; xe điện 2 chiều Bái Đính; xe đạp tour Hoa Lư; áo mưa/nón lá tùy thời tiết.",
+   "exclusions": "",
+   "policies": [
+    "Trẻ 1–4 tuổi miễn phí; thêm ghế 300k (xe 17–22), 400k (Dcar). 5–8 tuổi 75%. Từ 9 tuổi 100%.",
+    "Hủy trước 21:00 hôm trước: miễn phí. Hủy sát giờ: limo 11c 400k, limo 15–22c 300k, xe thường 200k/khách."
+   ],
+   "itinerary": [],
+   "images": [],
+   "id": "EXC-NB-3d2n",
+   "supplier": "excursion",
+   "category": "NINHBINH_TOUR",
+   "title": "Ninh Bình 3N2Đ",
+   "variant": "Limo 22 chỗ · ngủ bungalow/homestay có bể bơi",
+   "duration": "3 ngày 2 đêm",
+   "netCost": 4350000,
+   "summary": "Ngày 1 Hoa Lư – Tam Cốc – Hang Múa; ngày 2 Thung Nham – Bích Động – Thái Vi (hoặc Cúc Phương); ngày 3 Bái Đính – Tràng An. Phụ thu phòng đơn 700k/2 đêm.",
+   "place": "Ninh Bình"
+  },
+  {
+   "currency": "VND",
+   "unit": "khách",
+   "inclusions": "",
+   "exclusions": "",
+   "policies": [
+    "Trẻ 1–4 tuổi miễn phí; thêm ghế 150k xe thường, 200k limo. 5–8 tuổi 75%. Từ 9 tuổi 100%.",
+    "Hủy trước 21:00 hôm trước: miễn phí. Hủy sát giờ: xe thường 150k, limo 200k/khách.",
+    "Tết Âm lịch (29 Tết đến hết mùng 3): phụ thu 250k/khách."
+   ],
+   "itinerary": [],
+   "images": [],
+   "id": "EXC-HN-full-shuttle",
+   "supplier": "excursion",
+   "category": "HANOI_TOUR",
+   "title": "Hà Nội · City tour cả ngày · Trấn Quốc, Lăng Bác, Bảo tàng Dân tộc học, Văn Miếu, Hỏa Lò",
+   "variant": "Shuttle bus 29 chỗ (nhóm 22)",
+   "duration": "1 ngày",
+   "netCost": 660000,
+   "summary": "Thứ Hai thay Bảo tàng Dân tộc học bằng Bảo tàng Phụ nữ. Xích lô +100k, múa rối nước +150k/khách.",
+   "place": "Hà Nội"
+  },
+  {
+   "currency": "VND",
+   "unit": "khách",
+   "inclusions": "",
+   "exclusions": "",
+   "policies": [
+    "Trẻ 1–4 tuổi miễn phí; thêm ghế 150k xe thường, 200k limo. 5–8 tuổi 75%. Từ 9 tuổi 100%.",
+    "Hủy trước 21:00 hôm trước: miễn phí. Hủy sát giờ: xe thường 150k, limo 200k/khách.",
+    "Tết Âm lịch (29 Tết đến hết mùng 3): phụ thu 250k/khách."
+   ],
+   "itinerary": [],
+   "images": [],
+   "id": "EXC-HN-full-limo",
+   "supplier": "excursion",
+   "category": "HANOI_TOUR",
+   "title": "Hà Nội · City tour cả ngày · Trấn Quốc, Lăng Bác, Bảo tàng Dân tộc học, Văn Miếu, Hỏa Lò",
+   "variant": "Xe Fuso limousine (nhóm 17)",
+   "duration": "1 ngày",
+   "netCost": 760000,
+   "summary": "Thứ Hai thay Bảo tàng Dân tộc học bằng Bảo tàng Phụ nữ. Xích lô +100k, múa rối nước +150k/khách.",
+   "place": "Hà Nội"
+  },
+  {
+   "currency": "VND",
+   "unit": "khách",
+   "inclusions": "",
+   "exclusions": "",
+   "policies": [
+    "Trẻ 1–4 tuổi miễn phí; thêm ghế 150k xe thường, 200k limo. 5–8 tuổi 75%. Từ 9 tuổi 100%.",
+    "Hủy trước 21:00 hôm trước: miễn phí. Hủy sát giờ: xe thường 150k, limo 200k/khách.",
+    "Tết Âm lịch (29 Tết đến hết mùng 3): phụ thu 250k/khách."
+   ],
+   "itinerary": [],
+   "images": [],
+   "id": "EXC-HN-half-shuttle",
+   "supplier": "excursion",
+   "category": "HANOI_TOUR",
+   "title": "Hà Nội · City tour nửa ngày (sáng: Trấn Quốc, Lăng, Dân tộc học + ăn trưa; chiều: Văn Miếu, Hỏa Lò + ăn trưa)",
+   "variant": "Shuttle bus 29 chỗ (nhóm 22)",
+   "duration": "Nửa ngày",
+   "netCost": 560000,
+   "summary": "Không ăn trưa trừ 100k. Hẹn 12:30–12:45 (có ăn) hoặc 13:30–13:45 (không ăn).",
+   "place": "Hà Nội"
+  },
+  {
+   "currency": "VND",
+   "unit": "khách",
+   "inclusions": "",
+   "exclusions": "",
+   "policies": [
+    "Trẻ 1–4 tuổi miễn phí; thêm ghế 150k xe thường, 200k limo. 5–8 tuổi 75%. Từ 9 tuổi 100%.",
+    "Hủy trước 21:00 hôm trước: miễn phí. Hủy sát giờ: xe thường 150k, limo 200k/khách.",
+    "Tết Âm lịch (29 Tết đến hết mùng 3): phụ thu 250k/khách."
+   ],
+   "itinerary": [],
+   "images": [],
+   "id": "EXC-HN-half-limo",
+   "supplier": "excursion",
+   "category": "HANOI_TOUR",
+   "title": "Hà Nội · City tour nửa ngày (sáng: Trấn Quốc, Lăng, Dân tộc học + ăn trưa; chiều: Văn Miếu, Hỏa Lò + ăn trưa)",
+   "variant": "Xe Fuso limousine (nhóm 17)",
+   "duration": "Nửa ngày",
+   "netCost": 660000,
+   "summary": "Không ăn trưa trừ 100k. Hẹn 12:30–12:45 (có ăn) hoặc 13:30–13:45 (không ăn).",
+   "place": "Hà Nội"
+  },
+  {
+   "currency": "VND",
+   "unit": "khách",
+   "inclusions": "",
+   "exclusions": "",
+   "policies": [
+    "Trẻ 1–4 tuổi miễn phí; thêm ghế 150k xe thường, 200k limo. 5–8 tuổi 75%. Từ 9 tuổi 100%.",
+    "Hủy trước 21:00 hôm trước: miễn phí. Hủy sát giờ: xe thường 150k, limo 200k/khách.",
+    "Tết Âm lịch (29 Tết đến hết mùng 3): phụ thu 250k/khách."
+   ],
+   "itinerary": [],
+   "images": [],
+   "id": "EXC-HN-village-half-shuttle",
+   "supplier": "excursion",
+   "category": "HANOI_TOUR",
+   "title": "Hà Nội · Làng Hương + Làng Nón nửa ngày",
+   "variant": "Shuttle bus 29 chỗ (nhóm 22)",
+   "duration": "Sáng 7:30–12:30 hoặc chiều 12:00–17:30",
+   "netCost": 560000,
+   "summary": "Không gồm ăn trưa. Xe shuttle 16–29 chỗ.",
+   "place": "Hà Nội"
+  },
+  {
+   "currency": "VND",
+   "unit": "khách",
+   "inclusions": "",
+   "exclusions": "",
+   "policies": [
+    "Trẻ 1–4 tuổi miễn phí; thêm ghế 150k xe thường, 200k limo. 5–8 tuổi 75%. Từ 9 tuổi 100%.",
+    "Hủy trước 21:00 hôm trước: miễn phí. Hủy sát giờ: xe thường 150k, limo 200k/khách.",
+    "Tết Âm lịch (29 Tết đến hết mùng 3): phụ thu 250k/khách."
+   ],
+   "itinerary": [],
+   "images": [],
+   "id": "EXC-HN-city-village-shuttle",
+   "supplier": "excursion",
+   "category": "HANOI_TOUR",
+   "title": "Hà Nội · City tour + Làng Hương, Làng Nón cả ngày",
+   "variant": "Shuttle bus 29 chỗ (nhóm 22)",
+   "duration": "1 ngày",
+   "netCost": 950000,
+   "summary": "Sáng làng Hương, làng Nón (có ăn trưa); chiều Văn Miếu, Hỏa Lò.",
+   "place": "Hà Nội"
+  },
+  {
+   "currency": "VND",
+   "unit": "ghế / chiều",
+   "inclusions": "",
+   "exclusions": "",
+   "policies": [],
+   "itinerary": [],
+   "images": [],
+   "id": "EXC-LIMO-hn-nb",
+   "supplier": "excursion",
+   "category": "INTERCITY_BUS_12GO",
+   "title": "Xe limousine ghép Hà Nội ↔ Ninh Bình",
+   "variant": "Limo 11 chỗ",
+   "duration": "Một chiều",
+   "netCost": 200000,
+   "summary": "Hà Nội đi 8h–9h–10h–11h–12h–14h–15h–16h–17h–18h; Ninh Bình về 8h–9h–11h–12h–13h–14h–15h–17h–18h–19h. Đón trả khách sạn phố cổ/Nhà hát Lớn và homestay, khách sạn khu Hoa Lư, Tam Cốc, Tràng An, Hang Múa, TP Ninh Bình. Ghế VIP +50k. Phụ thu đón/trả Hòn Gai, Vân Long, Bái Đính 150k/nhóm 1–3 khách; Thung Nham 100k/nhóm.",
+   "place": "Hà Nội ↔ Ninh Bình"
+  },
+  {
+   "currency": "VND",
+   "unit": "ghế / chiều",
+   "inclusions": "",
+   "exclusions": "",
+   "policies": [],
+   "itinerary": [],
+   "images": [],
+   "id": "EXC-LIMO-hn-hl-11",
+   "supplier": "excursion",
+   "category": "INTERCITY_BUS_12GO",
+   "title": "Xe limousine ghép Hà Nội ↔ Hạ Long",
+   "variant": "Limo 11 chỗ",
+   "duration": "Một chiều",
+   "netCost": 200000,
+   "summary": "Hà Nội đi 8:30, Hạ Long về 12:00. Đón trả khách sạn phố cổ/Nhà hát Lớn; bến Tuần Châu, Cảng Sun, Bãi Cháy. Phụ thu đón/trả Hòn Gai, Vân Long, Bái Đính 150k/nhóm 1–3 khách; Thung Nham 100k/nhóm.",
+   "place": "Hà Nội ↔ Hạ Long"
+  },
+  {
+   "currency": "VND",
+   "unit": "ghế / chiều",
+   "inclusions": "",
+   "exclusions": "",
+   "policies": [],
+   "itinerary": [],
+   "images": [],
+   "id": "EXC-LIMO-hn-hl-22",
+   "supplier": "excursion",
+   "category": "INTERCITY_BUS_12GO",
+   "title": "Xe limousine ghép Hà Nội ↔ Hạ Long",
+   "variant": "Limo 22 chỗ",
+   "duration": "Một chiều",
+   "netCost": 180000,
+   "summary": "Hà Nội đi 8:30, Hạ Long về 12:00. Phụ thu đón/trả Hòn Gai, Vân Long, Bái Đính 150k/nhóm 1–3 khách; Thung Nham 100k/nhóm.",
+   "place": "Hà Nội ↔ Hạ Long"
+  },
+  {
+   "currency": "VND",
+   "unit": "ghế / chiều",
+   "inclusions": "",
+   "exclusions": "",
+   "policies": [],
+   "itinerary": [],
+   "images": [],
+   "id": "EXC-LIMO-hl-nb-11",
+   "supplier": "excursion",
+   "category": "INTERCITY_BUS_12GO",
+   "title": "Xe limousine ghép Hạ Long ↔ Ninh Bình",
+   "variant": "Limo 11 chỗ",
+   "duration": "Một chiều",
+   "netCost": 250000,
+   "summary": "Ninh Bình đi 7:30, Hạ Long về 12:00. Ngõ nhỏ chỉ trả ở đường chính gần nhất. Phụ thu đón/trả Hòn Gai, Vân Long, Bái Đính 150k/nhóm 1–3 khách; Thung Nham 100k/nhóm.",
+   "place": "Hạ Long ↔ Ninh Bình"
+  },
+  {
+   "currency": "VND",
+   "unit": "ghế / chiều",
+   "inclusions": "",
+   "exclusions": "",
+   "policies": [],
+   "itinerary": [],
+   "images": [],
+   "id": "EXC-LIMO-hl-nb-22",
+   "supplier": "excursion",
+   "category": "INTERCITY_BUS_12GO",
+   "title": "Xe limousine ghép Hạ Long ↔ Ninh Bình",
+   "variant": "Limo 22 chỗ",
+   "duration": "Một chiều",
+   "netCost": 200000,
+   "summary": "Ninh Bình đi 7:30, Hạ Long về 12:00. Phụ thu đón/trả Hòn Gai, Vân Long, Bái Đính 150k/nhóm 1–3 khách; Thung Nham 100k/nhóm.",
+   "place": "Hạ Long ↔ Ninh Bình"
+  },
+  {
+   "currency": "USD",
+   "unit": "khách",
+   "inclusions": "",
+   "exclusions": "",
+   "policies": [],
+   "itinerary": [],
+   "images": [],
+   "id": "VA-jeep-inside",
+   "supplier": "viet-adventures",
+   "category": "HANOI_TOUR",
+   "title": "Jeep/Vespa · Discover Inside Hanoi City by Jeep",
+   "variant": "Ghép đoàn (từ 2 khách)",
+   "netCost": 44,
+   "summary": "Giá khuyến mãi. Tour riêng: 1 khách 89$, 2 khách 59$, 3–5 khách 54$, từ 6 khách 44$ mỗi khách. Đã gồm 1 bữa ăn.",
+   "place": "Hà Nội"
+  },
+  {
+   "currency": "USD",
+   "unit": "khách",
+   "inclusions": "",
+   "exclusions": "",
+   "policies": [],
+   "itinerary": [],
+   "images": [],
+   "id": "VA-jeep-food",
+   "supplier": "viet-adventures",
+   "category": "HANOI_TOUR",
+   "title": "Jeep/Vespa · Amazing Jeep Tour for Food Lovers",
+   "variant": "Ghép đoàn (từ 2 khách)",
+   "netCost": 54,
+   "summary": "Giá khuyến mãi. Tour riêng: 1 khách 94$, 2 khách 63$, 3–5 khách 59$, từ 6 khách 54$ mỗi khách. Đã gồm 1 bữa ăn.",
+   "place": "Hà Nội"
+  },
+  {
+   "currency": "USD",
+   "unit": "khách",
+   "inclusions": "",
+   "exclusions": "",
+   "policies": [],
+   "itinerary": [],
+   "images": [],
+   "id": "VA-jeep-red",
+   "supplier": "viet-adventures",
+   "category": "HANOI_TOUR",
+   "title": "Jeep/Vespa · Jeep Tour Through The Red (River)",
+   "variant": "Ghép đoàn (từ 2 khách)",
+   "netCost": 44,
+   "summary": "Giá khuyến mãi. Tour riêng: 1 khách 89$, 2 khách 59$, 3–5 khách 54$, từ 6 khách 44$ mỗi khách. Đã gồm 1 bữa ăn.",
+   "place": "Hà Nội"
+  },
+  {
+   "currency": "USD",
+   "unit": "khách",
+   "inclusions": "",
+   "exclusions": "",
+   "policies": [],
+   "itinerary": [],
+   "images": [],
+   "id": "VA-jeep-fullday",
+   "supplier": "viet-adventures",
+   "category": "HANOI_TOUR",
+   "title": "Jeep/Vespa · Hanoi Jeep Tour Full Day (tour 1 + 3)",
+   "variant": "Ghép đoàn (từ 2 khách)",
+   "netCost": 78,
+   "summary": "Giá khuyến mãi. Tour riêng: 1 khách 188$, 2 khách 103$, 3–5 khách 93$, từ 6 khách 78$ mỗi khách. Đã gồm 1 bữa ăn.",
+   "place": "Hà Nội"
+  },
+  {
+   "currency": "USD",
+   "unit": "khách",
+   "inclusions": "",
+   "exclusions": "",
+   "policies": [],
+   "itinerary": [],
+   "images": [],
+   "id": "VA-early-birds",
+   "supplier": "viet-adventures",
+   "category": "HANOI_TOUR",
+   "title": "Jeep/Vespa · Hanoi Early Birds",
+   "variant": "Ghép đoàn (từ 2 khách)",
+   "netCost": 39,
+   "summary": "Giá khuyến mãi. Tour riêng: 1 khách 89$, 2 khách 49$, 3–5 khách 39$, từ 6 khách 29$ mỗi khách. Đã gồm 1 bữa ăn.",
+   "place": "Hà Nội"
+  },
+  {
+   "currency": "USD",
+   "unit": "khách",
+   "inclusions": "",
+   "exclusions": "",
+   "policies": [],
+   "itinerary": [],
+   "images": [],
+   "id": "VA-ba-vi",
+   "supplier": "viet-adventures",
+   "category": "HANOI_TOUR",
+   "title": "Jeep/Vespa · Jeep 1 ngày Vườn quốc gia Ba Vì",
+   "variant": "Ghép đoàn (từ 2 khách)",
+   "netCost": 89,
+   "summary": "Giá khuyến mãi. Tour riêng: 1 khách 188$, 2 khách 109$, 3–5 khách 99$, từ 6 khách 89$ mỗi khách. Đã gồm 1 bữa ăn.",
+   "place": "Hà Nội"
+  },
+  {
+   "currency": "USD",
+   "unit": "khách",
+   "inclusions": "",
+   "exclusions": "",
+   "policies": [],
+   "itinerary": [],
+   "images": [],
+   "id": "VA-bat-trang",
+   "supplier": "viet-adventures",
+   "category": "HANOI_TOUR",
+   "title": "Jeep/Vespa · Jeep nửa ngày làng gốm Bát Tràng",
+   "variant": "Ghép đoàn (từ 2 khách)",
+   "netCost": 54,
+   "summary": "Giá khuyến mãi. Tour riêng: 1 khách 94$, 2 khách 68$, 3–5 khách 59$, từ 6 khách 54$ mỗi khách. Đã gồm 1 bữa ăn.",
+   "place": "Hà Nội"
+  },
+  {
+   "currency": "USD",
+   "unit": "khách",
+   "inclusions": "",
+   "exclusions": "",
+   "policies": [],
+   "itinerary": [],
+   "images": [],
+   "id": "VA-duong-lam",
+   "supplier": "viet-adventures",
+   "category": "HANOI_TOUR",
+   "title": "Jeep/Vespa · Jeep cả ngày làng cổ Đường Lâm",
+   "variant": "Ghép đoàn (từ 2 khách)",
+   "netCost": 79,
+   "summary": "Giá khuyến mãi. Tour riêng: 1 khách 129$, 2 khách 99$, 3–5 khách 89$, từ 6 khách 79$ mỗi khách. Đã gồm 1 bữa ăn.",
+   "place": "Hà Nội"
+  },
+  {
+   "currency": "USD",
+   "unit": "khách",
+   "inclusions": "",
+   "exclusions": "",
+   "policies": [],
+   "itinerary": [],
+   "images": [],
+   "id": "VA-dong-ho",
+   "supplier": "viet-adventures",
+   "category": "HANOI_TOUR",
+   "title": "Jeep/Vespa · Jeep tranh dân gian Đông Hồ",
+   "variant": "Ghép đoàn (từ 2 khách)",
+   "netCost": 59,
+   "summary": "Giá khuyến mãi. Tour riêng: 1 khách 94$, 2 khách 73$, 3–5 khách 64$, từ 6 khách 59$ mỗi khách. Đã gồm 1 bữa ăn.",
+   "place": "Hà Nội"
+  },
+  {
+   "currency": "USD",
+   "unit": "khách",
+   "inclusions": "",
+   "exclusions": "",
+   "policies": [],
+   "itinerary": [],
+   "images": [],
+   "id": "VA-agri",
+   "supplier": "viet-adventures",
+   "category": "HANOI_TOUR",
+   "title": "Jeep/Vespa · Jeep trải nghiệm nông nghiệp Việt",
+   "variant": "Ghép đoàn (từ 2 khách)",
+   "netCost": 89,
+   "summary": "Giá khuyến mãi. Tour riêng: 1 khách 188$, 2 khách 109$, 3–5 khách 99$, từ 6 khách 89$ mỗi khách. Đã gồm 1 bữa ăn.",
+   "place": "Hà Nội"
+  },
+  {
+   "currency": "VND",
+   "unit": "khách",
+   "inclusions": "",
+   "exclusions": "",
+   "policies": [],
+   "itinerary": [],
+   "images": [],
+   "id": "VA-walk-city",
+   "supplier": "viet-adventures",
+   "category": "HANOI_TOUR",
+   "title": "Hanoi Walking City Tour",
+   "variant": "Ghép đoàn",
+   "netCost": 390000,
+   "summary": "Tour riêng: 1 khách 590k, 3–5 khách 490k, từ 6 khách 390k.",
+   "place": "Hà Nội"
+  },
+  {
+   "currency": "VND",
+   "unit": "khách",
+   "inclusions": "",
+   "exclusions": "",
+   "policies": [],
+   "itinerary": [],
+   "images": [],
+   "id": "VA-walk-food",
+   "supplier": "viet-adventures",
+   "category": "HANOI_TOUR",
+   "title": "Hanoi Walking Street Food Tour",
+   "variant": "Ghép đoàn",
+   "netCost": 490000,
+   "summary": "Tour riêng: 1 khách 690k, 3–5 khách 590k, từ 6 khách 490k.",
+   "place": "Hà Nội"
+  },
+  {
+   "currency": "VND",
+   "unit": "khách",
+   "inclusions": "Xe khách điều hòa Hà Nội – Sapa khứ hồi; 2 chai nước mỗi chiều; xe trong Sapa; hướng dẫn viên tiếng Anh; 3 bữa trưa, 2 bữa tối, 2 bữa sáng; vé tham quan; vé cáp treo Fansipan 2 chiều; bảo hiểm trên xe.",
+   "exclusions": "Đồ uống, bảo hiểm du lịch, VAT, chi tiêu cá nhân; phụ thu ngày lễ Tết (trả tại chỗ).",
+   "policies": [
+    "Trẻ đến 4 tuổi miễn phí khi dùng chung dịch vụ với bố mẹ; 5–8 tuổi 75%; trên 8 tuổi 100%.",
+    "Hủy trước 24 giờ: miễn phí; trong 24 giờ: 100%."
+   ],
+   "itinerary": [
+    {
+     "day": 1,
+     "time": "06:00–06:20",
+     "text": "Đón tại khách sạn phố cổ Hà Nội, lên xe khách lớn đi Sapa."
+    },
+    {
+     "day": 1,
+     "time": "09:30",
+     "text": "Dừng nghỉ lần 1 trên cao tốc Lào Cai."
+    },
+    {
+     "day": 1,
+     "time": "11:00",
+     "text": "Dừng nghỉ lần 2 ở TP Lào Cai."
+    },
+    {
+     "day": 1,
+     "time": "13:00",
+     "text": "Đến Sapa, ăn trưa món Việt địa phương.",
+     "meal": "Trưa"
+    },
+    {
+     "day": 1,
+     "time": "14:30",
+     "text": "Đi bộ bản Cát Cát (người H’mông đen), thác nước và trạm thủy điện thời Pháp; khoảng 3,5 km, 2 giờ."
+    },
+    {
+     "day": 1,
+     "time": "16:30",
+     "text": "Về thị trấn Sapa, ăn tối, nghỉ khách sạn.",
+     "meal": "Tối"
+    },
+    {
+     "day": 2,
+     "time": "07:00–08:30",
+     "text": "Ăn sáng tại khách sạn.",
+     "meal": "Sáng"
+    },
+    {
+     "day": 2,
+     "time": "08:30–08:45",
+     "text": "Trek qua ruộng bậc thang dọc suối Mường Hoa tới bản Lao Chải (H’mông đen); khoảng 12 km, 4 giờ."
+    },
+    {
+     "day": 2,
+     "time": "12:00–13:30",
+     "text": "Ăn trưa món Việt do gia đình bản địa nấu; chiều tới bản Tả Van (người Giáy).",
+     "meal": "Trưa"
+    },
+    {
+     "day": 2,
+     "time": "14:30",
+     "text": "Về thị trấn Sapa, chiều tự do."
+    },
+    {
+     "day": 2,
+     "time": "19:00",
+     "text": "Ăn tối, nghỉ khách sạn.",
+     "meal": "Tối"
+    },
+    {
+     "day": 3,
+     "time": "08:00",
+     "text": "Ăn sáng tại khách sạn.",
+     "meal": "Sáng"
+    },
+    {
+     "day": 3,
+     "time": "08:45",
+     "text": "Ra ga cáp treo, 20 phút lên độ cao 2.800 m; leo 600 bậc lên đỉnh Fansipan (khoảng 1,5 giờ chụp ảnh, thăm chùa)."
+    },
+    {
+     "day": 3,
+     "time": "12:00",
+     "text": "Xuống ga cáp treo, về thị trấn Sapa."
+    },
+    {
+     "day": 3,
+     "time": "12:45",
+     "text": "Ăn trưa tại nhà hàng địa phương.",
+     "meal": "Trưa"
+    },
+    {
+     "day": 3,
+     "time": "15:00–15:30",
+     "text": "Tập trung tại khách sạn, lên xe về Hà Nội (2 lần dừng nghỉ)."
+    },
+    {
+     "day": 3,
+     "time": "21:30–21:45",
+     "text": "Về tới Hà Nội; khách tự về khách sạn."
+    }
+   ],
+   "images": [
+    {
+     "src": "/supplier-media/viet-adventures/sapa-cover.jpeg",
+     "caption": "Sapa trekking tour (ảnh Viet Adventures)"
+    },
+    {
+     "src": "/supplier-media/viet-adventures/fansipan.png",
+     "caption": "Đỉnh Fansipan (ảnh trong tài liệu Viet Adventures)"
+    },
+    {
+     "src": "/supplier-media/viet-adventures/cat-cat-village.jpeg",
+     "caption": "Bản Cát Cát (ảnh trong tài liệu Viet Adventures; có watermark Lucadeaa)"
+    },
+    {
+     "src": "/supplier-media/viet-adventures/sleeper-bus.jpeg",
+     "caption": "Xe giường nằm Hà Nội – Sapa (ảnh trong tài liệu Viet Adventures)"
+    }
+   ],
+   "id": "VA-sapa-3d2n-hotel",
+   "supplier": "viet-adventures",
+   "category": "SAPA_TOUR",
+   "title": "Sapa 3N2Đ · 2 đêm khách sạn · Cát Cát – Lao Chải – Tả Van – Fansipan",
+   "variant": "Xe khách lớn Hà Nội – Sapa · 3 trưa, 2 tối, 2 sáng",
+   "duration": "3 ngày 2 đêm",
+   "netCost": null,
+   "summary": "Đi xe khách thay tàu đêm, 1 đêm có thể đổi sang homestay tùy đoàn. Người lớn tuổi và trẻ em không nên đi chặng trek dài (9–12 km). Chưa có giá trong file nhận được.",
+   "place": "Sa Pa"
+  },
+  {
+   "currency": "VND",
+   "unit": "xe / chiều",
+   "inclusions": "",
+   "exclusions": "",
+   "policies": [],
+   "itinerary": [],
+   "images": [
+    {
+     "src": "https://drive.google.com/thumbnail?id=1-lbYzYOYl1p2cugNQ2bGhCnl8eVNmJVH&sz=w1000",
+     "caption": "Bảng xe và giờ đón xe ghép HH Limousine (Drive nhà cung cấp)",
+     "source": "drive"
+    }
+   ],
+   "id": "HH-ha-noi-ha-long-5",
+   "supplier": "hh-limousine",
+   "category": "INTERCITY_BUS_12GO",
+   "title": "Xe riêng Hà Nội → Hạ Long",
+   "variant": "Xe 5 chỗ (SUV/MPV)",
+   "duration": "Một chiều",
+   "netCost": 1200000,
+   "capacity": 4,
+   "summary": "Giá chưa VAT (VAT 8%: 1.296.000đ). Khứ hồi 2.300.000đ chưa VAT. Nhóm tuyến A.",
+   "place": "Hà Nội → Hạ Long"
+  },
+  {
+   "currency": "VND",
+   "unit": "xe / chiều",
+   "inclusions": "",
+   "exclusions": "",
+   "policies": [],
+   "itinerary": [],
+   "images": [
+    {
+     "src": "https://drive.google.com/thumbnail?id=1-lbYzYOYl1p2cugNQ2bGhCnl8eVNmJVH&sz=w1000",
+     "caption": "Bảng xe và giờ đón xe ghép HH Limousine (Drive nhà cung cấp)",
+     "source": "drive"
+    }
+   ],
+   "id": "HH-ha-noi-ha-long-7",
+   "supplier": "hh-limousine",
+   "category": "INTERCITY_BUS_12GO",
+   "title": "Xe riêng Hà Nội → Hạ Long",
+   "variant": "Xe 7 chỗ (SUV/MPV)",
+   "duration": "Một chiều",
+   "netCost": 1300000,
+   "capacity": 6,
+   "summary": "Giá chưa VAT (VAT 8%: 1.404.000đ). Khứ hồi 2.500.000đ chưa VAT. Nhóm tuyến A.",
+   "place": "Hà Nội → Hạ Long"
+  },
+  {
+   "currency": "VND",
+   "unit": "xe / chiều",
+   "inclusions": "",
+   "exclusions": "",
+   "policies": [],
+   "itinerary": [],
+   "images": [
+    {
+     "src": "https://drive.google.com/thumbnail?id=1-lbYzYOYl1p2cugNQ2bGhCnl8eVNmJVH&sz=w1000",
+     "caption": "Bảng xe và giờ đón xe ghép HH Limousine (Drive nhà cung cấp)",
+     "source": "drive"
+    }
+   ],
+   "id": "HH-ha-noi-ha-long-9",
+   "supplier": "hh-limousine",
+   "category": "INTERCITY_BUS_12GO",
+   "title": "Xe riêng Hà Nội → Hạ Long",
+   "variant": "Limousine 9 chỗ cao cấp",
+   "duration": "Một chiều",
+   "netCost": 1800000,
+   "capacity": 8,
+   "summary": "Giá chưa VAT (VAT 8%: 1.944.000đ). Khứ hồi 3.600.000đ chưa VAT. Nhóm tuyến A.",
+   "place": "Hà Nội → Hạ Long"
+  },
+  {
+   "currency": "VND",
+   "unit": "xe / chiều",
+   "inclusions": "",
+   "exclusions": "",
+   "policies": [],
+   "itinerary": [],
+   "images": [
+    {
+     "src": "https://drive.google.com/thumbnail?id=1-lbYzYOYl1p2cugNQ2bGhCnl8eVNmJVH&sz=w1000",
+     "caption": "Bảng xe và giờ đón xe ghép HH Limousine (Drive nhà cung cấp)",
+     "source": "drive"
+    }
+   ],
+   "id": "HH-ha-noi-ha-long-11",
+   "supplier": "hh-limousine",
+   "category": "INTERCITY_BUS_12GO",
+   "title": "Xe riêng Hà Nội → Hạ Long",
+   "variant": "Limousine 11 chỗ",
+   "duration": "Một chiều",
+   "netCost": 2000000,
+   "capacity": 10,
+   "summary": "Giá chưa VAT (VAT 8%: 2.160.000đ). Khứ hồi 4.000.000đ chưa VAT. Nhóm tuyến A.",
+   "place": "Hà Nội → Hạ Long"
+  },
+  {
+   "currency": "VND",
+   "unit": "xe / chiều",
+   "inclusions": "",
+   "exclusions": "",
+   "policies": [],
+   "itinerary": [],
+   "images": [
+    {
+     "src": "https://drive.google.com/thumbnail?id=1-lbYzYOYl1p2cugNQ2bGhCnl8eVNmJVH&sz=w1000",
+     "caption": "Bảng xe và giờ đón xe ghép HH Limousine (Drive nhà cung cấp)",
+     "source": "drive"
+    }
+   ],
+   "id": "HH-ha-noi-ha-long-16",
+   "supplier": "hh-limousine",
+   "category": "INTERCITY_BUS_12GO",
+   "title": "Xe riêng Hà Nội → Hạ Long",
+   "variant": "Minibus 16 chỗ",
+   "duration": "Một chiều",
+   "netCost": 2000000,
+   "capacity": 15,
+   "summary": "Giá chưa VAT (VAT 8%: 2.160.000đ). Khứ hồi 4.000.000đ chưa VAT. Nhóm tuyến A.",
+   "place": "Hà Nội → Hạ Long"
+  },
+  {
+   "currency": "VND",
+   "unit": "xe / chiều",
+   "inclusions": "",
+   "exclusions": "",
+   "policies": [],
+   "itinerary": [],
+   "images": [
+    {
+     "src": "https://drive.google.com/thumbnail?id=1-lbYzYOYl1p2cugNQ2bGhCnl8eVNmJVH&sz=w1000",
+     "caption": "Bảng xe và giờ đón xe ghép HH Limousine (Drive nhà cung cấp)",
+     "source": "drive"
+    }
+   ],
+   "id": "HH-ha-long-ha-noi-5",
+   "supplier": "hh-limousine",
+   "category": "INTERCITY_BUS_12GO",
+   "title": "Xe riêng Hạ Long → Hà Nội",
+   "variant": "Xe 5 chỗ (SUV/MPV)",
+   "duration": "Một chiều",
+   "netCost": 1200000,
+   "capacity": 4,
+   "summary": "Giá chưa VAT (VAT 8%: 1.296.000đ). Khứ hồi 2.300.000đ chưa VAT. Nhóm tuyến A.",
+   "place": "Hạ Long → Hà Nội"
+  },
+  {
+   "currency": "VND",
+   "unit": "xe / chiều",
+   "inclusions": "",
+   "exclusions": "",
+   "policies": [],
+   "itinerary": [],
+   "images": [
+    {
+     "src": "https://drive.google.com/thumbnail?id=1-lbYzYOYl1p2cugNQ2bGhCnl8eVNmJVH&sz=w1000",
+     "caption": "Bảng xe và giờ đón xe ghép HH Limousine (Drive nhà cung cấp)",
+     "source": "drive"
+    }
+   ],
+   "id": "HH-ha-long-ha-noi-7",
+   "supplier": "hh-limousine",
+   "category": "INTERCITY_BUS_12GO",
+   "title": "Xe riêng Hạ Long → Hà Nội",
+   "variant": "Xe 7 chỗ (SUV/MPV)",
+   "duration": "Một chiều",
+   "netCost": 1300000,
+   "capacity": 6,
+   "summary": "Giá chưa VAT (VAT 8%: 1.404.000đ). Khứ hồi 2.500.000đ chưa VAT. Nhóm tuyến A.",
+   "place": "Hạ Long → Hà Nội"
+  },
+  {
+   "currency": "VND",
+   "unit": "xe / chiều",
+   "inclusions": "",
+   "exclusions": "",
+   "policies": [],
+   "itinerary": [],
+   "images": [
+    {
+     "src": "https://drive.google.com/thumbnail?id=1-lbYzYOYl1p2cugNQ2bGhCnl8eVNmJVH&sz=w1000",
+     "caption": "Bảng xe và giờ đón xe ghép HH Limousine (Drive nhà cung cấp)",
+     "source": "drive"
+    }
+   ],
+   "id": "HH-ha-long-ha-noi-9",
+   "supplier": "hh-limousine",
+   "category": "INTERCITY_BUS_12GO",
+   "title": "Xe riêng Hạ Long → Hà Nội",
+   "variant": "Limousine 9 chỗ cao cấp",
+   "duration": "Một chiều",
+   "netCost": 1800000,
+   "capacity": 8,
+   "summary": "Giá chưa VAT (VAT 8%: 1.944.000đ). Khứ hồi 3.600.000đ chưa VAT. Nhóm tuyến A.",
+   "place": "Hạ Long → Hà Nội"
+  },
+  {
+   "currency": "VND",
+   "unit": "xe / chiều",
+   "inclusions": "",
+   "exclusions": "",
+   "policies": [],
+   "itinerary": [],
+   "images": [
+    {
+     "src": "https://drive.google.com/thumbnail?id=1-lbYzYOYl1p2cugNQ2bGhCnl8eVNmJVH&sz=w1000",
+     "caption": "Bảng xe và giờ đón xe ghép HH Limousine (Drive nhà cung cấp)",
+     "source": "drive"
+    }
+   ],
+   "id": "HH-ha-long-ha-noi-11",
+   "supplier": "hh-limousine",
+   "category": "INTERCITY_BUS_12GO",
+   "title": "Xe riêng Hạ Long → Hà Nội",
+   "variant": "Limousine 11 chỗ",
+   "duration": "Một chiều",
+   "netCost": 2000000,
+   "capacity": 10,
+   "summary": "Giá chưa VAT (VAT 8%: 2.160.000đ). Khứ hồi 4.000.000đ chưa VAT. Nhóm tuyến A.",
+   "place": "Hạ Long → Hà Nội"
+  },
+  {
+   "currency": "VND",
+   "unit": "xe / chiều",
+   "inclusions": "",
+   "exclusions": "",
+   "policies": [],
+   "itinerary": [],
+   "images": [
+    {
+     "src": "https://drive.google.com/thumbnail?id=1-lbYzYOYl1p2cugNQ2bGhCnl8eVNmJVH&sz=w1000",
+     "caption": "Bảng xe và giờ đón xe ghép HH Limousine (Drive nhà cung cấp)",
+     "source": "drive"
+    }
+   ],
+   "id": "HH-ha-long-ha-noi-16",
+   "supplier": "hh-limousine",
+   "category": "INTERCITY_BUS_12GO",
+   "title": "Xe riêng Hạ Long → Hà Nội",
+   "variant": "Minibus 16 chỗ",
+   "duration": "Một chiều",
+   "netCost": 2000000,
+   "capacity": 15,
+   "summary": "Giá chưa VAT (VAT 8%: 2.160.000đ). Khứ hồi 4.000.000đ chưa VAT. Nhóm tuyến A.",
+   "place": "Hạ Long → Hà Nội"
+  },
+  {
+   "currency": "VND",
+   "unit": "xe / chiều",
+   "inclusions": "",
+   "exclusions": "",
+   "policies": [],
+   "itinerary": [],
+   "images": [
+    {
+     "src": "https://drive.google.com/thumbnail?id=1-lbYzYOYl1p2cugNQ2bGhCnl8eVNmJVH&sz=w1000",
+     "caption": "Bảng xe và giờ đón xe ghép HH Limousine (Drive nhà cung cấp)",
+     "source": "drive"
+    }
+   ],
+   "id": "HH-ha-long-san-bay-noi-bai-5",
+   "supplier": "hh-limousine",
+   "category": "INTERCITY_BUS_12GO",
+   "title": "Xe riêng Hạ Long → Sân bay Nội Bài",
+   "variant": "Xe 5 chỗ (SUV/MPV)",
+   "duration": "Một chiều",
+   "netCost": 1300000,
+   "capacity": 4,
+   "summary": "Giá chưa VAT (VAT 8%: 1.404.000đ). Khứ hồi 2.600.000đ chưa VAT. Nhóm tuyến A.",
+   "place": "Hạ Long → Sân bay Nội Bài"
+  },
+  {
+   "currency": "VND",
+   "unit": "xe / chiều",
+   "inclusions": "",
+   "exclusions": "",
+   "policies": [],
+   "itinerary": [],
+   "images": [
+    {
+     "src": "https://drive.google.com/thumbnail?id=1-lbYzYOYl1p2cugNQ2bGhCnl8eVNmJVH&sz=w1000",
+     "caption": "Bảng xe và giờ đón xe ghép HH Limousine (Drive nhà cung cấp)",
+     "source": "drive"
+    }
+   ],
+   "id": "HH-ha-long-san-bay-noi-bai-7",
+   "supplier": "hh-limousine",
+   "category": "INTERCITY_BUS_12GO",
+   "title": "Xe riêng Hạ Long → Sân bay Nội Bài",
+   "variant": "Xe 7 chỗ (SUV/MPV)",
+   "duration": "Một chiều",
+   "netCost": 1300000,
+   "capacity": 6,
+   "summary": "Giá chưa VAT (VAT 8%: 1.404.000đ). Khứ hồi 2.600.000đ chưa VAT. Nhóm tuyến A.",
+   "place": "Hạ Long → Sân bay Nội Bài"
+  },
+  {
+   "currency": "VND",
+   "unit": "xe / chiều",
+   "inclusions": "",
+   "exclusions": "",
+   "policies": [],
+   "itinerary": [],
+   "images": [
+    {
+     "src": "https://drive.google.com/thumbnail?id=1-lbYzYOYl1p2cugNQ2bGhCnl8eVNmJVH&sz=w1000",
+     "caption": "Bảng xe và giờ đón xe ghép HH Limousine (Drive nhà cung cấp)",
+     "source": "drive"
+    }
+   ],
+   "id": "HH-ha-long-san-bay-noi-bai-9",
+   "supplier": "hh-limousine",
+   "category": "INTERCITY_BUS_12GO",
+   "title": "Xe riêng Hạ Long → Sân bay Nội Bài",
+   "variant": "Limousine 9 chỗ cao cấp",
+   "duration": "Một chiều",
+   "netCost": 2000000,
+   "capacity": 8,
+   "summary": "Giá chưa VAT (VAT 8%: 2.160.000đ). Khứ hồi 4.000.000đ chưa VAT. Nhóm tuyến A.",
+   "place": "Hạ Long → Sân bay Nội Bài"
+  },
+  {
+   "currency": "VND",
+   "unit": "xe / chiều",
+   "inclusions": "",
+   "exclusions": "",
+   "policies": [],
+   "itinerary": [],
+   "images": [
+    {
+     "src": "https://drive.google.com/thumbnail?id=1-lbYzYOYl1p2cugNQ2bGhCnl8eVNmJVH&sz=w1000",
+     "caption": "Bảng xe và giờ đón xe ghép HH Limousine (Drive nhà cung cấp)",
+     "source": "drive"
+    }
+   ],
+   "id": "HH-ha-long-san-bay-noi-bai-11",
+   "supplier": "hh-limousine",
+   "category": "INTERCITY_BUS_12GO",
+   "title": "Xe riêng Hạ Long → Sân bay Nội Bài",
+   "variant": "Limousine 11 chỗ",
+   "duration": "Một chiều",
+   "netCost": 2300000,
+   "capacity": 10,
+   "summary": "Giá chưa VAT (VAT 8%: 2.484.000đ). Khứ hồi 4.600.000đ chưa VAT. Nhóm tuyến A.",
+   "place": "Hạ Long → Sân bay Nội Bài"
+  },
+  {
+   "currency": "VND",
+   "unit": "xe / chiều",
+   "inclusions": "",
+   "exclusions": "",
+   "policies": [],
+   "itinerary": [],
+   "images": [
+    {
+     "src": "https://drive.google.com/thumbnail?id=1-lbYzYOYl1p2cugNQ2bGhCnl8eVNmJVH&sz=w1000",
+     "caption": "Bảng xe và giờ đón xe ghép HH Limousine (Drive nhà cung cấp)",
+     "source": "drive"
+    }
+   ],
+   "id": "HH-ha-long-san-bay-noi-bai-16",
+   "supplier": "hh-limousine",
+   "category": "INTERCITY_BUS_12GO",
+   "title": "Xe riêng Hạ Long → Sân bay Nội Bài",
+   "variant": "Minibus 16 chỗ",
+   "duration": "Một chiều",
+   "netCost": 2200000,
+   "capacity": 15,
+   "summary": "Giá chưa VAT (VAT 8%: 2.376.000đ). Khứ hồi 4.400.000đ chưa VAT. Nhóm tuyến A.",
+   "place": "Hạ Long → Sân bay Nội Bài"
+  },
+  {
+   "currency": "VND",
+   "unit": "xe / chiều",
+   "inclusions": "",
+   "exclusions": "",
+   "policies": [],
+   "itinerary": [],
+   "images": [
+    {
+     "src": "https://drive.google.com/thumbnail?id=1-lbYzYOYl1p2cugNQ2bGhCnl8eVNmJVH&sz=w1000",
+     "caption": "Bảng xe và giờ đón xe ghép HH Limousine (Drive nhà cung cấp)",
+     "source": "drive"
+    }
+   ],
+   "id": "HH-ha-noi-san-bay-noi-bai-5",
+   "supplier": "hh-limousine",
+   "category": "AIRPORT_TRANSFER",
+   "title": "Xe riêng Hà Nội → Sân bay Nội Bài",
+   "variant": "Xe 5 chỗ (SUV/MPV)",
+   "duration": "Một chiều",
+   "netCost": 250000,
+   "capacity": 4,
+   "summary": "Giá chưa VAT (VAT 8%: 270.000đ). Nhóm tuyến A.",
+   "place": "Hà Nội → Sân bay Nội Bài"
+  },
+  {
+   "currency": "VND",
+   "unit": "xe / chiều",
+   "inclusions": "",
+   "exclusions": "",
+   "policies": [],
+   "itinerary": [],
+   "images": [
+    {
+     "src": "https://drive.google.com/thumbnail?id=1-lbYzYOYl1p2cugNQ2bGhCnl8eVNmJVH&sz=w1000",
+     "caption": "Bảng xe và giờ đón xe ghép HH Limousine (Drive nhà cung cấp)",
+     "source": "drive"
+    }
+   ],
+   "id": "HH-ha-noi-san-bay-noi-bai-7",
+   "supplier": "hh-limousine",
+   "category": "AIRPORT_TRANSFER",
+   "title": "Xe riêng Hà Nội → Sân bay Nội Bài",
+   "variant": "Xe 7 chỗ (SUV/MPV)",
+   "duration": "Một chiều",
+   "netCost": 250000,
+   "capacity": 6,
+   "summary": "Giá chưa VAT (VAT 8%: 270.000đ). Nhóm tuyến A.",
+   "place": "Hà Nội → Sân bay Nội Bài"
+  },
+  {
+   "currency": "VND",
+   "unit": "xe / chiều",
+   "inclusions": "",
+   "exclusions": "",
+   "policies": [],
+   "itinerary": [],
+   "images": [
+    {
+     "src": "https://drive.google.com/thumbnail?id=1-lbYzYOYl1p2cugNQ2bGhCnl8eVNmJVH&sz=w1000",
+     "caption": "Bảng xe và giờ đón xe ghép HH Limousine (Drive nhà cung cấp)",
+     "source": "drive"
+    }
+   ],
+   "id": "HH-ha-noi-san-bay-noi-bai-9",
+   "supplier": "hh-limousine",
+   "category": "AIRPORT_TRANSFER",
+   "title": "Xe riêng Hà Nội → Sân bay Nội Bài",
+   "variant": "Limousine 9 chỗ cao cấp",
+   "duration": "Một chiều",
+   "netCost": 700000,
+   "capacity": 8,
+   "summary": "Giá chưa VAT (VAT 8%: 756.000đ). Nhóm tuyến A.",
+   "place": "Hà Nội → Sân bay Nội Bài"
+  },
+  {
+   "currency": "VND",
+   "unit": "xe / chiều",
+   "inclusions": "",
+   "exclusions": "",
+   "policies": [],
+   "itinerary": [],
+   "images": [
+    {
+     "src": "https://drive.google.com/thumbnail?id=1-lbYzYOYl1p2cugNQ2bGhCnl8eVNmJVH&sz=w1000",
+     "caption": "Bảng xe và giờ đón xe ghép HH Limousine (Drive nhà cung cấp)",
+     "source": "drive"
+    }
+   ],
+   "id": "HH-ha-noi-san-bay-noi-bai-11",
+   "supplier": "hh-limousine",
+   "category": "AIRPORT_TRANSFER",
+   "title": "Xe riêng Hà Nội → Sân bay Nội Bài",
+   "variant": "Limousine 11 chỗ",
+   "duration": "Một chiều",
+   "netCost": 1000000,
+   "capacity": 10,
+   "summary": "Giá chưa VAT (VAT 8%: 1.080.000đ). Nhóm tuyến A.",
+   "place": "Hà Nội → Sân bay Nội Bài"
+  },
+  {
+   "currency": "VND",
+   "unit": "xe / chiều",
+   "inclusions": "",
+   "exclusions": "",
+   "policies": [],
+   "itinerary": [],
+   "images": [
+    {
+     "src": "https://drive.google.com/thumbnail?id=1-lbYzYOYl1p2cugNQ2bGhCnl8eVNmJVH&sz=w1000",
+     "caption": "Bảng xe và giờ đón xe ghép HH Limousine (Drive nhà cung cấp)",
+     "source": "drive"
+    }
+   ],
+   "id": "HH-ha-noi-san-bay-noi-bai-16",
+   "supplier": "hh-limousine",
+   "category": "AIRPORT_TRANSFER",
+   "title": "Xe riêng Hà Nội → Sân bay Nội Bài",
+   "variant": "Minibus 16 chỗ",
+   "duration": "Một chiều",
+   "netCost": 700000,
+   "capacity": 15,
+   "summary": "Giá chưa VAT (VAT 8%: 756.000đ). Nhóm tuyến A.",
+   "place": "Hà Nội → Sân bay Nội Bài"
+  },
+  {
+   "currency": "VND",
+   "unit": "xe / chiều",
+   "inclusions": "",
+   "exclusions": "",
+   "policies": [],
+   "itinerary": [],
+   "images": [
+    {
+     "src": "https://drive.google.com/thumbnail?id=1-lbYzYOYl1p2cugNQ2bGhCnl8eVNmJVH&sz=w1000",
+     "caption": "Bảng xe và giờ đón xe ghép HH Limousine (Drive nhà cung cấp)",
+     "source": "drive"
+    }
+   ],
+   "id": "HH-san-bay-noi-bai-ha-noi-5",
+   "supplier": "hh-limousine",
+   "category": "AIRPORT_TRANSFER",
+   "title": "Xe riêng Sân bay Nội Bài → Hà Nội",
+   "variant": "Xe 5 chỗ (SUV/MPV)",
+   "duration": "Một chiều",
+   "netCost": 350000,
+   "capacity": 4,
+   "summary": "Giá chưa VAT (VAT 8%: 378.000đ). Nhóm tuyến A.",
+   "place": "Sân bay Nội Bài → Hà Nội"
+  },
+  {
+   "currency": "VND",
+   "unit": "xe / chiều",
+   "inclusions": "",
+   "exclusions": "",
+   "policies": [],
+   "itinerary": [],
+   "images": [
+    {
+     "src": "https://drive.google.com/thumbnail?id=1-lbYzYOYl1p2cugNQ2bGhCnl8eVNmJVH&sz=w1000",
+     "caption": "Bảng xe và giờ đón xe ghép HH Limousine (Drive nhà cung cấp)",
+     "source": "drive"
+    }
+   ],
+   "id": "HH-san-bay-noi-bai-ha-noi-7",
+   "supplier": "hh-limousine",
+   "category": "AIRPORT_TRANSFER",
+   "title": "Xe riêng Sân bay Nội Bài → Hà Nội",
+   "variant": "Xe 7 chỗ (SUV/MPV)",
+   "duration": "Một chiều",
+   "netCost": 350000,
+   "capacity": 6,
+   "summary": "Giá chưa VAT (VAT 8%: 378.000đ). Nhóm tuyến A.",
+   "place": "Sân bay Nội Bài → Hà Nội"
+  },
+  {
+   "currency": "VND",
+   "unit": "xe / chiều",
+   "inclusions": "",
+   "exclusions": "",
+   "policies": [],
+   "itinerary": [],
+   "images": [
+    {
+     "src": "https://drive.google.com/thumbnail?id=1-lbYzYOYl1p2cugNQ2bGhCnl8eVNmJVH&sz=w1000",
+     "caption": "Bảng xe và giờ đón xe ghép HH Limousine (Drive nhà cung cấp)",
+     "source": "drive"
+    }
+   ],
+   "id": "HH-san-bay-noi-bai-ha-noi-9",
+   "supplier": "hh-limousine",
+   "category": "AIRPORT_TRANSFER",
+   "title": "Xe riêng Sân bay Nội Bài → Hà Nội",
+   "variant": "Limousine 9 chỗ cao cấp",
+   "duration": "Một chiều",
+   "netCost": 900000,
+   "capacity": 8,
+   "summary": "Giá chưa VAT (VAT 8%: 972.000đ). Nhóm tuyến A.",
+   "place": "Sân bay Nội Bài → Hà Nội"
+  },
+  {
+   "currency": "VND",
+   "unit": "xe / chiều",
+   "inclusions": "",
+   "exclusions": "",
+   "policies": [],
+   "itinerary": [],
+   "images": [
+    {
+     "src": "https://drive.google.com/thumbnail?id=1-lbYzYOYl1p2cugNQ2bGhCnl8eVNmJVH&sz=w1000",
+     "caption": "Bảng xe và giờ đón xe ghép HH Limousine (Drive nhà cung cấp)",
+     "source": "drive"
+    }
+   ],
+   "id": "HH-san-bay-noi-bai-ha-noi-11",
+   "supplier": "hh-limousine",
+   "category": "AIRPORT_TRANSFER",
+   "title": "Xe riêng Sân bay Nội Bài → Hà Nội",
+   "variant": "Limousine 11 chỗ",
+   "duration": "Một chiều",
+   "netCost": 1000000,
+   "capacity": 10,
+   "summary": "Giá chưa VAT (VAT 8%: 1.080.000đ). Nhóm tuyến A.",
+   "place": "Sân bay Nội Bài → Hà Nội"
+  },
+  {
+   "currency": "VND",
+   "unit": "xe / chiều",
+   "inclusions": "",
+   "exclusions": "",
+   "policies": [],
+   "itinerary": [],
+   "images": [
+    {
+     "src": "https://drive.google.com/thumbnail?id=1-lbYzYOYl1p2cugNQ2bGhCnl8eVNmJVH&sz=w1000",
+     "caption": "Bảng xe và giờ đón xe ghép HH Limousine (Drive nhà cung cấp)",
+     "source": "drive"
+    }
+   ],
+   "id": "HH-san-bay-noi-bai-ha-noi-16",
+   "supplier": "hh-limousine",
+   "category": "AIRPORT_TRANSFER",
+   "title": "Xe riêng Sân bay Nội Bài → Hà Nội",
+   "variant": "Minibus 16 chỗ",
+   "duration": "Một chiều",
+   "netCost": 900000,
+   "capacity": 15,
+   "summary": "Giá chưa VAT (VAT 8%: 972.000đ). Nhóm tuyến A.",
+   "place": "Sân bay Nội Bài → Hà Nội"
+  },
+  {
+   "currency": "VND",
+   "unit": "xe / chiều",
+   "inclusions": "",
+   "exclusions": "",
+   "policies": [],
+   "itinerary": [],
+   "images": [
+    {
+     "src": "https://drive.google.com/thumbnail?id=1-lbYzYOYl1p2cugNQ2bGhCnl8eVNmJVH&sz=w1000",
+     "caption": "Bảng xe và giờ đón xe ghép HH Limousine (Drive nhà cung cấp)",
+     "source": "drive"
+    }
+   ],
+   "id": "HH-ha-long-ninh-binh-5",
+   "supplier": "hh-limousine",
+   "category": "INTERCITY_BUS_12GO",
+   "title": "Xe riêng Hạ Long → Ninh Bình",
+   "variant": "Xe 5 chỗ (SUV/MPV)",
+   "duration": "Một chiều",
+   "netCost": 1700000,
+   "capacity": 4,
+   "summary": "Giá chưa VAT (VAT 8%: 1.836.000đ). Khứ hồi 3.400.000đ chưa VAT. Nhóm tuyến A.",
+   "place": "Hạ Long → Ninh Bình"
+  },
+  {
+   "currency": "VND",
+   "unit": "xe / chiều",
+   "inclusions": "",
+   "exclusions": "",
+   "policies": [],
+   "itinerary": [],
+   "images": [
+    {
+     "src": "https://drive.google.com/thumbnail?id=1-lbYzYOYl1p2cugNQ2bGhCnl8eVNmJVH&sz=w1000",
+     "caption": "Bảng xe và giờ đón xe ghép HH Limousine (Drive nhà cung cấp)",
+     "source": "drive"
+    }
+   ],
+   "id": "HH-ha-long-ninh-binh-7",
+   "supplier": "hh-limousine",
+   "category": "INTERCITY_BUS_12GO",
+   "title": "Xe riêng Hạ Long → Ninh Bình",
+   "variant": "Xe 7 chỗ (SUV/MPV)",
+   "duration": "Một chiều",
+   "netCost": 1800000,
+   "capacity": 6,
+   "summary": "Giá chưa VAT (VAT 8%: 1.944.000đ). Khứ hồi 3.600.000đ chưa VAT. Nhóm tuyến A.",
+   "place": "Hạ Long → Ninh Bình"
+  },
+  {
+   "currency": "VND",
+   "unit": "xe / chiều",
+   "inclusions": "",
+   "exclusions": "",
+   "policies": [],
+   "itinerary": [],
+   "images": [
+    {
+     "src": "https://drive.google.com/thumbnail?id=1-lbYzYOYl1p2cugNQ2bGhCnl8eVNmJVH&sz=w1000",
+     "caption": "Bảng xe và giờ đón xe ghép HH Limousine (Drive nhà cung cấp)",
+     "source": "drive"
+    }
+   ],
+   "id": "HH-ha-long-ninh-binh-9",
+   "supplier": "hh-limousine",
+   "category": "INTERCITY_BUS_12GO",
+   "title": "Xe riêng Hạ Long → Ninh Bình",
+   "variant": "Limousine 9 chỗ cao cấp",
+   "duration": "Một chiều",
+   "netCost": 2600000,
+   "capacity": 8,
+   "summary": "Giá chưa VAT (VAT 8%: 2.808.000đ). Khứ hồi 5.200.000đ chưa VAT. Nhóm tuyến A.",
+   "place": "Hạ Long → Ninh Bình"
+  },
+  {
+   "currency": "VND",
+   "unit": "xe / chiều",
+   "inclusions": "",
+   "exclusions": "",
+   "policies": [],
+   "itinerary": [],
+   "images": [
+    {
+     "src": "https://drive.google.com/thumbnail?id=1-lbYzYOYl1p2cugNQ2bGhCnl8eVNmJVH&sz=w1000",
+     "caption": "Bảng xe và giờ đón xe ghép HH Limousine (Drive nhà cung cấp)",
+     "source": "drive"
+    }
+   ],
+   "id": "HH-ha-long-ninh-binh-11",
+   "supplier": "hh-limousine",
+   "category": "INTERCITY_BUS_12GO",
+   "title": "Xe riêng Hạ Long → Ninh Bình",
+   "variant": "Limousine 11 chỗ",
+   "duration": "Một chiều",
+   "netCost": 2800000,
+   "capacity": 10,
+   "summary": "Giá chưa VAT (VAT 8%: 3.024.000đ). Khứ hồi 5.600.000đ chưa VAT. Nhóm tuyến A.",
+   "place": "Hạ Long → Ninh Bình"
+  },
+  {
+   "currency": "VND",
+   "unit": "xe / chiều",
+   "inclusions": "",
+   "exclusions": "",
+   "policies": [],
+   "itinerary": [],
+   "images": [
+    {
+     "src": "https://drive.google.com/thumbnail?id=1-lbYzYOYl1p2cugNQ2bGhCnl8eVNmJVH&sz=w1000",
+     "caption": "Bảng xe và giờ đón xe ghép HH Limousine (Drive nhà cung cấp)",
+     "source": "drive"
+    }
+   ],
+   "id": "HH-ha-long-ninh-binh-16",
+   "supplier": "hh-limousine",
+   "category": "INTERCITY_BUS_12GO",
+   "title": "Xe riêng Hạ Long → Ninh Bình",
+   "variant": "Minibus 16 chỗ",
+   "duration": "Một chiều",
+   "netCost": 2600000,
+   "capacity": 15,
+   "summary": "Giá chưa VAT (VAT 8%: 2.808.000đ). Khứ hồi 5.200.000đ chưa VAT. Nhóm tuyến A.",
+   "place": "Hạ Long → Ninh Bình"
+  },
+  {
+   "currency": "VND",
+   "unit": "xe / chiều",
+   "inclusions": "",
+   "exclusions": "",
+   "policies": [],
+   "itinerary": [],
+   "images": [
+    {
+     "src": "https://drive.google.com/thumbnail?id=1-lbYzYOYl1p2cugNQ2bGhCnl8eVNmJVH&sz=w1000",
+     "caption": "Bảng xe và giờ đón xe ghép HH Limousine (Drive nhà cung cấp)",
+     "source": "drive"
+    }
+   ],
+   "id": "HH-ha-noi-ninh-binh-5",
+   "supplier": "hh-limousine",
+   "category": "INTERCITY_BUS_12GO",
+   "title": "Xe riêng Hà Nội → Ninh Bình",
+   "variant": "Xe 5 chỗ (SUV/MPV)",
+   "duration": "Một chiều",
+   "netCost": 1100000,
+   "capacity": 4,
+   "summary": "Giá chưa VAT (VAT 8%: 1.188.000đ). Khứ hồi 2.100.000đ chưa VAT. Nhóm tuyến B.",
+   "place": "Hà Nội → Ninh Bình"
+  },
+  {
+   "currency": "VND",
+   "unit": "xe / chiều",
+   "inclusions": "",
+   "exclusions": "",
+   "policies": [],
+   "itinerary": [],
+   "images": [
+    {
+     "src": "https://drive.google.com/thumbnail?id=1-lbYzYOYl1p2cugNQ2bGhCnl8eVNmJVH&sz=w1000",
+     "caption": "Bảng xe và giờ đón xe ghép HH Limousine (Drive nhà cung cấp)",
+     "source": "drive"
+    }
+   ],
+   "id": "HH-ha-noi-ninh-binh-7",
+   "supplier": "hh-limousine",
+   "category": "INTERCITY_BUS_12GO",
+   "title": "Xe riêng Hà Nội → Ninh Bình",
+   "variant": "Xe 7 chỗ (SUV/MPV)",
+   "duration": "Một chiều",
+   "netCost": 1200000,
+   "capacity": 6,
+   "summary": "Giá chưa VAT (VAT 8%: 1.296.000đ). Khứ hồi 2.300.000đ chưa VAT. Nhóm tuyến B.",
+   "place": "Hà Nội → Ninh Bình"
+  },
+  {
+   "currency": "VND",
+   "unit": "xe / chiều",
+   "inclusions": "",
+   "exclusions": "",
+   "policies": [],
+   "itinerary": [],
+   "images": [
+    {
+     "src": "https://drive.google.com/thumbnail?id=1-lbYzYOYl1p2cugNQ2bGhCnl8eVNmJVH&sz=w1000",
+     "caption": "Bảng xe và giờ đón xe ghép HH Limousine (Drive nhà cung cấp)",
+     "source": "drive"
+    }
+   ],
+   "id": "HH-ha-noi-ninh-binh-9",
+   "supplier": "hh-limousine",
+   "category": "INTERCITY_BUS_12GO",
+   "title": "Xe riêng Hà Nội → Ninh Bình",
+   "variant": "Limousine 9 chỗ cao cấp",
+   "duration": "Một chiều",
+   "netCost": 1900000,
+   "capacity": 8,
+   "summary": "Giá chưa VAT (VAT 8%: 2.052.000đ). Khứ hồi 3.800.000đ chưa VAT. Nhóm tuyến B.",
+   "place": "Hà Nội → Ninh Bình"
+  },
+  {
+   "currency": "VND",
+   "unit": "xe / chiều",
+   "inclusions": "",
+   "exclusions": "",
+   "policies": [],
+   "itinerary": [],
+   "images": [
+    {
+     "src": "https://drive.google.com/thumbnail?id=1-lbYzYOYl1p2cugNQ2bGhCnl8eVNmJVH&sz=w1000",
+     "caption": "Bảng xe và giờ đón xe ghép HH Limousine (Drive nhà cung cấp)",
+     "source": "drive"
+    }
+   ],
+   "id": "HH-ha-noi-ninh-binh-11",
+   "supplier": "hh-limousine",
+   "category": "INTERCITY_BUS_12GO",
+   "title": "Xe riêng Hà Nội → Ninh Bình",
+   "variant": "Limousine 11 chỗ",
+   "duration": "Một chiều",
+   "netCost": 2000000,
+   "capacity": 10,
+   "summary": "Giá chưa VAT (VAT 8%: 2.160.000đ). Khứ hồi 4.000.000đ chưa VAT. Nhóm tuyến B.",
+   "place": "Hà Nội → Ninh Bình"
+  },
+  {
+   "currency": "VND",
+   "unit": "xe / chiều",
+   "inclusions": "",
+   "exclusions": "",
+   "policies": [],
+   "itinerary": [],
+   "images": [
+    {
+     "src": "https://drive.google.com/thumbnail?id=1-lbYzYOYl1p2cugNQ2bGhCnl8eVNmJVH&sz=w1000",
+     "caption": "Bảng xe và giờ đón xe ghép HH Limousine (Drive nhà cung cấp)",
+     "source": "drive"
+    }
+   ],
+   "id": "HH-ha-noi-ninh-binh-16",
+   "supplier": "hh-limousine",
+   "category": "INTERCITY_BUS_12GO",
+   "title": "Xe riêng Hà Nội → Ninh Bình",
+   "variant": "Minibus 16 chỗ",
+   "duration": "Một chiều",
+   "netCost": 1900000,
+   "capacity": 15,
+   "summary": "Giá chưa VAT (VAT 8%: 2.052.000đ). Khứ hồi 3.800.000đ chưa VAT. Nhóm tuyến B.",
+   "place": "Hà Nội → Ninh Bình"
+  },
+  {
+   "currency": "VND",
+   "unit": "xe / chiều",
+   "inclusions": "",
+   "exclusions": "",
+   "policies": [],
+   "itinerary": [],
+   "images": [
+    {
+     "src": "https://drive.google.com/thumbnail?id=1-lbYzYOYl1p2cugNQ2bGhCnl8eVNmJVH&sz=w1000",
+     "caption": "Bảng xe và giờ đón xe ghép HH Limousine (Drive nhà cung cấp)",
+     "source": "drive"
+    }
+   ],
+   "id": "HH-san-bay-noi-bai-ninh-binh-5",
+   "supplier": "hh-limousine",
+   "category": "INTERCITY_BUS_12GO",
+   "title": "Xe riêng Sân bay Nội Bài → Ninh Bình",
+   "variant": "Xe 5 chỗ (SUV/MPV)",
+   "duration": "Một chiều",
+   "netCost": 1150000,
+   "capacity": 4,
+   "summary": "Giá chưa VAT (VAT 8%: 1.242.000đ). Khứ hồi 2.200.000đ chưa VAT. Nhóm tuyến B.",
+   "place": "Sân bay Nội Bài → Ninh Bình"
+  },
+  {
+   "currency": "VND",
+   "unit": "xe / chiều",
+   "inclusions": "",
+   "exclusions": "",
+   "policies": [],
+   "itinerary": [],
+   "images": [
+    {
+     "src": "https://drive.google.com/thumbnail?id=1-lbYzYOYl1p2cugNQ2bGhCnl8eVNmJVH&sz=w1000",
+     "caption": "Bảng xe và giờ đón xe ghép HH Limousine (Drive nhà cung cấp)",
+     "source": "drive"
+    }
+   ],
+   "id": "HH-san-bay-noi-bai-ninh-binh-7",
+   "supplier": "hh-limousine",
+   "category": "INTERCITY_BUS_12GO",
+   "title": "Xe riêng Sân bay Nội Bài → Ninh Bình",
+   "variant": "Xe 7 chỗ (SUV/MPV)",
+   "duration": "Một chiều",
+   "netCost": 1250000,
+   "capacity": 6,
+   "summary": "Giá chưa VAT (VAT 8%: 1.350.000đ). Khứ hồi 2.400.000đ chưa VAT. Nhóm tuyến B.",
+   "place": "Sân bay Nội Bài → Ninh Bình"
+  },
+  {
+   "currency": "VND",
+   "unit": "xe / chiều",
+   "inclusions": "",
+   "exclusions": "",
+   "policies": [],
+   "itinerary": [],
+   "images": [
+    {
+     "src": "https://drive.google.com/thumbnail?id=1-lbYzYOYl1p2cugNQ2bGhCnl8eVNmJVH&sz=w1000",
+     "caption": "Bảng xe và giờ đón xe ghép HH Limousine (Drive nhà cung cấp)",
+     "source": "drive"
+    }
+   ],
+   "id": "HH-san-bay-noi-bai-ninh-binh-9",
+   "supplier": "hh-limousine",
+   "category": "INTERCITY_BUS_12GO",
+   "title": "Xe riêng Sân bay Nội Bài → Ninh Bình",
+   "variant": "Limousine 9 chỗ cao cấp",
+   "duration": "Một chiều",
+   "netCost": 2000000,
+   "capacity": 8,
+   "summary": "Giá chưa VAT (VAT 8%: 2.160.000đ). Khứ hồi 4.000.000đ chưa VAT. Nhóm tuyến B.",
+   "place": "Sân bay Nội Bài → Ninh Bình"
+  },
+  {
+   "currency": "VND",
+   "unit": "xe / chiều",
+   "inclusions": "",
+   "exclusions": "",
+   "policies": [],
+   "itinerary": [],
+   "images": [
+    {
+     "src": "https://drive.google.com/thumbnail?id=1-lbYzYOYl1p2cugNQ2bGhCnl8eVNmJVH&sz=w1000",
+     "caption": "Bảng xe và giờ đón xe ghép HH Limousine (Drive nhà cung cấp)",
+     "source": "drive"
+    }
+   ],
+   "id": "HH-san-bay-noi-bai-ninh-binh-11",
+   "supplier": "hh-limousine",
+   "category": "INTERCITY_BUS_12GO",
+   "title": "Xe riêng Sân bay Nội Bài → Ninh Bình",
+   "variant": "Limousine 11 chỗ",
+   "duration": "Một chiều",
+   "netCost": 2100000,
+   "capacity": 10,
+   "summary": "Giá chưa VAT (VAT 8%: 2.268.000đ). Khứ hồi 4.200.000đ chưa VAT. Nhóm tuyến B.",
+   "place": "Sân bay Nội Bài → Ninh Bình"
+  },
+  {
+   "currency": "VND",
+   "unit": "xe / chiều",
+   "inclusions": "",
+   "exclusions": "",
+   "policies": [],
+   "itinerary": [],
+   "images": [
+    {
+     "src": "https://drive.google.com/thumbnail?id=1-lbYzYOYl1p2cugNQ2bGhCnl8eVNmJVH&sz=w1000",
+     "caption": "Bảng xe và giờ đón xe ghép HH Limousine (Drive nhà cung cấp)",
+     "source": "drive"
+    }
+   ],
+   "id": "HH-san-bay-noi-bai-ninh-binh-16",
+   "supplier": "hh-limousine",
+   "category": "INTERCITY_BUS_12GO",
+   "title": "Xe riêng Sân bay Nội Bài → Ninh Bình",
+   "variant": "Minibus 16 chỗ",
+   "duration": "Một chiều",
+   "netCost": 2000000,
+   "capacity": 15,
+   "summary": "Giá chưa VAT (VAT 8%: 2.160.000đ). Khứ hồi 4.000.000đ chưa VAT. Nhóm tuyến B.",
+   "place": "Sân bay Nội Bài → Ninh Bình"
+  },
+  {
+   "currency": "VND",
+   "unit": "xe / chiều",
+   "inclusions": "",
+   "exclusions": "",
+   "policies": [],
+   "itinerary": [],
+   "images": [
+    {
+     "src": "https://drive.google.com/thumbnail?id=1-lbYzYOYl1p2cugNQ2bGhCnl8eVNmJVH&sz=w1000",
+     "caption": "Bảng xe và giờ đón xe ghép HH Limousine (Drive nhà cung cấp)",
+     "source": "drive"
+    }
+   ],
+   "id": "HH-ninh-binh-mai-chau-5",
+   "supplier": "hh-limousine",
+   "category": "INTERCITY_BUS_12GO",
+   "title": "Xe riêng Ninh Bình → Mai Châu",
+   "variant": "Xe 5 chỗ (SUV/MPV)",
+   "duration": "Một chiều",
+   "netCost": 1800000,
+   "capacity": 4,
+   "summary": "Giá chưa VAT (VAT 8%: 1.944.000đ). Khứ hồi 3.600.000đ chưa VAT. Nhóm tuyến B.",
+   "place": "Ninh Bình → Mai Châu"
+  },
+  {
+   "currency": "VND",
+   "unit": "xe / chiều",
+   "inclusions": "",
+   "exclusions": "",
+   "policies": [],
+   "itinerary": [],
+   "images": [
+    {
+     "src": "https://drive.google.com/thumbnail?id=1-lbYzYOYl1p2cugNQ2bGhCnl8eVNmJVH&sz=w1000",
+     "caption": "Bảng xe và giờ đón xe ghép HH Limousine (Drive nhà cung cấp)",
+     "source": "drive"
+    }
+   ],
+   "id": "HH-ninh-binh-mai-chau-7",
+   "supplier": "hh-limousine",
+   "category": "INTERCITY_BUS_12GO",
+   "title": "Xe riêng Ninh Bình → Mai Châu",
+   "variant": "Xe 7 chỗ (SUV/MPV)",
+   "duration": "Một chiều",
+   "netCost": 2000000,
+   "capacity": 6,
+   "summary": "Giá chưa VAT (VAT 8%: 2.160.000đ). Khứ hồi 4.000.000đ chưa VAT. Nhóm tuyến B.",
+   "place": "Ninh Bình → Mai Châu"
+  },
+  {
+   "currency": "VND",
+   "unit": "xe / chiều",
+   "inclusions": "",
+   "exclusions": "",
+   "policies": [],
+   "itinerary": [],
+   "images": [
+    {
+     "src": "https://drive.google.com/thumbnail?id=1-lbYzYOYl1p2cugNQ2bGhCnl8eVNmJVH&sz=w1000",
+     "caption": "Bảng xe và giờ đón xe ghép HH Limousine (Drive nhà cung cấp)",
+     "source": "drive"
+    }
+   ],
+   "id": "HH-ninh-binh-mai-chau-9",
+   "supplier": "hh-limousine",
+   "category": "INTERCITY_BUS_12GO",
+   "title": "Xe riêng Ninh Bình → Mai Châu",
+   "variant": "Limousine 9 chỗ cao cấp",
+   "duration": "Một chiều",
+   "netCost": 2800000,
+   "capacity": 8,
+   "summary": "Giá chưa VAT (VAT 8%: 3.024.000đ). Khứ hồi 5.600.000đ chưa VAT. Nhóm tuyến B.",
+   "place": "Ninh Bình → Mai Châu"
+  },
+  {
+   "currency": "VND",
+   "unit": "xe / chiều",
+   "inclusions": "",
+   "exclusions": "",
+   "policies": [],
+   "itinerary": [],
+   "images": [
+    {
+     "src": "https://drive.google.com/thumbnail?id=1-lbYzYOYl1p2cugNQ2bGhCnl8eVNmJVH&sz=w1000",
+     "caption": "Bảng xe và giờ đón xe ghép HH Limousine (Drive nhà cung cấp)",
+     "source": "drive"
+    }
+   ],
+   "id": "HH-ninh-binh-mai-chau-11",
+   "supplier": "hh-limousine",
+   "category": "INTERCITY_BUS_12GO",
+   "title": "Xe riêng Ninh Bình → Mai Châu",
+   "variant": "Limousine 11 chỗ",
+   "duration": "Một chiều",
+   "netCost": 3200000,
+   "capacity": 10,
+   "summary": "Giá chưa VAT (VAT 8%: 3.456.000đ). Khứ hồi 6.400.000đ chưa VAT. Nhóm tuyến B.",
+   "place": "Ninh Bình → Mai Châu"
+  },
+  {
+   "currency": "VND",
+   "unit": "xe / chiều",
+   "inclusions": "",
+   "exclusions": "",
+   "policies": [],
+   "itinerary": [],
+   "images": [
+    {
+     "src": "https://drive.google.com/thumbnail?id=1-lbYzYOYl1p2cugNQ2bGhCnl8eVNmJVH&sz=w1000",
+     "caption": "Bảng xe và giờ đón xe ghép HH Limousine (Drive nhà cung cấp)",
+     "source": "drive"
+    }
+   ],
+   "id": "HH-ha-noi-mai-chau-5",
+   "supplier": "hh-limousine",
+   "category": "INTERCITY_BUS_12GO",
+   "title": "Xe riêng Hà Nội → Mai Châu",
+   "variant": "Xe 5 chỗ (SUV/MPV)",
+   "duration": "Một chiều",
+   "netCost": 1500000,
+   "capacity": 4,
+   "summary": "Giá chưa VAT (VAT 8%: 1.620.000đ). Khứ hồi 3.000.000đ chưa VAT. Nhóm tuyến B.",
+   "place": "Hà Nội → Mai Châu"
+  },
+  {
+   "currency": "VND",
+   "unit": "xe / chiều",
+   "inclusions": "",
+   "exclusions": "",
+   "policies": [],
+   "itinerary": [],
+   "images": [
+    {
+     "src": "https://drive.google.com/thumbnail?id=1-lbYzYOYl1p2cugNQ2bGhCnl8eVNmJVH&sz=w1000",
+     "caption": "Bảng xe và giờ đón xe ghép HH Limousine (Drive nhà cung cấp)",
+     "source": "drive"
+    }
+   ],
+   "id": "HH-ha-noi-mai-chau-7",
+   "supplier": "hh-limousine",
+   "category": "INTERCITY_BUS_12GO",
+   "title": "Xe riêng Hà Nội → Mai Châu",
+   "variant": "Xe 7 chỗ (SUV/MPV)",
+   "duration": "Một chiều",
+   "netCost": 1650000,
+   "capacity": 6,
+   "summary": "Giá chưa VAT (VAT 8%: 1.782.000đ). Khứ hồi 3.300.000đ chưa VAT. Nhóm tuyến B.",
+   "place": "Hà Nội → Mai Châu"
+  },
+  {
+   "currency": "VND",
+   "unit": "xe / chiều",
+   "inclusions": "",
+   "exclusions": "",
+   "policies": [],
+   "itinerary": [],
+   "images": [
+    {
+     "src": "https://drive.google.com/thumbnail?id=1-lbYzYOYl1p2cugNQ2bGhCnl8eVNmJVH&sz=w1000",
+     "caption": "Bảng xe và giờ đón xe ghép HH Limousine (Drive nhà cung cấp)",
+     "source": "drive"
+    }
+   ],
+   "id": "HH-ha-noi-mai-chau-9",
+   "supplier": "hh-limousine",
+   "category": "INTERCITY_BUS_12GO",
+   "title": "Xe riêng Hà Nội → Mai Châu",
+   "variant": "Limousine 9 chỗ cao cấp",
+   "duration": "Một chiều",
+   "netCost": 3000000,
+   "capacity": 8,
+   "summary": "Giá chưa VAT (VAT 8%: 3.240.000đ). Khứ hồi 6.000.000đ chưa VAT. Nhóm tuyến B.",
+   "place": "Hà Nội → Mai Châu"
+  },
+  {
+   "currency": "VND",
+   "unit": "xe / chiều",
+   "inclusions": "",
+   "exclusions": "",
+   "policies": [],
+   "itinerary": [],
+   "images": [
+    {
+     "src": "https://drive.google.com/thumbnail?id=1-lbYzYOYl1p2cugNQ2bGhCnl8eVNmJVH&sz=w1000",
+     "caption": "Bảng xe và giờ đón xe ghép HH Limousine (Drive nhà cung cấp)",
+     "source": "drive"
+    }
+   ],
+   "id": "HH-ha-noi-mai-chau-11",
+   "supplier": "hh-limousine",
+   "category": "INTERCITY_BUS_12GO",
+   "title": "Xe riêng Hà Nội → Mai Châu",
+   "variant": "Limousine 11 chỗ",
+   "duration": "Một chiều",
+   "netCost": 3300000,
+   "capacity": 10,
+   "summary": "Giá chưa VAT (VAT 8%: 3.564.000đ). Khứ hồi 6.600.000đ chưa VAT. Nhóm tuyến B.",
+   "place": "Hà Nội → Mai Châu"
+  },
+  {
+   "currency": "VND",
+   "unit": "xe / chiều",
+   "inclusions": "",
+   "exclusions": "",
+   "policies": [],
+   "itinerary": [],
+   "images": [
+    {
+     "src": "https://drive.google.com/thumbnail?id=1-lbYzYOYl1p2cugNQ2bGhCnl8eVNmJVH&sz=w1000",
+     "caption": "Bảng xe và giờ đón xe ghép HH Limousine (Drive nhà cung cấp)",
+     "source": "drive"
+    }
+   ],
+   "id": "HH-ha-noi-mai-chau-16",
+   "supplier": "hh-limousine",
+   "category": "INTERCITY_BUS_12GO",
+   "title": "Xe riêng Hà Nội → Mai Châu",
+   "variant": "Minibus 16 chỗ",
+   "duration": "Một chiều",
+   "netCost": 3000000,
+   "capacity": 15,
+   "summary": "Giá chưa VAT (VAT 8%: 3.240.000đ). Khứ hồi 6.000.000đ chưa VAT. Nhóm tuyến B.",
+   "place": "Hà Nội → Mai Châu"
+  },
+  {
+   "currency": "VND",
+   "unit": "xe / chiều",
+   "inclusions": "",
+   "exclusions": "",
+   "policies": [],
+   "itinerary": [],
+   "images": [
+    {
+     "src": "https://drive.google.com/thumbnail?id=1-lbYzYOYl1p2cugNQ2bGhCnl8eVNmJVH&sz=w1000",
+     "caption": "Bảng xe và giờ đón xe ghép HH Limousine (Drive nhà cung cấp)",
+     "source": "drive"
+    }
+   ],
+   "id": "HH-ha-noi-pu-luong-5",
+   "supplier": "hh-limousine",
+   "category": "INTERCITY_BUS_12GO",
+   "title": "Xe riêng Hà Nội → Pù Luông",
+   "variant": "Xe 5 chỗ (SUV/MPV)",
+   "duration": "Một chiều",
+   "netCost": 1900000,
+   "capacity": 4,
+   "summary": "Giá chưa VAT (VAT 8%: 2.052.000đ). Khứ hồi 3.800.000đ chưa VAT. Nhóm tuyến B.",
+   "place": "Hà Nội → Pù Luông"
+  },
+  {
+   "currency": "VND",
+   "unit": "xe / chiều",
+   "inclusions": "",
+   "exclusions": "",
+   "policies": [],
+   "itinerary": [],
+   "images": [
+    {
+     "src": "https://drive.google.com/thumbnail?id=1-lbYzYOYl1p2cugNQ2bGhCnl8eVNmJVH&sz=w1000",
+     "caption": "Bảng xe và giờ đón xe ghép HH Limousine (Drive nhà cung cấp)",
+     "source": "drive"
+    }
+   ],
+   "id": "HH-ha-noi-pu-luong-7",
+   "supplier": "hh-limousine",
+   "category": "INTERCITY_BUS_12GO",
+   "title": "Xe riêng Hà Nội → Pù Luông",
+   "variant": "Xe 7 chỗ (SUV/MPV)",
+   "duration": "Một chiều",
+   "netCost": 2000000,
+   "capacity": 6,
+   "summary": "Giá chưa VAT (VAT 8%: 2.160.000đ). Khứ hồi 4.000.000đ chưa VAT. Nhóm tuyến B.",
+   "place": "Hà Nội → Pù Luông"
+  },
+  {
+   "currency": "VND",
+   "unit": "xe / chiều",
+   "inclusions": "",
+   "exclusions": "",
+   "policies": [],
+   "itinerary": [],
+   "images": [
+    {
+     "src": "https://drive.google.com/thumbnail?id=1-lbYzYOYl1p2cugNQ2bGhCnl8eVNmJVH&sz=w1000",
+     "caption": "Bảng xe và giờ đón xe ghép HH Limousine (Drive nhà cung cấp)",
+     "source": "drive"
+    }
+   ],
+   "id": "HH-ha-noi-pu-luong-9",
+   "supplier": "hh-limousine",
+   "category": "INTERCITY_BUS_12GO",
+   "title": "Xe riêng Hà Nội → Pù Luông",
+   "variant": "Limousine 9 chỗ cao cấp",
+   "duration": "Một chiều",
+   "netCost": 3000000,
+   "capacity": 8,
+   "summary": "Giá chưa VAT (VAT 8%: 3.240.000đ). Khứ hồi 6.000.000đ chưa VAT. Nhóm tuyến B.",
+   "place": "Hà Nội → Pù Luông"
+  },
+  {
+   "currency": "VND",
+   "unit": "xe / chiều",
+   "inclusions": "",
+   "exclusions": "",
+   "policies": [],
+   "itinerary": [],
+   "images": [
+    {
+     "src": "https://drive.google.com/thumbnail?id=1-lbYzYOYl1p2cugNQ2bGhCnl8eVNmJVH&sz=w1000",
+     "caption": "Bảng xe và giờ đón xe ghép HH Limousine (Drive nhà cung cấp)",
+     "source": "drive"
+    }
+   ],
+   "id": "HH-ha-noi-pu-luong-11",
+   "supplier": "hh-limousine",
+   "category": "INTERCITY_BUS_12GO",
+   "title": "Xe riêng Hà Nội → Pù Luông",
+   "variant": "Limousine 11 chỗ",
+   "duration": "Một chiều",
+   "netCost": 3400000,
+   "capacity": 10,
+   "summary": "Giá chưa VAT (VAT 8%: 3.672.000đ). Khứ hồi 6.800.000đ chưa VAT. Nhóm tuyến B.",
+   "place": "Hà Nội → Pù Luông"
+  },
+  {
+   "currency": "VND",
+   "unit": "xe / chiều",
+   "inclusions": "",
+   "exclusions": "",
+   "policies": [],
+   "itinerary": [],
+   "images": [
+    {
+     "src": "https://drive.google.com/thumbnail?id=1-lbYzYOYl1p2cugNQ2bGhCnl8eVNmJVH&sz=w1000",
+     "caption": "Bảng xe và giờ đón xe ghép HH Limousine (Drive nhà cung cấp)",
+     "source": "drive"
+    }
+   ],
+   "id": "HH-ha-noi-pu-luong-16",
+   "supplier": "hh-limousine",
+   "category": "INTERCITY_BUS_12GO",
+   "title": "Xe riêng Hà Nội → Pù Luông",
+   "variant": "Minibus 16 chỗ",
+   "duration": "Một chiều",
+   "netCost": 3000000,
+   "capacity": 15,
+   "summary": "Giá chưa VAT (VAT 8%: 3.240.000đ). Khứ hồi 6.000.000đ chưa VAT. Nhóm tuyến B.",
+   "place": "Hà Nội → Pù Luông"
+  },
+  {
+   "currency": "VND",
+   "unit": "xe / chiều",
+   "inclusions": "",
+   "exclusions": "",
+   "policies": [],
+   "itinerary": [],
+   "images": [
+    {
+     "src": "https://drive.google.com/thumbnail?id=1-lbYzYOYl1p2cugNQ2bGhCnl8eVNmJVH&sz=w1000",
+     "caption": "Bảng xe và giờ đón xe ghép HH Limousine (Drive nhà cung cấp)",
+     "source": "drive"
+    }
+   ],
+   "id": "HH-ninh-binh-pu-luong-5",
+   "supplier": "hh-limousine",
+   "category": "INTERCITY_BUS_12GO",
+   "title": "Xe riêng Ninh Bình → Pù Luông",
+   "variant": "Xe 5 chỗ (SUV/MPV)",
+   "duration": "Một chiều",
+   "netCost": 1300000,
+   "capacity": 4,
+   "summary": "Giá chưa VAT (VAT 8%: 1.404.000đ). Khứ hồi 2.600.000đ chưa VAT. Nhóm tuyến B.",
+   "place": "Ninh Bình → Pù Luông"
+  },
+  {
+   "currency": "VND",
+   "unit": "xe / chiều",
+   "inclusions": "",
+   "exclusions": "",
+   "policies": [],
+   "itinerary": [],
+   "images": [
+    {
+     "src": "https://drive.google.com/thumbnail?id=1-lbYzYOYl1p2cugNQ2bGhCnl8eVNmJVH&sz=w1000",
+     "caption": "Bảng xe và giờ đón xe ghép HH Limousine (Drive nhà cung cấp)",
+     "source": "drive"
+    }
+   ],
+   "id": "HH-ninh-binh-pu-luong-7",
+   "supplier": "hh-limousine",
+   "category": "INTERCITY_BUS_12GO",
+   "title": "Xe riêng Ninh Bình → Pù Luông",
+   "variant": "Xe 7 chỗ (SUV/MPV)",
+   "duration": "Một chiều",
+   "netCost": 1400000,
+   "capacity": 6,
+   "summary": "Giá chưa VAT (VAT 8%: 1.512.000đ). Khứ hồi 2.800.000đ chưa VAT. Nhóm tuyến B.",
+   "place": "Ninh Bình → Pù Luông"
+  },
+  {
+   "currency": "VND",
+   "unit": "xe / chiều",
+   "inclusions": "",
+   "exclusions": "",
+   "policies": [],
+   "itinerary": [],
+   "images": [
+    {
+     "src": "https://drive.google.com/thumbnail?id=1-lbYzYOYl1p2cugNQ2bGhCnl8eVNmJVH&sz=w1000",
+     "caption": "Bảng xe và giờ đón xe ghép HH Limousine (Drive nhà cung cấp)",
+     "source": "drive"
+    }
+   ],
+   "id": "HH-ninh-binh-pu-luong-9",
+   "supplier": "hh-limousine",
+   "category": "INTERCITY_BUS_12GO",
+   "title": "Xe riêng Ninh Bình → Pù Luông",
+   "variant": "Limousine 9 chỗ cao cấp",
+   "duration": "Một chiều",
+   "netCost": 2500000,
+   "capacity": 8,
+   "summary": "Giá chưa VAT (VAT 8%: 2.700.000đ). Khứ hồi 5.000.000đ chưa VAT. Nhóm tuyến B.",
+   "place": "Ninh Bình → Pù Luông"
+  },
+  {
+   "currency": "VND",
+   "unit": "xe / chiều",
+   "inclusions": "",
+   "exclusions": "",
+   "policies": [],
+   "itinerary": [],
+   "images": [
+    {
+     "src": "https://drive.google.com/thumbnail?id=1-lbYzYOYl1p2cugNQ2bGhCnl8eVNmJVH&sz=w1000",
+     "caption": "Bảng xe và giờ đón xe ghép HH Limousine (Drive nhà cung cấp)",
+     "source": "drive"
+    }
+   ],
+   "id": "HH-ninh-binh-pu-luong-11",
+   "supplier": "hh-limousine",
+   "category": "INTERCITY_BUS_12GO",
+   "title": "Xe riêng Ninh Bình → Pù Luông",
+   "variant": "Limousine 11 chỗ",
+   "duration": "Một chiều",
+   "netCost": 2800000,
+   "capacity": 10,
+   "summary": "Giá chưa VAT (VAT 8%: 3.024.000đ). Khứ hồi 5.600.000đ chưa VAT. Nhóm tuyến B.",
+   "place": "Ninh Bình → Pù Luông"
+  },
+  {
+   "currency": "VND",
+   "unit": "xe / chiều",
+   "inclusions": "",
+   "exclusions": "",
+   "policies": [],
+   "itinerary": [],
+   "images": [
+    {
+     "src": "https://drive.google.com/thumbnail?id=1-lbYzYOYl1p2cugNQ2bGhCnl8eVNmJVH&sz=w1000",
+     "caption": "Bảng xe và giờ đón xe ghép HH Limousine (Drive nhà cung cấp)",
+     "source": "drive"
+    }
+   ],
+   "id": "HH-ninh-binh-pu-luong-16",
+   "supplier": "hh-limousine",
+   "category": "INTERCITY_BUS_12GO",
+   "title": "Xe riêng Ninh Bình → Pù Luông",
+   "variant": "Minibus 16 chỗ",
+   "duration": "Một chiều",
+   "netCost": 2500000,
+   "capacity": 15,
+   "summary": "Giá chưa VAT (VAT 8%: 2.700.000đ). Khứ hồi 5.000.000đ chưa VAT. Nhóm tuyến B.",
+   "place": "Ninh Bình → Pù Luông"
+  },
+  {
+   "currency": "VND",
+   "unit": "xe / chiều",
+   "inclusions": "",
+   "exclusions": "",
+   "policies": [],
+   "itinerary": [],
+   "images": [
+    {
+     "src": "https://drive.google.com/thumbnail?id=1-lbYzYOYl1p2cugNQ2bGhCnl8eVNmJVH&sz=w1000",
+     "caption": "Bảng xe và giờ đón xe ghép HH Limousine (Drive nhà cung cấp)",
+     "source": "drive"
+    }
+   ],
+   "id": "HH-ha-noi-sa-pa-5",
+   "supplier": "hh-limousine",
+   "category": "INTERCITY_BUS_12GO",
+   "title": "Xe riêng Hà Nội → Sa Pa",
+   "variant": "Xe 5 chỗ (SUV/MPV)",
+   "duration": "Một chiều",
+   "netCost": 2400000,
+   "capacity": 4,
+   "summary": "Giá chưa VAT (VAT 8%: 2.592.000đ). Khứ hồi 4.800.000đ chưa VAT. Nhóm tuyến C.",
+   "place": "Hà Nội → Sa Pa"
+  },
+  {
+   "currency": "VND",
+   "unit": "xe / chiều",
+   "inclusions": "",
+   "exclusions": "",
+   "policies": [],
+   "itinerary": [],
+   "images": [
+    {
+     "src": "https://drive.google.com/thumbnail?id=1-lbYzYOYl1p2cugNQ2bGhCnl8eVNmJVH&sz=w1000",
+     "caption": "Bảng xe và giờ đón xe ghép HH Limousine (Drive nhà cung cấp)",
+     "source": "drive"
+    }
+   ],
+   "id": "HH-ha-noi-sa-pa-7",
+   "supplier": "hh-limousine",
+   "category": "INTERCITY_BUS_12GO",
+   "title": "Xe riêng Hà Nội → Sa Pa",
+   "variant": "Xe 7 chỗ (SUV/MPV)",
+   "duration": "Một chiều",
+   "netCost": 2500000,
+   "capacity": 6,
+   "summary": "Giá chưa VAT (VAT 8%: 2.700.000đ). Khứ hồi 5.000.000đ chưa VAT. Nhóm tuyến C.",
+   "place": "Hà Nội → Sa Pa"
+  },
+  {
+   "currency": "VND",
+   "unit": "xe / chiều",
+   "inclusions": "",
+   "exclusions": "",
+   "policies": [],
+   "itinerary": [],
+   "images": [
+    {
+     "src": "https://drive.google.com/thumbnail?id=1-lbYzYOYl1p2cugNQ2bGhCnl8eVNmJVH&sz=w1000",
+     "caption": "Bảng xe và giờ đón xe ghép HH Limousine (Drive nhà cung cấp)",
+     "source": "drive"
+    }
+   ],
+   "id": "HH-ha-noi-sa-pa-9",
+   "supplier": "hh-limousine",
+   "category": "INTERCITY_BUS_12GO",
+   "title": "Xe riêng Hà Nội → Sa Pa",
+   "variant": "Limousine 9 chỗ cao cấp",
+   "duration": "Một chiều",
+   "netCost": 3700000,
+   "capacity": 8,
+   "summary": "Giá chưa VAT (VAT 8%: 3.996.000đ). Khứ hồi 7.400.000đ chưa VAT. Nhóm tuyến C.",
+   "place": "Hà Nội → Sa Pa"
+  },
+  {
+   "currency": "VND",
+   "unit": "xe / chiều",
+   "inclusions": "",
+   "exclusions": "",
+   "policies": [],
+   "itinerary": [],
+   "images": [
+    {
+     "src": "https://drive.google.com/thumbnail?id=1-lbYzYOYl1p2cugNQ2bGhCnl8eVNmJVH&sz=w1000",
+     "caption": "Bảng xe và giờ đón xe ghép HH Limousine (Drive nhà cung cấp)",
+     "source": "drive"
+    }
+   ],
+   "id": "HH-ha-noi-sa-pa-11",
+   "supplier": "hh-limousine",
+   "category": "INTERCITY_BUS_12GO",
+   "title": "Xe riêng Hà Nội → Sa Pa",
+   "variant": "Limousine 11 chỗ",
+   "duration": "Một chiều",
+   "netCost": 4100000,
+   "capacity": 10,
+   "summary": "Giá chưa VAT (VAT 8%: 4.428.000đ). Khứ hồi 8.200.000đ chưa VAT. Nhóm tuyến C.",
+   "place": "Hà Nội → Sa Pa"
+  },
+  {
+   "currency": "VND",
+   "unit": "xe / chiều",
+   "inclusions": "",
+   "exclusions": "",
+   "policies": [],
+   "itinerary": [],
+   "images": [
+    {
+     "src": "https://drive.google.com/thumbnail?id=1-lbYzYOYl1p2cugNQ2bGhCnl8eVNmJVH&sz=w1000",
+     "caption": "Bảng xe và giờ đón xe ghép HH Limousine (Drive nhà cung cấp)",
+     "source": "drive"
+    }
+   ],
+   "id": "HH-ha-noi-sa-pa-16",
+   "supplier": "hh-limousine",
+   "category": "INTERCITY_BUS_12GO",
+   "title": "Xe riêng Hà Nội → Sa Pa",
+   "variant": "Minibus 16 chỗ",
+   "duration": "Một chiều",
+   "netCost": 3700000,
+   "capacity": 15,
+   "summary": "Giá chưa VAT (VAT 8%: 3.996.000đ). Khứ hồi 7.400.000đ chưa VAT. Nhóm tuyến C.",
+   "place": "Hà Nội → Sa Pa"
+  },
+  {
+   "currency": "VND",
+   "unit": "xe / chiều",
+   "inclusions": "",
+   "exclusions": "",
+   "policies": [],
+   "itinerary": [],
+   "images": [
+    {
+     "src": "https://drive.google.com/thumbnail?id=1-lbYzYOYl1p2cugNQ2bGhCnl8eVNmJVH&sz=w1000",
+     "caption": "Bảng xe và giờ đón xe ghép HH Limousine (Drive nhà cung cấp)",
+     "source": "drive"
+    }
+   ],
+   "id": "HH-sa-pa-ha-noi-5",
+   "supplier": "hh-limousine",
+   "category": "INTERCITY_BUS_12GO",
+   "title": "Xe riêng Sa Pa → Hà Nội",
+   "variant": "Xe 5 chỗ (SUV/MPV)",
+   "duration": "Một chiều",
+   "netCost": 2400000,
+   "capacity": 4,
+   "summary": "Giá chưa VAT (VAT 8%: 2.592.000đ). Khứ hồi 4.800.000đ chưa VAT. Nhóm tuyến C.",
+   "place": "Sa Pa → Hà Nội"
+  },
+  {
+   "currency": "VND",
+   "unit": "xe / chiều",
+   "inclusions": "",
+   "exclusions": "",
+   "policies": [],
+   "itinerary": [],
+   "images": [
+    {
+     "src": "https://drive.google.com/thumbnail?id=1-lbYzYOYl1p2cugNQ2bGhCnl8eVNmJVH&sz=w1000",
+     "caption": "Bảng xe và giờ đón xe ghép HH Limousine (Drive nhà cung cấp)",
+     "source": "drive"
+    }
+   ],
+   "id": "HH-sa-pa-ha-noi-7",
+   "supplier": "hh-limousine",
+   "category": "INTERCITY_BUS_12GO",
+   "title": "Xe riêng Sa Pa → Hà Nội",
+   "variant": "Xe 7 chỗ (SUV/MPV)",
+   "duration": "Một chiều",
+   "netCost": 2500000,
+   "capacity": 6,
+   "summary": "Giá chưa VAT (VAT 8%: 2.700.000đ). Khứ hồi 5.000.000đ chưa VAT. Nhóm tuyến C.",
+   "place": "Sa Pa → Hà Nội"
+  },
+  {
+   "currency": "VND",
+   "unit": "xe / chiều",
+   "inclusions": "",
+   "exclusions": "",
+   "policies": [],
+   "itinerary": [],
+   "images": [
+    {
+     "src": "https://drive.google.com/thumbnail?id=1-lbYzYOYl1p2cugNQ2bGhCnl8eVNmJVH&sz=w1000",
+     "caption": "Bảng xe và giờ đón xe ghép HH Limousine (Drive nhà cung cấp)",
+     "source": "drive"
+    }
+   ],
+   "id": "HH-sa-pa-ha-noi-9",
+   "supplier": "hh-limousine",
+   "category": "INTERCITY_BUS_12GO",
+   "title": "Xe riêng Sa Pa → Hà Nội",
+   "variant": "Limousine 9 chỗ cao cấp",
+   "duration": "Một chiều",
+   "netCost": 3700000,
+   "capacity": 8,
+   "summary": "Giá chưa VAT (VAT 8%: 3.996.000đ). Khứ hồi 7.400.000đ chưa VAT. Nhóm tuyến C.",
+   "place": "Sa Pa → Hà Nội"
+  },
+  {
+   "currency": "VND",
+   "unit": "xe / chiều",
+   "inclusions": "",
+   "exclusions": "",
+   "policies": [],
+   "itinerary": [],
+   "images": [
+    {
+     "src": "https://drive.google.com/thumbnail?id=1-lbYzYOYl1p2cugNQ2bGhCnl8eVNmJVH&sz=w1000",
+     "caption": "Bảng xe và giờ đón xe ghép HH Limousine (Drive nhà cung cấp)",
+     "source": "drive"
+    }
+   ],
+   "id": "HH-sa-pa-ha-noi-11",
+   "supplier": "hh-limousine",
+   "category": "INTERCITY_BUS_12GO",
+   "title": "Xe riêng Sa Pa → Hà Nội",
+   "variant": "Limousine 11 chỗ",
+   "duration": "Một chiều",
+   "netCost": 4100000,
+   "capacity": 10,
+   "summary": "Giá chưa VAT (VAT 8%: 4.428.000đ). Khứ hồi 8.200.000đ chưa VAT. Nhóm tuyến C.",
+   "place": "Sa Pa → Hà Nội"
+  },
+  {
+   "currency": "VND",
+   "unit": "xe / chiều",
+   "inclusions": "",
+   "exclusions": "",
+   "policies": [],
+   "itinerary": [],
+   "images": [
+    {
+     "src": "https://drive.google.com/thumbnail?id=1-lbYzYOYl1p2cugNQ2bGhCnl8eVNmJVH&sz=w1000",
+     "caption": "Bảng xe và giờ đón xe ghép HH Limousine (Drive nhà cung cấp)",
+     "source": "drive"
+    }
+   ],
+   "id": "HH-sa-pa-ha-noi-16",
+   "supplier": "hh-limousine",
+   "category": "INTERCITY_BUS_12GO",
+   "title": "Xe riêng Sa Pa → Hà Nội",
+   "variant": "Minibus 16 chỗ",
+   "duration": "Một chiều",
+   "netCost": 3700000,
+   "capacity": 15,
+   "summary": "Giá chưa VAT (VAT 8%: 3.996.000đ). Khứ hồi 7.400.000đ chưa VAT. Nhóm tuyến C.",
+   "place": "Sa Pa → Hà Nội"
+  },
+  {
+   "currency": "VND",
+   "unit": "xe / chiều",
+   "inclusions": "",
+   "exclusions": "",
+   "policies": [],
+   "itinerary": [],
+   "images": [
+    {
+     "src": "https://drive.google.com/thumbnail?id=1-lbYzYOYl1p2cugNQ2bGhCnl8eVNmJVH&sz=w1000",
+     "caption": "Bảng xe và giờ đón xe ghép HH Limousine (Drive nhà cung cấp)",
+     "source": "drive"
+    }
+   ],
+   "id": "HH-sa-pa-ninh-binh-5",
+   "supplier": "hh-limousine",
+   "category": "INTERCITY_BUS_12GO",
+   "title": "Xe riêng Sa Pa → Ninh Bình",
+   "variant": "Xe 5 chỗ (SUV/MPV)",
+   "duration": "Một chiều",
+   "netCost": 3500000,
+   "capacity": 4,
+   "summary": "Giá chưa VAT (VAT 8%: 3.780.000đ). Khứ hồi 7.000.000đ chưa VAT. Nhóm tuyến C.",
+   "place": "Sa Pa → Ninh Bình"
+  },
+  {
+   "currency": "VND",
+   "unit": "xe / chiều",
+   "inclusions": "",
+   "exclusions": "",
+   "policies": [],
+   "itinerary": [],
+   "images": [
+    {
+     "src": "https://drive.google.com/thumbnail?id=1-lbYzYOYl1p2cugNQ2bGhCnl8eVNmJVH&sz=w1000",
+     "caption": "Bảng xe và giờ đón xe ghép HH Limousine (Drive nhà cung cấp)",
+     "source": "drive"
+    }
+   ],
+   "id": "HH-sa-pa-ninh-binh-7",
+   "supplier": "hh-limousine",
+   "category": "INTERCITY_BUS_12GO",
+   "title": "Xe riêng Sa Pa → Ninh Bình",
+   "variant": "Xe 7 chỗ (SUV/MPV)",
+   "duration": "Một chiều",
+   "netCost": 3600000,
+   "capacity": 6,
+   "summary": "Giá chưa VAT (VAT 8%: 3.888.000đ). Khứ hồi 7.200.000đ chưa VAT. Nhóm tuyến C.",
+   "place": "Sa Pa → Ninh Bình"
+  },
+  {
+   "currency": "VND",
+   "unit": "xe / chiều",
+   "inclusions": "",
+   "exclusions": "",
+   "policies": [],
+   "itinerary": [],
+   "images": [
+    {
+     "src": "https://drive.google.com/thumbnail?id=1-lbYzYOYl1p2cugNQ2bGhCnl8eVNmJVH&sz=w1000",
+     "caption": "Bảng xe và giờ đón xe ghép HH Limousine (Drive nhà cung cấp)",
+     "source": "drive"
+    }
+   ],
+   "id": "HH-sa-pa-ninh-binh-9",
+   "supplier": "hh-limousine",
+   "category": "INTERCITY_BUS_12GO",
+   "title": "Xe riêng Sa Pa → Ninh Bình",
+   "variant": "Limousine 9 chỗ cao cấp",
+   "duration": "Một chiều",
+   "netCost": 5600000,
+   "capacity": 8,
+   "summary": "Giá chưa VAT (VAT 8%: 6.048.000đ). Khứ hồi 11.200.000đ chưa VAT. Nhóm tuyến C.",
+   "place": "Sa Pa → Ninh Bình"
+  },
+  {
+   "currency": "VND",
+   "unit": "xe / chiều",
+   "inclusions": "",
+   "exclusions": "",
+   "policies": [],
+   "itinerary": [],
+   "images": [
+    {
+     "src": "https://drive.google.com/thumbnail?id=1-lbYzYOYl1p2cugNQ2bGhCnl8eVNmJVH&sz=w1000",
+     "caption": "Bảng xe và giờ đón xe ghép HH Limousine (Drive nhà cung cấp)",
+     "source": "drive"
+    }
+   ],
+   "id": "HH-sa-pa-ninh-binh-11",
+   "supplier": "hh-limousine",
+   "category": "INTERCITY_BUS_12GO",
+   "title": "Xe riêng Sa Pa → Ninh Bình",
+   "variant": "Limousine 11 chỗ",
+   "duration": "Một chiều",
+   "netCost": 5800000,
+   "capacity": 10,
+   "summary": "Giá chưa VAT (VAT 8%: 6.264.000đ). Khứ hồi 11.600.000đ chưa VAT. Nhóm tuyến C.",
+   "place": "Sa Pa → Ninh Bình"
+  },
+  {
+   "currency": "VND",
+   "unit": "xe / chiều",
+   "inclusions": "",
+   "exclusions": "",
+   "policies": [],
+   "itinerary": [],
+   "images": [
+    {
+     "src": "https://drive.google.com/thumbnail?id=1-lbYzYOYl1p2cugNQ2bGhCnl8eVNmJVH&sz=w1000",
+     "caption": "Bảng xe và giờ đón xe ghép HH Limousine (Drive nhà cung cấp)",
+     "source": "drive"
+    }
+   ],
+   "id": "HH-sa-pa-ninh-binh-16",
+   "supplier": "hh-limousine",
+   "category": "INTERCITY_BUS_12GO",
+   "title": "Xe riêng Sa Pa → Ninh Bình",
+   "variant": "Minibus 16 chỗ",
+   "duration": "Một chiều",
+   "netCost": 5600000,
+   "capacity": 15,
+   "summary": "Giá chưa VAT (VAT 8%: 6.048.000đ). Khứ hồi 11.200.000đ chưa VAT. Nhóm tuyến C.",
+   "place": "Sa Pa → Ninh Bình"
+  },
+  {
+   "currency": "VND",
+   "unit": "xe / chiều",
+   "inclusions": "",
+   "exclusions": "",
+   "policies": [],
+   "itinerary": [],
+   "images": [
+    {
+     "src": "https://drive.google.com/thumbnail?id=1-lbYzYOYl1p2cugNQ2bGhCnl8eVNmJVH&sz=w1000",
+     "caption": "Bảng xe và giờ đón xe ghép HH Limousine (Drive nhà cung cấp)",
+     "source": "drive"
+    }
+   ],
+   "id": "HH-ninh-binh-sa-pa-5",
+   "supplier": "hh-limousine",
+   "category": "INTERCITY_BUS_12GO",
+   "title": "Xe riêng Ninh Bình → Sa Pa",
+   "variant": "Xe 5 chỗ (SUV/MPV)",
+   "duration": "Một chiều",
+   "netCost": 3500000,
+   "capacity": 4,
+   "summary": "Giá chưa VAT (VAT 8%: 3.780.000đ). Khứ hồi 7.000.000đ chưa VAT. Nhóm tuyến C.",
+   "place": "Ninh Bình → Sa Pa"
+  },
+  {
+   "currency": "VND",
+   "unit": "xe / chiều",
+   "inclusions": "",
+   "exclusions": "",
+   "policies": [],
+   "itinerary": [],
+   "images": [
+    {
+     "src": "https://drive.google.com/thumbnail?id=1-lbYzYOYl1p2cugNQ2bGhCnl8eVNmJVH&sz=w1000",
+     "caption": "Bảng xe và giờ đón xe ghép HH Limousine (Drive nhà cung cấp)",
+     "source": "drive"
+    }
+   ],
+   "id": "HH-ninh-binh-sa-pa-7",
+   "supplier": "hh-limousine",
+   "category": "INTERCITY_BUS_12GO",
+   "title": "Xe riêng Ninh Bình → Sa Pa",
+   "variant": "Xe 7 chỗ (SUV/MPV)",
+   "duration": "Một chiều",
+   "netCost": 3600000,
+   "capacity": 6,
+   "summary": "Giá chưa VAT (VAT 8%: 3.888.000đ). Khứ hồi 7.200.000đ chưa VAT. Nhóm tuyến C.",
+   "place": "Ninh Bình → Sa Pa"
+  },
+  {
+   "currency": "VND",
+   "unit": "xe / chiều",
+   "inclusions": "",
+   "exclusions": "",
+   "policies": [],
+   "itinerary": [],
+   "images": [
+    {
+     "src": "https://drive.google.com/thumbnail?id=1-lbYzYOYl1p2cugNQ2bGhCnl8eVNmJVH&sz=w1000",
+     "caption": "Bảng xe và giờ đón xe ghép HH Limousine (Drive nhà cung cấp)",
+     "source": "drive"
+    }
+   ],
+   "id": "HH-ninh-binh-sa-pa-9",
+   "supplier": "hh-limousine",
+   "category": "INTERCITY_BUS_12GO",
+   "title": "Xe riêng Ninh Bình → Sa Pa",
+   "variant": "Limousine 9 chỗ cao cấp",
+   "duration": "Một chiều",
+   "netCost": 5600000,
+   "capacity": 8,
+   "summary": "Giá chưa VAT (VAT 8%: 6.048.000đ). Khứ hồi 11.200.000đ chưa VAT. Nhóm tuyến C.",
+   "place": "Ninh Bình → Sa Pa"
+  },
+  {
+   "currency": "VND",
+   "unit": "xe / chiều",
+   "inclusions": "",
+   "exclusions": "",
+   "policies": [],
+   "itinerary": [],
+   "images": [
+    {
+     "src": "https://drive.google.com/thumbnail?id=1-lbYzYOYl1p2cugNQ2bGhCnl8eVNmJVH&sz=w1000",
+     "caption": "Bảng xe và giờ đón xe ghép HH Limousine (Drive nhà cung cấp)",
+     "source": "drive"
+    }
+   ],
+   "id": "HH-ninh-binh-sa-pa-11",
+   "supplier": "hh-limousine",
+   "category": "INTERCITY_BUS_12GO",
+   "title": "Xe riêng Ninh Bình → Sa Pa",
+   "variant": "Limousine 11 chỗ",
+   "duration": "Một chiều",
+   "netCost": 5800000,
+   "capacity": 10,
+   "summary": "Giá chưa VAT (VAT 8%: 6.264.000đ). Khứ hồi 11.600.000đ chưa VAT. Nhóm tuyến C.",
+   "place": "Ninh Bình → Sa Pa"
+  },
+  {
+   "currency": "VND",
+   "unit": "xe / chiều",
+   "inclusions": "",
+   "exclusions": "",
+   "policies": [],
+   "itinerary": [],
+   "images": [
+    {
+     "src": "https://drive.google.com/thumbnail?id=1-lbYzYOYl1p2cugNQ2bGhCnl8eVNmJVH&sz=w1000",
+     "caption": "Bảng xe và giờ đón xe ghép HH Limousine (Drive nhà cung cấp)",
+     "source": "drive"
+    }
+   ],
+   "id": "HH-ninh-binh-sa-pa-16",
+   "supplier": "hh-limousine",
+   "category": "INTERCITY_BUS_12GO",
+   "title": "Xe riêng Ninh Bình → Sa Pa",
+   "variant": "Minibus 16 chỗ",
+   "duration": "Một chiều",
+   "netCost": 5600000,
+   "capacity": 15,
+   "summary": "Giá chưa VAT (VAT 8%: 6.048.000đ). Khứ hồi 11.200.000đ chưa VAT. Nhóm tuyến C.",
+   "place": "Ninh Bình → Sa Pa"
+  },
+  {
+   "currency": "VND",
+   "unit": "xe / chiều",
+   "inclusions": "",
+   "exclusions": "",
+   "policies": [],
+   "itinerary": [],
+   "images": [
+    {
+     "src": "https://drive.google.com/thumbnail?id=1-lbYzYOYl1p2cugNQ2bGhCnl8eVNmJVH&sz=w1000",
+     "caption": "Bảng xe và giờ đón xe ghép HH Limousine (Drive nhà cung cấp)",
+     "source": "drive"
+    }
+   ],
+   "id": "HH-sa-pa-ha-long-5",
+   "supplier": "hh-limousine",
+   "category": "INTERCITY_BUS_12GO",
+   "title": "Xe riêng Sa Pa → Hạ Long",
+   "variant": "Xe 5 chỗ (SUV/MPV)",
+   "duration": "Một chiều",
+   "netCost": 3500000,
+   "capacity": 4,
+   "summary": "Giá chưa VAT (VAT 8%: 3.780.000đ). Khứ hồi 7.000.000đ chưa VAT. Nhóm tuyến C.",
+   "place": "Sa Pa → Hạ Long"
+  },
+  {
+   "currency": "VND",
+   "unit": "xe / chiều",
+   "inclusions": "",
+   "exclusions": "",
+   "policies": [],
+   "itinerary": [],
+   "images": [
+    {
+     "src": "https://drive.google.com/thumbnail?id=1-lbYzYOYl1p2cugNQ2bGhCnl8eVNmJVH&sz=w1000",
+     "caption": "Bảng xe và giờ đón xe ghép HH Limousine (Drive nhà cung cấp)",
+     "source": "drive"
+    }
+   ],
+   "id": "HH-sa-pa-ha-long-7",
+   "supplier": "hh-limousine",
+   "category": "INTERCITY_BUS_12GO",
+   "title": "Xe riêng Sa Pa → Hạ Long",
+   "variant": "Xe 7 chỗ (SUV/MPV)",
+   "duration": "Một chiều",
+   "netCost": 3600000,
+   "capacity": 6,
+   "summary": "Giá chưa VAT (VAT 8%: 3.888.000đ). Khứ hồi 7.200.000đ chưa VAT. Nhóm tuyến C.",
+   "place": "Sa Pa → Hạ Long"
+  },
+  {
+   "currency": "VND",
+   "unit": "xe / chiều",
+   "inclusions": "",
+   "exclusions": "",
+   "policies": [],
+   "itinerary": [],
+   "images": [
+    {
+     "src": "https://drive.google.com/thumbnail?id=1-lbYzYOYl1p2cugNQ2bGhCnl8eVNmJVH&sz=w1000",
+     "caption": "Bảng xe và giờ đón xe ghép HH Limousine (Drive nhà cung cấp)",
+     "source": "drive"
+    }
+   ],
+   "id": "HH-sa-pa-ha-long-9",
+   "supplier": "hh-limousine",
+   "category": "INTERCITY_BUS_12GO",
+   "title": "Xe riêng Sa Pa → Hạ Long",
+   "variant": "Limousine 9 chỗ cao cấp",
+   "duration": "Một chiều",
+   "netCost": 5600000,
+   "capacity": 8,
+   "summary": "Giá chưa VAT (VAT 8%: 6.048.000đ). Khứ hồi 11.200.000đ chưa VAT. Nhóm tuyến C.",
+   "place": "Sa Pa → Hạ Long"
+  },
+  {
+   "currency": "VND",
+   "unit": "xe / chiều",
+   "inclusions": "",
+   "exclusions": "",
+   "policies": [],
+   "itinerary": [],
+   "images": [
+    {
+     "src": "https://drive.google.com/thumbnail?id=1-lbYzYOYl1p2cugNQ2bGhCnl8eVNmJVH&sz=w1000",
+     "caption": "Bảng xe và giờ đón xe ghép HH Limousine (Drive nhà cung cấp)",
+     "source": "drive"
+    }
+   ],
+   "id": "HH-sa-pa-ha-long-11",
+   "supplier": "hh-limousine",
+   "category": "INTERCITY_BUS_12GO",
+   "title": "Xe riêng Sa Pa → Hạ Long",
+   "variant": "Limousine 11 chỗ",
+   "duration": "Một chiều",
+   "netCost": 5800000,
+   "capacity": 10,
+   "summary": "Giá chưa VAT (VAT 8%: 6.264.000đ). Khứ hồi 11.600.000đ chưa VAT. Nhóm tuyến C.",
+   "place": "Sa Pa → Hạ Long"
+  },
+  {
+   "currency": "VND",
+   "unit": "xe / chiều",
+   "inclusions": "",
+   "exclusions": "",
+   "policies": [],
+   "itinerary": [],
+   "images": [
+    {
+     "src": "https://drive.google.com/thumbnail?id=1-lbYzYOYl1p2cugNQ2bGhCnl8eVNmJVH&sz=w1000",
+     "caption": "Bảng xe và giờ đón xe ghép HH Limousine (Drive nhà cung cấp)",
+     "source": "drive"
+    }
+   ],
+   "id": "HH-sa-pa-ha-long-16",
+   "supplier": "hh-limousine",
+   "category": "INTERCITY_BUS_12GO",
+   "title": "Xe riêng Sa Pa → Hạ Long",
+   "variant": "Minibus 16 chỗ",
+   "duration": "Một chiều",
+   "netCost": 5600000,
+   "capacity": 15,
+   "summary": "Giá chưa VAT (VAT 8%: 6.048.000đ). Khứ hồi 11.200.000đ chưa VAT. Nhóm tuyến C.",
+   "place": "Sa Pa → Hạ Long"
+  },
+  {
+   "currency": "VND",
+   "unit": "xe / chiều",
+   "inclusions": "",
+   "exclusions": "",
+   "policies": [],
+   "itinerary": [],
+   "images": [
+    {
+     "src": "https://drive.google.com/thumbnail?id=1-lbYzYOYl1p2cugNQ2bGhCnl8eVNmJVH&sz=w1000",
+     "caption": "Bảng xe và giờ đón xe ghép HH Limousine (Drive nhà cung cấp)",
+     "source": "drive"
+    }
+   ],
+   "id": "HH-ha-long-sa-pa-5",
+   "supplier": "hh-limousine",
+   "category": "INTERCITY_BUS_12GO",
+   "title": "Xe riêng Hạ Long → Sa Pa",
+   "variant": "Xe 5 chỗ (SUV/MPV)",
+   "duration": "Một chiều",
+   "netCost": 3500000,
+   "capacity": 4,
+   "summary": "Giá chưa VAT (VAT 8%: 3.780.000đ). Khứ hồi 7.000.000đ chưa VAT. Nhóm tuyến C.",
+   "place": "Hạ Long → Sa Pa"
+  },
+  {
+   "currency": "VND",
+   "unit": "xe / chiều",
+   "inclusions": "",
+   "exclusions": "",
+   "policies": [],
+   "itinerary": [],
+   "images": [
+    {
+     "src": "https://drive.google.com/thumbnail?id=1-lbYzYOYl1p2cugNQ2bGhCnl8eVNmJVH&sz=w1000",
+     "caption": "Bảng xe và giờ đón xe ghép HH Limousine (Drive nhà cung cấp)",
+     "source": "drive"
+    }
+   ],
+   "id": "HH-ha-long-sa-pa-7",
+   "supplier": "hh-limousine",
+   "category": "INTERCITY_BUS_12GO",
+   "title": "Xe riêng Hạ Long → Sa Pa",
+   "variant": "Xe 7 chỗ (SUV/MPV)",
+   "duration": "Một chiều",
+   "netCost": 3600000,
+   "capacity": 6,
+   "summary": "Giá chưa VAT (VAT 8%: 3.888.000đ). Khứ hồi 7.200.000đ chưa VAT. Nhóm tuyến C.",
+   "place": "Hạ Long → Sa Pa"
+  },
+  {
+   "currency": "VND",
+   "unit": "xe / chiều",
+   "inclusions": "",
+   "exclusions": "",
+   "policies": [],
+   "itinerary": [],
+   "images": [
+    {
+     "src": "https://drive.google.com/thumbnail?id=1-lbYzYOYl1p2cugNQ2bGhCnl8eVNmJVH&sz=w1000",
+     "caption": "Bảng xe và giờ đón xe ghép HH Limousine (Drive nhà cung cấp)",
+     "source": "drive"
+    }
+   ],
+   "id": "HH-ha-long-sa-pa-9",
+   "supplier": "hh-limousine",
+   "category": "INTERCITY_BUS_12GO",
+   "title": "Xe riêng Hạ Long → Sa Pa",
+   "variant": "Limousine 9 chỗ cao cấp",
+   "duration": "Một chiều",
+   "netCost": 5600000,
+   "capacity": 8,
+   "summary": "Giá chưa VAT (VAT 8%: 6.048.000đ). Khứ hồi 11.200.000đ chưa VAT. Nhóm tuyến C.",
+   "place": "Hạ Long → Sa Pa"
+  },
+  {
+   "currency": "VND",
+   "unit": "xe / chiều",
+   "inclusions": "",
+   "exclusions": "",
+   "policies": [],
+   "itinerary": [],
+   "images": [
+    {
+     "src": "https://drive.google.com/thumbnail?id=1-lbYzYOYl1p2cugNQ2bGhCnl8eVNmJVH&sz=w1000",
+     "caption": "Bảng xe và giờ đón xe ghép HH Limousine (Drive nhà cung cấp)",
+     "source": "drive"
+    }
+   ],
+   "id": "HH-ha-long-sa-pa-11",
+   "supplier": "hh-limousine",
+   "category": "INTERCITY_BUS_12GO",
+   "title": "Xe riêng Hạ Long → Sa Pa",
+   "variant": "Limousine 11 chỗ",
+   "duration": "Một chiều",
+   "netCost": 5800000,
+   "capacity": 10,
+   "summary": "Giá chưa VAT (VAT 8%: 6.264.000đ). Khứ hồi 11.600.000đ chưa VAT. Nhóm tuyến C.",
+   "place": "Hạ Long → Sa Pa"
+  },
+  {
+   "currency": "VND",
+   "unit": "xe / chiều",
+   "inclusions": "",
+   "exclusions": "",
+   "policies": [],
+   "itinerary": [],
+   "images": [
+    {
+     "src": "https://drive.google.com/thumbnail?id=1-lbYzYOYl1p2cugNQ2bGhCnl8eVNmJVH&sz=w1000",
+     "caption": "Bảng xe và giờ đón xe ghép HH Limousine (Drive nhà cung cấp)",
+     "source": "drive"
+    }
+   ],
+   "id": "HH-ha-long-sa-pa-16",
+   "supplier": "hh-limousine",
+   "category": "INTERCITY_BUS_12GO",
+   "title": "Xe riêng Hạ Long → Sa Pa",
+   "variant": "Minibus 16 chỗ",
+   "duration": "Một chiều",
+   "netCost": 5600000,
+   "capacity": 15,
+   "summary": "Giá chưa VAT (VAT 8%: 6.048.000đ). Khứ hồi 11.200.000đ chưa VAT. Nhóm tuyến C.",
+   "place": "Hạ Long → Sa Pa"
+  },
+  {
+   "currency": "VND",
+   "unit": "xe / chiều",
+   "inclusions": "",
+   "exclusions": "",
+   "policies": [],
+   "itinerary": [],
+   "images": [
+    {
+     "src": "https://drive.google.com/thumbnail?id=1-lbYzYOYl1p2cugNQ2bGhCnl8eVNmJVH&sz=w1000",
+     "caption": "Bảng xe và giờ đón xe ghép HH Limousine (Drive nhà cung cấp)",
+     "source": "drive"
+    }
+   ],
+   "id": "HH-ha-noi-ha-giang-5",
+   "supplier": "hh-limousine",
+   "category": "INTERCITY_BUS_12GO",
+   "title": "Xe riêng Hà Nội → Hà Giang",
+   "variant": "Xe 5 chỗ (SUV/MPV)",
+   "duration": "Một chiều",
+   "netCost": 3000000,
+   "capacity": 4,
+   "summary": "Giá chưa VAT (VAT 8%: 3.240.000đ). Khứ hồi 6.000.000đ chưa VAT. Nhóm tuyến C.",
+   "place": "Hà Nội → Hà Giang"
+  },
+  {
+   "currency": "VND",
+   "unit": "xe / chiều",
+   "inclusions": "",
+   "exclusions": "",
+   "policies": [],
+   "itinerary": [],
+   "images": [
+    {
+     "src": "https://drive.google.com/thumbnail?id=1-lbYzYOYl1p2cugNQ2bGhCnl8eVNmJVH&sz=w1000",
+     "caption": "Bảng xe và giờ đón xe ghép HH Limousine (Drive nhà cung cấp)",
+     "source": "drive"
+    }
+   ],
+   "id": "HH-ha-noi-ha-giang-7",
+   "supplier": "hh-limousine",
+   "category": "INTERCITY_BUS_12GO",
+   "title": "Xe riêng Hà Nội → Hà Giang",
+   "variant": "Xe 7 chỗ (SUV/MPV)",
+   "duration": "Một chiều",
+   "netCost": 3200000,
+   "capacity": 6,
+   "summary": "Giá chưa VAT (VAT 8%: 3.456.000đ). Khứ hồi 6.400.000đ chưa VAT. Nhóm tuyến C.",
+   "place": "Hà Nội → Hà Giang"
+  },
+  {
+   "currency": "VND",
+   "unit": "xe / chiều",
+   "inclusions": "",
+   "exclusions": "",
+   "policies": [],
+   "itinerary": [],
+   "images": [
+    {
+     "src": "https://drive.google.com/thumbnail?id=1-lbYzYOYl1p2cugNQ2bGhCnl8eVNmJVH&sz=w1000",
+     "caption": "Bảng xe và giờ đón xe ghép HH Limousine (Drive nhà cung cấp)",
+     "source": "drive"
+    }
+   ],
+   "id": "HH-ha-noi-ha-giang-9",
+   "supplier": "hh-limousine",
+   "category": "INTERCITY_BUS_12GO",
+   "title": "Xe riêng Hà Nội → Hà Giang",
+   "variant": "Limousine 9 chỗ cao cấp",
+   "duration": "Một chiều",
+   "netCost": 4500000,
+   "capacity": 8,
+   "summary": "Giá chưa VAT (VAT 8%: 4.860.000đ). Khứ hồi 9.000.000đ chưa VAT. Nhóm tuyến C.",
+   "place": "Hà Nội → Hà Giang"
+  },
+  {
+   "currency": "VND",
+   "unit": "xe / chiều",
+   "inclusions": "",
+   "exclusions": "",
+   "policies": [],
+   "itinerary": [],
+   "images": [
+    {
+     "src": "https://drive.google.com/thumbnail?id=1-lbYzYOYl1p2cugNQ2bGhCnl8eVNmJVH&sz=w1000",
+     "caption": "Bảng xe và giờ đón xe ghép HH Limousine (Drive nhà cung cấp)",
+     "source": "drive"
+    }
+   ],
+   "id": "HH-ha-noi-ha-giang-11",
+   "supplier": "hh-limousine",
+   "category": "INTERCITY_BUS_12GO",
+   "title": "Xe riêng Hà Nội → Hà Giang",
+   "variant": "Limousine 11 chỗ",
+   "duration": "Một chiều",
+   "netCost": 4700000,
+   "capacity": 10,
+   "summary": "Giá chưa VAT (VAT 8%: 5.076.000đ). Khứ hồi 9.400.000đ chưa VAT. Nhóm tuyến C.",
+   "place": "Hà Nội → Hà Giang"
+  },
+  {
+   "currency": "VND",
+   "unit": "xe / chiều",
+   "inclusions": "",
+   "exclusions": "",
+   "policies": [],
+   "itinerary": [],
+   "images": [
+    {
+     "src": "https://drive.google.com/thumbnail?id=1-lbYzYOYl1p2cugNQ2bGhCnl8eVNmJVH&sz=w1000",
+     "caption": "Bảng xe và giờ đón xe ghép HH Limousine (Drive nhà cung cấp)",
+     "source": "drive"
+    }
+   ],
+   "id": "HH-ha-noi-ha-giang-16",
+   "supplier": "hh-limousine",
+   "category": "INTERCITY_BUS_12GO",
+   "title": "Xe riêng Hà Nội → Hà Giang",
+   "variant": "Minibus 16 chỗ",
+   "duration": "Một chiều",
+   "netCost": 4500000,
+   "capacity": 15,
+   "summary": "Giá chưa VAT (VAT 8%: 4.860.000đ). Khứ hồi 9.000.000đ chưa VAT. Nhóm tuyến C.",
+   "place": "Hà Nội → Hà Giang"
+  },
+  {
+   "currency": "VND",
+   "unit": "xe / chiều",
+   "inclusions": "",
+   "exclusions": "",
+   "policies": [],
+   "itinerary": [],
+   "images": [
+    {
+     "src": "https://drive.google.com/thumbnail?id=1-lbYzYOYl1p2cugNQ2bGhCnl8eVNmJVH&sz=w1000",
+     "caption": "Bảng xe và giờ đón xe ghép HH Limousine (Drive nhà cung cấp)",
+     "source": "drive"
+    }
+   ],
+   "id": "HH-ha-giang-ha-noi-5",
+   "supplier": "hh-limousine",
+   "category": "INTERCITY_BUS_12GO",
+   "title": "Xe riêng Hà Giang → Hà Nội",
+   "variant": "Xe 5 chỗ (SUV/MPV)",
+   "duration": "Một chiều",
+   "netCost": 3000000,
+   "capacity": 4,
+   "summary": "Giá chưa VAT (VAT 8%: 3.240.000đ). Khứ hồi 6.000.000đ chưa VAT. Nhóm tuyến C.",
+   "place": "Hà Giang → Hà Nội"
+  },
+  {
+   "currency": "VND",
+   "unit": "xe / chiều",
+   "inclusions": "",
+   "exclusions": "",
+   "policies": [],
+   "itinerary": [],
+   "images": [
+    {
+     "src": "https://drive.google.com/thumbnail?id=1-lbYzYOYl1p2cugNQ2bGhCnl8eVNmJVH&sz=w1000",
+     "caption": "Bảng xe và giờ đón xe ghép HH Limousine (Drive nhà cung cấp)",
+     "source": "drive"
+    }
+   ],
+   "id": "HH-ha-giang-ha-noi-7",
+   "supplier": "hh-limousine",
+   "category": "INTERCITY_BUS_12GO",
+   "title": "Xe riêng Hà Giang → Hà Nội",
+   "variant": "Xe 7 chỗ (SUV/MPV)",
+   "duration": "Một chiều",
+   "netCost": 3200000,
+   "capacity": 6,
+   "summary": "Giá chưa VAT (VAT 8%: 3.456.000đ). Khứ hồi 6.400.000đ chưa VAT. Nhóm tuyến C.",
+   "place": "Hà Giang → Hà Nội"
+  },
+  {
+   "currency": "VND",
+   "unit": "xe / chiều",
+   "inclusions": "",
+   "exclusions": "",
+   "policies": [],
+   "itinerary": [],
+   "images": [
+    {
+     "src": "https://drive.google.com/thumbnail?id=1-lbYzYOYl1p2cugNQ2bGhCnl8eVNmJVH&sz=w1000",
+     "caption": "Bảng xe và giờ đón xe ghép HH Limousine (Drive nhà cung cấp)",
+     "source": "drive"
+    }
+   ],
+   "id": "HH-ha-giang-ha-noi-9",
+   "supplier": "hh-limousine",
+   "category": "INTERCITY_BUS_12GO",
+   "title": "Xe riêng Hà Giang → Hà Nội",
+   "variant": "Limousine 9 chỗ cao cấp",
+   "duration": "Một chiều",
+   "netCost": 4500000,
+   "capacity": 8,
+   "summary": "Giá chưa VAT (VAT 8%: 4.860.000đ). Khứ hồi 9.000.000đ chưa VAT. Nhóm tuyến C.",
+   "place": "Hà Giang → Hà Nội"
+  },
+  {
+   "currency": "VND",
+   "unit": "xe / chiều",
+   "inclusions": "",
+   "exclusions": "",
+   "policies": [],
+   "itinerary": [],
+   "images": [
+    {
+     "src": "https://drive.google.com/thumbnail?id=1-lbYzYOYl1p2cugNQ2bGhCnl8eVNmJVH&sz=w1000",
+     "caption": "Bảng xe và giờ đón xe ghép HH Limousine (Drive nhà cung cấp)",
+     "source": "drive"
+    }
+   ],
+   "id": "HH-ha-giang-ha-noi-11",
+   "supplier": "hh-limousine",
+   "category": "INTERCITY_BUS_12GO",
+   "title": "Xe riêng Hà Giang → Hà Nội",
+   "variant": "Limousine 11 chỗ",
+   "duration": "Một chiều",
+   "netCost": 4700000,
+   "capacity": 10,
+   "summary": "Giá chưa VAT (VAT 8%: 5.076.000đ). Khứ hồi 9.400.000đ chưa VAT. Nhóm tuyến C.",
+   "place": "Hà Giang → Hà Nội"
+  },
+  {
+   "currency": "VND",
+   "unit": "xe / chiều",
+   "inclusions": "",
+   "exclusions": "",
+   "policies": [],
+   "itinerary": [],
+   "images": [
+    {
+     "src": "https://drive.google.com/thumbnail?id=1-lbYzYOYl1p2cugNQ2bGhCnl8eVNmJVH&sz=w1000",
+     "caption": "Bảng xe và giờ đón xe ghép HH Limousine (Drive nhà cung cấp)",
+     "source": "drive"
+    }
+   ],
+   "id": "HH-ha-giang-ha-noi-16",
+   "supplier": "hh-limousine",
+   "category": "INTERCITY_BUS_12GO",
+   "title": "Xe riêng Hà Giang → Hà Nội",
+   "variant": "Minibus 16 chỗ",
+   "duration": "Một chiều",
+   "netCost": 4500000,
+   "capacity": 15,
+   "summary": "Giá chưa VAT (VAT 8%: 4.860.000đ). Khứ hồi 9.000.000đ chưa VAT. Nhóm tuyến C.",
+   "place": "Hà Giang → Hà Nội"
+  },
+  {
+   "currency": "VND",
+   "unit": "xe / chiều",
+   "inclusions": "",
+   "exclusions": "",
+   "policies": [],
+   "itinerary": [],
+   "images": [
+    {
+     "src": "https://drive.google.com/thumbnail?id=1-lbYzYOYl1p2cugNQ2bGhCnl8eVNmJVH&sz=w1000",
+     "caption": "Bảng xe và giờ đón xe ghép HH Limousine (Drive nhà cung cấp)",
+     "source": "drive"
+    }
+   ],
+   "id": "HH-ha-noi-tam-dao-5",
+   "supplier": "hh-limousine",
+   "category": "INTERCITY_BUS_12GO",
+   "title": "Xe riêng Hà Nội → Tam Đảo",
+   "variant": "Xe 5 chỗ (SUV/MPV)",
+   "duration": "Một chiều",
+   "netCost": 900000,
+   "capacity": 4,
+   "summary": "Giá chưa VAT (VAT 8%: 972.000đ). Khứ hồi 1.800.000đ chưa VAT. Nhóm tuyến C.",
+   "place": "Hà Nội → Tam Đảo"
+  },
+  {
+   "currency": "VND",
+   "unit": "xe / chiều",
+   "inclusions": "",
+   "exclusions": "",
+   "policies": [],
+   "itinerary": [],
+   "images": [
+    {
+     "src": "https://drive.google.com/thumbnail?id=1-lbYzYOYl1p2cugNQ2bGhCnl8eVNmJVH&sz=w1000",
+     "caption": "Bảng xe và giờ đón xe ghép HH Limousine (Drive nhà cung cấp)",
+     "source": "drive"
+    }
+   ],
+   "id": "HH-ha-noi-tam-dao-7",
+   "supplier": "hh-limousine",
+   "category": "INTERCITY_BUS_12GO",
+   "title": "Xe riêng Hà Nội → Tam Đảo",
+   "variant": "Xe 7 chỗ (SUV/MPV)",
+   "duration": "Một chiều",
+   "netCost": 1000000,
+   "capacity": 6,
+   "summary": "Giá chưa VAT (VAT 8%: 1.080.000đ). Khứ hồi 2.000.000đ chưa VAT. Nhóm tuyến C.",
+   "place": "Hà Nội → Tam Đảo"
+  },
+  {
+   "currency": "VND",
+   "unit": "xe / chiều",
+   "inclusions": "",
+   "exclusions": "",
+   "policies": [],
+   "itinerary": [],
+   "images": [
+    {
+     "src": "https://drive.google.com/thumbnail?id=1-lbYzYOYl1p2cugNQ2bGhCnl8eVNmJVH&sz=w1000",
+     "caption": "Bảng xe và giờ đón xe ghép HH Limousine (Drive nhà cung cấp)",
+     "source": "drive"
+    }
+   ],
+   "id": "HH-ha-noi-tam-dao-9",
+   "supplier": "hh-limousine",
+   "category": "INTERCITY_BUS_12GO",
+   "title": "Xe riêng Hà Nội → Tam Đảo",
+   "variant": "Limousine 9 chỗ cao cấp",
+   "duration": "Một chiều",
+   "netCost": 2000000,
+   "capacity": 8,
+   "summary": "Giá chưa VAT (VAT 8%: 2.160.000đ). Khứ hồi 4.000.000đ chưa VAT. Nhóm tuyến C.",
+   "place": "Hà Nội → Tam Đảo"
+  },
+  {
+   "currency": "VND",
+   "unit": "xe / chiều",
+   "inclusions": "",
+   "exclusions": "",
+   "policies": [],
+   "itinerary": [],
+   "images": [
+    {
+     "src": "https://drive.google.com/thumbnail?id=1-lbYzYOYl1p2cugNQ2bGhCnl8eVNmJVH&sz=w1000",
+     "caption": "Bảng xe và giờ đón xe ghép HH Limousine (Drive nhà cung cấp)",
+     "source": "drive"
+    }
+   ],
+   "id": "HH-ha-noi-tam-dao-11",
+   "supplier": "hh-limousine",
+   "category": "INTERCITY_BUS_12GO",
+   "title": "Xe riêng Hà Nội → Tam Đảo",
+   "variant": "Limousine 11 chỗ",
+   "duration": "Một chiều",
+   "netCost": 2300000,
+   "capacity": 10,
+   "summary": "Giá chưa VAT (VAT 8%: 2.484.000đ). Khứ hồi 4.600.000đ chưa VAT. Nhóm tuyến C.",
+   "place": "Hà Nội → Tam Đảo"
+  },
+  {
+   "currency": "VND",
+   "unit": "xe / chiều",
+   "inclusions": "",
+   "exclusions": "",
+   "policies": [],
+   "itinerary": [],
+   "images": [
+    {
+     "src": "https://drive.google.com/thumbnail?id=1-lbYzYOYl1p2cugNQ2bGhCnl8eVNmJVH&sz=w1000",
+     "caption": "Bảng xe và giờ đón xe ghép HH Limousine (Drive nhà cung cấp)",
+     "source": "drive"
+    }
+   ],
+   "id": "HH-ha-noi-tam-dao-16",
+   "supplier": "hh-limousine",
+   "category": "INTERCITY_BUS_12GO",
+   "title": "Xe riêng Hà Nội → Tam Đảo",
+   "variant": "Minibus 16 chỗ",
+   "duration": "Một chiều",
+   "netCost": 2000000,
+   "capacity": 15,
+   "summary": "Giá chưa VAT (VAT 8%: 2.160.000đ). Khứ hồi 4.000.000đ chưa VAT. Nhóm tuyến C.",
+   "place": "Hà Nội → Tam Đảo"
+  },
+  {
+   "currency": "VND",
+   "unit": "ghế / chiều",
+   "inclusions": "",
+   "exclusions": "",
+   "policies": [],
+   "itinerary": [],
+   "images": [
+    {
+     "src": "https://drive.google.com/thumbnail?id=1-lbYzYOYl1p2cugNQ2bGhCnl8eVNmJVH&sz=w1000",
+     "caption": "Bảng xe và giờ đón xe ghép HH Limousine (Drive nhà cung cấp)",
+     "source": "drive"
+    }
+   ],
+   "id": "HH-ghep-ha-noi-ha-long",
+   "supplier": "hh-limousine",
+   "category": "INTERCITY_BUS_12GO",
+   "title": "Xe ghép Hà Nội → Hạ Long",
+   "variant": "Limousine ghép",
+   "duration": "Một chiều",
+   "netCost": 225000,
+   "summary": "Giá chưa VAT (có VAT: 243k). Giờ đón 7:30–8:30.",
+   "place": "Hà Nội → Hạ Long"
+  },
+  {
+   "currency": "VND",
+   "unit": "ghế / chiều",
+   "inclusions": "",
+   "exclusions": "",
+   "policies": [],
+   "itinerary": [],
+   "images": [
+    {
+     "src": "https://drive.google.com/thumbnail?id=1-lbYzYOYl1p2cugNQ2bGhCnl8eVNmJVH&sz=w1000",
+     "caption": "Bảng xe và giờ đón xe ghép HH Limousine (Drive nhà cung cấp)",
+     "source": "drive"
+    }
+   ],
+   "id": "HH-ghep-ha-long-ha-noi",
+   "supplier": "hh-limousine",
+   "category": "INTERCITY_BUS_12GO",
+   "title": "Xe ghép Hạ Long → Hà Nội",
+   "variant": "Limousine ghép",
+   "duration": "Một chiều",
+   "netCost": 225000,
+   "summary": "Giá chưa VAT (có VAT: 243k). Giờ đón 11:00–11:45.",
+   "place": "Hạ Long → Hà Nội"
+  },
+  {
+   "currency": "VND",
+   "unit": "ghế / chiều",
+   "inclusions": "",
+   "exclusions": "",
+   "policies": [],
+   "itinerary": [],
+   "images": [
+    {
+     "src": "https://drive.google.com/thumbnail?id=1-lbYzYOYl1p2cugNQ2bGhCnl8eVNmJVH&sz=w1000",
+     "caption": "Bảng xe và giờ đón xe ghép HH Limousine (Drive nhà cung cấp)",
+     "source": "drive"
+    }
+   ],
+   "id": "HH-ghep-ha-long-ha-noi-chuyen-toi",
+   "supplier": "hh-limousine",
+   "category": "INTERCITY_BUS_12GO",
+   "title": "Xe ghép Hạ Long → Hà Nội (chuyến tối)",
+   "variant": "Limousine ghép",
+   "duration": "Một chiều",
+   "netCost": 250000,
+   "summary": "Giá chưa VAT (có VAT: 270k).",
+   "place": "Hạ Long → Hà Nội (chuyến tối)"
+  },
+  {
+   "currency": "VND",
+   "unit": "ghế / chiều",
+   "inclusions": "",
+   "exclusions": "",
+   "policies": [],
+   "itinerary": [],
+   "images": [
+    {
+     "src": "https://drive.google.com/thumbnail?id=1-lbYzYOYl1p2cugNQ2bGhCnl8eVNmJVH&sz=w1000",
+     "caption": "Bảng xe và giờ đón xe ghép HH Limousine (Drive nhà cung cấp)",
+     "source": "drive"
+    }
+   ],
+   "id": "HH-ghep-ha-noi-ninh-binh",
+   "supplier": "hh-limousine",
+   "category": "INTERCITY_BUS_12GO",
+   "title": "Xe ghép Hà Nội → Ninh Bình",
+   "variant": "Limousine ghép",
+   "duration": "Một chiều",
+   "netCost": 250000,
+   "summary": "Giá chưa VAT (có VAT: 270k).",
+   "place": "Hà Nội → Ninh Bình"
+  },
+  {
+   "currency": "VND",
+   "unit": "ghế / chiều",
+   "inclusions": "",
+   "exclusions": "",
+   "policies": [],
+   "itinerary": [],
+   "images": [
+    {
+     "src": "https://drive.google.com/thumbnail?id=1-lbYzYOYl1p2cugNQ2bGhCnl8eVNmJVH&sz=w1000",
+     "caption": "Bảng xe và giờ đón xe ghép HH Limousine (Drive nhà cung cấp)",
+     "source": "drive"
+    },
+    {
+     "src": "/supplier-media/hh-limousine/limousine-hanoi-sapa.webp",
+     "caption": "Limousine Hà Nội – Sapa (file HK-limousine-hanoi-sapa-3.webp trong C:\\Tour)"
+    }
+   ],
+   "id": "HH-ghep-ha-noi-sa-pa",
+   "supplier": "hh-limousine",
+   "category": "INTERCITY_BUS_12GO",
+   "title": "Xe ghép Hà Nội → Sa Pa",
+   "variant": "Limousine ghép",
+   "duration": "Một chiều",
+   "netCost": 450000,
+   "summary": "Giá chưa VAT (có VAT: 486k).",
+   "place": "Hà Nội → Sa Pa"
+  },
+  {
+   "currency": "VND",
+   "unit": "ghế / chiều",
+   "inclusions": "",
+   "exclusions": "",
+   "policies": [],
+   "itinerary": [],
+   "images": [
+    {
+     "src": "https://drive.google.com/thumbnail?id=1-lbYzYOYl1p2cugNQ2bGhCnl8eVNmJVH&sz=w1000",
+     "caption": "Bảng xe và giờ đón xe ghép HH Limousine (Drive nhà cung cấp)",
+     "source": "drive"
+    }
+   ],
+   "id": "HH-ghep-ha-noi-cat-ba",
+   "supplier": "hh-limousine",
+   "category": "INTERCITY_BUS_12GO",
+   "title": "Xe ghép Hà Nội → Cát Bà",
+   "variant": "Limousine ghép",
+   "duration": "Một chiều",
+   "netCost": 375000,
+   "summary": "Giá chưa VAT (có VAT: 405k).",
+   "place": "Hà Nội → Cát Bà"
+  },
+  {
+   "currency": "VND",
+   "unit": "ghế / chiều",
+   "inclusions": "",
+   "exclusions": "",
+   "policies": [],
+   "itinerary": [],
+   "images": [
+    {
+     "src": "https://drive.google.com/thumbnail?id=1-lbYzYOYl1p2cugNQ2bGhCnl8eVNmJVH&sz=w1000",
+     "caption": "Bảng xe và giờ đón xe ghép HH Limousine (Drive nhà cung cấp)",
+     "source": "drive"
+    }
+   ],
+   "id": "HH-ghep-ninh-binh-ha-long",
+   "supplier": "hh-limousine",
+   "category": "INTERCITY_BUS_12GO",
+   "title": "Xe ghép Ninh Bình → Hạ Long",
+   "variant": "Limousine ghép",
+   "duration": "Một chiều",
+   "netCost": 250000,
+   "summary": "Giá chưa VAT (có VAT: 270k). Giờ đón 6:00–7:00.",
+   "place": "Ninh Bình → Hạ Long"
+  },
+  {
+   "currency": "VND",
+   "unit": "ghế / chiều",
+   "inclusions": "",
+   "exclusions": "",
+   "policies": [],
+   "itinerary": [],
+   "images": [
+    {
+     "src": "https://drive.google.com/thumbnail?id=1-lbYzYOYl1p2cugNQ2bGhCnl8eVNmJVH&sz=w1000",
+     "caption": "Bảng xe và giờ đón xe ghép HH Limousine (Drive nhà cung cấp)",
+     "source": "drive"
+    }
+   ],
+   "id": "HH-ghep-ha-long-ninh-binh",
+   "supplier": "hh-limousine",
+   "category": "INTERCITY_BUS_12GO",
+   "title": "Xe ghép Hạ Long → Ninh Bình",
+   "variant": "Limousine ghép",
+   "duration": "Một chiều",
+   "netCost": 250000,
+   "summary": "Giá chưa VAT (có VAT: 270k). Giờ đón 11:15–12:00.",
+   "place": "Hạ Long → Ninh Bình"
+  },
+  {
+   "currency": "VND",
+   "unit": "ghế / chiều",
+   "inclusions": "",
+   "exclusions": "",
+   "policies": [],
+   "itinerary": [],
+   "images": [
+    {
+     "src": "https://drive.google.com/thumbnail?id=1-lbYzYOYl1p2cugNQ2bGhCnl8eVNmJVH&sz=w1000",
+     "caption": "Bảng xe và giờ đón xe ghép HH Limousine (Drive nhà cung cấp)",
+     "source": "drive"
+    }
+   ],
+   "id": "HH-ghep-ha-long-ninh-binh-chuyen-toi",
+   "supplier": "hh-limousine",
+   "category": "INTERCITY_BUS_12GO",
+   "title": "Xe ghép Hạ Long → Ninh Bình (chuyến tối)",
+   "variant": "Limousine ghép",
+   "duration": "Một chiều",
+   "netCost": 300000,
+   "summary": "Giá chưa VAT (có VAT: 324k).",
+   "place": "Hạ Long → Ninh Bình (chuyến tối)"
+  }
+ ]
+}

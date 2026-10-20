@@ -1,5 +1,5 @@
 {
- "version": "demo-prices-2026-10-20b",
+ "version": "demo-prices-2026-10-20c",
  "note": "Giá dùng cho demo 22/10/2026; nguồn ghi ở từng mục.",
  "approvedBy": "Captain Cua",
  "approvedAt": "2026-10-20",
@@ -175,23 +175,23 @@
   {
    "id": "HS-luxe-75pht-car4-pickup",
    "sellingPrice": 350000,
-   "netCost": 250000,
+   "netCost": 350000,
    "commission": 30000,
-   "note": "Giá PO Captain Cua chốt ngày 20/10/2026 cho demo 22/10."
+   "note": "Giá vốn theo bảng HH Limousine (giá chưa VAT). Giá bán do PO chốt 20/10/2026. Cảnh báo: giá bán đang thấp hoặc bằng giá vốn."
   },
   {
    "id": "HS-luxe-75pht-car7-pickup",
    "sellingPrice": 450000,
-   "netCost": 320000,
+   "netCost": 350000,
    "commission": 40000,
-   "note": "Giá PO Captain Cua chốt ngày 20/10/2026 cho demo 22/10."
+   "note": "Giá vốn theo bảng HH Limousine (giá chưa VAT). Giá bán do PO chốt 20/10/2026. Cảnh báo: giá bán đang thấp hoặc bằng giá vốn."
   },
   {
    "id": "HS-luxe-75pht-van16-pickup",
    "sellingPrice": 700000,
-   "netCost": 500000,
+   "netCost": 900000,
    "commission": 50000,
-   "note": "Giá PO Captain Cua chốt ngày 20/10/2026 cho demo 22/10."
+   "note": "Giá vốn theo bảng HH Limousine (giá chưa VAT). Giá bán do PO chốt 20/10/2026. Cảnh báo: giá bán đang thấp hoặc bằng giá vốn."
   },
   {
    "id": "NB01",
@@ -263,6 +263,27 @@
    "commission": 300000,
    "currency": "VND",
    "note": "Giá PO Captain Cua chốt ngày 20/10/2026 cho demo 22/10. Quy đổi từ 255 USD theo tỉ giá 25.300."
+  },
+  {
+   "id": "HS-luxe-75pht-car4-dropoff",
+   "sellingPrice": 300000,
+   "netCost": 250000,
+   "commission": null,
+   "note": "Giá vốn theo bảng HH Limousine (giá chưa VAT). Giá bán do PO chốt 20/10/2026."
+  },
+  {
+   "id": "HS-luxe-75pht-car7-dropoff",
+   "sellingPrice": 400000,
+   "netCost": 250000,
+   "commission": null,
+   "note": "Giá vốn theo bảng HH Limousine (giá chưa VAT). Giá bán do PO chốt 20/10/2026."
+  },
+  {
+   "id": "HS-luxe-75pht-van16-dropoff",
+   "sellingPrice": 650000,
+   "netCost": 700000,
+   "commission": null,
+   "note": "Giá vốn theo bảng HH Limousine (giá chưa VAT). Giá bán do PO chốt 20/10/2026. Cảnh báo: giá bán thấp hơn giá vốn."
   }
  ]
 }

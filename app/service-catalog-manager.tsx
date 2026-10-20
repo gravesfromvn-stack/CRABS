@@ -1,7 +1,8 @@
 'use client';
 import {useEffect,useMemo,useState} from 'react';
 import {Plus,RefreshCw,Check,Archive,BookOpen} from 'lucide-react';
-import {categoryLabels,statusLabels,flowLabels,formatEntryPrice,quoteReady,inScope,type StoredEntry,type EntryEdit,type CatalogCategory,type CatalogStatus,type CatalogFlow} from '../lib/service-catalog';
+import {EntryMedia} from './catalog-media';
+import {categoryLabels,statusLabels,flowLabels,formatEntryPrice,quoteReady,inScope,unitMargin,type StoredEntry,type EntryEdit,type CatalogCategory,type CatalogStatus,type CatalogFlow} from '../lib/service-catalog';
 import {hotelPolicy} from '../lib/hotel-policy-config';
 import {usePresentation} from './use-presentation';
 
@@ -15,13 +16,13 @@ const editOf=(e:StoredEntry):EntryEdit=>({title:e.title,variant:e.variant,unit:e
 export default function ServiceCatalogManager(){
  const present=usePresentation();
  const [entries,setEntries]=useState<StoredEntry[]>([]),[history,setHistory]=useState<History[]>([]),[error,setError]=useState(''),[notice,setNotice]=useState(''),[busy,setBusy]=useState(false);
- const [property,setProperty]=useState(''),[category,setCategory]=useState<''|CatalogCategory>(''),[status,setStatus]=useState<''|CatalogStatus>(''),[flow,setFlow]=useState<''|CatalogFlow>(''),[q,setQ]=useState(''),[limit,setLimit]=useState(40);
+ const [property,setProperty]=useState(''),[category,setCategory]=useState<''|CatalogCategory>(''),[status,setStatus]=useState<''|CatalogStatus>(''),[flow,setFlow]=useState<''|CatalogFlow>(''),[q,setQ]=useState(''),[supplier,setSupplier]=useState(''),[limit,setLimit]=useState(40);
  const [editing,setEditing]=useState<{id:string|null;version:number;form:EntryEdit}|null>(null);
  const properties=Object.entries(hotelPolicy.properties).map(([id,p])=>({id,name:present?p.demoName:p.displayName}));
  async function load(){const r=await fetch('/api/catalog');const d=await r.json() as {entries?:StoredEntry[];history?:History[];error?:string};if(!r.ok||!d.entries)throw Error(d.error||'Không đọc được kho dịch vụ.');setEntries(d.entries);setHistory(d.history||[]);}
  useEffect(()=>{load().catch(e=>setError(e.message));},[]);
- const list=useMemo(()=>entries.filter(e=>(!property||inScope(e,property))&&(!category||e.category===category)&&(!status||e.status===status)&&(!flow||e.channelFlow===flow)&&(!q||norm([e.id,e.crmCode||'',e.title,e.variant,e.supplierName,e.place,...e.sourceIds].join(' ')).includes(norm(q))))
-  .sort((a,b)=>Number(b.status==='APPROVED')-Number(a.status==='APPROVED')||Number(a.status==='ARCHIVED')-Number(b.status==='ARCHIVED')||a.category.localeCompare(b.category)||a.id.localeCompare(b.id)),[entries,property,category,status,flow,q]);
+ const list=useMemo(()=>entries.filter(e=>(!property||inScope(e,property))&&(!category||e.category===category)&&(!status||e.status===status)&&(!flow||e.channelFlow===flow)&&(!supplier||(supplier==='preferred'?e.preferred:e.supplierId===supplier))&&(!q||norm([e.id,e.crmCode||'',e.title,e.variant,e.supplierName,e.place,...e.sourceIds].join(' ')).includes(norm(q))))
+  .sort((a,b)=>Number(b.status==='APPROVED')-Number(a.status==='APPROVED')||Number(!!b.preferred)-Number(!!a.preferred)||Number(a.status==='ARCHIVED')-Number(b.status==='ARCHIVED')||a.category.localeCompare(b.category)||a.id.localeCompare(b.id)),[entries,property,category,status,flow,q,supplier]);
  const count=(s:CatalogStatus)=>entries.filter(e=>e.status===s).length;
  const scopeLabel=(e:Pick<StoredEntry,'propertyScope'>)=>e.propertyScope==='ALL'?'Tất cả cơ sở':e.propertyScope.map(id=>properties.find(p=>p.id===id)?.name||id).join(', ');
  async function save(form:EntryEdit,nextStatus?:CatalogStatus){
@@ -42,12 +43,13 @@ export default function ServiceCatalogManager(){
    <label>Nhóm<select value={category} onChange={e=>{setCategory(e.target.value as ''|CatalogCategory);setLimit(40);}}><option value="">Tất cả</option>{Object.entries(categoryLabels).map(([k,v])=><option key={k} value={k}>{v} ({entries.filter(e=>e.category===k).length})</option>)}</select></label>
    <label>Trạng thái<select value={status} onChange={e=>{setStatus(e.target.value as ''|CatalogStatus);setLimit(40);}}><option value="">Tất cả</option>{Object.entries(statusLabels).map(([k,v])=><option key={k} value={k}>{v}</option>)}</select></label>
    <label>Luồng bán<select value={flow} onChange={e=>{setFlow(e.target.value as ''|CatalogFlow);setLimit(40);}}><option value="">Tất cả</option>{Object.entries(flowLabels).map(([k,v])=><option key={k} value={k}>{v}</option>)}</select></label>
+   <label>Nhà cung cấp<select value={supplier} onChange={e=>{setSupplier(e.target.value);setLimit(40);}}><option value="">Tất cả</option><option value="preferred">NCC ưu tiên ({entries.filter(e=>e.preferred).length})</option>{[...new Map(entries.filter(e=>e.supplierId).map(e=>[e.supplierId!,e.supplierName])).entries()].map(([id,n])=><option key={id} value={id}>{n}</option>)}</select></label>
    <label>Tìm<input value={q} onChange={e=>{setQ(e.target.value);setLimit(40);}} placeholder="Mã, tên, nhà cung cấp, mã R75"/></label>
   </div>
   {editing&&<EntryForm key={editing.id||'new'} id={editing.id} initial={editing.form} properties={properties} busy={busy} onCancel={()=>setEditing(null)} onSave={save} entry={entries.find(e=>e.id===editing.id)}/>}
   <div className="panel table-wrap"><table className="catalog-table"><thead><tr><th>Mã</th><th>Dịch vụ</th><th>Nhóm · luồng</th><th>Phạm vi</th><th>Giá bán</th><th>Giá vốn</th><th>Hoa hồng</th><th>Trạng thái</th><th/></tr></thead>
-   <tbody>{list.slice(0,limit).map(e=><tr key={e.id} className={'st-'+e.status.toLowerCase()}><td><code>{e.id}</code>{e.crmCode&&e.crmCode!==e.id&&<small>{e.crmCode}</small>}</td><td><strong>{e.title}</strong>{e.variant&&!e.title.includes(e.variant)&&<small>{e.variant}</small>}<small>{e.supplierName||'Chưa có nhà cung cấp'} · {e.unit}</small></td><td>{categoryLabels[e.category]}<small>{flowLabels[e.channelFlow]}</small></td><td>{scopeLabel(e)}</td>
-    <td>{e.category==='ROOM_POLICY'?<small>{e.rule?.text}</small>:formatEntryPrice(e)}</td><td>{e.netCost===null?'—':formatEntryPrice({sellingPrice:e.netCost,currency:e.currency})}</td><td>{e.commission===null?'—':formatEntryPrice({sellingPrice:e.commission,currency:e.currency})}</td>
+   <tbody>{list.slice(0,limit).map(e=><tr key={e.id} className={'st-'+e.status.toLowerCase()}><td><code>{e.id}</code>{e.crmCode&&e.crmCode!==e.id&&<small>{e.crmCode}</small>}</td><td>{e.preferred&&<span className="cat-pref">NCC ưu tiên</span>}<strong>{e.title}</strong>{e.variant&&!e.title.includes(e.variant)&&<small>{e.variant}</small>}<small>{e.supplierName||'Chưa có nhà cung cấp'} · {e.unit}</small></td><td>{categoryLabels[e.category]}<small>{flowLabels[e.channelFlow]}</small></td><td>{scopeLabel(e)}</td>
+    <td>{e.category==='ROOM_POLICY'?<small>{e.rule?.text}</small>:formatEntryPrice(e)}</td><td>{e.netCost===null?'—':formatEntryPrice({sellingPrice:e.netCost,currency:e.currency})}{(unitMargin(e)??0)<0&&<small className="cat-loss">Lỗ {formatEntryPrice({sellingPrice:-unitMargin(e)!,currency:e.currency})}/{e.unit}</small>}</td><td>{e.commission===null?'—':formatEntryPrice({sellingPrice:e.commission,currency:e.currency})}</td>
     <td><span className={'cat-status '+e.status.toLowerCase()}>{statusLabels[e.status]}</span>{e.approvedAt&&<small>{e.approvedAt}</small>}</td>
     <td><button className="text-button" onClick={()=>{setEditing({id:e.id,version:e.version,form:editOf(e)});window.scrollTo({top:0,behavior:'smooth'});}}>Sửa</button></td></tr>)}</tbody></table>
    {list.length>limit&&<button className="button secondary" onClick={()=>setLimit(n=>n+40)}>Xem thêm ({list.length-limit} mục)</button>}{!list.length&&<p className="empty">Không có mục phù hợp bộ lọc.</p>}</div>
@@ -64,6 +66,7 @@ function EntryForm({id,initial,properties,busy,onCancel,onSave,entry}:{id:string
  const canApprove=f.category==='ROOM_POLICY'||!!f.sellingPrice;
  return <form className="panel edit-form catalog-form" onSubmit={e=>{e.preventDefault();onSave(f);}}>
   <h2>{id?`Sửa ${id}`:'Thêm dịch vụ mới'}</h2>
+  {entry&&<EntryMedia entry={entry}/>}
   {entry&&<p className="muted">Nguồn: {entry.sourceIds.join(', ')||'thêm trên ứng dụng'} · {entry.sourceNote}{entry.sourceUrl&&<> · <a href={entry.sourceUrl} target="_blank" rel="noreferrer">mở nguồn ↗</a></>}</p>}
   <div className="form-grid">
    <label>Tên dịch vụ *<input required minLength={2} value={f.title} onChange={e=>set('title',e.target.value)}/></label>

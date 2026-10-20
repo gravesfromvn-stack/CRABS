@@ -74,8 +74,14 @@ const demo=read('demo-catalog-prices.json');
 for(const p of demo.items){const e=entries.find(x=>x.id===p.id);if(!e)throw Error('Demo price for unknown id '+p.id);
  Object.assign(e,{sellingPrice:p.sellingPrice,netCost:p.netCost,commission:p.commission,status:'APPROVED',approvedBy:demo.approvedBy,approvedAt:demo.approvedAt},p.currency?{currency:p.currency}:{});
  e.sourceNote=`${e.sourceNote.replace(/ ?[demo-prices[^]]*].*$/,'')} [${demo.version}] ${p.note||demo.note}`.trim();}
+// 5 · Preferred suppliers (lib/supplier-rates.json): supplier cost only; Cua sets the selling price.
+const sup=read('supplier-rates.json');
+for(const i of sup.items){const s=sup.suppliers[i.supplier];
+ add({id:i.id,sourceIds:[i.id],propertyScope:'ALL',category:i.category,channelFlow:i.category==='AIRPORT_TRANSFER'?'EXTRANET_DIRECT':'WHATSAPP_CONSULT',title:i.title,variant:i.variant,unit:i.unit,duration:i.duration||'',summary:i.summary||'',inclusions:i.inclusions,exclusions:i.exclusions,supplierName:s.name,supplierId:s.id,preferred:true,
+  netCost:i.netCost,sellingPrice:null,commission:null,currency:i.currency,place:i.place||'',status:'REFERENCE_ONLY',itinerary:i.itinerary,images:i.images,policies:i.policies,...(i.capacity?{capacity:i.capacity}:{}),
+  sourceNote:`Giá thu gốc ${s.name} (${s.source})${s.validFrom?', áp dụng từ '+s.validFrom.split('-').reverse().join('/'):''}. Cua đặt giá bán rồi bấm Duyệt.`});}
 const ids=new Set();for(const e of entries){if(ids.has(e.id))throw Error('Duplicate id '+e.id);ids.add(e.id);}
 const count=(k)=>entries.reduce((m,e)=>(m[e[k]]=(m[e[k]]||0)+1,m),{});
-const seed={version:`seed-2026-10-19/${rate.version}/${r75.readAt}/${demo.version}`,builtFrom:{rateCatalog:Object.keys(rate.items).length,r75:r75.items.length,research:research.observations.length,hotelProperties:Object.keys(hotel.properties).length},byCategory:count('category'),byStatus:count('status'),entries};
+const seed={version:`seed-2026-10-19/${rate.version}/${r75.readAt}/${demo.version}/${sup.version}`,builtFrom:{rateCatalog:Object.keys(rate.items).length,r75:r75.items.length,research:research.observations.length,hotelProperties:Object.keys(hotel.properties).length},byCategory:count('category'),byStatus:count('status'),entries};
 writeFileSync(new URL('../lib/service-catalog-seed.json',import.meta.url),JSON.stringify(seed,null,1)+'\n');
 console.log(JSON.stringify({entries:entries.length,byCategory:seed.byCategory,byStatus:seed.byStatus,approved:entries.filter(e=>e.status==='APPROVED').map(e=>`${e.id}=${e.sellingPrice}${e.currency==='USD'?' USD':''}${e.netCost?'/net '+e.netCost:''}`)},null,1));
