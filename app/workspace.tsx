@@ -19,10 +19,11 @@ import { usePresentation, usePresentationMasker } from './use-presentation';
 import TourKnowledge from './tour-knowledge';
 import ReferenceLibrary, { type ReferenceGuest } from './reference-library';
 import ServiceCatalogManager from './service-catalog-manager';
+import ServiceRequests from './service-requests';
 import ServiceProfitDashboard from './service-profit-dashboard';
-type View='profit'|'catalog'|'ota'|'review'|'overview'|'inbox'|'contacts'|'products'|'reference'|'demo'|'quotes'|'analysis'|'sales'|'reception'|'hotel'|'templates'|'sources';
+type View='requests'|'profit'|'catalog'|'ota'|'review'|'overview'|'inbox'|'contacts'|'products'|'reference'|'demo'|'quotes'|'analysis'|'sales'|'reception'|'hotel'|'templates'|'sources';
 type Data={contacts:Contact[];messages:Message[];activity:Activity[];products:typeof catalog;suppliers:string[];sources:string[]};
-const nav=[{id:'ota',title:'Hộp thư OTA',icon:MessageCircle},{id:'sales',title:'Sales dịch vụ',icon:Compass},{id:'reception',title:'Lễ tân & vận hành',icon:Users},{id:'quotes',title:'Báo giá',icon:CheckCircle2},{id:'catalog',title:'Kho dịch vụ & giá',icon:BookOpen},{id:'profit',title:'Hiệu quả dịch vụ',icon:LayoutDashboard},{id:'templates',title:'Kho trả lời & nguồn',icon:BookOpen},{id:'hotel',title:'Thông tin & quy định',icon:Building2},{id:'products',title:'Tour & dịch vụ',icon:Compass},{id:'analysis',title:'Phân tích 75PHT',icon:LayoutDashboard},{id:'review',title:'Duyệt nháp từ Sheets',icon:CheckCircle2},{id:'sources',title:'Hồ sơ từ Sheets',icon:BookOpen},{id:'inbox',title:'Hộp thư demo',icon:MessageCircle},{id:'contacts',title:'Khách hàng demo',icon:Users},{id:'reference',title:'Dữ liệu tham chiếu',icon:Building2},{id:'overview',title:'Tổng quan demo',icon:LayoutDashboard},{id:'demo',title:'Phạm vi & hướng dẫn',icon:Info}] as const;
+const nav=[{id:'ota',title:'Hộp thư OTA',icon:MessageCircle},{id:'requests',title:'Yêu cầu dịch vụ',icon:CheckCircle2},{id:'sales',title:'Sales dịch vụ',icon:Compass},{id:'reception',title:'Lễ tân & vận hành',icon:Users},{id:'quotes',title:'Báo giá',icon:CheckCircle2},{id:'catalog',title:'Kho dịch vụ & giá',icon:BookOpen},{id:'profit',title:'Hiệu quả dịch vụ',icon:LayoutDashboard},{id:'templates',title:'Kho trả lời & nguồn',icon:BookOpen},{id:'hotel',title:'Thông tin & quy định',icon:Building2},{id:'products',title:'Tour & dịch vụ',icon:Compass},{id:'analysis',title:'Phân tích 75PHT',icon:LayoutDashboard},{id:'review',title:'Duyệt nháp từ Sheets',icon:CheckCircle2},{id:'sources',title:'Hồ sơ từ Sheets',icon:BookOpen},{id:'inbox',title:'Hộp thư demo',icon:MessageCircle},{id:'contacts',title:'Khách hàng demo',icon:Users},{id:'reference',title:'Dữ liệu tham chiếu',icon:Building2},{id:'overview',title:'Tổng quan demo',icon:LayoutDashboard},{id:'demo',title:'Phạm vi & hướng dẫn',icon:Info}] as const;
 const money=(n:number)=>new Intl.NumberFormat('vi-VN',{style:'currency',currency:'VND',maximumFractionDigits:0}).format(n);
 const date=(value:string,time=false)=>value?new Intl.DateTimeFormat('vi-VN',{timeZone:'Asia/Ho_Chi_Minh',day:'2-digit',month:'2-digit',...(time?{hour:'2-digit',minute:'2-digit'}:{year:'numeric'})}).format(new Date(value.length===16?value+'+07:00':value)):'Chưa hẹn';
 const shortName=(n:string)=>n.replace(' · mẫu','');
@@ -108,6 +109,7 @@ export default function Workspace(){
  {view==='sales'&&<HotelWorkspace mode="sales" contacts={contacts} selected={selected} select={setSelected} onSave={act} goQuote={()=>changeView('quotes')} activity={data.activity} busy={busy}/>}
  {view==='reception'&&<OperationsWorkspace/>}
  {view==='catalog'&&<ServiceCatalogManager/>}
+{view==='requests'&&<ServiceRequests/>}
 {view==='profit'&&<ServiceProfitDashboard/>}
 {view==='quotes'&&<QuoteWorkspace contacts={contacts} initialContactId={selected} onChanged={load}/>}
  {view==='reference'&&<ReferenceLibrary busy={busy} existingNames={contacts.map(c=>c.name)} onUse={useReference}/>}

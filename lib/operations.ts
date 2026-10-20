@@ -6,7 +6,9 @@ export const supplierLabels={unchecked:'Chưa kiểm tra',waiting:'Chờ xác nh
 const date=z.string().refine(v=>v===''||/^\d{4}-\d{2}-\d{2}$/.test(v)&&!isNaN(Date.parse(v))&&new Date(v).toISOString().slice(0,10)===v,'Ngày không hợp lệ');
 const clock=z.string().refine(v=>v===''||/^([01]\d|2[0-3]):[0-5]\d$/.test(v),'Giờ không hợp lệ');
 const localTime=z.string().refine(v=>v===''||/^\d{4}-\d{2}-\d{2}T([01]\d|2[0-3]):[0-5]\d$/.test(v)&&date.safeParse(v.slice(0,10)).success,'Hạn xử lý không hợp lệ');
-export const operationInput=z.object({title:z.string().trim().min(2).max(240),kind:z.enum(['pickup','dropoff','tour','spa','room','stay','other']),assignee:z.string().trim().max(80),due:localTime,serviceDate:date,serviceTime:clock,details:z.string().trim().max(3000),state:z.enum(['open','working','done','cancelled']),guestDecision:z.enum(['unknown','interested','accepted','declined']),guestEvidence:z.string().trim().max(1200),supplierStatus:z.enum(['unchecked','waiting','confirmed','unavailable']),supplierEvidence:z.string().trim().max(1200),note:z.string().trim().max(2000),reviewedSourceKey:z.string().max(100)}).superRefine((v,ctx)=>{
+export const operationInput=z.object({title:z.string().trim().min(2).max(240),kind:z.enum(['pickup','dropoff','tour','spa','room','stay','other']),assignee:z.string().trim().max(80),due:localTime,serviceDate:date,serviceTime:clock,details:z.string().trim().max(3000),state:z.enum(['open','working','done','cancelled']),guestDecision:z.enum(['unknown','interested','accepted','declined']),guestEvidence:z.string().trim().max(1200),supplierStatus:z.enum(['unchecked','waiting','confirmed','unavailable']),supplierEvidence:z.string().trim().max(1200),note:z.string().trim().max(2000),reviewedSourceKey:z.string().max(100),
+ // Service request details (airport car / tour / spa): flight, vehicle and the quoted price.
+ flightCode:z.string().trim().max(20).default(''),carType:z.string().trim().max(60).default(''),priceVnd:z.number().int().min(0).max(1000000000).nullable().default(null)}).superRefine((v,ctx)=>{
  const issue=(message:string)=>ctx.addIssue({code:z.ZodIssueCode.custom,message});
  if(v.serviceTime&&!v.serviceDate)issue('Cần ngày dịch vụ khi đã ghi giờ.');
  if(v.guestDecision==='accepted'&&!v.guestEvidence)issue('Ghi căn cứ khách đồng ý; duyệt nháp chưa phải khách đồng ý.');
@@ -24,7 +26,7 @@ export type OperationTask=OperationInput&{id:string;sourceKind:'ota'|'contact';s
 export type OperationLog={operation_id:string;task_id:string;actor:string;detail:string;created:string};
 export type Handoff={id:string;property_id:string;day:string;shift:string;recipient:string;body:string;actor:string;created:string;received_at:string;received_by:string};
 export type OperationsData={sources:OperationSource[];tasks:OperationTask[];logs:OperationLog[];handoffs:Handoff[];unmatched:number;loadedAt:string};
-export function blankOperation(sourceKey=''):OperationInput{return {title:'',kind:'other',assignee:'',due:'',serviceDate:'',serviceTime:'',details:'',state:'open',guestDecision:'unknown',guestEvidence:'',supplierStatus:'unchecked',supplierEvidence:'',note:'',reviewedSourceKey:sourceKey};}
+export function blankOperation(sourceKey=''):OperationInput{return {title:'',kind:'other',assignee:'',due:'',serviceDate:'',serviceTime:'',details:'',state:'open',guestDecision:'unknown',guestEvidence:'',supplierStatus:'unchecked',supplierEvidence:'',note:'',reviewedSourceKey:sourceKey,flightCode:'',carType:'',priceVnd:null};}
 export function vietnamDay(now=new Date()){return new Intl.DateTimeFormat('en-CA',{timeZone:'Asia/Ho_Chi_Minh',year:'numeric',month:'2-digit',day:'2-digit'}).format(now);}
 export function activeTask(t:OperationTask){return t.state!=='done'&&t.state!=='cancelled';}
 export function taskOnDay(t:OperationTask,day:string){return t.serviceDate===day||t.due.slice(0,10)===day;}

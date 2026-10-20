@@ -35,7 +35,7 @@ export function simulateConversation(input:{catalog?:CatalogEntry[];thread:{id:s
   // Tour content only when this message talks about a trip; earlier tour interest is not repeated.
   const tourNow=advice.status==='interested'&&(placesIn(text).length>0||/\btour|trip|sightsee|excursion|cruise|tham quan|lich trinh/.test(normalize(text)));
   const contact=guestContact(prior.map(x=>x.guest_text));
-  const service=serviceReply({catalog:input.catalog,propertyId:input.thread.property_id,text,facts,vi,tourInterested:tourNow,hasContact:Boolean(contact),tourPlaces:advice.destinations.map(d=>d.label.vi),history});
+  const service=serviceReply({guestName:e.guest_name||'',catalog:input.catalog,propertyId:input.thread.property_id,text,facts,vi,tourInterested:tourNow,hasContact:Boolean(contact),tourPlaces:advice.destinations.map(d=>d.label.vi),history});
   const plan=planReply({thread:input.thread,events:prior,sent,stay:input.stay,profile,tourParagraph:tourNow?tourParagraph(advice,vi):'',serviceInfo:service.paragraphs.join('\n\n')},input.templates);
   let body='',source:ChatTurn['source']='rules';const notes:string[]=[];
   if(plan.template&&plan.body){body=plan.body;source='template';}

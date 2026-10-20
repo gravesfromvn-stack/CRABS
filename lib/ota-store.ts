@@ -49,17 +49,18 @@ export async function prepareDraft(db:D1Database,owner:string,id:string,profileK
  const lastSent=s.sent.map(x=>x.created).sort().at(-1)||'';
  const openText=s.events.filter(e=>e.kind==='guest'&&e.guest_text&&e.received>lastSent).map(e=>e.guest_text).join('\n');
  const contact=guestContact(s.events.filter(e=>e.kind==='guest').map(e=>e.guest_text||''));
- const service=serviceReply({catalog:s.catalog,propertyId:s.thread.property_id,text:openText,facts:s.profile.facts,vi,tourInterested:s.tour.status==='interested',hasContact:Boolean(contact),tourPlaces:s.tour.destinations.map(d=>d.label.vi),history:s.events.filter(e=>e.kind==='guest'&&e.guest_text&&e.received<=lastSent).map(e=>e.guest_text).join('\n')});
+ const service=serviceReply({guestName:s.events.filter(e=>e.kind==='guest'&&e.guest_name).at(-1)?.guest_name||'',catalog:s.catalog,propertyId:s.thread.property_id,text:openText,facts:s.profile.facts,vi,tourInterested:s.tour.status==='interested',hasContact:Boolean(contact),tourPlaces:s.tour.destinations.map(d=>d.label.vi),history:s.events.filter(e=>e.kind==='guest'&&e.guest_text&&e.received<=lastSent).map(e=>e.guest_text).join('\n')});
  const plan=planReply({...s,tourParagraph:tourParagraph(s.tour,vi),serviceInfo:service.paragraphs.join('\n\n')},await activeTemplates(db,owner));
  // No template fits: keep the automatic draft's text but refresh why it needs Cua (e.g. a template now
  // exists but does not cover this case). A template suggestion that no longer fits goes back to Cua.
- if(replaceable&&!plan.template){
-  const why=[...(draftSource(latest)==='template'?['Mẫu không còn phù hợp với hội thoại này: Cua rà lại trước khi duyệt.']:[]),...plan.reasons,...(latest.body?[]:['Chưa soạn được nội dung tự động: Cua soạn câu trả lời.'])].join('\n');
+ // An empty automatic draft ("Cua soạn") is rebuilt below when the rules can now write it.
+ if(replaceable&&!plan.template&&latest.body){
+  const why=[...(draftSource(latest)==='template'?['Mẫu không còn phù hợp với hội thoại này: Cua rà lại trước khi duyệt.']:[]),...plan.reasons,...service.internal,...(latest.body?[]:['Chưa soạn được nội dung tự động: Cua soạn câu trả lời.'])].join('\n');
   if(!why||why===latest.attention)return {result:'kept'};
   const r=await db.prepare("UPDATE ota_drafts SET attention=? WHERE owner=? AND thread_id=? AND revision=? AND status IN ('pending','needs_writing') AND attention<>?").bind(why,owner,id,latest.revision,why).run();
   return {result:r.meta.changes?'flagged':'kept'};
  }
- if(replaceable&&(!plan.template||latest.template_id===plan.template.id&&latest.template_version===plan.template.version))return {result:'kept'};
+ if(replaceable&&latest.body&&(!plan.template||latest.template_id===plan.template.id&&latest.template_version===plan.template.version))return {result:'kept'};
  const reasons=[...plan.reasons];
  if(latest?.stale&&latest.status==='approved')reasons.unshift(`Có tin mới sau phiên bản v${latest.revision} đã duyệt: Cua kiểm tra nội dung đã duyệt còn đúng không.`);
  let draft:{body:string;notes:string;source:string;templateId:string;templateVersion:number};
@@ -78,8 +79,9 @@ export async function prepareDraft(db:D1Database,owner:string,id:string,profileK
  // Check the guest-facing text before saving: repeated questions, prices, promises, merged packages.
  const c=constraintsOf(s.events.filter(e=>e.kind==='guest').map(e=>e.guest_text).join('\n'));
  for(const p of guestDraftProblems(draft.body,{facts:s.profile.facts,advice:s.tour,known:{date:!!c.date,party:!!c.party},allowedAmounts:catalogApprovedAmounts(s.catalog,s.thread.property_id)}))reasons.push('Kiểm tra nháp: '+p.text);
+ if(replaceable&&!latest.body&&!draft.body)return {result:'kept'};
  // One operation id per context and source makes reprocessing the same facts a no-op.
- const operation=draft.source==='template'?`tpl-${id}-${s.contextKey}-${draft.templateId}-v${draft.templateVersion}`:'auto-'+id+'-'+s.contextKey;
+ const operation=(replaceable&&!latest.body?'rebuild-'+latest.revision+'-':'')+(draft.source==='template'?`tpl-${id}-${s.contextKey}-${draft.templateId}-v${draft.templateVersion}`:'auto-'+id+'-'+s.contextKey);
  const r=await db.prepare('INSERT OR IGNORE INTO ota_drafts (owner,thread_id,revision,operation_id,context_key,body,notes,status,created,source,template_id,template_version,attention) SELECT ?,?,COALESCE((SELECT MAX(revision) FROM ota_drafts WHERE owner=? AND thread_id=?),0)+1,?,?,?,?,?,?,?,?,?,?').bind(owner,id,owner,id,operation,s.contextKey,draft.body,draft.notes,draft.body?'pending':'needs_writing',now,draft.source,draft.templateId,draft.templateVersion,reasons.join('\n')).run();
  return {result:r.meta.changes?'created':'duplicate',source:draft.source,template:draft.templateId};
 }

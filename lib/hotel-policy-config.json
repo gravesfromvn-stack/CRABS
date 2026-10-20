@@ -350,6 +350,26 @@
             "source": "HT03 255 USD/khách (USD, chưa quy đổi)"
           }
         ]
+      },
+      "frontDesk": {
+        "approved": true,
+        "source": "PO Captain Cua, yêu cầu 20/10/2026",
+        "luggageStorage": {
+          "vi": "Khách sạn giữ hành lý miễn phí tại quầy lễ tân (24/7), trước khi nhận phòng hoặc sau khi trả phòng.",
+          "en": "We are happy to store your luggage free of charge at reception (24/7), before check-in or after check-out."
+        },
+        "earlyArrival": {
+          "vi": "Nếu phòng đã sẵn sàng khi bạn đến, khách sạn sẽ hỗ trợ bạn nhận phòng sớm; nếu phòng chưa xong, bạn có thể gửi hành lý tại lễ tân và dùng nhà vệ sinh ở sảnh để nghỉ ngơi, chỉnh trang trong lúc chờ.",
+          "en": "If your room is ready when you arrive, we will be happy to check you in early; if it is not ready yet, you are welcome to leave your luggage at reception and freshen up in the lobby restroom while you wait."
+        },
+        "breakfast": {
+          "vi": "Bữa sáng theo gói giá bạn đã đặt; lễ tân sẽ kiểm tra đặt phòng và xác nhận lại với bạn.",
+          "en": "Breakfast follows the rate you booked; we will check your reservation and confirm this for you."
+        },
+        "airportMeeting": {
+          "vi": "Tài xế đón ở cửa ra ga đến, cầm biển tên của bạn.",
+          "en": "Our driver will wait at the arrival exit holding a sign with your name."
+        }
       }
     },
     "luxe-suites": {
@@ -623,6 +643,26 @@
         "whatsappAsk": true,
         "note": "Chưa xác nhận cơ sở này bán tour; chỉ xin WhatsApp để tư vấn.",
         "products": []
+      },
+      "frontDesk": {
+        "approved": true,
+        "source": "PO Captain Cua, yêu cầu 20/10/2026",
+        "luggageStorage": {
+          "vi": "Khách sạn giữ hành lý miễn phí tại quầy lễ tân (24/7), trước khi nhận phòng hoặc sau khi trả phòng.",
+          "en": "We are happy to store your luggage free of charge at reception (24/7), before check-in or after check-out."
+        },
+        "earlyArrival": {
+          "vi": "Nếu phòng đã sẵn sàng khi bạn đến, khách sạn sẽ hỗ trợ bạn nhận phòng sớm; nếu phòng chưa xong, bạn có thể gửi hành lý tại lễ tân và dùng nhà vệ sinh ở sảnh để nghỉ ngơi, chỉnh trang trong lúc chờ.",
+          "en": "If your room is ready when you arrive, we will be happy to check you in early; if it is not ready yet, you are welcome to leave your luggage at reception and freshen up in the lobby restroom while you wait."
+        },
+        "breakfast": {
+          "vi": "Bữa sáng theo gói giá bạn đã đặt; lễ tân sẽ kiểm tra đặt phòng và xác nhận lại với bạn.",
+          "en": "Breakfast follows the rate you booked; we will check your reservation and confirm this for you."
+        },
+        "airportMeeting": {
+          "vi": "Tài xế đón ở cửa ra ga đến, cầm biển tên của bạn.",
+          "en": "Our driver will wait at the arrival exit holding a sign with your name."
+        }
       }
     }
   }

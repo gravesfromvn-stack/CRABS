@@ -131,11 +131,13 @@ export function renderTemplate(t:Template,f:ThreadFacts):Rendered{
  const known=(c:GuestFact['category'])=>Boolean(factFor(facts,c));
  const offerOpen=(c:'pickup'|'dropoff'|'tour')=>{const x=factFor(facts,c==='tour'?'itinerary':c);return !x||!declined.includes(x.status)&&!(c==='tour'&&x.status==='declined');};
  const situations=classifyOpenMessages(f).situations;
+ // The template already thanks for the arrival time: keep only the check-in part of the service text.
+ const info=/\{\{\s*arrival_time\s*\}\}/.test(t.body)?(f.serviceInfo||'').replace(/Thank you for letting us know your arrival time\. We have noted your arrival around [^;]+; standard/,'Standard').replace(/Cảm ơn bạn đã báo giờ đến\. Mình đã ghi nhận bạn đến khoảng [^;]+; giờ/,'Giờ'):(f.serviceInfo||'');
  let body=t.body.replace(blockNames,(_,kind:string,name:string,inner:string)=>{
   const keep=kind==='ask'?!known(name as GuestFact['category']):kind==='offer'?offerOpen(name as 'pickup'|'dropoff'|'tour'):situations.includes(name as Situation);
   return keep?inner:'';
  });
- const values:Record<Placeholder,string>={guest_name:f.events.filter(e=>e.guest_name).at(-1)?.guest_name||'',booking:f.thread.booking_id,property:properties.find(p=>p.id===f.thread.property_id)?.name||'',check_in:f.stay&&!f.stay.conflict?dmy(f.stay.checkIn):'',check_out:f.stay&&!f.stay.conflict?dmy(f.stay.checkOut):'',arrival_time:arrivalTime(facts),tour_options:f.tourParagraph||'',service_info:f.serviceInfo||''};
+ const values:Record<Placeholder,string>={guest_name:f.events.filter(e=>e.guest_name).at(-1)?.guest_name||'',booking:f.thread.booking_id,property:properties.find(p=>p.id===f.thread.property_id)?.name||'',check_in:f.stay&&!f.stay.conflict?dmy(f.stay.checkIn):'',check_out:f.stay&&!f.stay.conflict?dmy(f.stay.checkOut):'',arrival_time:arrivalTime(facts),tour_options:f.tourParagraph||'',service_info:info};
  body=body.replace(/\{\{\s*([a-z_]+)\s*\}\}/g,(all,name:string)=>{const v=values[name as Placeholder];if(!v){const label=placeholderLabels[name as Placeholder]||name;if(!missing.includes(label))missing.push(label);return all;}return v;});
  body=body.replace(/[ \t]+\n/g,'\n').replace(/\n{3,}/g,'\n\n').trim();
  // Safety net on the rendered text: never ask again for what the guest gave, never re-offer what they refused.
@@ -156,7 +158,7 @@ export function renderTemplate(t:Template,f:ThreadFacts):Rendered{
  if(f.stay?.checkIn&&!f.stay.conflict&&lastAt.slice(0,10)>f.stay.checkIn&&/look forward to (?:welcoming|having|seeing) you|mong (?:duoc )?(?:don|gap)/.test(n))problems.push('Khách đã nhận phòng: không dùng lời chào trước khi đến.');
  if(!offerOpen('tour')&&new RegExp('(?:'+offering+'|interested in|recommend|goi y).{0,80}(?:tour|sightseeing|trip|tham quan)').test(n))problems.push('Mẫu vẫn mời tour dù khách muốn bàn sau hoặc từ chối.');
  // Approved configured service terms may carry prices; everything else in the template may not.
- const checked=(f.serviceInfo?body.split(f.serviceInfo).join(' '):body);
+ const checked=(info?body.split(info).join(' '):body);
  if(commitment.test(checked.replace(allowedNegations,' '))||money.test(checked))problems.push('Nội dung sau khi điền có giá hoặc cam kết.');
  return {body,missing,problems};
 }

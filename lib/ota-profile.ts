@@ -1,3 +1,4 @@
+import {withoutOrigins} from './guest-origin';
 import {z} from 'zod';
 
 export const profileCategories=['arrival','departure','room','stay','pickup','dropoff','itinerary'] as const;
@@ -27,6 +28,8 @@ const isCorrection=(n:string)=>/instead|actually|correction|rather|change[sd]? t
 // Clock times as 24-hour HH:MM; bare numbers (2 adults, 26 October, VN 123) are not times.
 export function clockTimes(text:string){
  const out:string[]=[];
+ // Compact times with am/pm: "430pm", "1130 am".
+ for(const m of text.matchAll(/(?<![\d:.])(\d{1,2})([0-5]\d)\s*(a\.?m|p\.?m)\b/gi)){let h=+m[1];if(h<1||h>12)continue;h=h%12+(/p/i.test(m[3])?12:0);out.push(String(h).padStart(2,'0')+':'+m[2]);}
  for(const m of text.matchAll(/(?<![\d:.])(\d{1,2})(?!\d)(?:\s*(?::|h)\s*(\d{2})(?!\d)|\.([0-5]\d)(?!\d|\.\d))?\s*(a\.?\s?m\b\.?|p\.?\s?m\b\.?|h\b|giờ|gio\b)?/gi)){
   const minutes=m[2]??m[3],suffix=m[4];
   if(minutes===undefined&&!suffix)continue;
@@ -80,6 +83,8 @@ function flightSentence(quote:string):{category:'arrival'|'stay';summary:string}
  return {category:'arrival',summary:'Đến khách sạn '+when+note+flightNote};
 }
 export function ruleProfile(events:ProfileEvent[]):GuestFact[]{return ruleProfileWithHistory(events).facts;}
+const pickupWords=/pick.?up|from (?:the )?airport|airport to (?:the )?hotel|land(?:ing|s)? (?:at|in)|arrival flight|xe don/;
+const dropoffWords=/drop.?off|to (?:the )?airport|(?:leave|leaving|head|heading|go|going) for (?:the )?airport|departure flight|flight (?:home|out)|xe tien|ra san bay/;
 export function ruleProfileWithHistory(events:ProfileEvent[]):{facts:GuestFact[];history:FactChange[]}{
  const facts:GuestFact[]=[],history:FactChange[]=[];
  const set=(category:ProfileCategory,status:GuestFact['status'],quote:string,eventId:string,append=false,summary=quote)=>{
@@ -88,26 +93,28 @@ export function ruleProfileWithHistory(events:ProfileEvent[]):{facts:GuestFact[]
   facts.push({category,status,summary:summary.slice(0,650),sources:[{eventId,quote:quote.slice(0,2000)}]});
  };
  for(const e of [...events].filter(e=>e.kind==='guest').sort((a,b)=>a.received.localeCompare(b.received)||a.id.localeCompare(b.id))){
-  const sentences=e.guest_text.replace(/\s+/g,' ').split(/(?<=[.!?])\s+/).filter(Boolean);
+  const sentences=e.guest_text.replace(/\s+/g,' ').split(/(?<=[.!?])\s+/).filter(Boolean),whole=normalize(e.guest_text);
   for(const quote of sentences){const n=normalize(quote);
    const time=clockTime.test(n);
    if(time&&flightWords.test(n)){const r=flightSentence(quote);if(r)set(r.category,r.category==='stay'?'requested':'provided',quote,e.id,r.category==='stay',r.summary);}
    else if(time&&checkInWords.test(n)&&isQuestion(quote))set('stay','requested',quote,e.id,true);
-   else if(time&&/arriv|check.?in|den (?:khach san|luc)|nhan phong/.test(n)&&!isPolicy(n))set('arrival','provided',quote,e.id);
+   else if(time&&/arriv|check.?in|den (?:khach san|luc)|nhan phong|прибыт|приезд|заезд|到达|抵达|到店|入住/.test(n)&&!isPolicy(n))set('arrival','provided',quote,e.id);
    if(time&&/depart|leav|check.?out|roi (?:di|khach san)|gio ve|tra phong/.test(n))set('departure','provided',quote,e.id);
    if(/connecting|adjoining|twin|single beds|large bed|king bed|double bed|quiet room|high(?:er)? floor|non.smoking|giuong|phong thong|yen tinh|tang cao/.test(n))set('room','requested',quote,e.id,true);
    if(/late check.?out|early check.?in|luggage stor|(?:leave|store|keep|drop off) (?:our |my |the )?(?:luggage|bags|suitcases)|cot\b|crib\b|wheelchair|allerg|anniversary|birthday|honeymoon|extra (?:towel|pillow)|giu hanh ly|di ung|sinh nhat|xe lan|khan|goi them/.test(n))set('stay','requested',quote,e.id,true);
-   const pickup=/pick.?up|airport to|from (?:the )?airport|shuttle|xe don/.test(n),dropoff=/drop.?off|to (?:the )?airport|xe tien/.test(n);
+   const pickup=/pick.?up|airport to|from (?:the )?airport|shuttle|xe don/.test(n),dropoff=/drop.?off|to (?:the )?airport|(?:leave|leaving|head|heading|go|going) for (?:the )?airport|xe tien|ra san bay/.test(n);
    const transport=pickup||dropoff||/airport transfer|san bay|own (?:transport|way)|(?:come|arrive|get there) (?:on our own|by ourselves)|taxi|grab\b/.test(n);
    if(transport){let status:GuestFact['status']='interested';
     if(/(?:no|not|don't|do not|won't).{0,30}(?:need|require|want)|not (?:needed|required)|khong (?:can|muon)|tu choi/.test(n))status='declined';
     else if(/own (?:transport|way)|(?:come|arrive|get there) (?:on our own|by ourselves)|(?:take|use|book).{0,15}(?:taxi|grab)|tu (?:di|den)/.test(n))status='own_transport';
     else if(/already.{0,25}(?:book|arrang)|da.{0,15}(?:dat|sap xep)/.test(n))status='arranged_by_guest';
     else if(/later|when we arrive|upon (?:our )?arrival|discuss.{0,20}arrival|trao doi sau|khi den/.test(n))status='deferred';
-    if(pickup||!dropoff)set('pickup',status,quote,e.id);
-    if(dropoff||!pickup&&status!=='own_transport')set('dropoff',status,quote,e.id);
+    // A generic "airport transfer" follows the direction the same message talks about.
+    const msgDrop=dropoffWords.test(whole),msgPick=pickupWords.test(whole),dirPick=pickup||(!dropoff&&!(msgDrop&&!msgPick)),dirDrop=dropoff||(!pickup&&!(msgPick&&!msgDrop));
+    if(dirPick)set('pickup',status,quote,e.id);
+    if(dirDrop&&(dropoff||status!=='own_transport'))set('dropoff',status,quote,e.id);
    }
-   if(/tour|sightsee|itinerary|ha\s*long|halong|ninh binh|city tour|tham quan|lich trinh/.test(n)){
+   if(/tour|sightsee|itinerary|ha\s*long|halong|ninh binh|city tour|tham quan|lich trinh/.test(withoutOrigins(n))){
     let status:GuestFact['status']='interested';
     if(/no tours|not interested|don.t want|do not want|khong (?:can|muon)/.test(n))status='declined';
     else if(/prefer.{0,70}arriv|discuss.{0,70}arriv|upon (?:our )?arrival|later|trao doi sau|khi den/.test(n))status='deferred';

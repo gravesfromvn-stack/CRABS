@@ -104,7 +104,7 @@ check('Simulation answers each turn in context and groups messages sent minutes 
  const replies=turns.filter(t=>t.role==='hotel');assert.equal(turns.filter(t=>t.role==='guest').length,7);assert.equal(replies.length,6,'m2 and m3 answered together');
  const [r1,r2,r3,r4,r5,r6]=replies.map(r=>r.text);
  assert.match(r1,/Happy early anniversary/);assert.match(r1,/bathtub depend on availability/);
- assert.match(r2,/arrival around 16:00\. Check-in is from 14:00/);assert.match(r2,/a small cake and flowers/);assert.match(r2,/the 21st morning/);assert.match(r2,/pay at the hotel/);assert.match(r2,/surprise is still safe/);assert.match(r2,/share the number/);
+ assert.match(r2,/arrival around 16:00; standard check-in is from 14:00/);assert.match(r2,/a small cake and flowers/);assert.match(r2,/the 21st morning/);assert.match(r2,/pay at the hotel/);assert.match(r2,/surprise is still safe/);assert.match(r2,/share the number/);
  assert.doesNotMatch(r2,/Happy early/,'congratulated once, in the first turn');
  assert.match(r3,/place the surprise in your room on Saturday, after 10am/);
  assert.match(r4,/delighted you like the room/);assert.match(r4,/Noted: a small cake for the surprise/);assert.doesNotMatch(r4,/flowers/);

@@ -4,6 +4,7 @@ import {findTourResearch,tourResearch,type TourResearch} from './tour-research';
 import {rateCatalog,catalogItems,findCatalogItem,catalogVersion,priceStatus,placesIn,searchTours,transportFor,durationEn,classEn,includesTransportFromHanoi,type CatalogItem} from './rate-catalog';
 import {readIntent,type IntentRead} from './guest-intent';
 import {catalogTourApproval,type CatalogEntry} from './service-catalog';
+import {withoutOrigins,travelOrigins} from './guest-origin';
 
 // Picks at most two sourced tour options for one conversation and turns them into guest-facing
 // content that never states a price. Source texts (email, Sheets, websites) are data only.
@@ -72,7 +73,7 @@ export function constraintsOf(text:string):Constraints{
 }
 
 export type TourOption={id:string;title:string;guestName:Line|null;kind:'researched'|'draft'|'catalog';approvedPrice?:{price:number;currency?:string;unit:string;from:string;until:string}|null;variants?:{id:string;title:string;price:string;status:string}[];transportIncluded?:boolean;readAt:string;verification:string;why:string;guestFacts:Line[];considerations:Line[];internal:{prices:{label:string;amount:number|null;currency:string;scope:string}[];priceStatus:string;gaps:string[];notes:string[];sourceUrl:string;sheetRange:string}};
-export type TourAdvice={destinations:{key:Destination;label:{en:string;vi:string}}[];status:'none'|'interested'|'deferred'|'declined';constraints:Constraints;options:TourOption[];guestAllowed:boolean;questions:Line[];rules:{id:string;title:string;text:string}[];internal:string[];
+export type TourAdvice={origins?:string[];destinations:{key:Destination;label:{en:string;vi:string}}[];status:'none'|'interested'|'deferred'|'declined';constraints:Constraints;options:TourOption[];guestAllowed:boolean;questions:Line[];rules:{id:string;title:string;text:string}[];internal:string[];
  intent?:IntentRead;serviceDate?:string;transport?:{place:string;rows:ReturnType<typeof transportFor>}[];priceAsked?:boolean;catalogVersion?:string};
 
 // "26 october" / "26/10" -> ISO date using the stay year (or the current year).
@@ -125,15 +126,15 @@ function draftItinerary(id:string,why:string):TourOption|null{
 const transportAsk=/\b(?:bus|buses|sleeper|coach|limousine (?:bus|van)?\s*to|shuttle bus|train to|how (?:can|do|to|should) (?:we |i )?(?:get|go|travel) to|transport(?:ation)? to|xe (?:khach|giuong nam|di|toi)|di chuyen (?:den|toi|len|xuong))\b/;
 export function tourAdvice(input:{catalog?:CatalogEntry[];propertyId:string;facts:GuestFact[];text:string;stayStart?:string;latestText?:string;lastOutgoing?:string}):TourAdvice{
  const itinerary=input.facts.filter(f=>f.category==='itinerary');
- const n=normalize(input.text),c=constraintsOf(input.text),latest=input.latestText??input.text.split('\n').at(-1)??'';
- const found=destinations.filter(d=>d.re.test(n)),places=placesIn(input.text);
+ const full=normalize(input.text),n=withoutOrigins(full),c=constraintsOf(input.text),latest=input.latestText??input.text.split('\n').at(-1)??'';
+ const found=destinations.filter(d=>d.re.test(n)),places=placesIn(n),origins=travelOrigins(full);
  // Naming a place counts as interest when no explicit tour fact exists ("maybe Ha Giang" is interest, not a booking).
  let status:TourAdvice['status']=!itinerary.length?(places.length?'interested':'none'):itinerary.some(f=>f.status==='interested')?'interested':itinerary.some(f=>f.status==='deferred')?'deferred':'declined';
  const intent=readIntent(latest,input.lastOutgoing||'');
  // A guest who deferred and now asks again reopens the topic.
  if(status==='deferred'&&(intent.intents.includes('price')||intent.intents.includes('info')||intent.intents.includes('book'))&&placesIn(latest).length)status='interested';
  const serviceDate=serviceDateOf(c.date,Number((input.stayStart||'').slice(0,4))||undefined);
- const advice:TourAdvice={destinations:found.map(d=>({key:d.key,label:d.label})),status,constraints:c,options:[],guestAllowed:input.propertyId===TOUR_SOURCE_PROPERTY,questions:[],rules:[],internal:[...intent.notes],intent,serviceDate,priceAsked:intent.intents.includes('price'),catalogVersion};
+ const advice:TourAdvice={destinations:found.map(d=>({key:d.key,label:d.label})),status,constraints:c,options:[],guestAllowed:input.propertyId===TOUR_SOURCE_PROPERTY,questions:[],rules:[],internal:[...intent.notes],intent,serviceDate,priceAsked:intent.intents.includes('price'),catalogVersion,origins};
  for(const p of places)if(!advice.destinations.some(d=>normalize(d.label.vi).includes(normalize(p).split(' /')[0])))advice.destinations.push({key:'other',label:{en:p.normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/đ/g,'d').replace(/Đ/g,'D'),vi:p}});
  // Transport questions get the reference schedules and their cautions, even without a tour.
  if(transportAsk.test(normalize(latest))&&places.length)advice.transport=places.map(p=>({place:p,rows:transportFor(p)}));
@@ -206,6 +207,8 @@ export type DraftProblem={hard:boolean;text:string};
 const negated=/\b(?:not (?:yet )?(?:confirmed|guaranteed|booked|reserved)|cannot (?:be )?(?:confirmed|guaranteed)|unconfirmed|before (?:it is )?confirmed|until (?:it is )?confirmed)\b|chưa (?:được )?(?:xác nhận|đặt|bố trí|đảm bảo)/gi;
 export function guestDraftProblems(body:string,ctx:{facts:GuestFact[];advice?:TourAdvice;known?:{date?:boolean;party?:boolean};allowedAmounts?:number[]}):DraftProblem[]{
  const out:DraftProblem[]=[],n=normalize(body);
+ // Details Cua must fill in (meeting point, hotline…) cannot go to the guest unfilled.
+ const blanks=body.match(/[Cua điền[^]]*]/g);if(blanks)out.push({hard:true,text:`Còn ${blanks.length} chỗ cần điền: ${[...new Set(blanks)].join(', ')}.`});
  // Amounts are allowed only when they equal a fully approved, date-valid price of an option in this advice,
  // or an approved hotel service price from the property configuration (airport car, spa, tour "from" price).
  const allowed=new Set([...(ctx.advice?.options||[]).filter(o=>o.approvedPrice).map(o=>String(o.approvedPrice!.price)),...(ctx.allowedAmounts||[]).map(String)]);
