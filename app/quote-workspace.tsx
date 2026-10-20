@@ -6,6 +6,7 @@ import {findQuoteSource,findQuoteProduct} from '../lib/quote-sources';
 import type {StoredEntry} from '../lib/service-catalog';
 import {CatalogPicker} from './catalog-picker';
 import {QuoteOpsTasks} from './quote-ops-tasks';
+import ServiceProfitDashboard from './service-profit-dashboard';
 import {usePresentation} from './use-presentation';
 import QuoteSourceLibrary,{SourceEvidence} from './quote-source-library';
 import QuoteGuide from './quote-guide';
@@ -36,6 +37,7 @@ export default function QuoteWorkspace({contacts,initialContactId,onChanged}:{co
  const stale=current&&current.payload.contactVersion!==current.current_contact_version;
  const issues=current?approvalIssues(current.payload,today(),catalog):[];
  return <section className="page quote-page"><div className="page-heading compact"><div><span className="eyebrow">TƯ VẤN → PHƯƠNG ÁN → GIÁ & ĐIỀU KIỆN</span><h1>Báo giá dịch vụ</h1><p>Khách hiểu mình được gì. Cua biết giá nào đã tư vấn và lãi dự kiến còn bao nhiêu.</p></div><button className="button secondary" disabled={busy} onClick={()=>load().catch(e=>setError(e.message))}><RefreshCw size={16}/>Tải lại</button></div>
+ {!editing&&!current&&<ServiceProfitDashboard compact/>}
  {!editing&&!current?<QuoteGuide/>:<details className="q-help-fold"><summary>Cách dùng báo giá & dữ liệu cần bổ sung</summary><QuoteGuide/></details>}
  {error&&<p className="error" role="alert">{error}</p>}{notice&&<p className="knowledge-notice" role="status">{notice}</p>}
  <div className="catalog-note"><span>Giá bán sau giảm − giá vốn − hoa hồng − chi phí bổ sung = lãi dự kiến. Đây chưa phải doanh thu ghi nhận hoặc tiền thực thu; duyệt báo giá không xác nhận chỗ.</span></div>
