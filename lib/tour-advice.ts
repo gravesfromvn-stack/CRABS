@@ -208,7 +208,7 @@ const negated=/\b(?:not (?:yet )?(?:confirmed|guaranteed|booked|reserved)|cannot
 export function guestDraftProblems(body:string,ctx:{facts:GuestFact[];advice?:TourAdvice;known?:{date?:boolean;party?:boolean};allowedAmounts?:number[]}):DraftProblem[]{
  const out:DraftProblem[]=[],n=normalize(body);
  // Details Cua must fill in (meeting point, hotline…) cannot go to the guest unfilled.
- const blanks=body.match(/[Cua điền[^]]*]/g);if(blanks)out.push({hard:true,text:`Còn ${blanks.length} chỗ cần điền: ${[...new Set(blanks)].join(', ')}.`});
+ const blanks=body.match(/\[Cua điền[^\]]*\]/g);if(blanks)out.push({hard:true,text:`Còn ${blanks.length} chỗ cần điền: ${[...new Set(blanks)].join(', ')}.`});
  // Amounts are allowed only when they equal a fully approved, date-valid price of an option in this advice,
  // or an approved hotel service price from the property configuration (airport car, spa, tour "from" price).
  const allowed=new Set([...(ctx.advice?.options||[]).filter(o=>o.approvedPrice).map(o=>String(o.approvedPrice!.price)),...(ctx.allowedAmounts||[]).map(String)]);

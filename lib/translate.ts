@@ -2,8 +2,8 @@ import {z} from 'zod';
 
 // Reading aid for Cua: translate guest messages and drafts to Vietnamese or English.
 // A translation is never sent to the guest and never replaces the stored text.
-export type Lang='vi'|'en'|'zh'|'ja'|'ko'|'ru'|'th'|'fr'|'de'|'es';
-export const langLabels:Record<Lang,string>={vi:'tiếng Việt',en:'tiếng Anh',zh:'tiếng Trung',ja:'tiếng Nhật',ko:'tiếng Hàn',ru:'tiếng Nga',th:'tiếng Thái',fr:'tiếng Pháp',de:'tiếng Đức',es:'tiếng Tây Ban Nha'};
+export type Lang='vi'|'en'|'zh'|'ja'|'ko'|'ru'|'th'|'fr'|'de'|'es'|'he';
+export const langLabels:Record<Lang,string>={vi:'tiếng Việt',en:'tiếng Anh',zh:'tiếng Trung',ja:'tiếng Nhật',ko:'tiếng Hàn',ru:'tiếng Nga',th:'tiếng Thái',fr:'tiếng Pháp',de:'tiếng Đức',es:'tiếng Tây Ban Nha',he:'tiếng Do Thái'};
 
 // Script-based detection; Latin text defaults to English unless Vietnamese marks or common words appear.
 export function detectLanguage(text:string):Lang{
@@ -12,6 +12,7 @@ export function detectLanguage(text:string):Lang{
  if(/[가-힯]/.test(t))return 'ko';
  if(/[一-鿿]/.test(t))return 'zh';
  if(/[Ѐ-ӿ]/.test(t))return 'ru';
+ if(/[֐-׿]/.test(t))return 'he';
  if(/[฀-๿]/.test(t))return 'th';
  if(/[ăâđêôơưạảấầẩẫậắằẳẵặẹẻẽếềểễệỉịọỏốồổỗộớờởỡợụủứừửữựỳỵỷỹ]/i.test(t))return 'vi';
  const n=t.toLowerCase();

@@ -1,3 +1,4 @@
+import {smartTags} from './smart-tags';
 import {hash,properties,norm} from './ota';
 import {threadStay} from './ota-stay';
 import {ruleProfile,profileLabels,profileStatuses,type GuestFact} from './ota-profile';
@@ -25,7 +26,7 @@ export async function operationsSources(db:D1Database,owner:string):Promise<Oper
  const ota=await Promise.all(threads.results.map(async t=>{
  const es=(grouped.get(t.id)||[]).filter(e=>e.property_id===t.property_id&&e.channel===t.channel&&e.booking_id===t.booking_id);
  const stay=threadStay(es),guest=es.filter(e=>e.kind==='guest'&&e.guest_text);
- return {key:'ota:'+t.id,kind:'ota' as const,id:t.id,name:es.filter(e=>e.guest_name).at(-1)?.guest_name||'Chưa có tên khách',propertyId:t.property_id,propertyLabel:properties.find(p=>p.id===t.property_id)?.name||'Cần đối chiếu cơ sở',channel:t.channel,bookingId:t.booking_id,checkIn:stay.checkIn,checkOut:stay.checkOut,dateConflict:stay.conflict,sourceKey:await hash(JSON.stringify(es.map(e=>[e.id,e.guest_text,e.full_text,e.received]))),facts:ruleProfile(guest).map(operationFact),messages:guest.map(e=>({id:e.id,body:e.guest_text,at:e.received})),legacyRequests:0,updated:es.at(-1)?.received||t.created};
+ return {key:'ota:'+t.id,kind:'ota' as const,id:t.id,name:es.filter(e=>e.guest_name).at(-1)?.guest_name||'Chưa có tên khách',propertyId:t.property_id,propertyLabel:properties.find(p=>p.id===t.property_id)?.name||'Cần đối chiếu cơ sở',channel:t.channel,bookingId:t.booking_id,checkIn:stay.checkIn,checkOut:stay.checkOut,dateConflict:stay.conflict,sourceKey:await hash(JSON.stringify(es.map(e=>[e.id,e.guest_text,e.full_text,e.received]))),facts:ruleProfile(guest).map(operationFact),messages:guest.map(e=>({id:e.id,body:e.guest_text,at:e.received})),...(()=>{const r=smartTags(guest.map(e=>({text:e.guest_text,at:e.received})),stay);return {tags:r.tags,arrivalNotes:r.notes};})(),legacyRequests:0,updated:es.at(-1)?.received||t.created};
  }));
  const existing=await Promise.all(contacts.results.map(async c=>{
  const r=readReception(c.reception),src=sourceCase(c.id),p=norm(src?.property||'');

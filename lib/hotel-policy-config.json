@@ -369,6 +369,51 @@
         "airportMeeting": {
           "vi": "Tài xế đón ở cửa ra ga đến, cầm biển tên của bạn.",
           "en": "Our driver will wait at the arrival exit holding a sign with your name."
+        },
+        "hotline": {
+          "whatsapp": "+84 90 224 8388",
+          "display": "WhatsApp +84 90 224 8388 (lễ tân 24/7)",
+          "source": "PO cung cấp 20/10/2026; chưa có trong luxe-knowledge.ts"
+        },
+        "airportMeetingPoints": {
+          "T1": {
+            "vi": "ga nội địa T1, cột số 9 (tầng 1, sảnh đến)",
+            "en": "Terminal 1 (domestic), pillar no. 9 (ground floor, arrivals hall)"
+          },
+          "T2": {
+            "vi": "ga quốc tế T2, cột số 10 hoặc 11 (tầng 1, sảnh đến)",
+            "en": "Terminal 2 (international), pillar no. 10 or 11 (ground floor, arrivals hall)"
+          }
+        },
+        "reception24": {
+          "vi": "Lễ tân khách sạn mở cửa 24/7, luôn sẵn sàng đón bạn dù bạn đến vào giờ nào.",
+          "en": "Our reception is open 24/7 and will be ready to welcome you whatever time you arrive."
+        },
+        "specialRequestHint": {
+          "vi": "Nếu có yêu cầu đặc biệt, bạn cứ nhắn trước để khách sạn chuẩn bị.",
+          "en": "If you have any special requests, just message us beforehand and we will prepare."
+        },
+        "onward": {
+          "vi": "Sau khi lưu trú tại Hà Nội, bạn đã có kế hoạch đi đâu tiếp theo chưa? Khách sạn có dịch vụ xe tiễn ra sân bay và xe đi các tỉnh, chất lượng đảm bảo và giá cả hợp lý.",
+          "en": "After your stay in Hanoi, do you already have plans for where to go next? We offer airport drop-off and car transfers to other provinces, with reliable quality and reasonable prices."
+        },
+        "earlyOptions": {
+          "vi": {
+            "intro": "Rất vui được đón bạn đến Hà Nội! Giờ nhận phòng tiêu chuẩn từ 14:00, nên khách sạn không thể bảo đảm có phòng sẵn vào sáng sớm nếu chưa đặt trước. Bạn có thể chọn:",
+            "one": "1. Có phòng ngay khi đến: đặt thêm đêm trước đó để phòng được giữ sẵn, bạn nhận phòng ngay khi đến.",
+            "two": "2. Linh hoạt, tiết kiệm: nhận phòng sớm từ 09:00 nếu có phòng trống, phụ thu 50% giá phòng một đêm, đã gồm bữa sáng buffet miễn phí trong lúc chờ.",
+            "always": "Trong mọi trường hợp, bạn được gửi hành lý miễn phí tại sảnh 24/7, dùng phòng vệ sinh ở sảnh để nghỉ ngơi, chỉnh trang và tự do dạo quanh phố cổ."
+          },
+          "en": {
+            "intro": "We are delighted to welcome you to Hanoi! Standard check-in is from 14:00, so we cannot guarantee a room in the early morning unless it is reserved in advance. You can choose:",
+            "one": "1. Room ready on arrival: book the previous night as well, so the room is held for you and you can check in as soon as you arrive.",
+            "two": "2. Flexible and economical: early check-in from 09:00 if a room is available, at 50% of the nightly rate, including a complimentary buffet breakfast while you wait.",
+            "always": "In any case, you can store your luggage free of charge at reception 24/7, use the lobby restroom to rest and freshen up, and explore the Old Quarter around the hotel."
+          }
+        },
+        "plansAsk": {
+          "vi": "Bạn đã có dự định tham quan gì ở Hà Nội và lân cận chưa? Khách sạn có thể gợi ý tour và dịch vụ phù hợp.",
+          "en": "Do you have any plans for sightseeing in and around Hanoi? We would be happy to suggest suitable tours and services."
         }
       }
     },
@@ -662,6 +707,51 @@
         "airportMeeting": {
           "vi": "Tài xế đón ở cửa ra ga đến, cầm biển tên của bạn.",
           "en": "Our driver will wait at the arrival exit holding a sign with your name."
+        },
+        "hotline": {
+          "whatsapp": "+84 90 224 8388",
+          "display": "WhatsApp +84 90 224 8388 (lễ tân 24/7)",
+          "source": "PO cung cấp 20/10/2026; chưa có trong luxe-knowledge.ts"
+        },
+        "airportMeetingPoints": {
+          "T1": {
+            "vi": "ga nội địa T1, cột số 9 (tầng 1, sảnh đến)",
+            "en": "Terminal 1 (domestic), pillar no. 9 (ground floor, arrivals hall)"
+          },
+          "T2": {
+            "vi": "ga quốc tế T2, cột số 10 hoặc 11 (tầng 1, sảnh đến)",
+            "en": "Terminal 2 (international), pillar no. 10 or 11 (ground floor, arrivals hall)"
+          }
+        },
+        "reception24": {
+          "vi": "Lễ tân khách sạn mở cửa 24/7, luôn sẵn sàng đón bạn dù bạn đến vào giờ nào.",
+          "en": "Our reception is open 24/7 and will be ready to welcome you whatever time you arrive."
+        },
+        "specialRequestHint": {
+          "vi": "Nếu có yêu cầu đặc biệt, bạn cứ nhắn trước để khách sạn chuẩn bị.",
+          "en": "If you have any special requests, just message us beforehand and we will prepare."
+        },
+        "onward": {
+          "vi": "Sau khi lưu trú tại Hà Nội, bạn đã có kế hoạch đi đâu tiếp theo chưa? Khách sạn có dịch vụ xe tiễn ra sân bay và xe đi các tỉnh, chất lượng đảm bảo và giá cả hợp lý.",
+          "en": "After your stay in Hanoi, do you already have plans for where to go next? We offer airport drop-off and car transfers to other provinces, with reliable quality and reasonable prices."
+        },
+        "earlyOptions": {
+          "vi": {
+            "intro": "Rất vui được đón bạn đến Hà Nội! Giờ nhận phòng tiêu chuẩn từ 14:00, nên khách sạn không thể bảo đảm có phòng sẵn vào sáng sớm nếu chưa đặt trước. Bạn có thể chọn:",
+            "one": "1. Có phòng ngay khi đến: đặt thêm đêm trước đó để phòng được giữ sẵn, bạn nhận phòng ngay khi đến.",
+            "two": "2. Linh hoạt, tiết kiệm: nhận phòng sớm từ 09:00 nếu có phòng trống, phụ thu 50% giá phòng một đêm, đã gồm bữa sáng buffet miễn phí trong lúc chờ.",
+            "always": "Trong mọi trường hợp, bạn được gửi hành lý miễn phí tại sảnh 24/7, dùng phòng vệ sinh ở sảnh để nghỉ ngơi, chỉnh trang và tự do dạo quanh phố cổ."
+          },
+          "en": {
+            "intro": "We are delighted to welcome you to Hanoi! Standard check-in is from 14:00, so we cannot guarantee a room in the early morning unless it is reserved in advance. You can choose:",
+            "one": "1. Room ready on arrival: book the previous night as well, so the room is held for you and you can check in as soon as you arrive.",
+            "two": "2. Flexible and economical: early check-in from 09:00 if a room is available, at 50% of the nightly rate, including a complimentary buffet breakfast while you wait.",
+            "always": "In any case, you can store your luggage free of charge at reception 24/7, use the lobby restroom to rest and freshen up, and explore the Old Quarter around the hotel."
+          }
+        },
+        "plansAsk": {
+          "vi": "Bạn đã có dự định tham quan gì ở Hà Nội và lân cận chưa? Khách sạn có thể gợi ý tour và dịch vụ phù hợp.",
+          "en": "Do you have any plans for sightseeing in and around Hanoi? We would be happy to suggest suitable tours and services."
         }
       }
     }

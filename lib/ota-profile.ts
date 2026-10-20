@@ -98,7 +98,7 @@ export function ruleProfileWithHistory(events:ProfileEvent[]):{facts:GuestFact[]
    const time=clockTime.test(n);
    if(time&&flightWords.test(n)){const r=flightSentence(quote);if(r)set(r.category,r.category==='stay'?'requested':'provided',quote,e.id,r.category==='stay',r.summary);}
    else if(time&&checkInWords.test(n)&&isQuestion(quote))set('stay','requested',quote,e.id,true);
-   else if(time&&/arriv|check.?in|den (?:khach san|luc)|nhan phong|прибыт|приезд|заезд|到达|抵达|到店|入住/.test(n)&&!isPolicy(n))set('arrival','provided',quote,e.id);
+   else if(time&&/arriv|check.?in|be with you|get to (?:the |your )?hotel|reach (?:the |your )?hotel|den (?:khach san|luc)|nhan phong|прибыт|приезд|заезд|到达|抵达|到店|入住|הגעה|נגיע|אגיע|סביב שעה|到着|도착|arrivée|llegada|ankunft/.test(n)&&!isPolicy(n))set('arrival','provided',quote,e.id);
    if(time&&/depart|leav|check.?out|roi (?:di|khach san)|gio ve|tra phong/.test(n))set('departure','provided',quote,e.id);
    if(/connecting|adjoining|twin|single beds|large bed|king bed|double bed|quiet room|high(?:er)? floor|non.smoking|giuong|phong thong|yen tinh|tang cao/.test(n))set('room','requested',quote,e.id,true);
    if(/late check.?out|early check.?in|luggage stor|(?:leave|store|keep|drop off) (?:our |my |the )?(?:luggage|bags|suitcases)|cot\b|crib\b|wheelchair|allerg|anniversary|birthday|honeymoon|extra (?:towel|pillow)|giu hanh ly|di ung|sinh nhat|xe lan|khan|goi them/.test(n))set('stay','requested',quote,e.id,true);

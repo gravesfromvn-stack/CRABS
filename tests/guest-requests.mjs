@@ -41,15 +41,15 @@ check('Arrival time in another language: thanks, check-in 14:00, early only if t
  assert.match(r.internal.join(' '),/50%/,'guaranteed early check-in fee stays internal');
 });
 const c172='Hi Guest,\nThank you! I would like to book the 4-seater airport pick-up for\n400,000 VND tomorrow, Friday 2 October.\nMy flight details are:\nPassenger: Guest 0161 & Sample Holland\nFlight: Vietnam Airlines VN166\nRoute: Da Nang → Hanoi\nArrival time: 1:00 pm at Noi Bai International Airport';
-check('Car confirmation is read back in full; blanks for Cua block approval',()=>{
+check('Car confirmation is read back in full with meeting point and hotline; blanks would block approval',()=>{
  const c=confirm.transferConfirmation(c172);
  assert.deepEqual({...c},{direction:'pickup',flight:'VN166',route:'Da Nang → Hanoi',date:'2 Oct',time:'13:00',seats:4,price:400000,terminal:'T1'});
  assert.deepEqual(confirm.flightUpdate('Hello, just to let you know our flight has been delayed and is now set to arrive at 3:25'),{time:'15:25'});
  const r=replies.serviceReply({catalog:cat.seedEntries,propertyId:'luxe-75pht',text:c172,facts:[],vi:false,tourInterested:false,hasContact:false,guestName:'Guest 0161'});
  assert.ok(r.needs.includes('confirm_transfer'));assert.ok(!r.needs.includes('transfer'),'no price list again');
  const text=r.paragraphs.join('\n');assert.match(text,/Guest 0161/);assert.doesNotMatch(text,/Holland/);assert.match(text,/VN166 \(Da Nang → Hanoi\), landing around 13:00 on 2 Oct/);assert.match(text,/Terminal 1 \(domestic\)/);
- assert.ok(advice.guestDraftProblems(text,{facts:[],allowedAmounts:[400000]}).some(p=>p.hard&&/cần điền/.test(p.text)));
- assert.match(r.internal.join(' '),/Khách chốt 400\.000đ \(theo báo giá trước\); giá đón đang duyệt: 350\.000đ/,'quoted price differs from the approved one');assert.match(r.internal.join(' '),/Tạo yêu cầu dịch vụ/);
+ assert.deepEqual(advice.guestDraftProblems(text,{facts:[],allowedAmounts:[400000]}).filter(p=>p.hard),[],'no blanks left');assert.ok(advice.guestDraftProblems('Meet at [Cua điền: số cột]',{facts:[]}).some(p=>p.hard&&/cần điền/.test(p.text)),'blanks still block approval');
+ assert.match(r.internal.join(' '),/Giữ giá 400\.000đ đã báo cho khách \(quy tắc PO 20\/10\); chênh lệch 50\.000đ so với giá xe 4 chỗ đang duyệt 350\.000đ/,'quoted price kept, difference noted');assert.match(r.internal.join(' '),/Tạo yêu cầu dịch vụ/);
 });
 check('Service request from the conversation: accepted with evidence, latest flight time, stages and CSV',()=>{
  const src={sourceKey:'k1',checkIn:'2026-10-02',checkOut:'2026-10-09'};

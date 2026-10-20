@@ -40,3 +40,25 @@ export function airportCsv(tasks:OperationTask[],sources:OperationSource[]){
   return [t.serviceDate,t.serviceTime,t.kind==='pickup'?'Đón':'Tiễn',s?.name||'',s?.bookingId||'',s?.propertyLabel||'',t.flightCode,t.carType,t.priceVnd??'',stageLabels[serviceStage(t)],t.guestDecision==='accepted'?'Có':'Chưa',t.supplierStatus==='confirmed'?'Đã xác nhận':'Chưa',t.details.replace(/\n/g,' · ')];});
  return '﻿'+[head,...rows].map(r=>r.map(esc).join(',')).join('\n');
 }
+
+// Two phases for the dashboard: still expected (asked / quoted) or confirmed by the guest onwards.
+export const phaseOf=(s:Stage)=>s==='new'||s==='quoted'?'expected':s==='closed'?'closed':'confirmed';
+export const phaseLabels={expected:'Dự kiến / Chờ xác nhận',confirmed:'Đã xác nhận (khách chốt)',closed:'Đã hủy'} as const;
+// Reception tasks for billing are "other" tasks whose title starts with the tag.
+export const isServiceTask=(t:Pick<OperationTask,'kind'|'title'>)=>(SERVICE_KINDS as readonly string[]).includes(t.kind)||t.kind==='other'&&/^\[(?:HÓA ĐƠN|THANH TOÁN)/.test(t.title);
+
+// Requests the guest is only asking about (not confirmed): car, tour, spa, invoice, paying for someone.
+export function detectAsks(source:Pick<OperationSource,'sourceKey'|'checkIn'|'checkOut'|'messages'>):OperationInput[]{
+ const text=source.messages.map(m=>m.body).join('\n'),n=text.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/đ/g,'d');
+ const base=(kind:OperationInput['kind'],title:string,serviceDate:string,quote:string):OperationInput=>({title,kind,assignee:'',due:'',serviceDate,serviceTime:'',details:'',state:'open',guestDecision:'interested',guestEvidence:('Khách nhắn: '+quote.replace(/\s+/g,' ')).slice(0,1200),supplierStatus:'unchecked',supplierEvidence:'',note:'',reviewedSourceKey:source.sourceKey,flightCode:'',carType:'',priceVnd:null});
+ const quote=(re:RegExp)=>source.messages.find(m=>re.test(m.body.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'')))?.body||'';
+ const out:OperationInput[]=[];
+ const leave=/(?:leave|leaving|head|go(?:ing)?) for (?:the )?airport|to (?:the )?airport|drop.?off|xe tien/;
+ if(/pick.?up|from (?:the )?airport|xe don/.test(n)&&!/(?:no|not|don.t) need.{0,20}pick/.test(n))out.push(base('pickup','Xe đón sân bay · khách hỏi',source.checkIn,quote(/pick.?up|from (?:the )?airport|xe don/)));
+ if(leave.test(n)||/airport transfer/.test(n)&&!/pick.?up/.test(n))out.push(base('dropoff','Xe tiễn sân bay · khách hỏi',source.checkOut,quote(/airport|drop.?off|xe tien/)));
+ if(/\b(?:tour|day trip|excursion|cruise)\b/.test(n))out.push(base('tour','Tour · khách hỏi','',quote(/tour|day trip|excursion|cruise/)));
+ if(/\bspa\b|massage/.test(n))out.push(base('spa','Spa · khách hỏi','',quote(/spa|massage/)));
+ if(/invoice|\bvat\b|hoa don/.test(n))out.push({...base('other','[HÓA ĐƠN VAT] Xuất hóa đơn điện tử gửi email',source.checkOut,quote(/invoice|vat|hoa don/)),details:'Lấy tên công ty, mã số thuế, địa chỉ, email nhận hóa đơn. Chuyển Lễ tân & Kế toán.'});
+ if(/on behalf of|for my client|dat ho/.test(n)&&/credit card|pay|thanh toan|message me|whats ?app/.test(n))out.push({...base('other','[THANH TOÁN HỘ] Thu tiền trước qua WhatsApp',source.checkIn,quote(/on behalf|client|dat ho/)),details:'Khách đặt hộ, cần thu tiền trước qua link thanh toán bảo mật. Theo dõi trạng thái thanh toán trước khi khách ở nhận phòng. Không nhận số thẻ qua tin nhắn OTA.'});
+ return out;
+}
