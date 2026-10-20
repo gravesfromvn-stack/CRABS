@@ -7,6 +7,7 @@ import {hotelKnowledge} from './luxe-knowledge';
 import {planReply,isAutoDraft,draftSource} from './ota-templates';
 import {activeTemplates} from './ota-template-store';
 import {serviceReply,applyServiceReply,templateMisses} from './service-replies';
+import {readFlags,tourSalesAllowed} from './operations-store';
 import {loadCatalog} from './service-catalog-store';
 import {catalogApprovedAmounts} from './service-catalog';
 import {guestContact} from './guest-contact';
@@ -54,8 +55,10 @@ export async function prepareDraft(db:D1Database,owner:string,id:string,profileK
  const lastSent=s.sent.map(x=>x.created).sort().at(-1)||'';
  const openText=s.events.filter(e=>e.kind==='guest'&&e.guest_text&&e.received>lastSent).map(e=>e.guest_text).join('\n');
  const contact=guestContact(s.events.filter(e=>e.kind==='guest').map(e=>e.guest_text||''));
- const service=serviceReply({offeredTour:s.sent.some(x=>/interested in visiting|có muốn tham quan|באם יש עניין לבקר|хотели бы вы во время пребывания|aimeriez-vous visiter|le gustaría visitar|Interesse, während Ihres Aufenthalts|是否有兴趣游览|を訪れてみませんか|가 보실 생각/.test(x.body)),stay:s.stay,sentAt:guest.received,guestName:s.events.filter(e=>e.kind==='guest'&&e.guest_name).at(-1)?.guest_name||'',catalog:s.catalog,propertyId:s.thread.property_id,text:openText,facts:s.profile.facts,vi,tourInterested:s.tour.status==='interested',hasContact:Boolean(contact),tourPlaces:s.tour.destinations.map(d=>d.label.vi),history:s.events.filter(e=>e.kind==='guest'&&e.guest_text&&e.received<=lastSent).map(e=>e.guest_text).join('\n')});
- const plan=planReply({...s,tourParagraph:tourParagraph(s.tour,vi),serviceInfo:service.paragraphs.join('\n\n')},await activeTemplates(db,owner));
+ // Tour questions go to the sales team unless the reception tour-sales switch is on (Vận hành).
+ const tourSales:'sale'|'reception'=tourSalesAllowed(await readFlags(db,owner))?'reception':'sale',saleMode=tourSales==='sale';
+ const service=serviceReply({tourSales,offeredTour:s.sent.some(x=>/interested in visiting|có muốn tham quan|באם יש עניין לבקר|хотели бы вы во время пребывания|aimeriez-vous visiter|le gustaría visitar|Interesse, während Ihres Aufenthalts|是否有兴趣游览|を訪れてみませんか|가 보실 생각/.test(x.body)),stay:s.stay,sentAt:guest.received,guestName:s.events.filter(e=>e.kind==='guest'&&e.guest_name).at(-1)?.guest_name||'',catalog:s.catalog,propertyId:s.thread.property_id,text:openText,facts:s.profile.facts,vi,tourInterested:s.tour.status==='interested',hasContact:Boolean(contact),tourPlaces:s.tour.destinations.map(d=>d.label.vi),history:s.events.filter(e=>e.kind==='guest'&&e.guest_text&&e.received<=lastSent).map(e=>e.guest_text).join('\n')});
+ const plan=planReply({...s,tourParagraph:saleMode?'':tourParagraph(s.tour,vi),serviceInfo:service.paragraphs.join('\n\n')},await activeTemplates(db,owner));
  // No template fits: keep the automatic draft's text but refresh why it needs Cua (e.g. a template now
  // exists but does not cover this case). A template suggestion that no longer fits goes back to Cua.
  // An empty automatic draft ("Cua soạn") is rebuilt below when the rules can now write it.
@@ -75,8 +78,8 @@ export async function prepareDraft(db:D1Database,owner:string,id:string,profileK
  if(service.letter)draft={body:service.letter,notes:`Thư xin lỗi (${service.needs.includes('apology_room')?'sự cố phòng':'khách không hài lòng'}) theo mẫu PO 20/10: chờ Cua duyệt, chưa có bồi thường.`,source:'rules',templateId:'',templateVersion:0};
  else if(localized)draft={body:localized,notes:`Nháp ${langLabels[lang]} theo mẫu câu cố định (giờ đến). Cua kiểm tra trước khi gửi; dùng nút Dịch để đọc.`,source:'rules',templateId:'',templateVersion:0};
  else if(plan.template&&plan.body&&!templateMisses(service,plan.template.body))draft={body:plan.body,notes:`Đề xuất từ mẫu đã duyệt "${plan.template.title}" (v${plan.template.version}, Cua cho phép dùng lại ${plan.template.approved_at.slice(0,10)}). Chưa phải phản hồi Cua đã duyệt cho booking này.`,source:'template',templateId:plan.template.id,templateVersion:plan.template.version};
- else if(s.profile.proposedReply)draft={body:applyServiceReply(s.profile.proposedReply.body,service),notes:'AI · Nháp từ toàn bộ hội thoại và hồ sơ nhu cầu. '+s.profile.proposedReply.review.join(' · '),source:'ai',templateId:'',templateVersion:0};
- else{const r=followupDraft(suggestedDraft(guest.guest_text),s.profile,guest.guest_text,s.sent);draft={body:applyServiceReply(applyTourAdvice(r.body,s.tour,vi),service),notes:r.notes,source:'rules',templateId:'',templateVersion:0};}
+ else if(s.profile.proposedReply&&!(saleMode&&service.needs.includes('tour_handoff')))draft={body:applyServiceReply(s.profile.proposedReply.body,service),notes:'AI · Nháp từ toàn bộ hội thoại và hồ sơ nhu cầu. '+s.profile.proposedReply.review.join(' · '),source:'ai',templateId:'',templateVersion:0};
+ else{const r=followupDraft(suggestedDraft(guest.guest_text),s.profile,guest.guest_text,s.sent);draft={body:applyServiceReply(saleMode?r.body:applyTourAdvice(r.body,s.tour,vi),service),notes:r.notes,source:'rules',templateId:'',templateVersion:0};}
  if(service.needs.length)draft.notes+=`\nDịch vụ theo cấu hình khách sạn (${service.needs.join(', ')}): giá chỉ hiện khi đã duyệt trong lib/hotel-policy-config.json.`;
  if(draft.source!=='template')reasons.push(...service.internal);
  if(!draft.body)reasons.push('Chưa soạn được nội dung tự động: Cua soạn câu trả lời.');

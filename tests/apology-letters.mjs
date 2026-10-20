@@ -19,10 +19,11 @@ check('Room issue during the stay: apology letter, 15 minutes, room change if av
  assert.doesNotMatch(r.letter,/interested in visiting|spa menu|airport/i,'no offers in an apology');
  assert.match(r.internal.join(' '),/\[SỰ CỐ PHÒNG\] điều hòa: báo Bộ phận kỹ thuật xử lý trong 15 phút/);assert.match(r.internal.join(' '),/chưa đưa bồi thường/);
 });
-check('Hotline is a [Cua điền] blank until the PO confirms it: blocks approval',()=>{
+check('Hotline confirmed by the PO (+84 896 867 575); an empty hotline is a [Cua điền] blank that blocks approval',()=>{
  const r=reply('There is no hot water in the shower.');
- assert.match(r.letter,/WhatsApp \[Cua điền: correct hotline\]/);assert.ok(hard(r.letter).length>0,'approval blocked');
- assert.match(r.internal.join(' '),/Hotline trong thư đang để trống/);
+ assert.match(r.letter,/WhatsApp \+84 896 867 575/);assert.deepEqual(hard(r.letter),[]);assert.doesNotMatch(r.internal.join(' '),/Hotline trong thư đang để trống/);
+ const empty=structuredClone(policy.policyFor('luxe-75pht'));empty.frontDesk.letters.hotline='';const e=letters.apologyLetter(empty,{kind:'stay',money:false},false,'Anna');
+ assert.match(e.body,/\[Cua điền: correct hotline\]/);assert.ok(hard(e.body).length>0,'approval blocked');assert.match(e.internal.join(' '),/Hotline trong thư đang để trống/);
  const p=structuredClone(policy.policyFor('luxe-75pht'));p.frontDesk.letters.hotline='+84 00 000 0000';
  assert.match(letters.apologyLetter(p,{kind:'room',issue:{en:'the Wi-Fi',vi:'Wi-Fi'},team:{en:'technical team',vi:'Bộ phận kỹ thuật'},money:false},false,'Anna').body,/WhatsApp \+84 00 000 0000/);
 });

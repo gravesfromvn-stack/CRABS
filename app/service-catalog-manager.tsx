@@ -5,6 +5,8 @@ import {EntryMedia} from './catalog-media';
 import {categoryLabels,statusLabels,flowLabels,formatEntryPrice,quoteReady,inScope,unitMargin,type StoredEntry,type EntryEdit,type CatalogCategory,type CatalogStatus,type CatalogFlow} from '../lib/service-catalog';
 import {hotelPolicy} from '../lib/hotel-policy-config';
 import {usePresentation} from './use-presentation';
+import {useRoleView,RoleSwitch} from './role-view';
+import {canSeeCost,roleViewLabels} from '../lib/front-desk';
 
 type History={operation_id:string;item_id:string;actor:string;detail:string;created:string};
 const norm=(s:string)=>s.normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/đ/g,'d').toLowerCase();
@@ -14,6 +16,8 @@ const editOf=(e:StoredEntry):EntryEdit=>({title:e.title,variant:e.variant,unit:e
 
 // One place to read and edit every service and price used by OTA advice, quotes and the tour library.
 export default function ServiceCatalogManager(){
+ // Lễ tân / Saler view: selling price and commission only; cost and hotel margin stay with Quản lý / Admin.
+ const role=useRoleView(),full=canSeeCost(role);
  const present=usePresentation();
  const [entries,setEntries]=useState<StoredEntry[]>([]),[history,setHistory]=useState<History[]>([]),[error,setError]=useState(''),[notice,setNotice]=useState(''),[busy,setBusy]=useState(false);
  const [property,setProperty]=useState(''),[category,setCategory]=useState<''|CatalogCategory>(''),[status,setStatus]=useState<''|CatalogStatus>(''),[flow,setFlow]=useState<''|CatalogFlow>(''),[q,setQ]=useState(''),[supplier,setSupplier]=useState(''),[limit,setLimit]=useState(40);
@@ -46,12 +50,13 @@ export default function ServiceCatalogManager(){
    <label>Nhà cung cấp<select value={supplier} onChange={e=>{setSupplier(e.target.value);setLimit(40);}}><option value="">Tất cả</option><option value="preferred">NCC ưu tiên ({entries.filter(e=>e.preferred).length})</option>{[...new Map(entries.filter(e=>e.supplierId).map(e=>[e.supplierId!,e.supplierName])).entries()].map(([id,n])=><option key={id} value={id}>{n}</option>)}</select></label>
    <label>Tìm<input value={q} onChange={e=>{setQ(e.target.value);setLimit(40);}} placeholder="Mã, tên, nhà cung cấp, mã R75"/></label>
   </div>
-  {editing&&<EntryForm key={editing.id||'new'} id={editing.id} initial={editing.form} properties={properties} busy={busy} onCancel={()=>setEditing(null)} onSave={save} entry={entries.find(e=>e.id===editing.id)}/>}
-  <div className="panel table-wrap"><table className="catalog-table"><thead><tr><th>Mã</th><th>Dịch vụ</th><th>Nhóm · luồng</th><th>Phạm vi</th><th>Giá bán</th><th>Giá vốn</th><th>Hoa hồng</th><th>Trạng thái</th><th/></tr></thead>
+  <div className="role-note"><RoleSwitch/><small>{full?`Góc nhìn ${roleViewLabels[role]}: hiện đủ giá vốn và lãi khách sạn.`:`Góc nhìn ${roleViewLabels[role]}: chỉ hiện giá bán và hoa hồng; giá vốn, lãi khách sạn và nút Sửa được ẩn. Đây là chế độ xem, chưa phải phân quyền tài khoản.`}</small></div>
+  {editing&&full&&<EntryForm key={editing.id||'new'} id={editing.id} initial={editing.form} properties={properties} busy={busy} onCancel={()=>setEditing(null)} onSave={save} entry={entries.find(e=>e.id===editing.id)}/>}
+  <div className="panel table-wrap"><table className="catalog-table"><thead><tr><th>Mã</th><th>Dịch vụ</th><th>Nhóm · luồng</th><th>Phạm vi</th><th>Giá bán</th>{full&&<th>Giá vốn</th>}<th>Hoa hồng</th>{full&&<th>Lãi KS</th>}<th>Trạng thái</th><th/></tr></thead>
    <tbody>{list.slice(0,limit).map(e=><tr key={e.id} className={'st-'+e.status.toLowerCase()}><td><code>{e.id}</code>{e.crmCode&&e.crmCode!==e.id&&<small>{e.crmCode}</small>}</td><td>{e.preferred&&<span className="cat-pref">NCC ưu tiên</span>}<strong>{e.title}</strong>{e.variant&&!e.title.includes(e.variant)&&<small>{e.variant}</small>}<small>{e.supplierName||'Chưa có nhà cung cấp'} · {e.unit}</small></td><td>{categoryLabels[e.category]}<small>{flowLabels[e.channelFlow]}</small></td><td>{scopeLabel(e)}</td>
-    <td>{e.category==='ROOM_POLICY'?<small>{e.rule?.text}</small>:formatEntryPrice(e)}</td><td>{e.netCost===null?'—':formatEntryPrice({sellingPrice:e.netCost,currency:e.currency})}{(unitMargin(e)??0)<0&&<small className="cat-loss">Lỗ {formatEntryPrice({sellingPrice:-unitMargin(e)!,currency:e.currency})}/{e.unit}</small>}</td><td>{e.commission===null?'—':formatEntryPrice({sellingPrice:e.commission,currency:e.currency})}</td>
+    <td>{e.category==='ROOM_POLICY'?<small>{e.rule?.text}</small>:formatEntryPrice(e)}</td>{full&&<td>{e.netCost===null?'—':formatEntryPrice({sellingPrice:e.netCost,currency:e.currency})}{(unitMargin(e)??0)<0&&<small className="cat-loss">Lỗ {formatEntryPrice({sellingPrice:-unitMargin(e)!,currency:e.currency})}/{e.unit}</small>}</td>}<td>{e.commission===null?'—':formatEntryPrice({sellingPrice:e.commission,currency:e.currency})}</td>{full&&<td>{unitMargin(e)===null?'—':formatEntryPrice({sellingPrice:unitMargin(e)!,currency:e.currency})}</td>}
     <td><span className={'cat-status '+e.status.toLowerCase()}>{statusLabels[e.status]}</span>{e.approvedAt&&<small>{e.approvedAt}</small>}</td>
-    <td><button className="text-button" onClick={()=>{setEditing({id:e.id,version:e.version,form:editOf(e)});window.scrollTo({top:0,behavior:'smooth'});}}>Sửa</button></td></tr>)}</tbody></table>
+    <td>{full&&<button className="text-button" onClick={()=>{setEditing({id:e.id,version:e.version,form:editOf(e)});window.scrollTo({top:0,behavior:'smooth'});}}>Sửa</button>}</td></tr>)}</tbody></table>
    {list.length>limit&&<button className="button secondary" onClick={()=>setLimit(n=>n+40)}>Xem thêm ({list.length-limit} mục)</button>}{!list.length&&<p className="empty">Không có mục phù hợp bộ lọc.</p>}</div>
   <details className="panel"><summary><BookOpen size={15}/> Lịch sử thay đổi ({history.length})</summary><ul className="catalog-history">{history.map(h=><li key={h.operation_id}><small>{new Date(h.created).toLocaleString('vi-VN',{timeZone:'Asia/Ho_Chi_Minh'})}</small> {h.detail}</li>)}</ul>{!history.length&&<p className="muted">Chưa có thay đổi. Dữ liệu ban đầu gộp từ workbook 6 tab, nguồn R75 và cấu hình khách sạn.</p>}</details>
  </section>;

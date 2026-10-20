@@ -21,7 +21,7 @@ const FAULT=/not working|doesn'?t work|does not work|isn'?t working|stopped work
 // Problems at another hotel or on a previous stop are care, not an apology from this hotel.
 const ELSEWHERE=/(?:other|previous|last|not the best of) hotels?|\bin (?:cat ba|sapa|sa pa|ha long|halong|ninh binh|hue|hoi an|da nang)\b|on the (?:boat|cruise|bus|train)/;
 const HERE=/your (?:hotel|room|staff|service)|this hotel|\bhere\b|our room|my room|in the room|khach san|phong (?:minh|toi|chung toi)/;
-const DISSATISFIED=/disappoint|not happy|unhappy|complain|unacceptable|very bad|terrible service|worst|rude|not satisfied|dissatisfied|not (?:as|what) (?:described|expected|advertised)|expected (?:more|better)|khong hai long|that vong|khieu nai|te qua|qua te/;
+const DISSATISFIED=/disappoint|not happy|unhappy with|(?:we|i)(?:'m| am| are|'re) (?:very |so |really )?unhappy|complain|unacceptable|very bad (?:service|experience|stay|room|hotel|staff)|terrible service|worst|rude|not satisfied|dissatisfied|not (?:as|what) (?:described|expected|advertised)|expected (?:more|better)|khong hai long|that vong|khieu nai|te qua|qua te|overcharg|charged (?:me |us |my card |our card |my credit card )?(?:twice|double|more|extra|wrong)|double charg|wrong (?:price|amount|charge)|tinh sai tien|thu sai|tru tien (?:2|hai) lan/;
 const MONEY=/refund|compensat|discount|money back|hoan tien|boi thuong|giam gia/;
 
 export type Apology={kind:'room'|'stay';issue?:T;team?:T;point?:T;money:boolean};
@@ -32,7 +32,7 @@ export function detectApology(text:string):Apology|null{
  const found=ISSUES.find(i=>i.re.test(n));
  if(found&&FAULT.test(n))return {kind:'room',issue:found.issue,team:found.team,money};
  if(DISSATISFIED.test(n)){
-  const point=/rude|staff|reception|nhan vien|le tan/.test(n)?{en:', especially regarding the service from our staff',vi:', đặc biệt là về thái độ phục vụ của nhân viên'}:/breakfast|bua sang/.test(n)?{en:', especially regarding breakfast',vi:', đặc biệt là về bữa sáng'}:/clean|dirty|ve sinh|ban/.test(n)?{en:', especially regarding cleanliness',vi:', đặc biệt là về vệ sinh'}:/room|phong/.test(n)?{en:', especially regarding your room',vi:', đặc biệt là về phòng của bạn'}:{en:'',vi:''};
+  const point=/overcharg|charged|charge|price|amount|tien/.test(n)?{en:' regarding the charge',vi:' liên quan đến khoản thu'}:/rude|staff|reception|nhan vien|le tan/.test(n)?{en:', especially regarding the service from our staff',vi:', đặc biệt là về thái độ phục vụ của nhân viên'}:/breakfast|bua sang/.test(n)?{en:', especially regarding breakfast',vi:', đặc biệt là về bữa sáng'}:/clean|dirty|ve sinh|ban/.test(n)?{en:', especially regarding cleanliness',vi:', đặc biệt là về vệ sinh'}:/room|phong/.test(n)?{en:', especially regarding your room',vi:', đặc biệt là về phòng của bạn'}:{en:'',vi:''};
   return {kind:'stay',point,money};
  }
  return null;
@@ -42,11 +42,12 @@ const greet=(name:string,vi:boolean)=>vi?`Chào ${name||'bạn'},`:`Dear ${name|
 const sign=(p:PropertyPolicy,vi:boolean)=>`${vi?'Trân trọng,':'Kind regards,'}\n${p.frontDesk!.letters.contact[vi?'vi':'en']} · ${p.displayName}`;
 
 // Full letter body (greeting, apology, signature) and Cua's internal notes.
-export function apologyLetter(p:PropertyPolicy,a:Apology,vi:boolean,guestName=''):{body:string;internal:string[]}{
+// stage PRE_STAY: the guest has not stayed yet, so the letter does not speak of "your stay".
+export function apologyLetter(p:PropertyPolicy,a:Apology,vi:boolean,guestName='',stage=''):{body:string;internal:string[]}{
  const L=p.frontDesk!.letters,k=vi?'vi':'en',hotline=hotlineOf(p,vi),contact=L.contact[k];
  const text=a.kind==='room'
   ?fill(L.apologyRoom[k],{issue:a.issue![k],team:vi?a.team!.vi:a.team!.en,minutes:String(L.fixMinutes),hotline})
-  :fill(L.apologyStay[k],{point:a.point?.[k]||'',contact,hotline});
+  :fill((stage==='PRE_STAY'?L.apologyPre:L.apologyStay)[k],{point:stage==='PRE_STAY'?(a.point?.[k]||'').replace(/^, especially regarding/,' regarding').replace(/^, đặc biệt là về/,' về'):a.point?.[k]||'',contact,hotline});
  const body=[greet(guestName,vi),text.replace(/^./,c=>c.toUpperCase()),sign(p,vi)].join('\n\n');
  const internal=a.kind==='room'
   ?[`[SỰ CỐ PHÒNG] ${a.issue!.vi}: báo ${a.team!.vi} xử lý trong ${L.fixMinutes} phút; Quản lý Lễ tân theo dõi và gọi lại khách. Đổi phòng chỉ khi còn phòng trống.`]

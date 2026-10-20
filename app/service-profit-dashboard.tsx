@@ -1,6 +1,8 @@
 'use client';
 import {TrendingUp} from 'lucide-react';
 import {profitSummary,profitCells,monthLabel,PROFIT_KINDS} from '../lib/service-profit';
+import {useRoleView} from './role-view';
+import {canSeeCost,roleViewLabels} from '../lib/front-desk';
 
 const vnd=(n:number)=>new Intl.NumberFormat('vi-VN').format(Math.round(n))+'đ';
 const million=(n:number)=>(n/1e6).toLocaleString('vi-VN',{maximumFractionDigits:1})+' tr';
@@ -9,6 +11,9 @@ const COLORS:Record<string,string>={Tour:'#c9a24a',Spa:'#5fa38a','Xe sân bay':'
 
 // Real service results from the hotel sheets (Aug–Oct 2026), not simulated data.
 export default function ServiceProfitDashboard({compact=false}:{compact?:boolean}){
+ const role=useRoleView();
+ // Cost and margin are for Quản lý / Admin only.
+ if(!canSeeCost(role))return compact?null:<section className="page pf-page"><p className="muted">Góc nhìn {roleViewLabels[role]}: báo cáo doanh thu, giá vốn và lãi chỉ hiện cho Quản lý / Admin.</p></section>;
  const s=profitSummary();
  const months=s.months;
  const max=Math.max(...months.map(m=>profitCells.filter(c=>c.month===m&&(PROFIT_KINDS as readonly string[]).includes(c.kind)).reduce((a,c)=>a+c.revenue,0)));

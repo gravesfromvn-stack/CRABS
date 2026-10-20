@@ -4,6 +4,7 @@ import {catalogPolicy,type CatalogEntry} from './service-catalog';
 import {transferConfirmation,flightUpdate} from './transfer-confirm';
 import {arrivalTiming} from './arrival-timing';
 import {detectApology,apologyLetter} from './apology-letters';
+import {tourHandoffReply,receptionTourOffer,RECEPTION_TOURS} from './front-desk';
 import {extractAdjectivesAndEmotion,tourPlacesExcluding,joinOr,placeName} from './guest-emotion';
 const fill=(t:string,v:Record<string,string>)=>t.replace(/\{(\w+)\}/g,(_,key:string)=>v[key]??'');
 const titlePlace=(p:string)=>p.replace(/(^|\s)\S/g,c=>c.toUpperCase());
@@ -13,7 +14,7 @@ const titlePlace=(p:string)=>p.replace(/(^|\s)\S/g,c=>c.toUpperCase());
 //     check-out, hotel times): the draft states the configured, approved terms so Cua can copy it.
 //  2. Tours: suggest the route (tour-advice) and ask for WhatsApp to send the detailed itinerary.
 // Amounts appear only when the configuration marks them approved.
-export type ServiceNeed='apology_room'|'apology_stay'|'spa_recovery'|'anxious'|'excited'|'tour_upsell'|'followup_ping'|'reception_24h'|'early_options'|'onward'|'billing'|'bed_change'|'care'|'room_pref'|'breakfast'|'luggage'|'invoice'|'confirm_transfer'|'flight_update'|'early_checkin'|'late_checkout'|'hotel_times'|'transfer'|'spa'|'tour_whatsapp'|'occasion'|'room_feature'|'payment'|'extension'|'thanks'|'arrival'|'contact';
+export type ServiceNeed='tour_handoff'|'tour_offer'|'apology_room'|'apology_stay'|'spa_recovery'|'anxious'|'excited'|'tour_upsell'|'followup_ping'|'reception_24h'|'early_options'|'onward'|'billing'|'bed_change'|'care'|'room_pref'|'breakfast'|'luggage'|'invoice'|'confirm_transfer'|'flight_update'|'early_checkin'|'late_checkout'|'hotel_times'|'transfer'|'spa'|'tour_whatsapp'|'occasion'|'room_feature'|'payment'|'extension'|'thanks'|'arrival'|'contact';
 // meta: what the guest-language reply needs (emotion, origin, tour places, WhatsApp).
 export type ReplyMeta={sleepy:boolean;origin:string;places:string[];overland:boolean;whatsapp:string;state:string;adjectives:string[]};
 export type ServiceReply={needs:ServiceNeed[];paragraphs:string[];internal:string[];letter?:string;transferParagraph?:string;vi?:boolean;meta?:ReplyMeta};
@@ -23,14 +24,14 @@ const luggageCount=(text:string)=>{const m=text.match(/\b(\d{1,2}|two|three|four
 
 // history: earlier guest messages of the conversation, to read short follow-ups in context
 // (e.g. "On Friday after 9am please" after a surprise request).
-export function serviceReply(input:{catalog?:CatalogEntry[];propertyId:string;text:string;facts:GuestFact[];vi:boolean;tourInterested:boolean;hasContact:boolean;tourPlaces?:string[];history?:string;guestName?:string;stay?:{checkIn:string;checkOut:string};sentAt?:string;offeredTour?:boolean}):ServiceReply{
+export function serviceReply(input:{catalog?:CatalogEntry[];propertyId:string;text:string;facts:GuestFact[];vi:boolean;tourInterested:boolean;hasContact:boolean;tourPlaces?:string[];history?:string;guestName?:string;stay?:{checkIn:string;checkOut:string};sentAt?:string;offeredTour?:boolean;tourSales?:'sale'|'reception'}):ServiceReply{
  const p=catalogPolicy(policyFor(input.propertyId),input.catalog,input.propertyId),out:ServiceReply={needs:[],paragraphs:[],internal:[],vi:input.vi};
  if(!p)return out;
  const n=normalize(input.text),vi=input.vi,k=vi?'vi':'en',h=normalize(input.history||'');
  // A room problem or an unhappy stay gets the approved apology letter only (no service offers, no
  // compensation); other cancellations/refunds get no draft and stay with Cua.
  const apology=p.frontDesk?.approved&&p.frontDesk.letters?detectApology(n):null;
- if(apology){const l=apologyLetter(p,apology,vi,input.guestName);out.needs.push(apology.kind==='room'?'apology_room':'apology_stay');out.letter=l.body;out.paragraphs.push(l.body);out.internal.push(...l.internal);return out;}
+ if(apology){const pre=Boolean(input.stay?.checkIn&&input.sentAt&&new Date(Date.parse(input.sentAt)+7*3600000).toISOString().slice(0,10)<input.stay.checkIn);const l=apologyLetter(p,apology,vi,input.guestName,pre?'PRE_STAY':'');out.needs.push(apology.kind==='room'?'apology_room':'apology_stay');out.letter=l.body;out.paragraphs.push(l.body);out.internal.push(...l.internal);return out;}
  if(/complain|refund|cancel|khieu nai|hoan tien|huy phong|not happy|disappoint/.test(n))return out;
  const blocked=(c:'pickup'|'dropoff')=>input.facts.some(f=>f.category===c&&['declined','own_transport','deferred','arranged_by_guest'].includes(f.status));
  // Facts said in this message (not earlier ones), so answers are not repeated every turn.
@@ -230,7 +231,11 @@ export function serviceReply(input:{catalog?:CatalogEntry[];propertyId:string;te
    out.paragraphs.push(vi?(update?'Cảm ơn bạn đã báo. Chúc bạn một ngày thật vui!':'Rất vui vì bạn hài lòng. Chúc bạn có kỳ nghỉ thật đáng nhớ!'):(update?'Thank you for letting us know. Have a wonderful day!':'You are very welcome; we are so glad you are enjoying your stay. Have a lovely time!'));
    if(beforeStay)out.paragraphs[out.paragraphs.length-1]=vi?'Cảm ơn bạn. Khách sạn rất mong được đón bạn!':'You are very welcome. We look forward to welcoming you!';}
  }
- if(input.tourInterested&&p.tours.whatsappAsk){out.needs.push('tour_whatsapp');
+ // Tour questions (PO 20/10): with a sales team, reception passes the tour on to the Tour Specialist;
+ // a small hotel without one lets reception offer the main day tours at approved catalog prices.
+ if(input.tourInterested&&input.tourSales==='sale'){out.needs.push('tour_handoff');out.paragraphs.push(tourHandoffReply(vi));out.internal.push('[CHUYỂN SALER TOUR] Khách hỏi tour: Saler gửi lịch trình và báo giá; lễ tân không báo giá tour.');}
+ else if(input.tourInterested&&input.tourSales==='reception'&&!(input.tourPlaces||[]).length&&receptionTourOffer(input.catalog||[],RECEPTION_TOURS,vi)){out.needs.push('tour_offer');out.paragraphs.push(receptionTourOffer(input.catalog||[],RECEPTION_TOURS,vi));out.internal.push('Lễ tân tự tư vấn tour (công tắc bật): giá lấy từ catalog đã duyệt; xác nhận chỗ với nhà cung cấp trước khi chốt.');}
+ else if(input.tourInterested&&p.tours.whatsappAsk){out.needs.push('tour_whatsapp');
   const ranges=p.tours.products.filter(t=>t.approved&&t.fromPrice!==null&&(input.tourPlaces||[]).some(pl=>normalize(pl).includes(normalize(t.place))||normalize(t.place).includes(normalize(pl))));
   const priceLine=ranges.map(t=>vi?`${t.title.vi}: từ ${formatMoney(t.fromPrice!,vi)}/${t.unit}.`:`${t.title.en}: from ${formatMoney(t.fromPrice!,vi)} per person.`).join(' ');
   out.paragraphs.push((priceLine?priceLine+' ':'')+(input.hasContact?(vi?'Mình sẽ gửi lịch trình chi tiết kèm ảnh qua WhatsApp bạn đã để lại.':'We will send the detailed itinerary with photos to the WhatsApp number you shared.'):(vi?'Để gửi bạn lịch trình chi tiết kèm ảnh (PDF), bạn cho mình xin số WhatsApp nhé?':'To send you the detailed itinerary with photos (PDF), could you share your WhatsApp number?')));
@@ -239,7 +244,7 @@ export function serviceReply(input:{catalog?:CatalogEntry[];propertyId:string;te
  // Room-only messages (no service asked, not tired, no complaint): one gentle tour suggestion at the very end,
  // without the places the guest has just come from; overland guests also hear about cars to the airport/provinces.
  const roomish=['arrival','room_pref','bed_change','luggage','early_checkin','late_checkout','hotel_times','breakfast','reception_24h','early_options','room_feature','excited','occasion'];
- const serviceAsked=['transfer','spa','tour_whatsapp','confirm_transfer','flight_update','invoice','billing','extension','payment','followup_ping','care','anxious'];
+ const serviceAsked=['transfer','spa','tour_whatsapp','tour_handoff','tour_offer','confirm_transfer','flight_update','invoice','billing','extension','payment','followup_ping','care','anxious'];
  if(fd&&emo.applicable_care_path==='TOUR_UPSELL'&&!input.tourInterested&&!input.offeredTour&&out.needs.some(x=>roomish.includes(x))&&!out.needs.some(x=>serviceAsked.includes(x))){
   const places=tourPlacesExcluding([...emo.origins,...(timing?.origin?[timing.origin]:[])]);
   if(places.length){out.needs.push('tour_upsell');
@@ -279,7 +284,7 @@ export function whatsappTourMessage(a:TourLike,guestName:string,vi:boolean):stri
 
 // Puts the service paragraphs into a draft: the priced transfer paragraph replaces the generic one.
 // Needs a generic template cannot answer unless it carries {{service_info}}.
-export const KEY_NEEDS:ServiceNeed[]=['billing','reception_24h','early_options','bed_change','care','invoice','confirm_transfer','flight_update'];
+export const KEY_NEEDS:ServiceNeed[]=['tour_handoff','tour_offer','apology_room','apology_stay','billing','reception_24h','early_options','bed_change','care','invoice','confirm_transfer','flight_update'];
 export const templateMisses=(s:ServiceReply,templateBody:string)=>s.needs.some(x=>KEY_NEEDS.includes(x))&&!/\{\{\s*service_info\s*\}\}/.test(templateBody);
 export function applyServiceReply(body:string,s:ServiceReply):string{
  if(!s.paragraphs.length)return body;

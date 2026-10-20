@@ -6,12 +6,15 @@ import {tourResearch} from '../lib/tour-research';
 
 import {RouteLibrary,KnowledgeLibrary} from './reference-knowledge';
 import './tour-knowledge.css';
+import {useRoleView} from './role-view';
+import {canSeeCost} from '../lib/front-desk';
 
 const normalize=(s:string)=>s.normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/đ/g,'d').toLowerCase();
 const TOUR_GROUPS:CatalogCategory[]=['NINHBINH_TOUR','HALONG_TOUR','SAPA_TOUR','HANOI_TOUR','OTHER_TOUR','INTERCITY_BUS_12GO'];
 const tabs=[['catalog','Chương trình & giá'],['routes','Ghép lịch 1–28 ngày'],['knowledge','Lưu ý tư vấn'],['confirm','Cần Cua xác nhận']] as const;
 
 export default function TourKnowledge({onQuote}:{onQuote:()=>void}){
+ const fullCost=canSeeCost(useRoleView());
  const [tab,setTab]=useState<string>('catalog'),[query,setQuery]=useState(''),[group,setGroup]=useState<''|CatalogCategory>(''),[limit,setLimit]=useState(8),[entries,setEntries]=useState<StoredEntry[]>([]),[error,setError]=useState('');
  // Same service catalog as OTA advice and quotes: status and price decided in Kho dịch vụ & giá.
  useEffect(()=>{fetch('/api/catalog').then(r=>r.json() as Promise<{entries?:StoredEntry[];error?:string}>).then(d=>d.entries?setEntries(d.entries):setError(d.error||'Không đọc được kho dịch vụ.')).catch(()=>setError('Không đọc được kho dịch vụ.'));},[]);
@@ -25,7 +28,7 @@ export default function TourKnowledge({onQuote}:{onQuote:()=>void}){
   {tab==='catalog'&&<>
    <div className="tk-toolbar"><label>Tìm chương trình<input value={query} placeholder="Hà Nội, Hoa Lư, Dragon King, mã tour…" onChange={e=>{setQuery(e.target.value);setLimit(8)}}/></label><label>Nhóm<select value={group} onChange={e=>{setGroup(e.target.value as ''|CatalogCategory);setLimit(8)}}><option value="">Tất cả</option>{TOUR_GROUPS.map(g=><option key={g} value={g}>{categoryLabels[g]} ({tours.filter(t=>t.category===g).length})</option>)}</select></label></div>
    {error&&<p className="error" role="alert">{error}</p>}<p className="tk-count">{results.length} kết quả · Mục đã duyệt giá hiển thị trước. Sửa giá và trạng thái ở Kho dịch vụ & giá.</p>
-   <div className="tk-grid">{results.slice(0,limit).map(p=><article className="panel tk-card" key={p.id}>{p.images?.[0]&&<img className="tk-photo" src={p.images[0].src} alt={p.images[0].caption} loading="lazy" referrerPolicy="no-referrer"/>}{p.preferred&&<span className="cat-pref">NCC ưu tiên · {p.supplierName}</span>}<span className="eyebrow">{p.id}{p.crmCode&&p.crmCode!==p.id?' · '+p.crmCode.replace('R75-',''):''} · {p.duration||'thời lượng chưa rõ'}</span><h2>{p.title}</h2>{p.variant&&!p.title.includes(p.variant)&&<p className="tk-caption">{p.variant}</p>}<p className="tk-caption">{p.supplierName||'Chưa có nhà cung cấp'} · {categoryLabels[p.category]} · {flowLabels[p.channelFlow]}</p><div className="tk-price"><strong>{formatEntryPrice(p)}{p.sellingPrice!==null?' / '+p.unit:''}</strong><span>{p.sellingPrice===null&&p.netCost!==null?`Giá thu gốc ${formatEntryPrice({sellingPrice:p.netCost,currency:p.currency})} · chưa đặt giá bán`:statusLabels[p.status]+(p.approvedAt?' · '+p.approvedAt:'')}</span></div>
+   <div className="tk-grid">{results.slice(0,limit).map(p=><article className="panel tk-card" key={p.id}>{p.images?.[0]&&<img className="tk-photo" src={p.images[0].src} alt={p.images[0].caption} loading="lazy" referrerPolicy="no-referrer"/>}{p.preferred&&<span className="cat-pref">NCC ưu tiên · {p.supplierName}</span>}<span className="eyebrow">{p.id}{p.crmCode&&p.crmCode!==p.id?' · '+p.crmCode.replace('R75-',''):''} · {p.duration||'thời lượng chưa rõ'}</span><h2>{p.title}</h2>{p.variant&&!p.title.includes(p.variant)&&<p className="tk-caption">{p.variant}</p>}<p className="tk-caption">{p.supplierName||'Chưa có nhà cung cấp'} · {categoryLabels[p.category]} · {flowLabels[p.channelFlow]}</p><div className="tk-price"><strong>{formatEntryPrice(p)}{p.sellingPrice!==null?' / '+p.unit:''}</strong><span>{p.sellingPrice===null&&p.netCost!==null?(fullCost?`Giá thu gốc ${formatEntryPrice({sellingPrice:p.netCost,currency:p.currency})} · chưa đặt giá bán`:'Chưa đặt giá bán'):statusLabels[p.status]+(p.approvedAt?' · '+p.approvedAt:'')}</span></div>
     <details><summary>{p.itinerary?.length?'Xem lịch trình theo giờ, quyền lợi & nguồn':'Xem lộ trình, quyền lợi & nguồn'}</summary><EntryMedia entry={p}/>
      {p.summary&&<p className="tk-copy">{p.summary}</p>}{p.highlights.length>0&&<ul>{p.highlights.map(h=><li key={h}>{h}</li>)}</ul>}{p.inclusions&&<p><b>Bao gồm:</b> {p.inclusions}</p>}{p.exclusions&&<p><b>Chưa gồm:</b> {p.exclusions}</p>}
      <p className="muted">{p.sourceNote}{p.sourceUrl&&<> · <a href={p.sourceUrl} target="_blank" rel="noreferrer">nguồn ↗</a></>}</p>

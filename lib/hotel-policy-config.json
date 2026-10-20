@@ -452,8 +452,8 @@
             "vi": "Quản lý Lễ tân",
             "en": "Front Office Manager"
           },
-          "hotline": "",
-          "hotlineNote": "PO chưa xác nhận số hotline cho thư xin lỗi (cấu hình có +84 90 224 8388, mẫu N22.2 có +84 896 867 575). Để trống: nháp hiện ô [Cua điền] và bị chặn duyệt.",
+          "hotline": "+84 896 867 575",
+          "hotlineNote": "PO xác nhận 20/10/2026: hotline cho thư xin lỗi và các mẫu lễ tân mới (ETA, hạ nhiệt phàn nàn).",
           "apologyRoom": {
             "en": "We are very sorry that {issue} in your room has affected your stay; this is not the experience we want for you. Our {team} has been notified and will attend to it within {minutes} minutes. If the issue cannot be resolved quickly, we will be glad to offer you another room, subject to availability. Please message us any time on WhatsApp {hotline} if anything else needs attention. Thank you for your patience and for letting us know.",
             "vi": "Khách sạn thành thật xin lỗi vì {issue} trong phòng đã ảnh hưởng đến kỳ nghỉ của bạn; đây không phải trải nghiệm chúng tôi mong muốn dành cho bạn. {team} đã được báo và sẽ xử lý trong vòng {minutes} phút. Nếu chưa khắc phục được ngay, khách sạn sẵn sàng đổi cho bạn phòng khác, tùy tình trạng phòng trống. Bạn cứ nhắn WhatsApp {hotline} bất cứ lúc nào nếu cần hỗ trợ thêm. Cảm ơn bạn đã kiên nhẫn và báo cho khách sạn biết."
@@ -461,6 +461,10 @@
           "apologyStay": {
             "en": "Thank you for taking the time to share your feedback, and please accept our sincere apologies that your stay did not meet your expectations{point}. We have shared your comments with our {contact} and are reviewing what happened so we can put it right. Our {contact} would like to speak with you personally; may we contact you on WhatsApp or by phone? You can also reach us any time on WhatsApp {hotline}. We truly appreciate your honesty and hope for the chance to welcome you again and show you the experience you deserve.",
             "vi": "Cảm ơn bạn đã dành thời gian chia sẻ góp ý, và khách sạn thành thật xin lỗi vì kỳ nghỉ chưa được như bạn mong đợi{point}. Chúng tôi đã chuyển ý kiến của bạn tới {contact} và đang xem lại sự việc để khắc phục. {contact} mong được trao đổi trực tiếp với bạn; khách sạn có thể liên hệ bạn qua WhatsApp hoặc điện thoại không? Bạn cũng có thể nhắn WhatsApp {hotline} bất cứ lúc nào. Khách sạn trân trọng sự thẳng thắn của bạn và mong có dịp được đón tiếp bạn lần nữa với trải nghiệm xứng đáng hơn."
+          },
+          "apologyPre": {
+            "en": "Thank you for letting us know, and please accept our sincere apologies for the inconvenience{point}. Your comfort is our priority, so we have passed this straight to our {contact}, who is looking into it and will follow up with you personally. You can also reach us any time on WhatsApp {hotline}. Thank you for your understanding; we look forward to welcoming you.",
+            "vi": "Cảm ơn bạn đã báo cho khách sạn, và khách sạn thành thật xin lỗi vì sự bất tiện{point}. Sự thoải mái của bạn là ưu tiên của chúng tôi, nên khách sạn đã chuyển ngay tới {contact}; {contact} đang kiểm tra và sẽ trực tiếp liên hệ lại với bạn. Bạn cũng có thể nhắn WhatsApp {hotline} bất cứ lúc nào. Cảm ơn bạn đã thông cảm; khách sạn rất mong được đón bạn."
           },
           "checkoutDay": {
             "en": "Good morning {name}, we hope you had a restful stay with us. A gentle reminder that check-out is by {checkOut} today. If you need a little more time, late check-out until {lateUntil} is available at {lateFee}, subject to room availability. We are happy to store your luggage free of charge after check-out, and we can arrange a private car to the airport; just let us know your flight time. If you need an invoice, please send us the details before you leave. Wishing you a safe onward journey!",
@@ -846,8 +850,8 @@
             "vi": "Quản lý Lễ tân",
             "en": "Front Office Manager"
           },
-          "hotline": "",
-          "hotlineNote": "PO chưa xác nhận số hotline cho thư xin lỗi (cấu hình có +84 90 224 8388, mẫu N22.2 có +84 896 867 575). Để trống: nháp hiện ô [Cua điền] và bị chặn duyệt.",
+          "hotline": "+84 896 867 575",
+          "hotlineNote": "PO xác nhận 20/10/2026: hotline cho thư xin lỗi và các mẫu lễ tân mới (ETA, hạ nhiệt phàn nàn).",
           "apologyRoom": {
             "en": "We are very sorry that {issue} in your room has affected your stay; this is not the experience we want for you. Our {team} has been notified and will attend to it within {minutes} minutes. If the issue cannot be resolved quickly, we will be glad to offer you another room, subject to availability. Please message us any time on WhatsApp {hotline} if anything else needs attention. Thank you for your patience and for letting us know.",
             "vi": "Khách sạn thành thật xin lỗi vì {issue} trong phòng đã ảnh hưởng đến kỳ nghỉ của bạn; đây không phải trải nghiệm chúng tôi mong muốn dành cho bạn. {team} đã được báo và sẽ xử lý trong vòng {minutes} phút. Nếu chưa khắc phục được ngay, khách sạn sẵn sàng đổi cho bạn phòng khác, tùy tình trạng phòng trống. Bạn cứ nhắn WhatsApp {hotline} bất cứ lúc nào nếu cần hỗ trợ thêm. Cảm ơn bạn đã kiên nhẫn và báo cho khách sạn biết."
@@ -855,6 +859,10 @@
           "apologyStay": {
             "en": "Thank you for taking the time to share your feedback, and please accept our sincere apologies that your stay did not meet your expectations{point}. We have shared your comments with our {contact} and are reviewing what happened so we can put it right. Our {contact} would like to speak with you personally; may we contact you on WhatsApp or by phone? You can also reach us any time on WhatsApp {hotline}. We truly appreciate your honesty and hope for the chance to welcome you again and show you the experience you deserve.",
             "vi": "Cảm ơn bạn đã dành thời gian chia sẻ góp ý, và khách sạn thành thật xin lỗi vì kỳ nghỉ chưa được như bạn mong đợi{point}. Chúng tôi đã chuyển ý kiến của bạn tới {contact} và đang xem lại sự việc để khắc phục. {contact} mong được trao đổi trực tiếp với bạn; khách sạn có thể liên hệ bạn qua WhatsApp hoặc điện thoại không? Bạn cũng có thể nhắn WhatsApp {hotline} bất cứ lúc nào. Khách sạn trân trọng sự thẳng thắn của bạn và mong có dịp được đón tiếp bạn lần nữa với trải nghiệm xứng đáng hơn."
+          },
+          "apologyPre": {
+            "en": "Thank you for letting us know, and please accept our sincere apologies for the inconvenience{point}. Your comfort is our priority, so we have passed this straight to our {contact}, who is looking into it and will follow up with you personally. You can also reach us any time on WhatsApp {hotline}. Thank you for your understanding; we look forward to welcoming you.",
+            "vi": "Cảm ơn bạn đã báo cho khách sạn, và khách sạn thành thật xin lỗi vì sự bất tiện{point}. Sự thoải mái của bạn là ưu tiên của chúng tôi, nên khách sạn đã chuyển ngay tới {contact}; {contact} đang kiểm tra và sẽ trực tiếp liên hệ lại với bạn. Bạn cũng có thể nhắn WhatsApp {hotline} bất cứ lúc nào. Cảm ơn bạn đã thông cảm; khách sạn rất mong được đón bạn."
           },
           "checkoutDay": {
             "en": "Good morning {name}, we hope you had a restful stay with us. A gentle reminder that check-out is by {checkOut} today. If you need a little more time, late check-out until {lateUntil} is available at {lateFee}, subject to room availability. We are happy to store your luggage free of charge after check-out, and we can arrange a private car to the airport; just let us know your flight time. If you need an invoice, please send us the details before you leave. Wishing you a safe onward journey!",

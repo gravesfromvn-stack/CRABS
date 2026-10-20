@@ -1,12 +1,13 @@
 import {env} from 'cloudflare:workers';
 import {getChatGPTUser} from '../../chatgpt-auth';
 import {sameOrigin} from '../../../lib/validation';
-import {operationsCommand,type OperationInput} from '../../../lib/operations';
+import {operationsCommand,managerAlerts,type OperationInput} from '../../../lib/operations';
 import {operationsSources,operationsState,type TaskRow} from '../../../lib/operations-store';
 import {hash} from '../../../lib/ota';
 export const dynamic='force-dynamic';
 const response=(data:unknown,status=200)=>Response.json(data,{status,headers:{'Cache-Control':'no-store'}});
-export async function GET(){const user=await getChatGPTUser();if(!user)return response({error:'Vui lòng đăng nhập.'},401);try{if(!env.DB)throw Error('DB');return response(await operationsState(env.DB,user.userId));}catch(e){console.error('Operations read failed',e instanceof Error?e.message:'unknown');return response({error:'Chưa đọc được vận hành. Kiểm tra database local đã áp dụng migration 0010.'},500);}}
+// ?view=alerts: only the manager escalation list (banner on every screen).
+export async function GET(request?:Request){const user=await getChatGPTUser();if(!user)return response({error:'Vui lòng đăng nhập.'},401);try{if(!env.DB)throw Error('DB');const s=await operationsState(env.DB,user.userId);if(request&&new URL(request.url).searchParams.get('view')==='alerts')return response({alerts:managerAlerts(s.sources,s.handoffs,s.flags),settings:s.settings});return response(s);}catch(e){console.error('Operations read failed',e instanceof Error?e.message:'unknown');return response({error:'Chưa đọc được vận hành. Kiểm tra database local đã áp dụng migration 0010.'},500);}}
 export async function POST(request:Request){
  const user=await getChatGPTUser();if(!user)return response({error:'Vui lòng đăng nhập.'},401);
  if(!sameOrigin(request))return response({error:'Nguồn yêu cầu không hợp lệ.'},403);
@@ -17,7 +18,7 @@ export async function POST(request:Request){
  const owner=user.userId,now=new Date().toISOString(),actor='Chủ tài khoản',commandHash=await hash(JSON.stringify(c));
  try{
  const replay=await db.prepare('SELECT command_hash FROM ops_history WHERE owner=? AND operation_id=?').bind(owner,c.operationId).first<{command_hash:string}>();
- if(replay)return replay.command_hash===commandHash?response({ok:true,replayed:true,id:c.id}):response({error:'Mã thao tác đã dùng cho nội dung khác.'},409);
+ if(replay)return replay.command_hash===commandHash?response({ok:true,replayed:true,id:'id' in c?c.id:c.key}):response({error:'Mã thao tác đã dùng cho nội dung khác.'},409);
  if(c.action==='save'){
  const source=(await operationsSources(db,owner)).find(s=>s.kind===c.sourceKind&&s.id===c.sourceId);if(!source)return response({error:'Không tìm thấy đúng hồ sơ nguồn.'},404);
  if(source.propertyId==='unverified'&&(c.task.state==='done'||c.task.supplierStatus==='confirmed'))return response({error:'Cần đối chiếu cơ sở trước khi xác nhận hoặc hoàn tất dịch vụ.'},409);
@@ -38,8 +39,13 @@ export async function POST(request:Request){
  return response({ok:true,id:c.id});
  }
  if(c.action==='handoff'){
- const result=await db.batch([db.prepare('INSERT OR IGNORE INTO ops_handoffs(owner,id,property_id,day,shift,recipient,body,actor,created,last_operation) VALUES(?,?,?,?,?,?,?,?,?,?)').bind(owner,c.id,c.propertyId,c.day,c.shift,c.recipient,c.body,actor,now,c.operationId),db.prepare('INSERT OR IGNORE INTO ops_history(owner,operation_id,task_id,actor,detail,payload,command_hash,created) SELECT ?,?,?,?,?,?,?,? WHERE EXISTS(SELECT 1 FROM ops_handoffs WHERE owner=? AND id=? AND last_operation=?)').bind(owner,c.operationId,c.id,actor,'Bàn giao ca · '+c.shift,JSON.stringify(c),commandHash,now,owner,c.id,c.operationId)]);
+ const result=await db.batch([db.prepare('INSERT OR IGNORE INTO ops_handoffs(owner,id,property_id,day,shift,recipient,body,actor,created,last_operation,room,booking_ref,stage,category,author) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)').bind(owner,c.id,c.propertyId,c.day,c.shift,c.recipient,c.body,actor,now,c.operationId,c.room,c.bookingRef,c.stage,c.category,c.author),db.prepare('INSERT OR IGNORE INTO ops_history(owner,operation_id,task_id,actor,detail,payload,command_hash,created) SELECT ?,?,?,?,?,?,?,? WHERE EXISTS(SELECT 1 FROM ops_handoffs WHERE owner=? AND id=? AND last_operation=?)').bind(owner,c.operationId,c.id,actor,'Bàn giao ca · '+c.shift,JSON.stringify(c),commandHash,now,owner,c.id,c.operationId)]);
  if(!result[0].meta.changes)return response({error:'Bàn giao đã tồn tại; tải lại để kiểm tra.'},409);return response({ok:true,id:c.id});
+ }
+ if(c.action==='flag'){
+ const detail=c.key.startsWith('setting:')?`Cài đặt ${c.key.slice(8)} = ${c.value}`:c.key.startsWith('room:')?`Trạng thái phòng · ${c.value}`:c.key.startsWith('complaint:')?(c.value==='resolved'?'Đã giải quyết phàn nàn':'Mở lại phàn nàn'):`Checklist ca · ${c.value||'bỏ đánh dấu'}`;
+ await db.batch([db.prepare('INSERT INTO ops_flags(owner,key,value,actor,updated,last_operation) VALUES(?,?,?,?,?,?) ON CONFLICT(owner,key) DO UPDATE SET value=excluded.value,actor=excluded.actor,updated=excluded.updated,last_operation=excluded.last_operation').bind(owner,c.key,c.value,actor,now,c.operationId),db.prepare('INSERT OR IGNORE INTO ops_history(owner,operation_id,task_id,actor,detail,payload,command_hash,created) VALUES(?,?,?,?,?,?,?,?)').bind(owner,c.operationId,c.key,actor,detail,JSON.stringify(c),commandHash,now)]);
+ return response({ok:true,key:c.key});
  }
  const result=await db.batch([db.prepare('UPDATE ops_handoffs SET received_at=?,received_by=?,last_operation=? WHERE owner=? AND id=? AND received_at=?').bind(now,actor,c.operationId,owner,c.id,''),db.prepare('INSERT OR IGNORE INTO ops_history(owner,operation_id,task_id,actor,detail,payload,command_hash,created) SELECT ?,?,?,?,?,?,?,? WHERE EXISTS(SELECT 1 FROM ops_handoffs WHERE owner=? AND id=? AND last_operation=?)').bind(owner,c.operationId,c.id,actor,'Đã tiếp nhận bàn giao',JSON.stringify(c),commandHash,now,owner,c.id,c.operationId)]);
  return result[0].meta.changes?response({ok:true}):response({error:'Bàn giao không tồn tại hoặc đã được tiếp nhận.'},409);

@@ -8,6 +8,8 @@ import type {FactChange} from '../lib/ota-profile';
 import {intentLabels,type Intent} from '../lib/guest-intent';
 import {formatEntryPrice,type PreferredProduct} from '../lib/service-catalog';
 import {EntryMedia} from './catalog-media';
+import {useRoleView} from './role-view';
+import {canSeeCost} from '../lib/front-desk';
 
 // Internal advice view for Cua: what the guest gave, what is still open, sourced options with
 // price status, transport cautions and draft checks. Nothing here is copied into the guest draft.
@@ -16,6 +18,7 @@ const vnd=(n:number|null)=>n===null?'—':formatMoney(n,true);
 const margin=(price:number|null,cost:number|null,commission:number|null)=>price===null||cost===null?'—':formatMoney(price-cost-(commission||0),true)+(commission===null?' (chưa trừ hoa hồng)':'');
 const statusLabel:Record<TourAdvice['status'],string>={none:'Chưa nhắc tour',interested:'Đang quan tâm',deferred:'Để sau',declined:'Không cần'};
 export function OtaAdvicePanel({view}:{view:AdviceView}){
+ const fullCost=canSeeCost(useRoleView());
  const a=view.tour,checks=view.checks||[],rooms=view.roomTasks||[],history=view.history||[];
  const contact=view.contact,policy=view.policy,present=usePresentation();
  if(!a&&!checks.length&&!rooms.length&&!policy)return null;
@@ -40,14 +43,14 @@ export function OtaAdvicePanel({view}:{view:AdviceView}){
    {checks.length>0&&<div><h4>Kiểm tra nháp hiện tại</h4><ul>{checks.map((p,i)=><li key={i} className={p.hard?'block':'warn'}>{p.hard?'Chặn duyệt: ':'Lưu ý: '}{p.text}</li>)}</ul></div>}
   </div>
   {!!view.preferred?.length&&<div className="ota-advice-preferred"><h4>Sản phẩm nhà cung cấp ưu tiên · {a?.destinations.map(d=>d.label.vi).join(', ')}</h4><p className="muted">Giá thu gốc chỉ dùng nội bộ. Khi khách chọn, Cua đặt giá bán ở Kho dịch vụ & giá rồi gửi lịch trình qua WhatsApp.</p>
-   {view.preferred.map(p=><details key={p.id}><summary>{p.images?.[0]&&<img src={p.images[0].src} alt="" loading="lazy" referrerPolicy="no-referrer"/>}<span><strong>{p.title}</strong><small>{p.variant} · {p.supplierName} · {p.duration}</small><small>{p.netCost===null?'Chưa có giá thu gốc':`Giá thu gốc ${formatEntryPrice({sellingPrice:p.netCost,currency:p.currency})}/${p.unit}`}{p.sellingPrice!==null?` · bán ${formatEntryPrice(p)}`:' · chưa đặt giá bán'}</small></span></summary>{p.summary&&<p>{p.summary}</p>}<EntryMedia entry={p}/></details>)}</div>}
+   {view.preferred.map(p=><details key={p.id}><summary>{p.images?.[0]&&<img src={p.images[0].src} alt="" loading="lazy" referrerPolicy="no-referrer"/>}<span><strong>{p.title}</strong><small>{p.variant} · {p.supplierName} · {p.duration}</small><small>{fullCost?(p.netCost===null?'Chưa có giá thu gốc':`Giá thu gốc ${formatEntryPrice({sellingPrice:p.netCost,currency:p.currency})}/${p.unit}`):''}{p.sellingPrice!==null?`${fullCost?' · ':''}bán ${formatEntryPrice(p)}`:`${fullCost?' · ':''}chưa đặt giá bán`}</small></span></summary>{p.summary&&<p>{p.summary}</p>}<EntryMedia entry={p}/></details>)}</div>}
   {(tourTalk||contact)&&<div className="ota-advice-whatsapp"><h4><MessageCircle size={14}/> Tư vấn tour qua WhatsApp</h4>{contact?<><p>Số khách để lại: <strong>{contact.display}</strong> <a className="button secondary" href={whatsappLink(contact,view.whatsappMessage||greeting)} target="_blank" rel="noopener noreferrer">Mở WhatsApp Web</a><small>Tin nhắn điền sẵn: thông tin tour trước, chưa có giá; Cua đọc lại và gửi thủ công.</small></p>{view.whatsappMessage&&<details><summary>Xem tin nhắn WhatsApp sẽ điền sẵn</summary><pre className="ota-source">{view.whatsappMessage}</pre></details>}</>:<p className="muted">Khách chưa để số WhatsApp. Nháp trên Extranet đã xin số để gửi lịch trình chi tiết.</p>}</div>}
   {policy&&<div className="ota-advice-options"><h4>Dịch vụ chốt trên Extranet · {present?policy.demoName:policy.displayName}</h4>
    <p>Nhận phòng {policy.checkIn} · trả phòng {policy.checkOut}. Nhận sớm {policy.earlyCheckIn.from}–{policy.earlyCheckIn.until}: {policy.earlyCheckIn.fee.vi}. Trả muộn đến {policy.lateCheckOut.until}: {policy.lateCheckOut.fee.vi}.</p>
    <table><thead><tr><th>Xe sân bay</th><th>Đón</th><th>Tiễn</th><th>Lãi/chiều (đón)</th></tr></thead><tbody>{policy.airportTransfer.vehicles.map(v=><tr key={v.id}><td>{v.seats} chỗ · tối đa {v.maxGuests} khách</td><td>{vnd(v.pickup)}</td><td>{vnd(v.dropoff)}</td><td>{margin(v.pickup,v.cost,v.commission)}</td></tr>)}</tbody></table>
    <small className={policy.airportTransfer.approved?'ok':'ref'}>{policy.airportTransfer.approved?'Giá xe đã duyệt · nháp được điền giá':'Giá xe chưa duyệt · nháp không nêu giá'} · {policy.airportTransfer.approvedNote}</small>
    <p>Spa: {policy.spa.approved&&policy.spa.items.some(i=>i.price!==null)?policy.spa.items.filter(i=>i.price!==null).map(i=>`${i.name.vi} ${i.minutes}′ ${vnd(i.price)}`).join(' · '):<span className="ref">{policy.spa.note}</span>}</p>
-   {policy.tours.products.length>0&&<table><thead><tr><th>Tour chủ lực</th><th>Giá từ</th><th>Giá bán / vốn</th><th>Lãi dự kiến</th><th>Trạng thái</th></tr></thead><tbody>{policy.tours.products.map(t=><tr key={t.id}><td>{t.title.vi}</td><td>{vnd(t.fromPrice)}</td><td>{vnd(t.price)} / {vnd(t.cost)}</td><td>{margin(t.price,t.cost,t.commission)}</td><td className={t.approved?'ok':'ref'}>{t.approved?'Đã duyệt':'Chờ Cua duyệt'}</td></tr>)}</tbody></table>}
+   {policy.tours.products.length>0&&<table><thead><tr><th>Tour chủ lực</th><th>Giá từ</th><th>{fullCost?'Giá bán / vốn':'Giá bán'}</th>{fullCost&&<th>Lãi dự kiến</th>}<th>Trạng thái</th></tr></thead><tbody>{policy.tours.products.map(t=><tr key={t.id}><td>{t.title.vi}</td><td>{vnd(t.fromPrice)}</td><td>{vnd(t.price)}{fullCost&&<> / {vnd(t.cost)}</>}</td>{fullCost&&<td>{margin(t.price,t.cost,t.commission)}</td>}<td className={t.approved?'ok':'ref'}>{t.approved?'Đã duyệt':'Chờ Cua duyệt'}</td></tr>)}</tbody></table>}
   </div>}
   {a&&a.options.length>0&&<div className="ota-advice-options"><h4>Phương án đề xuất ({a.options.length})</h4>{a.options.map(o=><article key={o.id}>
    <div className="ota-heading-line"><strong>{o.title}</strong><span className={o.approvedPrice?'ok':'ref'}>{o.approvedPrice?'Giá đã duyệt':'Tham khảo · Cần Cua chốt giá'}</span></div>

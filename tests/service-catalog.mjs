@@ -47,8 +47,9 @@ await check('Preferred suppliers: costs from their documents, no selling price u
  const sapa=byId('VA-sapa-3d2n-hotel');assert.equal(sapa.itinerary[0].time,'06:00–06:20');assert.equal(sapa.itinerary.at(-1).time,'21:30–21:45');assert.equal(sapa.images.length,4);
  for(const img of sapa.images)assert.ok(existsSync('public'+img.src),img.src);
  assert.equal(byId('HH-san-bay-noi-bai-ha-noi-5').netCost,350000);assert.equal(byId('HH-ghep-ha-noi-sa-pa').netCost,450000);
- // Hotel airport transfers carry the HH cost; a loss shows as a negative margin.
- assert.equal(byId('HS-luxe-75pht-car4-pickup').netCost,350000);assert.ok(lib.unitMargin(byId('HS-luxe-75pht-van16-pickup'))<0);
+ // Hotel airport transfers keep the PO's own costs (HH Limousine is only for Hanoi – Ha Long – Ninh Binh cars).
+ assert.deepEqual(['car4','car7','van16'].map(v=>byId(`HS-luxe-75pht-${v}-pickup`).netCost),[250000,320000,500000]);assert.ok(lib.unitMargin(byId('HS-luxe-75pht-van16-pickup'))>0);
+ assert.equal(byId('HS-luxe-75pht-car4-dropoff').netCost,null,'drop-off cost not given by the PO');
  const hl=lib.preferredFor(seed,['Hạ Long']);assert.ok(hl.length>0&&hl.every(p=>/Hạ Long/.test(p.title)));
  assert.ok(lib.preferredFor(seed,['Sa Pa']).some(p=>p.id==='VA-sapa-3d2n-hotel'));
 });
@@ -124,7 +125,7 @@ try{
   const save=(lines)=>({action:'save',operationId:crypto.randomUUID(),id:crypto.randomUUID(),contactId:'test-cat',expectedRevision:0,contactVersion:1,quote:{lines,validUntil:'2026-10-24',conditions:'Giá theo kho dịch vụ đã duyệt; chỗ chưa xác nhận.',missing:'',childrenPolicy:'',demoPriceConfirmed:true}});
   const approve=id=>({action:'approve',operationId:crypto.randomUUID(),id,revision:1});
   const car={...line,productId:'HS-luxe-75pht-car4-dropoff',quantity:1,price:300000,cost:200000,commission:20000,details:'Tiễn sân bay 2 khách, 2 vali'};
-  let s=save([car]);assert.equal((await qpost(s)).status,200);let a=await qpost(approve(s.id));assert.equal(a.status,400);assert.match(a.body.error,/thiếu hoa hồng/,'catalog commission missing');
+  let s=save([car]);assert.equal((await qpost(s)).status,200);let a=await qpost(approve(s.id));assert.equal(a.status,400);assert.match(a.body.error,/thiếu giá vốn, hoa hồng/,'catalog cost and commission missing');
   const drop=(await list()).find(x=>x.id==='HS-luxe-75pht-car4-dropoff');assert.equal((await api.POST(req('/api/catalog',{action:'save',operationId:crypto.randomUUID(),id:drop.id,version:drop.version,entry:{...edit(drop),netCost:200000,commission:20000}}))).status,200);
   s=save([car]);assert.equal((await qpost(s)).status,200);assert.equal((await qpost(approve(s.id))).status,200,'approves once the catalog is complete');
   s=save([line]);assert.equal((await qpost(s)).status,200);assert.equal((await qpost(approve(s.id))).status,200,'HN04 at the PO price');
